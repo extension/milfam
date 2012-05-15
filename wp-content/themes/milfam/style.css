@@ -1,0 +1,254 @@
+/*
+Theme Name: MilFam
+Theme URI: http://
+Description: The wordpress theme for Military Families
+Version: 1.0
+Author: eXtension Initiative / North Carolina State University
+Author URI: http://
+Tags: blue, custom header, fixed width, two columns, widgets
+
+	MilFam
+
+*/
+
+
+/* reset styles v1.0 | 20080212 */
+
+html, body, div, span, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td {margin: 0;padding: 0;border: 0;outline: 0;vertical-align: baseline;background: transparent;}
+body {line-height: 1;}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after,
+q:before, q:after {content: '';content: none;}
+
+/* remember to define focus styles! */
+:focus {outline: 0;}
+
+/* remember to highlight inserts somehow! */
+ins {text-decoration:none; background:#95ff4d;}
+del {text-decoration:line-through; color: red; background:#ffdadb;}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {border-collapse: collapse;border-spacing: 0;}
+
+/* Put it back on certain elements */
+h1, h2, h3, h4, h5, h6, p, pre, blockquote, form, fieldset, table, ol, ul, dl {
+	margin: 0 0 1em;
+}
+
+/* end reset styles */
+
+/* reset the font size to 1em.
+background: the browser font-size default is 16pt. multiple by 62.5% to reset font size to 1em.
+1em is now equal to 10pt. 1.2em is 12pt, 1.6em is 16pt, etc. (unless nested) */
+body {font-size: 62.5%;}
+
+
+/* default text sizes
+-----------------------------------------------------------------------------*/
+p, li, dt, dd, td, th, blockquote, code {font-size:13px; line-height: 140%;}
+p input {font-size:1em;}
+
+td p {font-size:inherit; line-height: 140%;}
+td li {font-size:1em;}
+
+li * {font-size:inherit;}
+h1 { font-size: 2.4em;}
+h2 { font-size: 1.4em;}
+h3 { font-size: 1.3em;}
+h4 { font-size: 1.5em;}
+h5 { font-size: 1.4em;}
+h6 { font-size: 1.3em;}
+
+h1, h2, h3, h4, h5, h6 {margin: .5em 0 .5em 0; line-height: 140%;}
+
+sup {vertical-align:super;}
+sub {vertical-align:sub;}
+
+/* End CSS reset
+-----------------------------------------------------------------------------*/
+
+
+
+body {background:#dcd8cc}
+html, body	{font-family: Arial, Helvetica, sans-serif; color:#646464;}
+
+a:link      {color: #F84B00;}
+a:active    {color: #F84B00;}
+a:visited   {color: #F84B00;}
+a:hover     {color: #F84B00;}
+
+
+/* Layout
+-----------------------------------------------------------------------------*/
+.col_1, .col_2, .col_3, .col_4{ float:left}
+#page {margin:0 auto; text-align:left; width:980px; background:#fff;}
+
+
+#home_container {width:932px; padding:0 24px;}
+
+#content .col_1{ width:281px; margin-right:23px; border-right:1px dotted #c2bcac; padding-right:20px;}
+#content .col_2{ width:281px; /*outline:orange 1px solid;*/}
+#content .col_3{ width:100px; /*outline:blue 1px solid;*/}
+#content .col_4{ width:179px}
+
+#content.single {padding:0 30px; float:left; width:600px; }
+
+#content.narrowcolumn {float:left; width:600px; padding:0 30px;}
+#sidebar {float:right; width:250px; margin-top:50px; margin-right:30px;}
+
+/* Header
+-----------------------------------------------------------------------------*/
+#header {height:200px;  background:url(images/top.gif) repeat-x top}
+#header {color:#a6a39a; }
+
+
+#page_actions {float:left; width: 980px; border-bottom:1px dotted #c2bcac; height:50px;}
+#page_actions_primary {float:left; width:620px; height:50px;}
+#header .site_updated {font-size:11px;margin:19px 0 0 29px; float:left; text-transform:uppercase;}
+
+#header .icons {float:right; margin-top:15px;}
+#header .icons li {float:left;}
+
+#header #search {float:right; height:50px;}
+#header #search form {margin:12px 20px 10px 0;}
+#search_input {width:250px; padding:2px;}
+
+
+#masthead {float:left; width:980px;}
+#masthead .description {float:right; padding-right:50px;width:602px; height:79px; font-size:24px; text-transform:none; color:#d3cfbe; font-family:verdana, sans-serif; font-weight:normal; margin:0; padding-top:24px; line-height:1.2em;}
+#masthead h1 {float:left; margin:0;}
+
+#masthead #menu {}
+#masthead #menu li {padding: 0 10px 0 12px; width:136px; display:block; float:left; height:73px; border-left:1px dotted #c2bcac;}
+#masthead #menu li a strong {display:block;font-size:14px;font-weight:normal; margin-bottom:2px;font-family:verdana, sans-serif;}
+#masthead #menu li a span {display:block;line-height:1em; color:#d3cfbe;}
+#masthead #menu li a {display:block;text-decoration:none;}
+#masthead #menu li a:link strong {text-decoration:none !important;}
+#masthead #menu li a:hover span {text-decoration:none; color:#666;}
+
+.menu_1 a:link, .menu_1 a:visited strong {color:#f14515;}
+.menu_2 a:link, .menu_2 a:visited strong {color:#95e05b;}
+.menu_3 a:link, .menu_3 a:visited strong {color:#52bff2;}
+.menu_4 a:link, .menu_4 a:visited strong {color:#e91e9a;}
+
+
+/* Content
+-----------------------------------------------------------------------------*/
+#flash_mess {background:#5e3896; width:930px; height:309px; margin: 0 auto 50px; clear:both;
+   border-radius: 15px;
+     -moz-border-radius: 15px;
+     -webkit-border-radius: 15px;}
+
+#content h2 {color:#636363; text-transform:uppercase; font-size:12px; font-weight:normal;}
+#content h3 {color:#f84b00; font-weight:normal;}
+
+#content .entry h3 {color:#646464; font-size:17px; font-weight:bold;}
+
+#content ul {padding:5px 20px;}
+#content ul li {padding:0; list-style:disc;}
+
+.slideshow {background:#fff; width:630px; margin-left:302px; border-left:1px solid #fff;}
+.slideshow img { display: none }
+.slideshow img.first { display: block }
+
+.clock {background:url(images/icon_clock.gif) no-repeat left top; padding-left:20px;}
+.lightbulb {background:url(images/icon_lightbulb.gif) no-repeat left top; padding-left:20px;}
+.shield {background:url(images/icon_shield.gif) no-repeat left top; padding-left:20px;}
+
+#home_container .post h2,
+#home_container .page h2 {font-weight:bold; font-size:13px; text-transform:none;}
+
+#home_container .post h2 a,
+#home_container .page h2 a {font-weight:bold; color:#646464; text-decoration:none;}
+#home_container .post h2 a:hover {text-decoration:underline;}
+p.more {margin-bottom:50px;}
+a.more {text-transform:uppercase; font-size:11px;text-decoration:none; background: url(images/marker.gif) no-repeat center right; padding-right:10px;}
+a:hover.more {text-transform:uppercase; font-size:11px;text-decoration:underline; }
+
+.quicklinks {border-top:1px dotted #c2bcac; padding-top:20px;margin-top:40px;}
+.quicklinks li {background: url(images/marker2.gif) no-repeat center left; padding:5px 0 5px 15px;}
+
+.title {color:#EF4000; text-transform:uppercase; font-size:11px;}
+#contacts img {float:left; margin:0 16px 16px 0;}
+#contacts div.details {margin-left:106px;padding:0;}
+#contacts div.details p {padding:0; margin:0}
+.contact {margin-bottom:40px; display:none;}
+.show_on_home {display:block;}
+
+
+#content.single h2 {font-size:24px; text-transform:none; color:#666; font-family:verdana, sans-serif; font-weight:normal; padding-top:24px; line-height:1.2em;}
+
+#content.single .entry p {font-size:14px;}
+#content.narrowcolumn h2 {font-size:24px; text-transform:none; color:#666; font-family:verdana, sans-serif; font-weight:normal; line-height:1.2em;}
+
+#home_left_column_image {border-top:1px dotted #c2bcac; padding-top:20px; margin-top:30px;}
+
+/* Footer
+-----------------------------------------------------------------------------*/
+#logogroupfooter {clear:both;padding:40px 24px 0; width:932px;}
+div.bottomlogo{ float:left; padding:10px 7px; height:125px;}
+div.bottomlogo img{ height:100% }
+div.bottomlogo.center{ float:left; padding:10px 7px; height:125px; width:595px;text-align:center }
+
+#footer { height:139px; clear:both;}
+
+#footer {color:#636363; font-size:0.75em; border-top:1px dotted #c2bcac; padding-top:40px;}
+#footer a {color:#f84b00; text-decoration:underline}  
+#footer a:hover {  text-decoration:none}
+
+#footer ul {margin:0 auto; padding:0; list-style:none; width:930px; }
+#footer ul li{ margin:0px; float:left; border-right:1px solid #c2bcac; padding:0; margin-right:1em;}
+#footer ul li.last{border:none;}
+#footer ul li a{color:#636363; text-decoration:none; display:block; float:left; padding:.2em 1em .2em 0; } 
+#footer ul li a:hover { text-decoration:none; }
+#footer ul .first{background:none;}
+#footer ul .first a{ padding:2px 23px 2px 0px;}
+#footer ul li .current{ text-decoration:none; background:url(images/bg_menu.gif) top left no-repeat;  }
+
+#footer p {clear:both; margin:0 auto; width:930px; margin-top:40px;}
+
+/* Forms
+-----------------------------------------------------------------------------*/
+.button {
+	display: inline-block;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 13px/100% Arial, Helvetica, sans-serif;
+	padding: .2em 1em .25em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.button:hover {
+	text-decoration: none;
+}
+
+
+.gray {
+	color: #fff;
+	border: solid 1px #393732;
+	background: #393732;
+}
+.gray:hover {
+	background: #393732;
+	text-decoration:underline;
+}
+.gray:active {
+	color: #393732;
+}
+
+.float_listitems label {clear:left;display:block;padding-bottom:6px;}
+#masthead h1 {width:272px; font-size:16px; height:116px; padding:28px; font-family:Helvetica,Arial,sans-serif; line-height:18px;}
+#masthead h1 a {text-decoration:none; color:#d3cfbe;}
+.large {font-size:36px; line-height:36px; margin-bottom:6px;display:block;}
+.black {color:#000;}
+
+.worddoc {background: url(images/page_word.png) no-repeat center left; padding:3px 0 3px 20px;}
+.pdf {background: url(images/page_white_acrobat.png) no-repeat center left; padding:3px 0 3px 20px;}

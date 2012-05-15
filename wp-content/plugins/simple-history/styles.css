@@ -1,0 +1,138 @@
+
+.simple-history-filter {
+	margin-bottom: .5em;
+	margin-top: .5em;
+}
+.simple-history-filter li {
+	display: inline;
+}
+.simple-history-filter li.selected a {
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+}
+
+ol.simple-history {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+ol.simple-history li {
+	margin-bottom: 1.5em;
+	margin-top: 1.5em;
+	/*
+	xpadding-bottom: 1em;
+	xborder-bottom: 1px solid #eee;
+	*/
+	position: relative;
+	line-height: 1.5;
+}
+ol.simple-history .first {
+	font-size: 13px;
+	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+	margin: 0 0 0.2em;
+	/* margin-left: 60px; */
+}
+
+ol.simple-history .second {
+	color: #999;
+	/* margin-left: 60px; */
+}
+
+ol.simple-history .when {
+	color: #999;
+ 	cursor: help;
+ 	border-bottom: 1px dotted #bbb;
+}
+ol.simple-history .when_detail {
+/* 	margin-left: .5em; */
+	display: none;
+	position: relative;
+	top: 1.75em;
+	left: -2em;
+	padding: .5ex;
+	background-color: #fffdb5;
+	border: 1px solid #eee;
+	color: black;
+}
+
+.simple-history-attachment-thumbnail {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.simple-history-title {
+	font-weight: bold;
+}
+
+li.simple-history-has-attachment-thumnbail {
+	min-height: 50px;
+}
+ol.simple-history .simple-history-has-attachment-thumnbail .first,
+ol.simple-history .simple-history-has-attachment-thumnbail .second,
+ol.simple-history .simple-history-has-attachment-thumnbail .third
+ {
+	margin-left: 60px;
+}
+
+.simple-history-discrete {
+	font-size: 11px;
+	color: #999;
+}
+
+.simple-history-added-by-ajax {
+	border-top: 1px solid #ddd;
+}
+
+ul.simple-history-occasions {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	color: #999999;
+}
+ul.simple-history-occasions li {
+	margin: 0;
+	padding: 0;
+}
+
+#simple-history-no-more-items {
+	padding: .5em;
+	background-color: #FFFFE0;
+	border: 1px solid #E6DB55;
+	font-weight: bold;
+}
+
+#simple-history-rss-feed-dashboard {
+	display: none;
+}
+
+#simple_history_dashboard_widget #simple-history-rss-feed-dashboard {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin: 0;
+	display: block;
+}
+#simple-history-rss-feed-dashboard a,
+#simple-history-rss-feed-page span
+{
+	background: transparent url(http://jquery-ui.googlecode.com/svn/trunk/themes/base/images/ui-icons_888888_256x240.png) no-repeat -17px -176px;
+	display: block;
+	width: 16px;
+	height: 16px;
+	text-indent: -99999px;
+}
+
+#simple_history_dashboard_widget #simple-history-rss-feed-page {
+	display: none;
+}
+#simple-history-rss-feed-page {
+	display: block;
+	padding-top: 10px;
+	border-top: 1px solid #ccc;
+}
+#simple-history-rss-feed-page span {
+	float: left;
+}
+#simple-history-rss-feed-page a {
+}
