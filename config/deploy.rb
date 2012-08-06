@@ -34,10 +34,10 @@ namespace :deploy do
       
     run <<-CMD
     rm -rf #{release_path}/wp-config.php &&
-    ln -nfs /services/config/#{sharedpath}/wordpress/wp-config.php #{release_path}/wp-config.php &&
+    ln -nfs /services/config/#{sharedpath}/wp-config.php #{release_path}/wp-config.php &&
     ln -nfs #{uploads} #{release_path}/wp-content/uploads &&
-    ln -nfs /services/config/#{sharedpath}/wordpress/robots.txt #{release_path}/robots.txt &&
-    ln -nfs /services/config/#{sharedpath}/wordpress/.htaccess #{release_path}/.htaccess
+    ln -nfs /services/config/#{sharedpath}/robots.txt #{release_path}/robots.txt &&
+    ln -nfs /services/config/#{sharedpath}/.htaccess #{release_path}/.htaccess
     CMD
   end
   
