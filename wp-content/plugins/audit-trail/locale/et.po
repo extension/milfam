@@ -4,14 +4,14 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-23 23:46+0200\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Lembit Kivisik <lembit@designux.com>\n"
-"Language-Team: Lembit Kivisik <lembit@designux.com>\n"
+"Last-Translator: Alexandr K.\n"
+"Language-Team: Eve Vertige <evertige@yahoo.fr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
-"X-Poedit-Language: Estonian\n"
-"X-Poedit-Country: ESTONIA\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
@@ -19,23 +19,23 @@ msgstr ""
 
 #: ../audit-trail.php:93
 msgid "Audit Trail Help"
-msgstr "Audit Trail abiinfo"
+msgstr "Aide Audit Trail"
 
 #: ../audit-trail.php:94
 msgid "Audit Trail Documentation"
-msgstr "Audit Trail dokumentatsioon"
+msgstr "Documentation Audit Trail"
 
 #: ../audit-trail.php:95
 msgid "Audit Trail Support Forum"
-msgstr "Audit Trail foorum"
+msgstr "Forum Audit Trail"
 
 #: ../audit-trail.php:96
 msgid "Audit Trail Bug Tracker"
-msgstr "Audit Trail <em>bug tracker</em>"
+msgstr "Bug Tracker Audit Trail"
 
 #: ../audit-trail.php:97
 msgid "Please read the documentation and check the bug tracker before asking a question."
-msgstr "Palun tutvu dokumentatsiooni ning <em>bug tracker</em>'iga, enne, kui teatad veast või pöördud autori poole."
+msgstr "S'il vous plaît lisez la documentation et vérifiez le bug tracker avant de poser une question."
 
 # ?
 #: ../audit-trail.php:105
@@ -48,308 +48,308 @@ msgstr "Audit Trail"
 
 #: ../audit-trail.php:278
 msgid "Options have been updated"
-msgstr "Seaded salvestatud"
+msgstr "Des options ont été mises à jour"
 
 #: ../models/auditor.php:52
 msgid "Post & page management"
-msgstr "Postituste ja lehtede haldus"
+msgstr "Le message et la page de gestion"
 
 #: ../models/auditor.php:53
 msgid "File attachments"
-msgstr "Meediafailide haldus"
+msgstr "Les pièces jointes"
 
 #: ../models/auditor.php:54
 msgid "User profiles & logins"
-msgstr "Kasutajad, sisselogimised"
+msgstr "Les profils utilisateur et les connexions"
 
 #: ../models/auditor.php:55
 msgid "Theme switching"
-msgstr "Teemade vahetused"
+msgstr "Thème de commutation"
 
 #: ../models/auditor.php:56
 msgid "Link management"
-msgstr "Viidete haldus"
+msgstr "Gestion des liens"
 
 #: ../models/auditor.php:57
 msgid "Category management"
-msgstr "Rubriikide haldus"
+msgstr "Catégorie de gestion"
 
 #: ../models/auditor.php:58
 msgid "Comment management"
-msgstr "Kommentaaride haldus"
+msgstr "Commentaire de gestion"
 
 #: ../models/auditor.php:59
 msgid "User page visits"
-msgstr "Sisseloginud kasutajate lehevaatamised"
+msgstr "Page utilisateur visites"
 
 #: ../models/auditor.php:60
 msgid "Audit Trail actions"
-msgstr "Audit Trail tegevused"
+msgstr "Actions Audit Trail"
 
 #: ../models/auditor.php:282
 msgid "Theme switch"
-msgstr "vahetas teemat"
+msgstr "Commutateur de thème"
 
 # ?
 #: ../models/auditor.php:288
 msgid "Profile updated for deleted user"
-msgstr "uuendas kustutatud kasutaja profiili"
+msgstr "Profil mis à jour pour utilisateur supprimé"
 
 #: ../models/auditor.php:290
 msgid "Profile updated"
-msgstr "uuendas profiili"
+msgstr "Profil mis à jour"
 
 #: ../models/auditor.php:296
 msgid "Logged In"
-msgstr "logis sisse"
+msgstr "Connectés"
 
 #: ../models/auditor.php:300
 msgid "Logged Out"
-msgstr "logis välja"
+msgstr "Déconnecté"
 
 #: ../models/auditor.php:304
 msgid "Login failed"
-msgstr "sisselogimine ebaõnnestus"
+msgstr "Échec de la connexion"
 
 #: ../models/auditor.php:308
 msgid "New user registration"
-msgstr "registreerus kasutajaks"
+msgstr "Nouvel enregistrement d'utilisateur"
 
 #: ../models/auditor.php:312
 msgid "Retrieve password"
-msgstr "vahetas kadunud parooli"
+msgstr "Récupérer le mot de passe"
 
 #: ../models/auditor.php:316
 msgid "Delete user"
-msgstr "kustutas kasutaja"
+msgstr "Supprimer l'utilisateur"
 
 #: ../models/auditor.php:320
 msgid "Add link"
-msgstr "lisas viite"
+msgstr "Ajouter un lien"
 
 #: ../models/auditor.php:325
 msgid "Edit link"
-msgstr "muutis viidet"
+msgstr "Modifier un lien"
 
 #: ../models/auditor.php:329
 msgid "Delete link"
-msgstr "kustutas viite"
+msgstr "Supprimer un lien"
 
 #: ../models/auditor.php:333
 msgid "Edit category "
-msgstr "muutis rubriiki"
+msgstr "Modifier une catégorie"
 
 #: ../models/auditor.php:337
 msgid "Add category"
-msgstr "lisas rubriigi"
+msgstr "Ajouter une catégorie"
 
 #: ../models/auditor.php:341
 msgid "Delete category"
-msgstr "kustutas rubriigi"
+msgstr "Supprimer la catégorie"
 
 #: ../models/auditor.php:345
 msgid "Edit comment"
-msgstr "muutis kommentaari"
+msgstr "Editer ce commentaire"
 
 #: ../models/auditor.php:349
 msgid "Delete comment"
-msgstr "kustutas kommentaari"
+msgstr "Supprimer le commentaire"
 
 #: ../models/auditor.php:353
 msgid "Delete post"
-msgstr "kustutas postituse"
+msgstr "Supprimer le message"
 
 #: ../models/auditor.php:359
 msgid "Save post"
-msgstr "uuendas postitust"
+msgstr "Enregistrer message"
 
 #: ../models/auditor.php:361
 msgid "Save page"
-msgstr "kustutas lehe"
+msgstr "Enregistrer la page"
 
 #: ../models/auditor.php:370
 msgid "Add attachment"
-msgstr "lisas manuse"
+msgstr "Ajouter une pièce jointe"
 
 #: ../models/auditor.php:378
 msgid "Edit attachment"
-msgstr "muutis manust"
+msgstr "Modifier la pièce jointe"
 
 #: ../models/auditor.php:382
 msgid "View page"
-msgstr "vaatas"
+msgstr "Voir la page"
 
 #: ../models/auditor.php:386
 msgid "Restored"
-msgstr "taastas"
+msgstr "Restauré"
 
 #: ../models/auditor.php:434
 msgid "<strong>ERROR</strong>: Incorrect password."
-msgstr "<strong>VIGA</strong>: vigane parool."
+msgstr "<strong>ERREUR</strong>: Mot de passe incorrect."
 
 #: ../models/pager.php:404
 msgid "Previous"
-msgstr "Eelmine"
+msgstr "Précédente"
 
 #: ../models/pager.php:405
 msgid "Next"
-msgstr "Järgmine"
+msgstr "Suivant"
 
 #: ../models/pager.php:463
 #, php-format
 msgid "%d per-page"
-msgstr "%d lk kohta"
+msgstr "%d par page"
 
 # ?
 #: ../models/pager.php:472
 #, php-format
 msgid "Displaying %s&#8211;%s of %s"
-msgstr "Kuvan %s&#8211;%s / %s"
+msgstr "Affichant %s&#8211;%s of %s"
 
 #: ../view/admin/options.php:4
 msgid "Audit Trail Options"
-msgstr "Audit Trail | Seaded"
+msgstr "Options de Audit Trail "
 
 #: ../view/admin/options.php:11
 msgid "Actions to monitor"
-msgstr "Jälgitavad tegevused"
+msgstr "Actions à suivre"
 
 #: ../view/admin/options.php:23
 msgid "There are no actions to monitor"
-msgstr "Tegevused puuduvad"
+msgstr "Il n'y a pas d'actions a surveiller"
 
 #: ../view/admin/options.php:26
 msgid "Other Options"
-msgstr "Muu"
+msgstr "Autres Options"
 
 #: ../view/admin/options.php:30
 msgid "Plugin Support"
-msgstr "Toeta plugina arendust"
+msgstr "Soutien des plugins"
 
 #: ../view/admin/options.php:33
 #, php-format
 msgid "Click this if you have <a href=\"%s\">supported</a> the author"
-msgstr "Mina olen <strong>hea</strong> ning olen <a href=\"%s\">toetanud</a> autorit selle plugina arendamisel"
+msgstr "Cliquez sur ce si vous avez <a href=\"%s\">soutenu</a> l'auteur"
 
 #: ../view/admin/options.php:37
 msgid "Auto-expire"
-msgstr "Logi aegub"
+msgstr "Auto-expiration"
 
 #: ../view/admin/options.php:38
 msgid "days (0 for no expiry)"
-msgstr "päeva pärast (0 – piiramatu päevade arv)"
+msgstr "jours (0 pour aucune d'expiration)"
 
 #: ../view/admin/options.php:41
 msgid "Ignore users"
-msgstr "Eira kasutajaid"
+msgstr "Ignorer des utilisateurs"
 
 #: ../view/admin/options.php:42
 msgid "separate user IDs with a comma"
-msgstr "kasutajate numbrilised ID'd, eraldatud komaga"
+msgstr "séparez ID utilisateur par une virgule"
 
 #: ../view/admin/options.php:46
 msgid "Save Options"
-msgstr "Salvesta muudatused"
+msgstr "Enregistrer les options"
 
 #: ../view/admin/pager.php:6
 msgid "Search"
-msgstr "Otsi"
+msgstr "Recherche"
 
 #: ../view/admin/pager.php:9
 msgid "Results per page"
-msgstr "Kuva tulemusi lk kohta"
+msgstr "Résultats par page"
 
 #: ../view/admin/pager.php:16
 msgid "Go"
-msgstr "Leia"
+msgstr "Allez"
 
 #: ../view/admin/submenu.php:4
 msgid "Options"
-msgstr "Seaded"
+msgstr "Les options"
 
 #: ../view/admin/submenu.php:5
 msgid "Support"
-msgstr "Tugi"
+msgstr "Soutien"
 
 #: ../view/admin/support.php:5
 msgid "Audit Trail | Support"
-msgstr "Audit Trail | Tugi"
+msgstr "Audit Trail | Soutien"
 
 #: ../view/admin/support.php:9
 msgid "Audit Trail is free to use - life is wonderful and lovely!  However, it has required a great deal of time and effort to develop and if it has been useful you can help support this development by <strong>making a small donation</strong>."
-msgstr "Siit leiad viited plugina autori <strong>John Godley</strong> toetamiseks, kes on näinud palju vaeva, et see tarkvara <strong>tasuta</strong> Sinu jaoks valmistada. Järgneb tema enda ingliskeelne tekst, plugina dokumentatsiooni- jt viited leiad lehekülje lõpust.<br/><br/><em>Audit Trail is free to use - life is wonderful and lovely!  However, it has required a great deal of time and effort to develop and if it has been useful you can help support this development by <strong>making a small donation</strong>."
+msgstr "Audit Trail est libre d'utiliser - la vie est merveilleuse et belle! Cependant, il a fallu beaucoup de temps et d'efforts pour développer et si elle a été utile, vous pouvez aider à soutenir ce développement en <strong>faisant un petit don</strong>."
 
 #: ../view/admin/support.php:10
 msgid "This will act as an incentive for me to carry on developing, providing countless hours of support, and including new features and suggestions. You get some useful software and I get to carry on making it.  Everybody wins."
-msgstr "This will act as an incentive for me to carry on developing, providing countless hours of support, and including new features and suggestions. You get some useful software and I get to carry on making it.  Everybody wins.</em>"
+msgstr "Ceci agira comme un encouragement pour moi de poursuivre le développement, offrant d'innombrables heures de soutien, et notamment de nouvelles fonctionnalités et des suggestions. Vous obtenez un logiciel utile et j'arrive à continuer à le faire. Tout le monde gagne."
 
 #: ../view/admin/support.php:13
 msgid "If you are using this plugin in a commercial setup, or feel that it's been particularly useful, then you may want to consider a <strong>commercial donation</strong>.  If you really really want to show your appreciation then there is the <strong>Super Smashing Great</strong> donation which, along with making my day, will earn you a badge of honour (125x125 image of your choosing + nofollow link) to be displayed on the Audit Trail page for a period of two months."
-msgstr "<em>If you are using this plugin in a commercial setup, or feel that it's been particularly useful, then you may want to consider a <strong>commercial donation</strong>.  If you really really want to show your appreciation then there is the <strong>Super Smashing Great</strong> donation which, along with making my day, will earn you a badge of honour (125x125 image of your choosing + nofollow link) to be displayed on the Audit Trail page for a period of two months.</em>"
+msgstr "Si vous utilisez ce plugin dans une configuration commerciale, ou le sentiment que ça a été particulièrement utile, alors vous pouvez envisager une <strong>donation commerciales</strong>. Si vous voulez vraiment montrer votre appréciation puis il ya le don de <strong>Smashing super Grand</strong> qui, avec prise de ma journée, vous fera gagner un badge d'honneur (125x125 image de votre choix + lien nofollow) pour être affiché sur la page Audit Trail pour une période de deux mois."
 
 #: ../view/admin/support.php:36
 msgid "Individual<br/>Donation"
-msgstr "<em>Individual<br/>Donation</em>"
+msgstr "Individuels<br/>Don"
 
 #: ../view/admin/support.php:57
 msgid "Commercial<br/>Donation"
-msgstr "<em>Commercial<br/>Donation</em>"
+msgstr "Commercial<br/>Don"
 
 #: ../view/admin/support.php:78
 msgid "Super Smashing<br/>Great Donation"
-msgstr "<em>Super Smashing<br/>Great Donation</em>"
+msgstr "Super Smashing<br/>Grande donation"
 
 #: ../view/admin/support.php:82
 msgid "Translations"
-msgstr "<em>Translations</em>"
+msgstr "Traductions"
 
 #: ../view/admin/support.php:84
 msgid "If you're multi-lingual then you may want to consider donating a translation:"
-msgstr "<em>If you're multi-lingual then you may want to consider donating a translation:</em>"
+msgstr "Si vous êtes multi-langues, alors vous pouvez envisager de faire don d'une traduction:"
 
 #: ../view/admin/support.php:92
 msgid "All translators will have a link to their website placed on the plugin homepage at <a href=\"http://urbangiraffe.com/plugins/audit-trail/\">UrbanGiraffe</a> and <a href=\"http://wordpress.org/extend/plugins/audit-trail/\">WordPress.org</a>, in addition to being an individual supporter."
-msgstr "<em>All translators will have a link to their website placed on the plugin homepage at <a href=\"http://urbangiraffe.com/plugins/audit-trail/\">UrbanGiraffe</a> and <a href=\"http://wordpress.org/extend/plugins/audit-trail/\">WordPress.org</a>, in addition to being an individual supporter.</em>"
+msgstr "Tous les traducteurs auront un lien vers leur site placé sur la page d'accueil plugin à <a href=\"http://urbangiraffe.com/plugins/audit-trail/\">UrbanGiraffe</a> et <a href=\"http://wordpress.org/extend/plugins/audit-trail/\">WordPress.org</a> , en plus d'être un partisan individuels."
 
 #: ../view/admin/support.php:93
 msgid "Full details of producing a translation can be found in this <a href=\"http://urbangiraffe.com/articles/translating-wordpress-themes-and-plugins/\">guide to translating WordPress plugins</a>."
-msgstr "<em>Full details of producing a translation can be found in this <a href=\"http://urbangiraffe.com/articles/translating-wordpress-themes-and-plugins/\">guide to translating WordPress plugins</a>.</em>"
+msgstr "Les détails complets de production d'une traduction peut être trouvée dans ce <a href=\"http://urbangiraffe.com/articles/translating-wordpress-themes-and-plugins/\">guide pour la traduction des plugins Wordpress</a> ."
 
 #: ../view/admin/trail.php:16
 msgid "Bulk Actions"
-msgstr "Masstegevused"
+msgstr "Actions en vrac"
 
 #: ../view/admin/trail.php:17
 msgid "Delete"
-msgstr "Kustuta"
+msgstr "Supprimer"
 
 #: ../view/admin/trail.php:20
 msgid "Apply"
-msgstr "Rakenda"
+msgstr "Appliquer"
 
 #: ../view/admin/trail.php:24
 msgid "Filter"
-msgstr "Filter"
+msgstr "Filtre"
 
 #: ../view/admin/trail.php:39
 #: ../view/admin/trail.php:50
 msgid "User"
-msgstr "Kasutaja"
+msgstr "Utilisateur"
 
 #: ../view/admin/trail.php:40
 #: ../view/admin/trail.php:51
 msgid "Action"
-msgstr "Tegevus"
+msgstr "Action"
 
 #: ../view/admin/trail.php:41
 #: ../view/admin/trail.php:52
 msgid "Target"
-msgstr "Objekt"
+msgstr "Target"
 
 #: ../view/admin/trail.php:42
 #: ../view/admin/trail.php:53
 msgid "Date"
-msgstr "Kuupäev"
+msgstr "Date"
 
 #: ../view/admin/trail.php:43
 #: ../view/admin/trail.php:54
@@ -358,22 +358,22 @@ msgstr "IP"
 
 #: ../view/admin/trail.php:76
 msgid "There is nothing to display!"
-msgstr "Pole midagi kuvada!"
+msgstr "Il n'ya rien à afficher!"
 
 #: ../view/admin/version.php:2
 msgid "Audit Trail News"
-msgstr "Audit Trail uudised"
+msgstr "Nouvelles Audit Trail"
 
 # ?
 #: ../view/admin/version.php:5
 #, php-format
 msgid "%s ago"
-msgstr "%s tagasi"
+msgstr "Il ya %s"
 
 #: ../view/admin/details/edit_category.php:1
 #: ../view/admin/details/edit_link.php:1
 msgid "Name"
-msgstr "Nimi"
+msgstr "Nom"
 
 #: ../view/admin/details/edit_category.php:5
 #: ../view/admin/details/edit_link.php:5
@@ -385,31 +385,31 @@ msgstr "URL"
 #: ../view/admin/details/edit_category.php:9
 #: ../view/admin/details/edit_link.php:9
 msgid "Description"
-msgstr "Kirjeldus"
+msgstr "Description"
 
 #: ../view/admin/details/edit_comment.php:1
 msgid "Author"
-msgstr "Autor"
+msgstr "Auteur"
 
 #: ../view/admin/details/edit_comment.php:5
 #: ../view/admin/details/save_post.php:9
 msgid "Content"
-msgstr "Sisu"
+msgstr "Contenu"
 
 # ?
 #: ../view/admin/details/profile_update.php:1
 msgid "Login"
-msgstr "Login"
+msgstr "Connectez-vous"
 
 #: ../view/admin/details/profile_update.php:5
 msgid "Email"
-msgstr "E-post"
+msgstr "Email"
 
 #: ../view/admin/details/save_post.php:1
 msgid "Title"
-msgstr "Pealkiri"
+msgstr "Title"
 
 #: ../view/admin/details/save_post.php:15
 msgid "Difference between this and current version"
-msgstr "Selle ja praeguse versiooni sisu vahe"
+msgstr "Différence entre ceci et la version actuelle"
 
