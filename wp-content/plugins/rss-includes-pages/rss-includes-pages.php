@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: RSS Includes Pages
-Version: 1.2
-Plugin URI: http://www.mariosalexandrou.com/blog/include-pages-in-wordpress-rss-feeds/
+Version: 1.4.2
+Plugin URI: http://infolific.com/technology/software-worth-using/include-pages-in-wordpress-rss-feeds/
 Description: Include pages (not just posts) in RSS feeds. Particularly useful to those that use WordPress as a CMS. 
 Author: Marios Alexandrou
-Author URI: http://www.mariosalexandrou.com/
+Author URI: http://infolific.com/technology/
 */
 add_filter('posts_where', 'ma_posts_where');
 
@@ -43,7 +43,7 @@ function ma_get_lastpostmodified($lastpostmodified, $timezone){
 	
 	//queires taken from wp-includes/post.php  modified to include pages
 	$lastpostmodified = $wpdb->get_var("SELECT post_modified_gmt FROM $wpdb->posts WHERE post_status = 'publish' AND (post_type = 'post' OR post_type = 'page') ORDER BY post_modified_gmt DESC LIMIT 1");
-	$lastpostdate = $wpdb->get_var("SELECT post_date_gmt FROM $wpdb->posts WHERE post_status = 'publish' AND (post_type = 'post' OR 'page') ORDER BY post_date_gmt DESC LIMIT 1");
+	$lastpostdate = $wpdb->get_var("SELECT post_date_gmt FROM $wpdb->posts WHERE post_status = 'publish' AND (post_type = 'post' OR post_type = 'page') ORDER BY post_date_gmt DESC LIMIT 1");
 	if ( $lastpostdate > $lastpostmodified ) {
 			$lastpostmodified = $lastpostdate;
 	}

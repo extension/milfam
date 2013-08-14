@@ -1,9 +1,12 @@
 === RSS Includes Pages ===
-Contributors: marios-alexandrou
+Contributors: Marios Alexandrou
+Donate link: http://infolific.com/technology/software-worth-using/include-pages-in-wordpress-rss-feeds/
 Tags: rss, feed, feeds, pages
 Requires at least: 2.5
-Tested up to: 2.9.2
-Stable tag: 1.2
+Tested up to: 3.4
+Stable tag: 1.4.2
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Modifies RSS feeds so that they include pages and not just posts.
 
@@ -15,7 +18,7 @@ Including pages in your feed is particularly useful if you're using WordPress as
 
 == Installation ==
 
-1. Upload the rss-includes-feeds folder to the `/wp-content/plugins/` directory
+1. Upload the rss-includes-feeds folder to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
@@ -26,11 +29,11 @@ Yes. The modifications to the feed are done at a low level and other plugins sho
 
 = I just activated the plugin, why don't I see pages in my feed? =
 
-If you're using Feedburner you'll have to wait until your updated feed is picked up by Feedburner. This isn't immediate so give it a few hours.
+If you're using Feedburner you'll have to wait until your updated feed is picked up by Feedburner. This isn't immediate so give it a few hours. Also, WordPress caches feeds and doesn't rebuild it on the fly.
 
 = I just posted a page, why don't I see it in my feed? =
 
-If you're using Feedburner you'll have to wait until your updated feed is picked up by Feedburner. This isn't immediate so give it a few hours.
+If you're using Feedburner you'll have to wait until your updated feed is picked up by Feedburner. This isn't immediate so give it a few hours. Also, WordPress caches feeds and doesn't rebuild it on the fly.
 
 = Where are the settings? =
 
@@ -58,3 +61,18 @@ http://wordpress.org/extend/plugins/real-time-find-and-replace/
 
 = 1.2 =
 * FAQ updates and confirming plugin works with WordPress 2.9.2.
+
+= 1.3 =
+* Confirmed that plugin works fine with WordPress 3.2.1.
+
+= 1.4 =
+
+* Tweaked SQL that looks for updated posts / pages.
+
+= 1.4.1 =
+
+* Corrected contributor list.
+
+= 1.4.2 =
+
+* More fixes to readme file.
