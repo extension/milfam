@@ -1,6 +1,6 @@
 <?php
 /**
- * All the code required for handling logins via wp-login.php.  These functions should not be considered public, 
+ * All the code required for handling logins via wp-login.php.  These functions should not be considered public,
  * and may change without notice.
  */
 
@@ -24,7 +24,9 @@ function openid_authenticate($user) {
 	if ( !array_key_exists('finish_openid', $_REQUEST) && $_GET['loggedout']!='true' ) {
 
 		$redirect_to = array_key_exists('redirect_to', $_REQUEST) ? $_REQUEST['redirect_to'] : null;
-		openid_start_login('https://people.extension.org/', 'login', $redirect_to);
+		#openid_start_login($_POST['openid_identifier'], 'login', $redirect_to);
+		# jayoung - force people authentication
+		openid_start_login('https://people.extension.org', 'login', $redirect_to);
 
 		// if we got this far, something is wrong
 		global $error;
@@ -65,27 +67,27 @@ add_action( 'authenticate', 'openid_authenticate' );
  */
 function openid_finish_login($identity_url, $action) {
 	if ($action != 'login') return;
-		
+
 	// create new user account if appropriate
 	$user_id = get_user_by_openid($identity_url);
 	if ( $identity_url && !$user_id && get_option('users_can_register') ) {
 		$user_data =& openid_get_user_data($identity_url);
 		openid_create_new_user($identity_url, $user_data);
 	}
-	
+
 	// return to wp-login page
 	$url = get_option('siteurl') . '/wp-login.php';
 	if (empty($identity_url)) {
 		$url = add_query_arg('openid_error', openid_message(), $url);
 	}
 
-	$url = add_query_arg( array( 
-		'finish_openid' => 1, 
-		'identity_url' => urlencode($identity_url), 
+	$url = add_query_arg( array(
+		'finish_openid' => 1,
+		'identity_url' => urlencode($identity_url),
 		'redirect_to' => $_SESSION['openid_finish_url'],
-		'_wpnonce' => wp_create_nonce('openid_login_' . md5($identity_url)), 
+		'_wpnonce' => wp_create_nonce('openid_login_' . md5($identity_url)),
 	), $url);
-		
+
 	wp_safe_redirect($url);
 	exit;
 }
@@ -134,7 +136,7 @@ function openid_wp_login_form() {
 
 
 /**
- * Add information about registration to wp-login.php?action=register 
+ * Add information about registration to wp-login.php?action=register
  *
  * @action: register_form
  **/

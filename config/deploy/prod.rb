@@ -1,3 +1,3 @@
-set :deploy_to, '/services/apache/vhosts/militaryfamilies.extension.org/docroot/'
-server 'militaryfamilies.extension.org', :app, :web, :db, :primary => true
-
+set :deploy_to, "/services/milfam/"
+set :vhost, 'militaryfamilies.extension.org'
+server 'leaisland.vm.extension.org', :app, :web, :db, :primary => true
