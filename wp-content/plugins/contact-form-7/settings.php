@@ -1,111 +1,77 @@
 <?php
 
-function wpcf7_plugin_path( $path = '' ) {
-	return path_join( WPCF7_PLUGIN_DIR, trim( $path, '/' ) );
-}
-
-function wpcf7_plugin_url( $path = '' ) {
-	return plugins_url( $path, WPCF7_PLUGIN_BASENAME );
-}
-
-function wpcf7_admin_url( $query = array() ) {
-	global $plugin_page;
-
-	if ( ! isset( $query['page'] ) )
-		$query['page'] = $plugin_page;
-
-	$path = 'admin.php';
-
-	if ( $query = build_query( $query ) )
-		$path .= '?' . $query;
-
-	$url = admin_url( $path );
-
-	return esc_url_raw( $url );
-}
-
-function wpcf7_table_exists( $table = 'contactforms' ) {
-	global $wpdb, $wpcf7;
-
-	if ( 'contactforms' != $table )
-		return false;
-
-	if ( ! $table = $wpcf7->{$table} )
-		return false;
-
-	return strtolower( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) ) == strtolower( $table );
-}
-
-function wpcf7() {
-	global $wpdb, $wpcf7;
-
-	if ( is_object( $wpcf7 ) )
-		return;
-
-	$wpcf7 = (object) array(
-		'contactforms' => $wpdb->prefix . "contact_form_7",
-		'processing_within' => '',
-		'widget_count' => 0,
-		'unit_count' => 0,
-		'global_unit_count' => 0 );
-}
-
-wpcf7();
-
 require_once WPCF7_PLUGIN_DIR . '/includes/functions.php';
 require_once WPCF7_PLUGIN_DIR . '/includes/formatting.php';
 require_once WPCF7_PLUGIN_DIR . '/includes/pipe.php';
 require_once WPCF7_PLUGIN_DIR . '/includes/shortcodes.php';
-require_once WPCF7_PLUGIN_DIR . '/includes/classes.php';
-require_once WPCF7_PLUGIN_DIR . '/includes/taggenerator.php';
+require_once WPCF7_PLUGIN_DIR . '/includes/capabilities.php';
+require_once WPCF7_PLUGIN_DIR . '/includes/contact-form-template.php';
+require_once WPCF7_PLUGIN_DIR . '/includes/contact-form.php';
+require_once WPCF7_PLUGIN_DIR . '/includes/mail.php';
+require_once WPCF7_PLUGIN_DIR . '/includes/submission.php';
+require_once WPCF7_PLUGIN_DIR . '/includes/upgrade.php';
 
 if ( is_admin() )
 	require_once WPCF7_PLUGIN_DIR . '/admin/admin.php';
 else
 	require_once WPCF7_PLUGIN_DIR . '/includes/controller.php';
 
-function wpcf7_contact_forms() {
-	global $wpdb, $wpcf7;
+add_action( 'plugins_loaded', 'wpcf7' );
 
-	return $wpdb->get_results( "SELECT cf7_unit_id as id, title FROM $wpcf7->contactforms" );
+function wpcf7() {
+	wpcf7_load_textdomain();
+	wpcf7_load_modules();
 }
 
-add_action( 'plugins_loaded', 'wpcf7_set_request_uri', 9 );
+add_action( 'init', 'wpcf7_init' );
 
-function wpcf7_set_request_uri() {
-	global $wpcf7_request_uri;
+function wpcf7_init() {
+	wpcf7_get_request_uri();
+	wpcf7_register_post_types();
 
-	$wpcf7_request_uri = add_query_arg( array() );
+	do_action( 'wpcf7_init' );
 }
 
-function wpcf7_get_request_uri() {
-	global $wpcf7_request_uri;
+add_action( 'admin_init', 'wpcf7_upgrade' );
 
-	return (string) $wpcf7_request_uri;
+function wpcf7_upgrade() {
+	$opt = get_option( 'wpcf7' );
+
+	if ( ! is_array( $opt ) )
+		$opt = array();
+
+	$old_ver = isset( $opt['version'] ) ? (string) $opt['version'] : '0';
+	$new_ver = WPCF7_VERSION;
+
+	if ( $old_ver == $new_ver )
+		return;
+
+	do_action( 'wpcf7_upgrade', $new_ver, $old_ver );
+
+	$opt['version'] = $new_ver;
+
+	update_option( 'wpcf7', $opt );
 }
 
-/* Loading modules */
+/* Install and default settings */
 
-add_action( 'plugins_loaded', 'wpcf7_load_modules', 1 );
+add_action( 'activate_' . WPCF7_PLUGIN_BASENAME, 'wpcf7_install' );
 
-function wpcf7_load_modules() {
-	$dir = WPCF7_PLUGIN_MODULES_DIR;
+function wpcf7_install() {
+	if ( $opt = get_option( 'wpcf7' ) )
+		return;
 
-	if ( ! ( is_dir( $dir ) && $dh = opendir( $dir ) ) )
-		return false;
+	wpcf7_load_textdomain();
+	wpcf7_register_post_types();
+	wpcf7_upgrade();
 
-	while ( ( $module = readdir( $dh ) ) !== false ) {
-		if ( substr( $module, -4 ) == '.php' )
-			include_once $dir . '/' . $module;
-	}
-}
+	if ( get_posts( array( 'post_type' => 'wpcf7_contact_form' ) ) )
+		return;
 
-/* L10N */
+	$contact_form = WPCF7_ContactForm::get_template( array(
+		'title' => sprintf( __( 'Contact form %d', 'contact-form-7' ), 1 ) ) );
 
-add_action( 'init', 'wpcf7_load_plugin_textdomain' );
-
-function wpcf7_load_plugin_textdomain() {
-	load_plugin_textdomain( 'wpcf7', false, 'contact-form-7/languages' );
+	$contact_form->save();
 }
 
 ?>
