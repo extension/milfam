@@ -18,7 +18,6 @@ var simple_history = (function($) {
 		elms.ol_wrapper = elms.wrap.find(".simple-history-ol-wrapper");
 
 		// so wrapper does not collapse when loading new items
-		//elms.ol_wrapper.height( elms.ol_wrapper.height() );
 		elms.ol_wrapper.css("max-height", elms.ol_wrapper.height() );
 
 		addListeners();
@@ -31,6 +30,35 @@ var simple_history = (function($) {
 		elms.ol_wrapper.css("max-height", "1000px");
 	}
 
+	/**
+	 * Reload history, starting at page 1
+	 */
+	function reload(e) {
+
+		e.preventDefault();
+		jQuery(".simple-history-filter input[type='button']").trigger("click", [ {} ]);
+
+	}
+
+	function keyboardNav(e) {
+				
+		var link_to_click = null;
+
+		if (e.keyCode == 37) {
+			link_to_click = ".prev-page";
+		} else if (e.keyCode == 39) {
+			link_to_click = ".next-page";
+		}
+
+		if (link_to_click) {
+			$(".simple-history-tablenav").find(link_to_click).trigger("click");
+		}
+
+	}
+
+	/**
+	 * Add listeners to enable keyboard navigation and to show/hide things
+	 */
 	function addListeners() {
 
 		/*
@@ -40,25 +68,14 @@ var simple_history = (function($) {
 			39 - right
 			40 - down
 		*/
+
+		// Reload history when clicking reload-button
+		$(document).on("click", ".simple-fields-reload", reload);
 		
 		// Enable keyboard navigation if we are on Simple Historys own page
 		if ( $(".dashboard_page_simple_history_page").length ) {
 			
-			$(document).keydown(function(e) {
-				
-				var link_to_click = null;
-
-				if (e.keyCode == 37) {
-					link_to_click = ".prev-page";
-				} else if (e.keyCode == 39) {
-					link_to_click = ".next-page";
-				}
-
-				if (link_to_click) {
-					$(".simple-history-tablenav").find(link_to_click).trigger("click");
-				}
-
-			});
+			$(document).keydown(keyboardNav);
 
 		}
 
@@ -140,9 +157,9 @@ jQuery(document).on("keyup", ".simple-history-filter-search input[type='text'], 
 	}
 });
 
-// click on filter-link/change value is filter dropdowns = load new via ajax
-// begin at position 0 unless click on pagination then check pagination page
-//jQuery("select.simple-history-filter, .simple-history-filter a, .simple-history-filter input[type='button'], .simple-history-tablenav a").live("click change", function(e, extraParams) {
+/**
+ * Load page with history items when click on seach on when selecting someting in the dropdowns
+ */
 jQuery(document).on("click change", "select.simple-history-filter, .simple-history-filter a, .simple-history-filter input[type='button'], .simple-history-tablenav a", function(e, extraParams) {
 
 	var $t = jQuery(this),
@@ -164,10 +181,15 @@ jQuery(document).on("click change", "select.simple-history-filter, .simple-histo
 		$simple_history_wrap = jQuery(".simple-history-wrap");
 
 	e.preventDefault();
+
+	// If event is of type click and called form dropdown then don't continue (only go on when dropdown is changed)
+	if ( "click" === e.type && "SELECT" === e.target.nodeName ) return;
 	
 	// if target is a child of simple-history-tablenav then this is a click in pagination
 	if ($t.closest("div.simple-history-tablenav").length > 0) {
 	
+		var prev_current_page = simple_history_current_page;
+
 		if ($target_link.hasClass("disabled")) {
 			return;
 		} else if ($target_link.hasClass("first-page")) {
@@ -179,7 +201,13 @@ jQuery(document).on("click change", "select.simple-history-filter, .simple-histo
 		} else if ($target_link.hasClass("next-page")) {
 			simple_history_current_page = simple_history_current_page + 1;
 		}
-			
+		
+		// Don't go before page 0 or after total pages. Could happend if you navigated quickly with keyboard.
+		if ( simple_history_current_page < 0 || simple_history_current_page >= $total_pages.text() ) {
+			simple_history_current_page = prev_current_page;
+			return;
+		}
+
 	} else {
 
 		num_added = 0;
