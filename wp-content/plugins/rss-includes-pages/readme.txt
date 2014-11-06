@@ -3,8 +3,8 @@ Contributors: Marios Alexandrou
 Donate link: http://infolific.com/technology/software-worth-using/include-pages-in-wordpress-rss-feeds/
 Tags: rss, feed, feeds, pages
 Requires at least: 2.5
-Tested up to: 3.4
-Stable tag: 1.4.2
+Tested up to: 3.9.1
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,13 +66,13 @@ http://wordpress.org/extend/plugins/real-time-find-and-replace/
 * Confirmed that plugin works fine with WordPress 3.2.1.
 
 = 1.4 =
-
 * Tweaked SQL that looks for updated posts / pages.
 
 = 1.4.1 =
-
 * Corrected contributor list.
 
 = 1.4.2 =
-
 * More fixes to readme file.
+
+= 1.4.3 =
+* Confirmed that plugin works fine with WordPress 3.9.1.

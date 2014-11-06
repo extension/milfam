@@ -3,7 +3,7 @@
 Plugin Name: Simple History
 Plugin URI: http://eskapism.se/code-playground/simple-history/
 Description: Get a log/history/audit log/version history of the changes made by users in WordPress.
-Version: 1.3.4
+Version: 1.3.10
 Author: Pär Thernström
 Author URI: http://eskapism.se/
 License: GPL2
@@ -27,7 +27,7 @@ License: GPL2
 
 load_plugin_textdomain('simple-history', false, "/simple-history/languages");
 
-define( "SIMPLE_HISTORY_VERSION", "1.3.4");
+define( "SIMPLE_HISTORY_VERSION", "1.3.10");
 define( "SIMPLE_HISTORY_NAME", "Simple History");
 
 // Find the plugin directory URL
@@ -109,7 +109,7 @@ define("SIMPLE_HISTORY_URL", $plugin_dir_url);
 		$dummy = __("logged out", "simple-history");
 		$dummy = __("added", "simple-history");
 		$dummy = __("modified", "simple-history");
-		$dummy = __("upgraded it\'s database", "simple-history");
+		$dummy = __("upgraded its database", "simple-history");
 		$dummy = __("plugin", "simple-history");
 	}
 
@@ -245,7 +245,7 @@ define("SIMPLE_HISTORY_URL", $plugin_dir_url);
 			$wpdb->query($sql);
 			
 			// Store this upgrade in ourself :)
-			simple_history_add("action=" . 'upgraded it\'s database' . "&object_type=plugin&object_name=" . SIMPLE_HISTORY_NAME);
+			simple_history_add("action=" . 'upgraded its database' . "&object_type=plugin&object_name=" . SIMPLE_HISTORY_NAME);
 
 			#echo "done upgrading database";
 			
@@ -260,9 +260,36 @@ define("SIMPLE_HISTORY_URL", $plugin_dir_url);
 			$sql = "ALTER TABLE {$table_name} ADD COLUMN action_description longtext";
 			mysql_query($sql);
 
-			simple_history_add("action=" . 'upgraded it\'s database' . "&object_type=plugin&object_name=" . SIMPLE_HISTORY_NAME . "&description=Database version is now version 2");
+			simple_history_add("action=" . 'upgraded its database' . "&object_type=plugin&object_name=" . SIMPLE_HISTORY_NAME . "&description=Database version is now version 2");
 			update_option("simple_history_db_version", 2);
 
+		}
+
+		// Check that all options we use are set to their defaults, if they miss value
+		// Each option that is missing a value will make a sql cal otherwise = unnecessary
+		$arr_options = array(
+			array(
+				"name" => "sh_extender_modules",
+				"default_value" => ""
+			),
+			array(
+				"name" => "simple_history_show_as_page",
+				"default_value" => 1	
+			),
+			array(
+				"name" => "simple_history_show_on_dashboard",
+				"default_value" => 0
+			)
+		);
+
+		foreach ($arr_options as $one_option) {
+			
+			if ( false === ($option_value = get_option( $one_option["name"] ) ) ) {
+
+				// Value is not set in db, so set it to a default
+				update_option( $one_option["name"], $one_option["default_value"] );
+
+			}
 		}
 		
 	}
@@ -391,7 +418,14 @@ define("SIMPLE_HISTORY_URL", $plugin_dir_url);
 				die();
 			}
 
-			echo '<?xml version="1.0"?>';
+			$rss_show = true;
+			$rss_show = apply_filters("simple_history/rss_feed_show", $rss_show);
+			if( ! $rss_show ) {
+				wp_die( 'Nothing here.' );
+			}
+
+			header ("Content-Type:text/xml");
+			echo '<?xml version="1.0" encoding="UTF-8"?>';
 			$self_link = simple_history_get_rss_address();
 	
 			if ($rss_secret_option === $rss_secret_get) {
@@ -413,7 +447,15 @@ define("SIMPLE_HISTORY_URL", $plugin_dir_url);
 								"search"      => "",
 								"num_added"   => 0
 						*/
-						$arr_items = simple_history_get_items_array("items=10");
+
+
+						$args = array(
+							"items" => "10"
+						);
+
+						$args = apply_filters("simple_history/rss_feed_args", $args);
+
+						$arr_items = simple_history_get_items_array($args);
 						foreach ($arr_items as $one_item) {
 							$object_type = ucwords($one_item->object_type);
 							$object_name = esc_html($one_item->object_name);
@@ -1004,13 +1046,13 @@ function simple_history_add($args) {
 
 	$args = wp_parse_args( $args, $defaults );
 
-	$action = mysql_real_escape_string($args["action"]);
-	$object_type = mysql_real_escape_string($args["object_type"]);
-	$object_subtype = mysql_real_escape_string($args["object_subtype"]);
-	$object_id = mysql_real_escape_string($args["object_id"]);
-	$object_name = mysql_real_escape_string($args["object_name"]);
+	$action = esc_sql($args["action"]);
+	$object_type = esc_sql($args["object_type"]);
+	$object_subtype = esc_sql($args["object_subtype"]);
+	$object_id = esc_sql($args["object_id"]);
+	$object_name = esc_sql($args["object_name"]);
 	$user_id = $args["user_id"];
-	$description = mysql_real_escape_string($args["description"]);
+	$description = esc_sql($args["description"]);
 
 	global $wpdb;
 	$tableprefix = $wpdb->prefix;
@@ -1187,6 +1229,10 @@ function simple_history_print_nav() {
 	if (empty($simple_history_type_to_show)) {
 		$css = "class='selected'";
 	}
+
+	// Reload-button
+	$str_reload_button = sprintf('<a class="simple-fields-reload" title="%1$s" href="#"><span>Reload</span></a>', esc_attr__("Reload history", "simple-history"));
+	echo $str_reload_button;
 
 	// Begin select
 	$str_types_select = "";
@@ -1482,10 +1528,10 @@ function simple_history_get_items_array($args = "") {
 			$filter_type = $simple_history_type_to_show;
 		}
 		if ($filter_type) {
-			$where .= " AND lower(object_type) = '" . $wpdb->escape(strtolower($filter_type)) . "' ";		
+			$where .= " AND lower(object_type) = '" . esc_sql(strtolower($filter_type)) . "' ";		
 		}
 		if ($filter_subtype) {
-			$where .= " AND lower(object_subtype) = '" . $wpdb->escape(strtolower($filter_subtype)) . "' ";
+			$where .= " AND lower(object_subtype) = '" . esc_sql(strtolower($filter_subtype)) . "' ";
 		}
 	}
 	if ($simple_history_user_to_show) {
@@ -1770,11 +1816,16 @@ function simple_history_print_history($args = null) {
 					$attachment_mime = get_post_mime_type( $object_id );
 					$attachment_url = wp_get_attachment_url( $object_id );
 
+                                        // Check that file exists. It may not due to local dev vs remove dev etc.
+                                        $file_exists = file_exists($attachment_file);
+
 					// Get attachment thumbnail. 60 x 60 is the same size as the media overview uses
 					// Is thumbnail of object if image, is wp icon if not
 					$attachment_image_src = wp_get_attachment_image_src($object_id, array(60, 60), true);					
-					if ($attachment_image_src) {
+                                        if ($attachment_image_src && $file_exists) {
 						$object_image_out .= "<a class='simple-history-attachment-thumbnail' href='$edit_link'><img src='{$attachment_image_src[0]}' alt='Attachment icon' width='{$attachment_image_src[1]}' height='{$attachment_image_src[2]}' /></a>";
+                                        } else {
+                                                $object_image_out .= "<a class='simple-history-attachment-thumbnail' href='$edit_link'></a>";
 					}
 					
 					// Begin adding nice to have meta info about to attachment (name, size, mime, etc.)					
@@ -1784,9 +1835,20 @@ function simple_history_print_history($args = null) {
 
 					// Get size in human readable format. Code snippet from media.php
 					$sizes = array( 'KB', 'MB', 'GB' );
-					$attachment_filesize = filesize( $attachment_file );
-					for ( $u = -1; $attachment_filesize > 1024 && $u < count( $sizes ) - 1; $u++ ) {
-						$attachment_filesize /= 1024;
+
+                                        $attachment_filesize = "";
+                                        if ( $file_exists ) {
+                                                $attachment_filesize = filesize( $attachment_file );
+                                                for ( $u = -1; $attachment_filesize > 1024 && $u < count( $sizes ) - 1; $u++ ) {
+                                                        $attachment_filesize /= 1024;
+                                                }
+                                        }
+
+                                        if (empty($attachment_filesize)) {
+                                                $str_attachment_size = "<p>" . __("File size: Unknown ", "simple-history") . "</p>";
+                                        } else {
+                                                $size_unit = ($u == -1) ? __("bytes", "simple-history") : $sizes[$u];
+                                                $str_attachment_size = sprintf('<p>%1$s %2$s %3$s</p>', __("File size:", "simple-history"), round( $attachment_filesize, 0 ), $size_unit );
 					}
 
 					// File type
@@ -1803,10 +1865,8 @@ function simple_history_print_history($args = null) {
 					}
 
 					// Generate string with metainfo
-					$size_unit = ($u == -1) ? __("bytes", "simple-history") : $sizes[$u];
-					$object_image_out .= sprintf('<p>%1$s %2$s</p>', __("File name:"), esc_html( basename( $attachment_file ) ) );;
-					$object_image_out .= sprintf('<p>%1$s %2$s %3$s</p>', __("File size:", "simple-history"), round( $attachment_filesize, 0 ), $size_unit );
-					// $object_image_out .= sprintf('<p>%1$s %2$s</p>', __("File type:"), $file_type_out );
+                                        $object_image_out .= $str_attachment_size;
+                                        $object_image_out .= sprintf('<p>%1$s %2$s</p>', __("File type:"), $file_type_out );
 					if ( ! empty( $media_dims ) ) $object_image_out .= sprintf('<p>%1$s %2$s</p>', __("Dimensions:"), $media_dims );					
 					if ( ! empty( $attachment_metadata["length_formatted"] ) ) $object_image_out .= sprintf('<p>%1$s %2$s</p>', __("Length:"), $attachment_metadata["length_formatted"] );					
 										
