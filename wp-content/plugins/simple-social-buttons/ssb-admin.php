@@ -14,7 +14,7 @@
 
 <?php
 
-if(strtolower($_POST['hiddenconfirm']) == 'y') {
+if(strtolower(@$_POST['hiddenconfirm']) == 'y') {
 
 	/**
 	 * Compile settings array
@@ -128,10 +128,10 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
 				} ?>> # <?php echo $pos; ?> </option>
 			<?php } ?>
 			</select> &nbsp;
-			<label for="ssb_pinterest"><?php _e('Pinterest - Pin It', 'simplesocialbuttons'); ?></label> <?php echo _e('(Will be visible only on post with thumbnail)');?></p>
+			<label for="ssb_pinterest"><?php _e('Pinterest - Pin It', 'simplesocialbuttons'); ?></label> (<?php echo _e('Will be visible only on post with thumbnail', 'simplesocialbuttons');?>)</p>
 			<!--  /pinterest -->
 
-			<p><label for="ssb_override_css"><input type="checkbox" name="ssb_override_css" id="ssb_override_css" value="1" <?php if($ssb_override_css) { echo 'checked="checked"'; } ?>/> <?php _e('Disable plugin CSS (only advanced users)'); ?></label></p>
+			<p><label for="ssb_override_css"><input type="checkbox" name="ssb_override_css" id="ssb_override_css" value="1" <?php if(!empty($ssb_override_css)) { echo 'checked="checked"'; } ?>/> <?php _e('Disable plugin CSS (only advanced users)', 'simplesocialbuttons'); ?></label></p>
          </div>
       </div>
 
@@ -189,16 +189,18 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
       <div class="postbox">
          <h3><?php _e('About this plugin:', 'simplesocialbuttons'); ?></h3>
          <div class="inside">
-            <p><?php _e('Talk to <a href="http://twitter.com/rabinek" target="_blank">@rabinek</a> on twitter for bugs or feature requests.', 'simplesocialbuttons'); ?></p>
-            <p><strong><?php _e('Enjoy the plugin?', 'simplesocialbuttons'); ?></strong><br />
-            <?php _e('<a href="http://twitter.com/?status=I\'m using @rabinek WordPress Simple Social Buttons plugin - check it out! http://www.rabinek.pl/" target="_blank">Tweet about it</a> and consider donating.', 'simplesocialbuttons'); ?></p>
-            <p><?php _e('<strong>Donate:</strong> A lot of hard work goes into building plugins - support your open source developers. Thank you!', 'simplesocialbuttons'); ?><br />
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-               <input type="hidden" name="cmd" value="_s-xclick">
-               <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
-               <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-               <img alt="" border="0" src="https://www.paypalobjects.com/pl_PL/i/scr/pixel.gif" width="1" height="1">
-            </form>
+            <ul>
+				<li><a href="http://wordpress.org/support/plugin/simple-social-buttons" target="_blank"><?php _e('Plugin support', 'simplesocialbuttons'); ?></a></li>
+				<li><a href="http://wordpress.org/support/view/plugin-reviews/simple-social-buttons" target="_blank"><?php _e('Review this plugin', 'simplesocialbuttons'); ?></a></li>
+            </ul>
+			<p><strong><?php _e('Enjoy this plugin?', 'simplesocialbuttons'); ?></strong> <?php _e('Buy me a beer', 'simplesocialbuttons'); ?> :)<br />
+ 			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+				<input type="hidden" name="cmd" value="_s-xclick">
+				<input type="hidden" name="hosted_button_id" value="K6MSA43G47G3S">
+				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+				<img alt="" border="0" src="https://www.paypalobjects.com/pl_PL/i/scr/pixel.gif" width="1" height="1">
+			</form>
+
             </p>
          </div>
       </div>
@@ -208,11 +210,11 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
          <div class="inside">
          <p><?php _e('Hi! My name is Paweł Rabinek (aka xradar). I\'m interesed in SEO and social media, PHP and Wordpress developement.', 'simplesocialbuttons'); ?></p>
          <ul>
-            <li><a href="http://www.seoptimer.com/" target="_blank"><?php _e('Free SEO Audit', 'simplesocialbuttons'); ?></a></li>
+            <li><a href="https://plus.google.com/+PawelRabinek/posts" target="_blank"><?php _e('Paweł Rabinek on Google+', 'simplesocialbuttons'); ?></a></li>
+			<li><a href="http://www.seoptimer.com/" target="_blank"><?php _e('Free SEO Audit', 'simplesocialbuttons'); ?></a></li>
             <li><a href="http://www.rabinek.pl/" target="_blank"><?php _e('My blog about SEO', 'simplesocialbuttons'); ?></a> <?php _e('[Polish]', 'simplesocialbuttons'); ?></li>
             <li><?php _e('Follow me on Twitter', 'simplesocialbuttons'); ?> <a href="http://www.twitter.com/rabinek" target="_blank">@rabinek</a></li>
-            <li><a href="http://www.facebook.com/rabinek" target="_blank"><?php _e('Paweł Rabinek on Facebook', 'simplesocialbuttons'); ?></a></li>
-            <li><a href="http://plus.google.com/114311287272342088386/" target="_blank"><?php _e('Paweł Rabinek on Google Plus', 'simplesocialbuttons'); ?></a></li>
+            <li><a href="http://www.facebook.com/rabinek" target="_blank"><?php _e('Paweł Rabinek on Facebook', 'simplesocialbuttons'); ?></a></li>           
             <li><a href="http://pl.linkedin.com/in/rabinek" target="_blank"><?php _e('LinkedIn profile', 'simplesocialbuttons'); ?></a></li>
          </ul>
          </div>
