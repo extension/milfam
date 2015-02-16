@@ -3,7 +3,7 @@ Contributors: johnny5
 Donate link: http://urbangiraffe.com/contact/#donate
 Tags: admin, audit, log, version, diff
 Requires at least: 3.1
-Tested up to: 3.5
+Tested up to: 4.1
 Stable tag: trunk
 
 Audit Trail is a plugin to keep track of what is going on inside your blog by monitoring administration functions.
@@ -51,6 +51,15 @@ You can find full details of installing a plugin on the [plugin installation pag
 Full documentation can be found on the [Audit Trail Page](http://urbangiraffe.com/plugins/audit-trail/) page.
 
 == Changelog ==
+
+= 1.2.1 =
+* Refresh for WP 4
+* Italian translation by Massimiliano
+
+= 1.2 =
+* Fix pagination
+* Add failed login auditing
+* Experimental error_log() support to be used alongside fail2ban
 
 = 1.1.16 =
 * Fix WP 3.5 warning
