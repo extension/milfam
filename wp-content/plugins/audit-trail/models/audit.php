@@ -21,12 +21,12 @@
  **/
 
 class AT_Audit {
-	var $happened_at;
-	var $id;
-	var $operation;
-	var $ip;
-	var $item_id;
-	var $user_id;
+	public $happened_at;
+	public $id;
+	public $operation;
+	public $ip;
+	public $item_id;
+	public $user_id;
 
 	/**
 	 * Constructor accepts an array of values with which to seed the object
@@ -52,7 +52,7 @@ class AT_Audit {
 	 * @return AT_Audit
 	 **/
 
-	function get( $id ) {
+	static function get( $id ) {
 		global $wpdb;
 
 		$row = $wpdb->get_row( $wpdb->prepare( "SELECT {$wpdb->prefix}audit_trail.*,{$wpdb->users}.user_nicename AS username FROM {$wpdb->prefix}audit_trail LEFT JOIN {$wpdb->users} ON {$wpdb->users}.ID={$wpdb->prefix}audit_trail.user_id WHERE {$wpdb->prefix}audit_trail.id=%d", $id ) );
@@ -117,7 +117,7 @@ class AT_Audit {
 	 * @return void
 	 **/
 
-	function delete( $id ) {
+	static function delete( $id ) {
 		global $wpdb;
 
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}audit_trail WHERE id=%d", $id ) );
@@ -150,8 +150,6 @@ class AT_Audit {
 
 		if ( $user === false )
 			$user = $user_ID;
-
-		$data = maybe_serialize( $data );
 
 		$values = array(
 			'user_id'     => $user,
@@ -236,4 +234,3 @@ class AT_Audit {
 			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}audit_trail WHERE DATE_SUB(CURDATE(),INTERVAL %d DAY) > happened_at", $days ) );
 	}
 }
-
