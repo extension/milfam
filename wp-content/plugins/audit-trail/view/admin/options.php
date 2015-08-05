@@ -1,5 +1,4 @@
 <?php if (!defined ('ABSPATH')) die (); ?><div class="wrap">
-	<?php	$this->render_admin ('annoy'); ?>
 	<?php screen_icon(); ?>
 	<h2><?php _e ('Audit Trail Options', 'audit-trail'); ?></h2>
 
@@ -39,7 +38,7 @@
 			</tr>
 			<tr>
 				<th><?php _e ('Ignore users', 'audit-trail');?></th>
-				<td><input type="text" name="ignore_users" value="<?php echo esc_attr( $ignore_users ) ?>"/> (<?php _e( 'separate user IDs with a comma', 'audit-trail'); ?>)</td>
+				<td><input type="text" name="ignore_users" value="<?php echo esc_attr( $ignore_users ) ?>"/> (<?php _e( 'separate user IDs with a comma, use 0 to ignore everyone', 'audit-trail'); ?>)</td>
 			</tr>
 
 			<tr>

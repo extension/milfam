@@ -1,26 +1,6 @@
 <?php
-/* ============================================================================================================
-	 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
-	 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
-	 the copyright owner or contributors be liable for any direct, indirect, incidental, special, exemplary, or
-	 consequential damages (including, but not limited to, procurement of substitute goods or services; loss of
-	 use, data, or profits; or business interruption) however caused and on any theory of liability, whether in
-	 contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of
-	 this software, even if advised of the possibility of such damage.
 
-	 This software is provided free-to-use, but is not free software.  The copyright and ownership remains
-	 entirely with the author.  Please distribute and use as necessary, in a personal or commercial environment,
-	 but it cannot be sold or re-used without express consent from the author.
-   ============================================================================================================ */
-
-/**
- * Default monitoring class
- *
- * @package Audit Trail
- * @author John Godley
- **/
-
-class AT_Auditor extends AT_Plugin {
+class AT_Auditor {
 	/**
 	 * Register appropriate hooks
 	 *
@@ -28,13 +8,11 @@ class AT_Auditor extends AT_Plugin {
 	 **/
 
 	function __construct() {
-		$this->register_plugin( 'audit-trail', dirname( __FILE__ ) );
-
-		$this->add_filter( 'audit_collect' );
-		$this->add_action( 'audit_listen' );
-		$this->add_filter( 'audit_show_operation' );
-		$this->add_filter( 'audit_show_item' );
-		$this->add_filter( 'audit_show_details' );
+		add_filter( 'audit_collect', array( $this, 'audit_collect' ) );
+		add_action( 'audit_listen', array( $this, 'audit_listen' ) );
+		add_filter( 'audit_show_operation', array( $this, 'audit_show_operation' ) );
+		add_filter( 'audit_show_item', array( $this, 'audit_show_item' ) );
+		add_filter( 'audit_show_details', array( $this, 'audit_show_details' ) );
 	}
 
 
@@ -54,6 +32,7 @@ class AT_Auditor extends AT_Plugin {
 		$items['comment']  = __( 'Comment management', 'audit-trail' );
 		$items['viewing']  = __( 'User page visits', 'audit-trail' );
 		$items['audit']    = __( 'Audit Trail actions', 'audit-trail' );
+		$items['plugin']   = __( 'Plugin actions', 'audit-trail' );
 
 		return $items;
 	}
@@ -68,11 +47,11 @@ class AT_Auditor extends AT_Plugin {
 
 	function audit_listen( $method ) {
 		$ignore = get_option( 'audit_ignore' );
-		if ( $ignore ) {
+		if ( $ignore !== '' ) {
 			$current = wp_get_current_user();
 			$users   = explode( ',', $ignore );
 
-			if ( in_array( $current->ID, $users ) )
+			if ( in_array( $current->ID, $users ) || in_array( 0, $users ) && $current === false )
 				return;
 		}
 
@@ -116,12 +95,16 @@ class AT_Auditor extends AT_Plugin {
 			),
 			'viewing' => array(
 				'template_redirect'
+			),
+			'plugin' => array(
+				'activate_plugin',
+				'deactivate_plugin',
 			)
 		);
 
 		if ( isset( $map[$method] ) ) {
 			foreach ( $map[$method] AS $name ) {
-				$this->add_action( $name );
+				add_action( $name, array( $this, $name ) );
 			}
 		}
 	}
@@ -139,35 +122,35 @@ class AT_Auditor extends AT_Plugin {
 			case 'profile_update' :
 				$user = unserialize( $item->data );
 
-				$item->message = '<br/>'.$this->capture_admin( 'details/profile_update', array( 'item' => $item, 'user' => $user ) );
+				$item->message = '<br/>'.$this->capture( 'details/profile_update', array( 'item' => $item, 'user' => $user ) );
 				break;
 
 			case 'add_link' :
 			case 'edit_link' :
 				$link = unserialize( $item->data );
 
-				$item->message = '<br/>'.$this->capture_admin( 'details/edit_link', array( 'item' => $item, 'link' => $link ) );
+				$item->message = '<br/>'.$this->capture( 'details/edit_link', array( 'item' => $item, 'link' => $link ) );
 				break;
 
 			case 'add_category' :
 			case 'edit_category' :
 				$cat = unserialize( $item->data );
 
-				$item->message = '<br/>'.$this->capture_admin( 'details/edit_category', array( 'item' => $item, 'cat' => $cat ) );
+				$item->message = '<br/>'.$this->capture( 'details/edit_category', array( 'item' => $item, 'cat' => $cat ) );
 				break;
 
 			case 'edit_comment' :
 				$original = get_comment( $item->item_id );
 				$comment  = unserialize( $item->data );
 
-				$item->message = '<br/>'.$this->capture_admin( 'details/'.$item->operation, array( 'item' => $item, 'comment' => $comment ) );
+				$item->message = '<br/>'.$this->capture( 'details/'.$item->operation, array( 'item' => $item, 'comment' => $comment ) );
 				break;
 
 			case 'save_post' :
 				$original = get_post ($item->item_id);
 				$post     = unserialize ($item->data);
 
-				$item->message = '<br/>'.$this->capture_admin( 'details/'.$item->operation, array( 'item' => $item, 'post' => $post ) );
+				$item->message = '<br/>'.$this->capture( 'details/'.$item->operation, array( 'item' => $item, 'post' => $post ) );
 				break;
 
 			default:
@@ -187,6 +170,16 @@ class AT_Auditor extends AT_Plugin {
 
 	function audit_show_item( $item ) {
 		switch ( $item->operation )	{
+			case 'activate_plugin':
+			case 'deactivate_plugin':
+				$title = explode( '/', $item->data );
+				$title = str_replace( '-', ' ', $title[0] );
+				$title = str_replace( '.php', '', $title );
+				$title = ucwords( $title );
+
+				$item->message = esc_html( $title );
+				break;
+
 			case 'wp_login_failed' :
 			case 'delete_link' :
 			case 'switch_theme' :
@@ -290,6 +283,8 @@ class AT_Auditor extends AT_Plugin {
 			'delete_category'      => __( 'Delete category', 'audit-trail' ),
 			'delete_attachment'    => __( 'Delete attachment', 'audit-trail' ),
 			'template_redirect'    => __( 'View page', 'audit-trail' ),
+			'activate_plugin'      => __( 'Activate plugin', 'audit-trail' ),
+			'deactivate_plugin'    => __( 'Deactivate plugin', 'audit-trail' ),
 		);
 
 		$item->message = false;
@@ -361,6 +356,15 @@ class AT_Auditor extends AT_Plugin {
 	 * Default listening methods
 	 **/
 
+	function activate_plugin( $plugin ) {
+		AT_Audit::create( 'activate_plugin', 0, $plugin );
+
+	}
+
+	function deactivate_plugin( $plugin ) {
+		AT_Audit::create( 'deactivate_plugin', 0, $plugin );
+	}
+
 	// Actions to track
 	function delete_post( $post_id ) {
 		AT_Audit::create( 'delete_post', $post_id );
@@ -371,8 +375,12 @@ class AT_Auditor extends AT_Plugin {
 	}
 
 	function save_post( $post_id ) {
-		if ( !defined( 'DOING_AJAX' ) )
-			AT_Audit::create( 'save_post', $post_id, get_post( $post_id ) );
+		if ( !defined( 'DOING_AJAX' ) ) {
+			$post = get_post( $post_id ) ;
+
+			if ( $post && $post->post_status !== 'inherit' )
+				AT_Audit::create( 'save_post', $post_id, $post );
+		}
 	}
 
 	function wp_login ($user) {
@@ -510,6 +518,23 @@ class AT_Auditor extends AT_Plugin {
 			AT_Audit::create( 'template_redirect', count( $posts ) > 1 ? 0 : $post->ID, $_SERVER['REQUEST_URI'] );
 		}
 	}
-}
 
-?>
+	private function render( $template, $template_vars = array() ) {
+		foreach ( $template_vars AS $key => $val ) {
+			$$key = $val;
+		}
+
+		if ( file_exists( dirname( __FILE__ )."/view/admin/$template.php" ) )
+			include dirname( __FILE__ )."/view/admin/$template.php";
+	}
+
+	private function capture( $ug_name, $ug_vars = array() ) {
+		ob_start();
+
+		$this->render( $ug_name, $ug_vars );
+		$output = ob_get_contents();
+
+		ob_end_clean();
+		return $output;
+	}
+}
