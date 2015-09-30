@@ -38,6 +38,11 @@ function kubrick_head() {
 
 add_action('wp_head', 'kubrick_head');
 
+function remove_footer_admin () {
+  echo 'Thank you for creating with <a href="https://wordpress.org/">WordPress</a> | <a href="http://www.extension.org/main/termsofuse" target="_blank">Terms of Use</a>';
+}
+add_filter('admin_footer_text', 'remove_footer_admin');
+
 function kubrick_header_image() {
 	return apply_filters('kubrick_header_image', get_option('kubrick_header_image'));
 }
@@ -313,7 +318,7 @@ function kubrick_theme_page_head() {
 		width: 100%;
 		display: <?php echo kubrick_header_display_string(); ?>;
 	}
-	
+
 	.description {
 		margin-top: 16px;
 		color: #fff;
