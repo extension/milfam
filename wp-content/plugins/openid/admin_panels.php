@@ -805,14 +805,14 @@ function openid_finish_verify($identity_url, $action) {
 /**
  * hook in and call when user is updating their profile URL... make sure it is an OpenID they control.
  */
-function openid_personal_options_update() {
-	$user = wp_get_current_user();
-
-	if (!openid_ensure_url_match($user, $_POST['url'])) {
-		wp_die(sprintf(__('For security reasons, your profile URL must be one of your claimed OpenIDs: %s', 'openid'),
-			'<ul><li>' . join('</li><li>', get_user_openids($user->ID)) . '</li></ul>'));
-	}
-}
+// function openid_personal_options_update() {
+// 	$user = wp_get_current_user();
+//
+// 	if (!openid_ensure_url_match($user, $_POST['url'])) {
+// 		wp_die(sprintf(__('For security reasons, your profile URL must be one of your claimed OpenIDs: %s', 'openid'),
+// 			'<ul><li>' . join('</li><li>', get_user_openids($user->ID)) . '</li></ul>'));
+// 	}
+// }
 
 
 /**
