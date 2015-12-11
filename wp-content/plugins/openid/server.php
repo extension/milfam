@@ -1,10 +1,11 @@
 <?php
 
 require_once 'Auth/OpenID/Server.php';
-require_once dirname(__FILE__) . '/server_ext.php';
+require_once dirname( __FILE__ ) . '/server_ext.php';
 
-add_filter( 'xrds_simple', 'openid_provider_xrds_simple');
-add_action( 'wp_head', 'openid_provider_link_tags');
+add_filter( 'xrds_simple', 'openid_provider_xrds_simple' );
+add_filter( 'webfinger_user_data', 'openid_provider_webfinger', 10, 3 );
+add_action( 'wp_head', 'openid_provider_link_tags' );
 
 
 /**
@@ -18,7 +19,7 @@ function openid_server_url() {
 
 
 /**
- * Add XRDS entries for OpenID Server.  Entries added will be highly 
+ * Add XRDS entries for OpenID Server.  Entries added will be highly
  * dependant on the requested URL and plugin configuration.
  *
  * @uses apply_filters() Calls 'openid_server_xrds_types' before returning XRDS Types for OpenID authentication services.
@@ -39,9 +40,8 @@ function openid_provider_xrds_simple($xrds) {
 
 	if (!$provider_enabled) return $xrds;
 
-
 	$user = openid_server_requested_user();
-	
+
 	if (!$user && get_option('openid_blog_owner')) {
 		$url_parts = parse_url(get_option('home'));
 		$path = array_key_exists('path', $url_parts) ? $url_parts['path'] : '';
@@ -112,6 +112,45 @@ function openid_provider_xrds_simple($xrds) {
 	return $xrds;
 }
 
+/**
+ * Add WebFinger entries for OpenID Server.  Entries added will be highly
+ * dependant on the requested URL and plugin configuration.
+ *
+ * @param  array   $webfinger The WebFinger data array
+ * @param  string  $resource  The requested WebFinger resource
+ * @param  WP_User $user      The WordPress user
+ * @return array              The updated WebFinger data array
+ */
+function openid_provider_webfinger( $webfinger, $resource, $user ) {
+	// check if OpenID provider is enabled for user
+	if ( ! $user->has_cap( 'use_openid_provider' ) ) {
+		return $webfinger;
+	}
+
+	// use delegation URL if set
+	if ( get_user_meta( $user->ID, 'openid_delegate', true ) ) {
+		$webfinger['links'][] = array(
+			'href' => get_user_meta( $user->ID, 'openid_delegate', true ),
+			'rel' => 'http://specs.openid.net/auth/2.0/provider',
+		);
+	} else {
+		// check if WebFinger user is "blog-owner"
+		if ( get_option( 'openid_blog_owner' ) && $user->user_login == get_option( 'openid_blog_owner' ) ) {
+			$webfinger['links'][] = array(
+				'href' => site_url( '/' ),
+				'rel' => 'http://specs.openid.net/auth/2.0/provider',
+			);
+		} else { // otherwise use author-url
+			$webfinger['links'][] = array(
+				'href' => get_author_posts_url( $user->ID ),
+				'rel' => 'http://specs.openid.net/auth/2.0/provider',
+			);
+		}
+	}
+
+	return $webfinger;
+}
+
 
 /**
  * Parse the request URL to determine which author is associated with it.
@@ -150,7 +189,7 @@ function openid_server_request() {
 	$request = $server->decodeRequest();
 	if (!$request || Auth_OpenID_isError($request)) {
 		@session_start();
-		if ($_SESSION['openid_server_request']) {
+		if (isset($_SESSION['openid_server_request']) && $_SESSION['openid_server_request']) {
 			$request = $_SESSION['openid_server_request'];
 			unset($_SESSION['openid_server_request']);
 		}
@@ -228,8 +267,8 @@ function openid_server_auth_request($request) {
 				ob_start();
 
 				echo '<h1>'.__('OpenID Login Error', 'openid').'</h1>';
-				echo '<p>'; 
-				printf(__('Because you have delegated your OpenID, you cannot login with the URL <strong>%s</strong>. Instead, you must use your full OpenID when logging in.', 'openid'), trailingslashit(get_option('home')));  
+				echo '<p>';
+				printf(__('Because you have delegated your OpenID, you cannot login with the URL <strong>%s</strong>. Instead, you must use your full OpenID when logging in.', 'openid'), trailingslashit(get_option('home')));
 				echo'</p>';
 				echo '<p>' . sprintf(__('Your full OpenID is: %s', 'openid'), '<strong>'.$author_url.'</strong>') . '</p>';
 
@@ -257,9 +296,9 @@ function openid_server_auth_request($request) {
 		$trusted_sites[$site_hash]['last_login'] = time();
 		update_user_meta($user->ID, 'openid_trusted_sites', $trusted_sites);
 
-		if ($id_select) { 
+		if ($id_select) {
 			return $request->answer(true, null, $author_url);
-		} else { 
+		} else {
 			return $request->answer(true);
 		}
 	}
@@ -268,12 +307,12 @@ function openid_server_auth_request($request) {
 	if ($request->mode == 'checkid_immediate') {
 		return $request->answer(false);
 	}
-		
+
 	// finally, prompt the user to trust this site
 	if (openid_server_user_trust($request)) {
-		if ($id_select) { 
+		if ($id_select) {
 			return $request->answer(true, null, $author_url);
-		} else { 
+		} else {
 			return $request->answer(true);
 		}
 	} else {
@@ -407,7 +446,7 @@ function openid_server_remove_trust_site() {
 function openid_server_user_trust($request) {
 	$user = wp_get_current_user();
 
-	if ($_REQUEST['openid_trust']) {
+	if (isset($_REQUEST['openid_trust']) && $_REQUEST['openid_trust']) {
 		$trust = null;
 
 		if ($_REQUEST['openid_trust'] == 'cancel') {
@@ -470,7 +509,7 @@ function openid_server_user_trust($request) {
 			<p style="margin: 1.5em 0 1em 0;">'
 				. sprintf(__('%s has asked to verify your identity.', 'openid'), '<strong>'.$request->trust_root.'</strong>')
 				. '</p>
-			
+
 			<p style="margin: 1em 0;">'
 				. __('Click <strong>Continue</strong> to verify your identity and login without creating a new password.', 'openid')
 			. '</p>';
@@ -484,7 +523,7 @@ function openid_server_user_trust($request) {
 			</p>
 
 			<p style="margin: 3em 0 1em 0; font-size: 0.8em;">'
-				. sprintf(__('Manage or remove access on the <a href="%s" target="_blank">Trusted Sites</a> page.', 'openid'), 
+				. sprintf(__('Manage or remove access on the <a href="%s" target="_blank">Trusted Sites</a> page.', 'openid'),
 					admin_url((current_user_can('edit_users') ? 'users.php' : 'profile.php') . '?page=openid_trusted_sites'))
 				. '</p>
 			<p style="margin: 1em 0; font-size: 0.8em;">'
@@ -547,6 +586,11 @@ function openid_server_get_delegation_info($userid, $url = null) {
 	if (empty($services)) {
 		// resort to checking for HTML links
 		$response = $fetcher->get($url);
+
+		if ( ! $response ) {
+			return false;
+		}
+
 		$html_content = $response->body;
 		$p = new Auth_OpenID_Parse();
 		$link_attrs = $p->parseLinkAttrs($html_content);
@@ -583,5 +627,3 @@ function openid_server_get_delegation_info($userid, $url = null) {
 		'services' => $services
 	);
 }
-
-?>

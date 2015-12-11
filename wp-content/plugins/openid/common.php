@@ -8,7 +8,9 @@
 add_action( 'init', 'openid_textdomain' ); // load textdomain
 
 // include internal stylesheet
-add_action( 'wp', 'openid_style');
+if (OPENID_ENABLE_CONSUMER) {
+	add_action( 'wp', 'openid_style');
+}
 
 // parse request
 add_action('parse_request', 'openid_parse_request');
@@ -39,7 +41,7 @@ if (isset($wpmu_version)) {
  * Set the textdomain for this plugin so we can support localizations.
  */
 function openid_textdomain() {
-	load_plugin_textdomain('openid', null, 'openid/localization');
+	load_plugin_textdomain('openid', null, dirname(plugin_basename(__FILE__)) . '/localization/');
 }
 
 
@@ -309,6 +311,7 @@ function openid_set_current_user($identity, $remember = true) {
  * @param string $identity_url OpenID to associate with the newly
  * created account
  * @param array $user_data array of user data
+ * @uses do_action() Calls 'openid_consumer_new_user_custom_data' hook action after creating user
  */
 function openid_create_new_user($identity_url, &$user_data) {
 	global $wpdb;
@@ -322,39 +325,52 @@ function openid_create_new_user($identity_url, &$user_data) {
 		$username = openid_generate_new_username($user_data['nickname'], false);
 	}
 
+	// try using email address before resorting to URL
+	if (empty($username) && array_key_exists('user_email', $user_data)) {
+		$username = openid_generate_new_username($user_data['user_email'], false);
+	}
+
 	// finally, build username from OpenID URL
 	if (empty($username)) {
 		$username = openid_generate_new_username($identity_url);
 	}
 
 	$user_data['user_login'] = $username;
+	$user_data['display_name'] = $username;
 	$user_data['user_pass'] = substr( md5( uniqid( microtime() ) ), 0, 7);
 	$user_id = wp_insert_user( $user_data );
 
-	if( $user_id ) { // created ok
+	if ($user_id instanceof WP_Error) {
+		openid_message($user_id->get_error_message());
+		openid_status('error');
+		return;
+	} else if ( is_integer($user_id) ) { // created ok
 
 		$user_data['ID'] = $user_id;
 		// XXX this all looks redundant, see openid_set_current_user
 
 		$user = new WP_User( $user_id );
+		$credentials = array('user_login' => $user->user_login, 'user_password' => $user_data['user_pass'], 'remember' => true);
 
-		if( ! wp_login( $user->user_login, $user_data['user_pass'] ) ) {
-			openid_message(__('User was created fine, but wp_login() for the new user failed. This is probably a bug.', 'openid'));
+		if( ! wp_signon( $credentials ) ) {
+			openid_message(__('User was created fine, but wp_signon() for the new user failed. This is probably a bug.', 'openid'));
 			openid_status('error');
 			openid_error(openid_message());
 			return;
 		}
 
 		// notify of user creation
-		wp_new_user_notification( $user->user_login );
+		wp_new_user_notification( $user_id );
 
-		wp_clearcookie();
-		wp_setcookie( $user->user_login, md5($user->user_pass), true, '', '', true );
+		wp_clear_auth_cookie();
+		wp_set_auth_cookie($user_id, true);
 
 		// Bind the provided identity to the just-created user
 		openid_add_user_identity($user_id, $identity_url);
 
 		openid_status('redirect');
+
+		do_action('openid_consumer_new_user_custom_data', $user_id, $user_data);
 
 		if ( !$user->has_cap('edit_posts') ) $redirect_to = '/wp-admin/profile.php';
 
@@ -373,9 +389,9 @@ function openid_create_new_user($identity_url, &$user_data) {
  *   ID, user_url, user_nicename, display_name
  *
  * Multiple soures of data may be available and are attempted in the following order:
- *   - OpenID Attribute Exchange      !! not yet implemented
+ *   - OpenID Attribute Exchange	  !! not yet implemented
  * 	 - OpenID Simple Registration
- * 	 - hCard discovery                !! not yet implemented
+ * 	 - hCard discovery				!! not yet implemented
  * 	 - default to identity URL
  *
  * @param string $identity_url OpenID to get user data about
@@ -532,7 +548,8 @@ function openid_parse_request($wp) {
 				break;
 
 			case 'server':
-				openid_server_request($_REQUEST['action']);
+				$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
+				openid_server_request($action);
 				break;
 
 			case 'ajax':
@@ -561,10 +578,10 @@ function is_url_openid( $url ) {
 /**
  * Clean HTTP request parameters for OpenID.
  *
- * Apache's rewrite module is often used to produce "pretty URLs" in WordPress.  
- * Other webservers, such as lighttpd, nginx, and Microsoft IIS each have ways 
- * (read: hacks) for simulating this kind of functionality. This function 
- * reverses the side-effects of these hacks so that the OpenID request 
+ * Apache's rewrite module is often used to produce "pretty URLs" in WordPress.
+ * Other webservers, such as lighttpd, nginx, and Microsoft IIS each have ways
+ * (read: hacks) for simulating this kind of functionality. This function
+ * reverses the side-effects of these hacks so that the OpenID request
  * variables are in the form that the OpenID library expects.
  */
 function openid_clean_request() {
@@ -583,13 +600,13 @@ function openid_clean_request() {
 				$clean[] = $v;
 			}
 		}
-		
+
 		$_SERVER['QUERY_STRING'] = implode('&', $clean);
 
-	} else if ($_SERVER['argc'] >= 1 && $_SERVER['argv'][0] == 'error=404') {
+	} else if (isset($_SERVER['argc']) && $_SERVER['argc'] >= 1 && $_SERVER['argv'][0] == 'error=404') {
 
-		// handle lighttpd hack which uses a custom error-handler, passing 404 errors to WordPress.  
-		// This results in the QUERY_STRING not having the correct information, but fortunately we 
+		// handle lighttpd hack which uses a custom error-handler, passing 404 errors to WordPress.
+		// This results in the QUERY_STRING not having the correct information, but fortunately we
 		// can pull it out of REQUEST_URI
 
 		list($path, $query) = explode('?', $_SERVER['REQUEST_URI'], 2);
@@ -611,13 +628,7 @@ function openid_service_url($service, $scheme = null) {
 	if (!$wp_rewrite) $wp_rewrite = new WP_Rewrite();
 
 	if (!defined('OPENID_SSL') || !OPENID_SSL) $scheme = null;
-	$url = site_url('/', $scheme);
-
-	if ($wp_rewrite->using_permalinks()) {
-		$url .= 'index.php/openid/' . $service;
-	} else {
-		$url .= '?openid=' . $service;
-	}
+	$url = site_url('/?openid=' . $service, $scheme);
 
 	return $url;
 }
@@ -728,21 +739,21 @@ function openid_page($message, $title = '') {
  * @action: init
  **/
 function openid_js_setup() {
-	if (have_comments() || comments_open() || is_admin()) {
-		wp_enqueue_script('openid', plugins_url('openid/f/openid.js'), array('jquery'), OPENID_PLUGIN_REVISION);
+	if ( ( is_singular() && ( have_comments() || comments_open() ) ) || is_admin() ) {
+		wp_enqueue_script( 'openid', plugin_dir_url( __FILE__ ) . 'f/openid.js', array( 'jquery' ), OPENID_PLUGIN_REVISION );
 	}
 }
 
 
 /**
- * Include OpenID stylesheet.  
+ * Include OpenID stylesheet.
  *
- * "Intelligently" decides whether to enqueue or print the CSS file, based on whether * the 'wp_print_styles' 
+ * "Intelligently" decides whether to enqueue or print the CSS file, based on whether * the 'wp_print_styles'
  * action has been run.  (This logic taken from the core wp_admin_css function)
  **/
 function openid_style() {
 	if ( !wp_style_is('openid', 'registered') ) {
-		wp_register_style('openid', plugins_url('openid/f/openid.css'), array(), OPENID_PLUGIN_REVISION);
+		wp_register_style('openid', plugin_dir_url(__FILE__) . 'f/openid.css', array(), OPENID_PLUGIN_REVISION);
 	}
 
 	if ( did_action('wp_print_styles') ) {
@@ -840,5 +851,3 @@ function openid_debug($msg) {
 		openid_error($msg);
 	}
 }
-
-?>
