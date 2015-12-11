@@ -1,0 +1,113 @@
+.postbox .hndle {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 15px;
+    font-weight: normal;
+    padding-top: 7px;
+    padding-right: 10px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    line-height: 1;
+}
+
+#rssip-sb {
+    padding-top: 23px;
+    width: 300px;
+    float: left;
+}
+
+.left {
+    display: block;
+    float: left;
+}
+
+#rssip-items {
+    width: 750px;
+    float: left;
+}
+
+#rssip-items ul {
+    padding: 10px 0;
+    clear: both;
+    width: 750px;
+    display: block;
+}
+
+#rssip-items li {
+    width: 700px;
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 10px;
+	border-top-color: #dfdfdf;
+	border-right-color: #dfdfdf;
+	border-bottom-color: #dfdfdf;
+	border-left-color: #dfdfdf;
+	box-shadow: #ffffff;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	background-color: #f5f5f5;
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+	background-image: #f5f5f5;
+}
+
+#rssip-items li {
+    background-repeat: no-repeat;
+    background-position: 5px 45px;
+    padding-left: 30px;
+    overflow: auto;
+    border: 1px solid #d5d5d5;
+}
+
+#rssip-items textarea {
+    width: 200px;
+    min-height: 115px;
+    margin-right: 5px;
+    resize: vertical;
+}
+
+.side-label {
+    display: inline-block;
+    width: 95px;
+}
+
+.checkbox {
+	position: relative;
+    display: inline-block;
+    top: 2px;
+    left: 1px;
+}
+
+.textbox {
+    width: 200px;
+    display: inline-block;
+}
+
+.textbox-long {
+    width: 600px;
+    display: inline-block;
+}
+
+#rssip-items select {
+    width: 200px;
+}
+
+.clearpad { 
+	clear: both;
+	padding: 10px;
+}
