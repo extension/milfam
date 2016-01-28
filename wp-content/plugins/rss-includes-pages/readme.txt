@@ -1,10 +1,9 @@
-=== RSS Includes Pages ===
+=== RSS Includes Pages and Custom Post Types ===
 Contributors: Marios Alexandrou
 Donate link: http://infolific.com/technology/software-worth-using/include-pages-in-wordpress-rss-feeds/#pro-version
-Tags: rss, feed, feeds, pages
+Tags: rss, feed, feeds, pages, custom post types, cbt, pages feed, custom post types feed, cbt feed, 
 Requires at least: 4.0
-Tested up to: 4.4
-Stable tag: 3.3
+Tested up to: 4.4.1
 License: GPLv2 or later
 
 Modifies RSS feeds so that they include pages and not just posts.
@@ -15,12 +14,17 @@ Modifies RSS feeds so that they include pages and not just posts. Deactivating t
 
 Including pages in your feed is particularly useful if you're using WordPress as a CMS where pages represent a good portion of your content.
 
-The [pro version](http://infolific.com/technology/software-worth-using/include-pages-in-wordpress-rss-feeds/#pro-version) (just $5) allows you to specify that ONLY pages are included in the feeds i.e. no posts. It also allows you to exclude/include posts and pages by ID.
+The [pro version](http://infolific.com/technology/software-worth-using/include-pages-in-wordpress-rss-feeds/#pro-version) (less than $10) also allows you to:
+
+1. Specify that ONLY pages are included in the feeds i.e. no posts.
+2. Exclude/include posts and pages by ID.
+3. Add custom post types such as WooCommerce products or Avada portfolios.
 
 == Installation ==
 
 1. Upload the rss-includes-feeds folder to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Navigate to the settings page and select the pages and post types to include in your feeds.
 
 == Frequently Asked Questions ==
 
@@ -35,6 +39,10 @@ If you're using Feedburner you'll have to wait until your updated feed is picked
 = I just posted a page, why don't I see it in my feed? =
 
 If you're using Feedburner you'll have to wait until your updated feed is picked up by Feedburner. This isn't immediate so give it a few hours. Also, WordPress caches feeds and doesn't rebuild it on the fly.
+
+= Does this plugin create new feeds? =
+
+No. The plugin adds pages and custom post types to existing feeds. No new feeds are created; existing ones are modified.
 
 = I like this plugin, do you have others? =
 
@@ -58,11 +66,21 @@ Add any extension of your choosing (e.g. .html, .htm, .jsp, .aspx, .cfm) to Word
 [Social Media E-Mail Alerts](https://wordpress.org/extend/plugins/social-media-email-alerts/)
 Receive e-mail alerts when your site gets traffic from social media sites of your choosing. You can also set up alerts for when certain parameters appear in URLs.
 
+[Advanced Page Manager](https://wordpress.org/plugins/advanced-page-manager/)
+A new way to create, move, edit and publish your pages for your favorite CMS.
+
+[Improved Include Page](https://wordpress.org/plugins/improved-include-page/)
+This plugin allows you to include the content of a page in a template file or a post/page (via a shortcode) with several options.
+
 == Screenshots ==
 
-1. By default the plugin adds pages to your feeds. In the [pro version](http://infolific.com/technology/software-worth-using/include-pages-in-wordpress-rss-feeds/#pro-version) you can specify posts and/or pages. You can also excludes posts/pages by ID. 
+1. By default the plugin adds pages to your existing feeds. In the [pro version](http://infolific.com/technology/software-worth-using/include-pages-in-wordpress-rss-feeds/#pro-version) you can specify posts and/or pages. You can also excludes posts/pages by ID. 
 
 == Changelog ==
+
+= 3.4 =
+* All versions: Removing redundant code. Re-organizing code for improved readability.
+* Pro version: Can now add custom post types (e.g. WooCommerce products) to feed.
 
 = 3.3 =
 * All versions: Tweaks to documentation including the readme.txt.
