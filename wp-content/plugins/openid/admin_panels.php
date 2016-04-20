@@ -8,7 +8,8 @@
 // -- WordPress Hooks
 add_action( 'admin_init', 'openid_admin_register_settings' );
 add_action( 'admin_menu', 'openid_admin_panels' );
-add_action( 'personal_options_update', 'openid_personal_options_update' );
+//commenting out because this causes us problems - jayoung
+//add_action( 'personal_options_update', 'openid_personal_options_update' );
 add_action( 'openid_finish_auth', 'openid_finish_verify', 10, 2 );
 add_filter( 'pre_update_option_openid_cap', 'openid_set_cap', 10, 2);
 
