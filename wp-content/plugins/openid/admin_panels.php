@@ -8,7 +8,8 @@
 // -- WordPress Hooks
 add_action( 'admin_init', 'openid_admin_register_settings' );
 add_action( 'admin_menu', 'openid_admin_panels' );
-add_action( 'personal_options_update', 'openid_personal_options_update' );
+//commenting out because this causes us problems - jayoung
+//add_action( 'personal_options_update', 'openid_personal_options_update' );
 add_action( 'openid_finish_auth', 'openid_finish_verify', 10, 2 );
 add_filter( 'pre_update_option_openid_cap', 'openid_set_cap', 10, 2);
 
@@ -805,14 +806,14 @@ function openid_finish_verify($identity_url, $action) {
 /**
  * hook in and call when user is updating their profile URL... make sure it is an OpenID they control.
  */
-// function openid_personal_options_update() {
-// 	$user = wp_get_current_user();
-//
-// 	if (!openid_ensure_url_match($user, $_POST['url'])) {
-// 		wp_die(sprintf(__('For security reasons, your profile URL must be one of your claimed OpenIDs: %s', 'openid'),
-// 			'<ul><li>' . join('</li><li>', get_user_openids($user->ID)) . '</li></ul>'));
-// 	}
-// }
+function openid_personal_options_update() {
+	$user = wp_get_current_user();
+
+	if (!openid_ensure_url_match($user, $_POST['url'])) {
+		wp_die(sprintf(__('For security reasons, your profile URL must be one of your claimed OpenIDs: %s', 'openid'),
+			'<ul><li>' . join('</li><li>', get_user_openids($user->ID)) . '</li></ul>'));
+	}
+}
 
 
 /**
@@ -977,31 +978,33 @@ function openid_general_settings() {
  */
 function openid_discussion_settings() {
 ?>
-	<label for="openid_enable_commentform">
-		<input type="checkbox" name="openid_enable_commentform" id="openid_enable_commentform" value="1" <?php
-			echo checked(true, get_option('openid_enable_commentform'));  ?> />
-		<?php _e('Enable OpenID for comments', 'openid') ?>
-	</label>
-	<br />
-
-	<?php if ( get_option('openid_enable_commentform') ): ?>
-
-		<?php if ( get_option('require_name_email') ): ?>
-		<label for="openid_no_require_name">
-			<input type="checkbox" name="openid_no_require_name" id="openid_no_require_name" value="1" <?php
-				echo checked(true, get_option('openid_no_require_name')) ; ?> />
-			<?php _e('Do not require name and e-mail for comments left with a verified OpenID', 'openid') ?>
+	<fieldset>
+		<label for="openid_enable_commentform">
+			<input type="checkbox" name="openid_enable_commentform" id="openid_enable_commentform" value="1" <?php
+				echo checked(true, get_option('openid_enable_commentform'));  ?> />
+			<?php _e('Enable OpenID for comments', 'openid') ?>
 		</label>
 		<br />
+
+		<?php if ( get_option('openid_enable_commentform') ): ?>
+
+			<?php if ( get_option('require_name_email') ): ?>
+			<label for="openid_no_require_name">
+				<input type="checkbox" name="openid_no_require_name" id="openid_no_require_name" value="1" <?php
+					echo checked(true, get_option('openid_no_require_name')) ; ?> />
+				<?php _e('Do not require name and e-mail for comments left with a verified OpenID', 'openid') ?>
+			</label>
+			<br />
+			<?php endif; ?>
+
+			<label for="openid_enable_approval">
+				<input type="checkbox" name="openid_enable_approval" id="openid_enable_approval" value="1" <?php
+					echo checked(true, get_option('openid_enable_approval'));  ?> />
+				<?php _e('Always approve comments left with a verified OpenID', 'openid'); ?>
+			</label>
+			<br />
+
 		<?php endif; ?>
-
-		<label for="openid_enable_approval">
-			<input type="checkbox" name="openid_enable_approval" id="openid_enable_approval" value="1" <?php
-				echo checked(true, get_option('openid_enable_approval'));  ?> />
-			<?php _e('Always approve comments left with a verified OpenID', 'openid'); ?>
-		</label>
-		<br />
-
-	<?php endif; ?>
+	</fieldset>
 <?php
 }
