@@ -1,5 +1,5 @@
-set :stages, %w(prod)
-set :default_stage, "prod"
+set :stages, %w(prod dev)
+set :default_stage, "dev"
 require 'capistrano/ext/multistage'
 
 require 'capatross'
