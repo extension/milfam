@@ -34,6 +34,7 @@ namespace :deploy do
     run <<-CMD
     rm -rf #{release_path}/config/database.yml &&
     rm -rf #{release_path}/wp-config.php &&
+    rm -rf #{release_path}/wp-content/uploads &&
     ln -nfs /services/milfam/shared/config/wp-config.php #{release_path}/wp-config.php &&
     ln -nfs /services/milfam/shared/config/.htaccess #{release_path}/.htaccess &&
     ln -nfs /services/milfam/shared/config/robots.txt #{release_path}/robots.txt &&
