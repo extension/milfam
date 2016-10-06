@@ -12,7 +12,6 @@ set :user, "pacecar"
 set :use_sudo, false
 set :keep_releases, 3
 ssh_options[:forward_agent] = true
-set :port, 24
 #ssh_options[:verbose] = :debug
 
 after "deploy:update_code", "deploy:link_and_copy_configs"
@@ -42,19 +41,21 @@ namespace :deploy do
     CMD
   end
 
-   # Override default web enable/disable tasks
-   namespace :web do
+  # Override default web enable/disable tasks
+  namespace :web do
 
-      desc "Put Apache in maintenancemode by touching the maintenancemode file"
-      task :disable, :roles => :app do
-        invoke_command "touch /services/maintenance/#{vhost}.maintenancemode"
-      end
+    desc "Put Apache and Cronmon in maintenancemode by touching the maintenancemode file"
+    task :disable, :roles => :app do
+      invoke_command "touch /services/maintenance/#{vhost}.maintenancemode"
+      invoke_command "touch /services/maintenance/CRONMONHALT"
+    end
 
-      desc "Remove Apache from maintenancemode by removing the maintenancemode file"
-      task :enable, :roles => :app do
-        invoke_command "rm -f /services/maintenance/#{vhost}.maintenancemode"
-      end
+    desc "Remove Apache and Cronmon from maintenancemode by removing the maintenancemode file"
+    task :enable, :roles => :app do
+      invoke_command "rm -f /services/maintenance/#{vhost}.maintenancemode"
+      invoke_command "rm -f /services/maintenance/CRONMONHALT"
+    end
 
-   end
+  end
 
 end
