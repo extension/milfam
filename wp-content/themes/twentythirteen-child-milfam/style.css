@@ -1,0 +1,111 @@
+/*
+Theme Name: Milfam
+Description: This variation displays three logos in a responsive header for the Military Families Learning Network
+Template: twentythirteen
+*/
+
+@import url("../twentythirteen/style.css");
+
+
+
+
+/*.site-header {outline:2px solid blue;}*/
+
+.clearing {clear:both;}
+/*.site-header {background-image: url(images/headers/mf_header.jpg) !important;}*/
+
+.logo-group {
+/*  border:1px solid lime;*/
+  padding:10px;
+
+ }
+.logo-group-logo {float:left;display:block; width:33%; height:100px; text-align:center;}
+
+
+.site-title {color:#f47B28;}
+
+.site-footer {
+	margin-top: 30px;
+	padding-top: 30px;
+	border: 1px solid #ddd;
+}
+.site-footer p{
+	padding-left: 5px;
+	color: #f86f20;
+}
+#extension_icon_512 {
+	width: 64px;
+	height: 64px;
+	display: block;
+	margin: 5px 15px;
+	border: 1px solid #ddd;
+	padding: 2px;
+	float: left;
+}
+#extension_icon_512 img {
+	display: block;
+}
+
+.site-footer ul li {
+	padding: 0 5px;
+	border-right: 1px solid #333;
+	line-height: 100%;
+	display: inline-block;
+}
+
+.site-footer ul{
+	margin-top: 0;
+}
+
+
+@media (min-width: 999px) {
+  .site-title {font-size:50px;padding-top:20px;}
+  .masthead-inner {margin:0 auto; max-width:1080px;
+/*    border:1px solid magenta;*/
+    }
+  .site-header .home-link {
+    width:45%;
+	padding-right: 5%;
+    float:left;
+  }
+  .logo-group {
+	  float:left;
+	  display:block;
+	  width:40%;
+	  margin-left: 10%;
+	  margin-top: 60px;
+}
+  .logo-group-logo {float:left;display:block; width:33.3333333333%;
+/*    border:1px solid #ccc;*/
+    }
+
+}
+
+@media (max-width: 999px) {
+	.site-header .home-link {
+    width:55%;
+  }
+}
+@media (max-width: 643px) {
+	.site-header .home-link {
+    width:65%;
+  }
+}
+
+
+.logo-group-logo img {width:100%; max-width:130px; margin:0 auto; padding:5px;}
+
+body .site-main a, .site-footer .widget a, .comment-body .comment-meta a, .nav-menu>.current_page_item a, .nav-menu .current-menu-parent a{
+	color: #7E3F98;
+}
+.site-footer .widget a{color: #A79FBC;}
+ul.nav-menu ul a:hover{
+	background-color:#7E3F98;
+}
+.navbar, .widget, .archive-header, .site-footer{
+	background-color:#DFDFDF;
+}
+
+button, input, textarea{
+	border: 2px solid #A7A7A7;
+}
