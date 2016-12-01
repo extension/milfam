@@ -11,6 +11,7 @@ Template: twentythirteen
 @import url("../twentythirteen/style.css");
 
 .clearing {clear:both;}
+.tags-meta {margin: 50px 0 10px;}
 
 
 .logo-group {
