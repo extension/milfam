@@ -36,15 +36,9 @@
 		<header id="masthead" class="site-header" role="banner">
 		  <div class="masthead-inner">
 			<a class="home-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-				<h1 class="site-title"><img src="<?php echo bloginfo('stylesheet_directory');?>/images/MFLN_Logo_2C.png" width="100%" /></h1>
+				<h1 class="site-title"><img src="<?php echo bloginfo('stylesheet_directory');?>/images/MFLN_Logo-glow.png" width="100%" /></h1>
 				<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
 			</a>
-
-			<div class="logo-group">
-			  <div class="logo-group-logo"><img src="<?php echo bloginfo('stylesheet_directory');?>/images/usdod-400x200.png" /></div>
-			  <div class="logo-group-logo"><img src="<?php echo bloginfo('stylesheet_directory');?>/images/usda-400x200.png" /></div>
-			  <div class="logo-group-logo"><img src="<?php echo bloginfo('stylesheet_directory');?>/images/eX_ARLN_logo_400x200.png" /></div>
-			</div>
 			</div>
       <br class="clearing" />
 			<div id="navbar" class="navbar">
