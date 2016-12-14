@@ -108,3 +108,5 @@ ul.nav-menu ul a:hover{
 button, input, textarea{
 	border: 2px solid #A7A7A7;
 }
+
+.learn-widget-header-specific {font-size: 12px !important;}
