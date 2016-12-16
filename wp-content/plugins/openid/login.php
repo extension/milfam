@@ -21,12 +21,10 @@ add_action( 'init', 'openid_login_errors' );
  * @param mixed $user authenticated user object, or WP_Error or null
  */
 function openid_authenticate($user) {
-	if ( !array_key_exists('finish_openid', $_REQUEST) && $_GET['loggedout']!='true' ) {
+	if ( array_key_exists('openid_identifier', $_POST) && $_POST['openid_identifier'] ) {
 
 		$redirect_to = array_key_exists('redirect_to', $_REQUEST) ? $_REQUEST['redirect_to'] : null;
-		// openid_start_login($_POST['openid_identifier'], 'login', $redirect_to);
-		//  jayoung - force people authentication
-		openid_start_login('https://people.extension.org', 'login', $redirect_to);
+		openid_start_login($_POST['openid_identifier'], 'login', $redirect_to);
 
 		// if we got this far, something is wrong
 		global $error;
@@ -39,6 +37,7 @@ function openid_authenticate($user) {
 
 		if ( !wp_verify_nonce($_REQUEST['_wpnonce'], 'openid_login_' . md5($identity_url)) ) {
 			$user = new WP_Error('openid_login_error', __('Error during OpenID authentication.  Please try again. (invalid nonce)', 'openid'));
+			return $user;
 		}
 
 		if ( $identity_url ) {

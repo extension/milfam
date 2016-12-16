@@ -8,8 +8,7 @@
 // -- WordPress Hooks
 add_action( 'admin_init', 'openid_admin_register_settings' );
 add_action( 'admin_menu', 'openid_admin_panels' );
-//commenting out because this causes us problems - jayoung
-//add_action( 'personal_options_update', 'openid_personal_options_update' );
+add_action( 'personal_options_update', 'openid_personal_options_update' );
 add_action( 'openid_finish_auth', 'openid_finish_verify', 10, 2 );
 add_filter( 'pre_update_option_openid_cap', 'openid_set_cap', 10, 2);
 
@@ -571,7 +570,7 @@ function openid_printSystemStatus() {
 		$status[] = array( 'Curl Support', isset($curl_version), $curl_message );
 	}
 
-	if (extension_loaded('gmp') and @gmp_init(1)) {
+	if (extension_loaded('gmp') and @gmp_add(1,1)==2) {
 		$status[] = array( 'Big Integer support', true, 'GMP is installed.' );
 	} elseif (extension_loaded('bcmath') and @bcadd(1,1)==2) {
 		$status[] = array( 'Big Integer support', true, 'BCMath is installed (though <a href="http://www.php.net/gmp">GMP</a> is preferred).' );
