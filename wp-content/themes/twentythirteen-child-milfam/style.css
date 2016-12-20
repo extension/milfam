@@ -10,6 +10,8 @@ Template: twentythirteen
 
 @import url("../twentythirteen/style.css");
 
+
+
 .clearing {clear:both;}
 .tags-meta {margin: 50px 0 10px;}
 
@@ -110,3 +112,7 @@ button, input, textarea{
 }
 
 .learn-widget-header-specific {font-size: 12px !important;}
+.home-page-content {width: 70%; margin: 0 auto;}
+.home-page-content p {font-size: 30px !important; color: #7F3F98;}
+.learn-widget-header-general {color: #7F3F98;}
+.learn-widget-header-specific {display:none;}
