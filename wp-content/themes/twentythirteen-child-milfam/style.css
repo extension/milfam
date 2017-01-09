@@ -11,6 +11,15 @@ Template: twentythirteen
 @import url("../twentythirteen/style.css");
 
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  line-height: 1.1;
+}
+
+.entry-title {
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  line-height: 1.1;
+}
 
 .clearing {clear:both;}
 .tags-meta {margin: 50px 0 10px;}
