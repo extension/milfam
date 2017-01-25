@@ -20,3 +20,21 @@ function show_learn_widget( $atts ) {
 }
 
 add_shortcode( 'learn_widget', 'show_learn_widget' );
+
+
+add_action( 'widgets_init', 'register_custom_sidebars' );
+function  register_custom_sidebars() {
+	// $title_tag = pinboard_get_option( 'widget_title_tag' );
+
+	register_sidebar(
+		array(
+      'name' => 'CA Landing Page Sidebar ',
+      'id' => 'sidebar-ca',
+			'description' => 'Displays in in the sidebar on the CA landing page.',
+      'before_widget' => '<div id="%1$s" class="widget %2$s">',
+      'after_widget' => '</div>',
+      'before_title' => '<h3 class="widget-title">',
+      'after_title' => '</h3>'
+		)
+	);
+}
