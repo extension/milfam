@@ -38,3 +38,10 @@ function  register_custom_sidebars() {
 		)
 	);
 }
+
+function categorize_page_settings() {
+  // Add category metabox to page
+  register_taxonomy_for_object_type('category', 'page');
+}
+ // Add to the admin_init hook of your theme functions.php file
+add_action( 'init', 'categorize_page_settings' );
