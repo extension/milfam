@@ -93,8 +93,10 @@ class Learn_Widget_Widget extends WP_Widget {
     function widget( $args, $instance ) {
       $learn_widget_tag_meta_value = get_post_meta( get_the_ID(), 'meta-text-learn-widget-tag', true );
       $learn_widget_title_meta_value = get_post_meta( get_the_ID(), 'meta-text-learn-widget-title', true );
-      echo "<h3 class='learn-widget-header'>" . $learn_widget_title_meta_value . "</h3>";
+      echo "<div class='sidebar-learn-widget'>";
+      echo "<h3 class='widget-title'>" . $learn_widget_title_meta_value . "</h3>";
       echo do_shortcode("[learn_widget key='exlw-ca295c9d' tags='" . $learn_widget_tag_meta_value . "' limit=3 match_all_tags=true]");
+      echo "</div>";
     }
 
 }
