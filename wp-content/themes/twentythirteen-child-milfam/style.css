@@ -110,7 +110,8 @@ button, input, textarea{
 	border: 2px solid #A7A7A7;
 }
 
+
+.learn-widget-header {color: #7F3F98;}
 .learn-widget-header-specific {font-size: 12px !important;}
-.learn-widget-header-general {color: #7F3F98;}
 .learn-widget-header-specific {display:none;}
 .learn-widget-header-general {display:none;}
