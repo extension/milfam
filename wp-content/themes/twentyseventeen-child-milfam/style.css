@@ -1,0 +1,87 @@
+/*
+Theme Name: Milfam (Twenty Seventeen child)
+Description: This variation displays three logos in a responsive header for the Military Families Learning Network
+Template: twentyseventeen
+*/
+
+@import url("../twentyseventeen/style.css");
+
+
+.has-header-image.twentyseventeen-front-page .custom-header,
+.has-header-video.twentyseventeen-front-page .custom-header,
+.has-header-image.home.blog .custom-header,
+.has-header-video.home.blog .custom-header {
+  /*height: 400px;*/
+}
+
+.site-footer {background: #eee;}
+
+#masthead {
+  /*border:1px solid blue;*/
+  background:#fafafa !important;
+  background:#ebebeb !important;
+  /*padding:10px;*/
+}
+.branding-and-menu {
+  /*border:2px solid magenta; */
+  float:left; width:100%; padding: 10px;}
+.custom-header {
+  height: 360px !important;
+  /*border:10px solid red;*/
+  /*padding:10px;*/
+  background: lime;
+  overflow:hidden;
+  margin-bottom:0 !important;
+}
+.custom-header img {width:100%;}
+.blah-test {background: orange;}
+.site-branding {
+  width: 40% !important;
+  /*outline: 1px solid #eee;*/
+  padding:0;
+
+  position:static !important;
+  /*background: #eee;*/
+  margin-bottom:0 !important;
+  float:left !important;
+  /*display:inline-block;*/
+/*clear:left;*/
+}
+
+.site-branding-text {
+  /*border: 2px solid magenta; padding:10px !important; background: lime;*/
+}
+
+
+.navigation-top {
+  display:inline-block;
+width: 40% !important;
+  position: relative !important;
+  float:right;
+}
+
+
+.site-branding a:hover, .site-branding a:focus {
+    opacity: 1;
+}
+a {color: purple; box-shadow:none !important; webkit-box-shadow:none !important;}
+a:hover {box-shadow:none !important; webkit-box-shadow:none !important;}
+.entry-title a {color: purple;}
+.entry-title a:hover,
+.entry-content a:hover {color: black; box-shadow:none !important; webkit-box-shadow:none !important;}
+.entry-content a {box-shadow:none !important; webkit-box-shadow:none !important;}
+
+
+h1.entry-title {color: purple; font-size: 36px !important;}
+
+.page h1.entry-title {
+  color: purple !important;
+  font-size: 36px !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-weight:normal !important;
+}
+.entry-header {margin:0 !important;}
+
+
+.entry-content li {margin-bottom:1em;}
