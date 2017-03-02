@@ -23,8 +23,11 @@ Template: twentyseventeen
   /*padding:10px;*/
 }
 .branding-and-menu {
-  /*border:2px solid magenta; */
-  float:left; width:100%; padding: 10px;}
+  float:left; width:100%; padding: 10px;
+}
+.branding-and-menu .wrap {padding:0;}
+.branding-and-menu .site-branding {padding:0 2em 20px;}
+
 
 .blah-test {background: orange;}
 .site-branding {
@@ -32,7 +35,7 @@ Template: twentyseventeen
   position:static !important;
   /*background: #eee;*/
   margin-bottom:0 !important;
-  float:left !important;
+  float:none !important;
   /*display:inline-block;*/
 /*clear:left;*/
 }
@@ -40,13 +43,11 @@ Template: twentyseventeen
 .site-branding-text {
   /*border: 2px solid magenta; padding:10px !important; background: lime;*/
 }
+.menu-toggle:focus {outline:none;}
 
 
 .navigation-top {
-  display:inline-block;
-width: 40% !important;
-  position: relative !important;
-  float:right;
+  display:block;
 }
 
 
@@ -117,13 +118,22 @@ h1.entry-title {color: purple; font-size: 36px !important;}
 /* Larger than phablet */
 @media (min-width: 550px) {
   .custom-header img {width:140%;}
-  .site-branding {width: 40% !important;}
+
 }
 
 /* Larger than tablet */
 @media (min-width: 750px) {
   .custom-header {height: 320px !important;}
   .custom-header img {width:130%;}
+  .site-branding {width: 50% !important; float:left !important;}
+  .navigation-top {
+    display:inline-block;
+    width: 40% !important;
+    position: relative !important;
+    float:right;
+    padding-left:20px;
+  }
+
 }
 
 /* Larger than desktop */
