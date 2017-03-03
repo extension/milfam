@@ -78,11 +78,15 @@ h1.entry-title {color: purple; font-size: 36px !important;}
 
 
 /*learn widget options*/
-.learn-widget-header-specific {font-size: 12px !important;}
-.home-page-content {width: 70%; margin: 0 auto;}
-.home-page-content p {font-size: 30px !important; color: #7F3F98;}
-.learn-widget-header-general {color: #7F3F98;}
+.learn-widget-header {color: #7F3F98;}
 .learn-widget-header-specific {display:none;}
+.learn-widget-header-general {display:none;}
+
+.sidebar-learn-widget {background: #fff; margin: 0 0 20px;}
+.sidebar-learn-widget .learn-widget-wrapper {border:none; padding:0; margin:0;}
+.sidebar-learn-widget .learn-widget-see-more {margin-bottom:12px;}
+/*.sidebar-learn-widget .widget-title {font: 300 italic 20px "Source Sans Pro", Helvetica, sans-serif;margin: 0 0 10px;}*/
+
 
 
 
