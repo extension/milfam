@@ -139,6 +139,8 @@ padding: 40px 20px 20px;}
 }
 .partner-icon img {width: 160px;}
 
+.site-footer .widget-column.footer-widget-1 {width:100%;}
+
 /* Mobile first queries */
 /*===============================================================================================================================*/
 
