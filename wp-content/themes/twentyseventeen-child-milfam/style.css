@@ -162,5 +162,5 @@ h1.entry-title {color: purple; font-size: 36px !important;}
     overflow:hidden;
     margin-bottom:0 !important;
   }
-  .custom-header img {width:auto !important;}
+  .custom-header img {width:100% !important;}
 }
