@@ -65,7 +65,7 @@ while ( have_posts() ):
   $lcp_display_output .= "<li>";
 
   //Show the title and link to the post:
-  $lcp_display_output .= $this->get_post_title($post, 'h3', 'lcp_post');
+  $lcp_display_output .= $this->get_post_title($post);
 
   //Show comments:
   $lcp_display_output .= $this->get_comments($post);
@@ -108,7 +108,7 @@ endwhile;
 $lcp_display_output .= '</ul>';
 
 // If there's a "more link", show it:
-$lcp_display_output .= $this->get_morelink();
+$lcp_display_output .= '<br />' . $this->get_morelink();
 
 // Get category posts count
 $lcp_display_output .= $this->get_category_count();
