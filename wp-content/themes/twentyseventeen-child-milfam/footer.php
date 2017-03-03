@@ -16,6 +16,12 @@
 
 		</div><!-- #content -->
 
+    <div class="partner-icons">
+      <div class="wrap">
+        <div class="partner-icon"><img src="<?php echo bloginfo('stylesheet_directory');?>/images/usdod-400x200.png" /></div><div class="partner-icon"><img src="<?php echo bloginfo('stylesheet_directory');?>/images/usda-400x200.png" /></div><div class="partner-icon"><img src="<?php echo bloginfo('stylesheet_directory');?>/images/ex_i-three_w_tagline_500x275.png" /></div>
+      </div>
+    </div>
+
 		<footer id="colophon" class="site-footer" role="contentinfo">
 			<div class="wrap">
 				<?php

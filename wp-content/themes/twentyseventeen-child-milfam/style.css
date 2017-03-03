@@ -79,7 +79,10 @@ h1.entry-title {color: purple; font-size: 36px !important;}
 
 .extension-meta-footer {text-align:center;}
 .extension-meta-footer li {display:inline-block;}
-.extension-meta-footer li a {padding: 12px 10px; }
+.extension-meta-footer li a {padding: 12px 10px;}
+
+.partner-icons {}
+/*.partner-icon {display:inline-block;width:23%; margin: 0 5%;}*/
 
 /*learn widget options*/
 .learn-widget-header {color: #7F3F98;}
@@ -126,6 +129,16 @@ h1.entry-title {color: purple; font-size: 36px !important;}
 
 }
 
+.partner-icons {width:100%;
+  /*border: 1px solid lime; */
+  text-align:center;
+/*border-top: 10px solid #eee;*/
+padding: 40px 20px 20px;}
+.partner-icon {width:160px; text-align:center; margin: auto; padding: 0 20px 20px;
+/*border: 1px solid lime;*/
+}
+.partner-icon img {width: 160px;}
+
 /* Mobile first queries */
 /*===============================================================================================================================*/
 
@@ -137,7 +150,9 @@ h1.entry-title {color: purple; font-size: 36px !important;}
 /* Larger than phablet */
 @media (min-width: 550px) {
   .custom-header img {width:140%;}
-
+  .partner-icon {display:inline-block; width:33%; margin: 0;
+    /*border: 1px solid red; */
+    padding:0;}
 }
 
 /* Larger than tablet */
@@ -152,7 +167,10 @@ h1.entry-title {color: purple; font-size: 36px !important;}
     float:right;
     padding-left:20px;
   }
-
+  .partner-icon {display:inline-block; width:23%; margin: 0 5%;
+    /*border: 1px solid blue;*/
+  }
+  .partner-icon img {width: 140px;}
 }
 
 /* Larger than desktop */
