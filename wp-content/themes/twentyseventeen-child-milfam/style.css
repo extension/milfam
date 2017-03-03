@@ -77,6 +77,15 @@ h1.entry-title {color: purple; font-size: 36px !important;}
 .entry-content li {margin-bottom:1em;}
 
 
+/*learn widget options*/
+.learn-widget-header-specific {font-size: 12px !important;}
+.home-page-content {width: 70%; margin: 0 auto;}
+.home-page-content p {font-size: 30px !important; color: #7F3F98;}
+.learn-widget-header-general {color: #7F3F98;}
+.learn-widget-header-specific {display:none;}
+
+
+
 .custom-header {
   /*border:2px solid magenta;*/
   height: 240px !important;
