@@ -77,6 +77,10 @@ h1.entry-title {color: purple; font-size: 36px !important;}
 .entry-content li {margin-bottom:1em;}
 
 
+.extension-meta-footer {text-align:center;}
+.extension-meta-footer li {display:inline-block;}
+.extension-meta-footer li a {padding: 12px 10px; }
+
 /*learn widget options*/
 .learn-widget-header {color: #7F3F98;}
 .learn-widget-header-specific {display:none;}
