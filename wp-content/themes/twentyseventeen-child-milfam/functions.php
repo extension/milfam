@@ -1,12 +1,14 @@
 <?php
 
+function remove_footer_admin () {
+  echo 'Thank you for creating with <a href="https://wordpress.org/">WordPress</a> | <a href="https://extension.org/terms-of-use/" target="_blank">Terms of Use</a>';
+}
+add_filter('admin_footer_text', 'remove_footer_admin');
+
 add_filter( 'body_class','my_body_classes' );
 function my_body_classes( $classes ) {
-
     $classes[] = 'has-sidebar';
-
     return $classes;
-
 }
 
 
