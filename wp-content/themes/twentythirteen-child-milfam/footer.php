@@ -13,7 +13,11 @@
 
 		</div><!-- #main -->
 
-
+    <div class="logo-group">
+      <div class="logo-group-logo"><img src="<?php echo bloginfo('stylesheet_directory');?>/images/usdod-400x200.png" /></div>
+      <div class="logo-group-logo"><img src="<?php echo bloginfo('stylesheet_directory');?>/images/usda-400x200.png" /></div>
+      <div class="logo-group-logo"><img src="<?php echo bloginfo('stylesheet_directory');?>/images/eX_ARLN_logo_400x200.png" /></div>
+    </div>
 
 
 		<footer id="colophon" class="site-footer" role="contentinfo">

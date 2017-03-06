@@ -1,29 +1,41 @@
 /*
 Theme Name: Milfam
 Description: This variation displays three logos in a responsive header for the Military Families Learning Network
+Theme URI: https://www.extension.com
+Version: 1.0
+Author: eXtension
+Author URI: https://www.extension.com/
 Template: twentythirteen
 */
 
 @import url("../twentythirteen/style.css");
 
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  line-height: 1.1;
+}
 
-
-/*.site-header {outline:2px solid blue;}*/
+.entry-title {
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  line-height: 1.1;
+}
 
 .clearing {clear:both;}
-/*.site-header {background-image: url(images/headers/mf_header.jpg) !important;}*/
+.tags-meta {margin: 50px 0 10px;}
+
 
 .logo-group {
-/*  border:1px solid lime;*/
   padding:10px;
-
+  clear:both;
+  width: 100%;
  }
-.logo-group-logo {float:left;display:block; width:33%; height:100px; text-align:center;}
+
+.logo-group-logo {display:block; width:33%; height:100px; text-align:center;}
 
 
 .site-title {color:#f47B28;}
-
+.site-description {color: #fff; text-shadow: 0 0 10px #7F3F98, 0 0 10px #7F3F98;}
 .site-footer {
 	margin-top: 30px;
 	padding-top: 30px;
@@ -57,38 +69,35 @@ Template: twentythirteen
 	margin-top: 0;
 }
 
-
+.site-header .home-link {min-height:300px;}
+.site-header {background-position: center !important;}
 @media (min-width: 999px) {
   .site-title {font-size:50px;padding-top:20px;}
-  .masthead-inner {margin:0 auto; max-width:1080px;
-/*    border:1px solid magenta;*/
-    }
+  .masthead-inner {margin:0 auto; max-width:1080px;}
   .site-header .home-link {
-    width:45%;
-	padding-right: 5%;
+    width:50%;
+    padding-right: 5%;
     float:left;
   }
   .logo-group {
-	  float:left;
-	  display:block;
-	  width:40%;
-	  margin-left: 10%;
-	  margin-top: 60px;
-}
-  .logo-group-logo {float:left;display:block; width:33.3333333333%;
-/*    border:1px solid #ccc;*/
-    }
-
+    display:block;
+    margin-top: 60px;
+  }
+  .logo-group-logo {
+    display:inline-block; width:33%;
+  }
 }
 
 @media (max-width: 999px) {
 	.site-header .home-link {
-    width:55%;
+    width:75%;
+    max-width: 400px;
+    float:left;
   }
 }
 @media (max-width: 643px) {
 	.site-header .home-link {
-    width:65%;
+    width:80%;
   }
 }
 
@@ -99,6 +108,7 @@ body .site-main a, .site-footer .widget a, .comment-body .comment-meta a, .nav-m
 	color: #7E3F98;
 }
 .site-footer .widget a{color: #A79FBC;}
+.site-footer p {color: #fff; padding:0; margin: 1em 0}
 ul.nav-menu ul a:hover{
 	background-color:#7E3F98;
 }
@@ -110,6 +120,13 @@ button, input, textarea{
 	border: 2px solid #A7A7A7;
 }
 
+<<<<<<< HEAD
+.learn-widget-header-specific {font-size: 12px !important;}
+.home-page-content {width: 70%; margin: 0 auto;}
+.home-page-content p {font-size: 30px !important; color: #7F3F98;}
+.learn-widget-header-general {color: #7F3F98;}
+.learn-widget-header-specific {display:none;}
+=======
 
 .learn-widget-header {color: #7F3F98;}
 .learn-widget-header-specific {display:none;}
@@ -122,3 +139,4 @@ button, input, textarea{
   font: 300 italic 20px "Source Sans Pro", Helvetica, sans-serif;
   margin: 0 0 10px;
 }
+>>>>>>> master

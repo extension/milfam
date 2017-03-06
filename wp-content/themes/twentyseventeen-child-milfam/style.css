@@ -1,0 +1,192 @@
+/*
+Theme Name: Milfam (Twenty Seventeen child)
+Description: This variation displays three logos in a responsive header for the Military Families Learning Network
+Template: twentyseventeen
+*/
+
+@import url("../twentyseventeen/style.css");
+
+
+.has-header-image.twentyseventeen-front-page .custom-header,
+.has-header-video.twentyseventeen-front-page .custom-header,
+.has-header-image.home.blog .custom-header,
+.has-header-video.home.blog .custom-header {
+  /*height: 400px;*/
+}
+
+.site-footer {background: #eee;}
+
+#masthead {
+  /*border:1px solid blue;*/
+  background:#fafafa !important;
+  background:#ebebeb !important;
+  /*padding:10px;*/
+}
+.branding-and-menu {
+  float:left; width:100%; padding: 10px;
+}
+.branding-and-menu .wrap {padding:0;}
+.branding-and-menu .site-branding {padding:0 2em 20px;}
+
+
+.blah-test {background: orange;}
+.site-branding {
+  padding:0;
+  position:static !important;
+  /*background: #eee;*/
+  margin-bottom:0 !important;
+  float:none !important;
+  /*display:inline-block;*/
+/*clear:left;*/
+}
+
+.site-branding-text {
+  /*border: 2px solid magenta; padding:10px !important; background: lime;*/
+}
+.menu-toggle:focus {outline:none;}
+
+
+.navigation-top {
+  display:block;
+}
+
+
+.site-branding a:hover, .site-branding a:focus {
+    opacity: 1;
+}
+a {color: purple; box-shadow:none !important; webkit-box-shadow:none !important;}
+a:hover {box-shadow:none !important; webkit-box-shadow:none !important;}
+.entry-title a {color: purple;}
+.entry-title a:hover,
+.entry-content a:hover {color: black; box-shadow:none !important; webkit-box-shadow:none !important;}
+.entry-content a {box-shadow:none !important; webkit-box-shadow:none !important;}
+
+
+h1.entry-title {color: purple; font-size: 36px !important;}
+
+.page h1.entry-title {
+  color: purple !important;
+  font-size: 36px !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-weight:normal !important;
+}
+.entry-header {margin:0 !important;}
+
+
+.entry-content li {margin-bottom:1em;}
+
+
+.extension-meta-footer {text-align:center;}
+.extension-meta-footer li {display:inline-block;}
+.extension-meta-footer li a {padding: 12px 10px;}
+
+.partner-icons {}
+/*.partner-icon {display:inline-block;width:23%; margin: 0 5%;}*/
+
+/*learn widget options*/
+.learn-widget-header {color: #7F3F98;}
+.learn-widget-header-specific {display:none;}
+.learn-widget-header-general {display:none;}
+
+.sidebar-learn-widget {background: #fff; margin: 0 0 20px;}
+.sidebar-learn-widget .learn-widget-wrapper {border:none; padding:0; margin:0;}
+.sidebar-learn-widget .learn-widget-see-more {margin-bottom:12px;}
+
+
+.entry-content a img, .widget a img {-webkit-box-shadow: none !important; box-shadow: none !important;}
+
+
+
+
+.custom-header {
+  /*border:2px solid magenta;*/
+  height: 240px !important;
+  background: #7f3f98;
+  overflow: hidden;
+  margin-bottom:0 !important;
+  text-align:center;
+  width:100% !important;
+  display:block !important;
+}
+#wp-custom-header {
+  margin: auto;
+  text-align:center;
+}
+.custom-header img {
+  position:absolute;
+  /*height:100%;*/
+  width:160%;
+  max-width: none !important;
+  margin: auto;
+  text-align:center;
+  position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+
+
+}
+
+.partner-icons {width:100%;
+  /*border: 1px solid lime; */
+  text-align:center;
+/*border-top: 10px solid #eee;*/
+padding: 40px 20px 20px;}
+.partner-icon {width:160px; text-align:center; margin: auto; padding: 0 20px 20px;
+/*border: 1px solid lime;*/
+}
+.partner-icon img {width: 160px;}
+
+.site-footer .widget-column.footer-widget-1 {width:100%;}
+
+/* Mobile first queries */
+/*===============================================================================================================================*/
+
+/* Larger than mobile */
+@media (min-width: 400px) {
+  .custom-header img {width:150%;}
+}
+
+/* Larger than phablet */
+@media (min-width: 550px) {
+  .custom-header img {width:140%;}
+  .partner-icon {display:inline-block; width:33%; margin: 0;
+    /*border: 1px solid red; */
+    padding:0;}
+}
+
+/* Larger than tablet */
+@media (min-width: 750px) {
+  .custom-header {height: 320px !important;}
+  .custom-header img {width:130%;}
+  .site-branding {width: 50% !important; float:left !important;}
+  .navigation-top {
+    display:inline-block;
+    width: 40% !important;
+    position: relative !important;
+    float:right;
+    padding-left:20px;
+  }
+  .partner-icon {display:inline-block; width:23%; margin: 0 5%;
+    /*border: 1px solid blue;*/
+  }
+  .partner-icon img {width: 140px;}
+}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {
+  .custom-header {height: 400px !important;}
+  .custom-header img {width:110%;}
+}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {
+  .custom-header {
+    height: 440px !important;
+    overflow:hidden;
+    margin-bottom:0 !important;
+  }
+  .custom-header img {width:100% !important;}
+}
