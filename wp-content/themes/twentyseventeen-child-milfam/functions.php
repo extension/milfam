@@ -51,3 +51,8 @@ function categorize_page_settings() {
 }
  // Add to the admin_init hook of your theme functions.php file
 add_action( 'init', 'categorize_page_settings' );
+
+add_action( 'init', 'my_add_excerpts_to_pages' );
+function my_add_excerpts_to_pages() {
+  add_post_type_support( 'page', 'excerpt' );
+}

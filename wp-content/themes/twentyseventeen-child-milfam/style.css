@@ -6,6 +6,21 @@ Template: twentyseventeen
 
 @import url("../twentyseventeen/style.css");
 
+#front-page .wrap {max-width: 900px;}
+.home-title {font-size: 24px; font-weight: bold; color: #7f3f98; text-align:center;}
+#main-splash-statement {font-size: 18px;}
+.homepage-module-wrapper {}
+.homepage-module {float:left; width: 50%; font-size: 16px;}
+.homepage-module .wrapper {padding: 0 20px;}
+.homepage-module .learn-widget-wrapper {border: 0;}
+.panel-content .wrap {
+  padding-top:3em;
+  padding-bottom:0;}
+.twentyseventeen-panel {border:0 !important;}
+.homepage-module h2 {color: #7f3f98; text-align:left;}
+.homepage-module h2 a {text-align:center; color: #7f3f98; display:block; background: #eee;padding: 1em;}
+
+
 
 .has-header-image.twentyseventeen-front-page .custom-header,
 .has-header-video.twentyseventeen-front-page .custom-header,
@@ -151,6 +166,8 @@ padding: 40px 20px 20px;}
 
 /* Larger than phablet */
 @media (min-width: 550px) {
+  .home-title {font-size: 30px;}
+  #main-splash-statement {font-size: 20px;}
   .custom-header img {width:140%;}
   .partner-icon {display:inline-block; width:33%; margin: 0;
     /*border: 1px solid red; */
@@ -159,6 +176,7 @@ padding: 40px 20px 20px;}
 
 /* Larger than tablet */
 @media (min-width: 750px) {
+  .home-title {font-size: 36px;}
   .custom-header {height: 320px !important;}
   .custom-header img {width:130%;}
   .site-branding {width: 50% !important; float:left !important;}
