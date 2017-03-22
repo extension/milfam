@@ -46,9 +46,8 @@ Template: twentyseventeen
 }
 .branding-and-menu .wrap {padding:0;}
 .branding-and-menu .site-branding {padding:0 2em 20px;}
+.main-navigation a {text-transform:uppercase;}
 
-
-.blah-test {background: orange;}
 .site-branding {
   padding:0;
   position:static !important;
@@ -184,14 +183,15 @@ padding: 40px 20px 20px;}
   .home-title {font-size: 36px;}
   .custom-header {height: 320px !important;}
   .custom-header img {width:130%;}
-  .site-branding {width: 50% !important; float:left !important;}
+  .site-branding {width: 45% !important; float:left !important;}
   .navigation-top {
     display:inline-block;
-    width: 40% !important;
+    width: 55% !important;
     position: relative !important;
     float:right;
     padding-left:20px;
   }
+  .main-navigation a {padding: 1em .75em}
   .partner-icon {display:inline-block; width:23%; margin: 0 5%;
     /*border: 1px solid blue;*/
   }
