@@ -159,6 +159,13 @@ padding: 40px 20px 20px;}
 
 .site-footer .widget-column.footer-widget-1 {width:100%;}
 
+.navigation-top {background:transparent;}
+.navigation-top-menu {background: #fff; padding-left:20px;}
+.navigation-top-search {padding: 10px 0 0;}
+.navigation-top-search .search-form button {background-color: #fff; color: #aaa;}
+.navigation-top-search .search-form input {border:#ccc;}
+
+
 /* Mobile first queries */
 /*===============================================================================================================================*/
 
@@ -189,13 +196,14 @@ padding: 40px 20px 20px;}
     width: 55% !important;
     position: relative !important;
     float:right;
-    padding-left:20px;
   }
   .main-navigation a {padding: 1em .75em}
   .partner-icon {display:inline-block; width:23%; margin: 0 5%;
     /*border: 1px solid blue;*/
   }
   .partner-icon img {width: 140px;}
+  .navigation-top-search {padding: 10px 0 0; float:right;}
+  .navigation-top-search .search-form {width: 16em; max-width: 21em;}
 }
 
 /* Larger than desktop */
