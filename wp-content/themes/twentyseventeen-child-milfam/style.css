@@ -6,6 +6,29 @@ Template: twentyseventeen
 
 @import url("../twentyseventeen/style.css");
 
+#front-page .wrap {max-width: 900px;}
+.home-title {font-size: 24px; font-weight: bold; color: #7f3f98; text-align:center;}
+#main-splash-statement {font-size: 18px;}
+.homepage-module-wrapper {}
+.homepage-module {font-size: 16px;}
+.homepage-module .wrapper {padding: 0 20px;}
+.homepage-module .learn-widget-wrapper {border: 0;}
+.panel-content .wrap {
+  padding-top:3em;
+  padding-bottom:0;}
+.twentyseventeen-panel {border:0 !important;}
+.homepage-module h2 {color: #7f3f98; text-align:left;}
+.homepage-module h2 a {text-align:center; color: #7f3f98; display:block; background: #eee;padding: 1em;}
+
+.home-quotes h2 {text-align:center; font-size:20px;
+  color: #7f3f98;
+font-weight:bold;
+}
+.home-quotes h3 {color: #7f3f98;font-style: italic;background: url(images/bg-quote.png) no-repeat;
+  margin: 10px;
+  padding: 30px 0 15px 60px;
+  font-size:18px;
+}
 
 .has-header-image.twentyseventeen-front-page .custom-header,
 .has-header-video.twentyseventeen-front-page .custom-header,
@@ -27,9 +50,8 @@ Template: twentyseventeen
 }
 .branding-and-menu .wrap {padding:0;}
 .branding-and-menu .site-branding {padding:0 2em 20px;}
+.main-navigation a {text-transform:uppercase;}
 
-
-.blah-test {background: orange;}
 .site-branding {
   padding:0;
   position:static !important;
@@ -141,6 +163,13 @@ padding: 40px 20px 20px;}
 
 .site-footer .widget-column.footer-widget-1 {width:100%;}
 
+.navigation-top {background:transparent;}
+.navigation-top-menu {background: #fff; padding-left:20px;}
+.navigation-top-search {padding: 10px 0 0;}
+.navigation-top-search .search-form button {background-color: #fff; color: #aaa;}
+.navigation-top-search .search-form input {border:#ccc;}
+
+
 /* Mobile first queries */
 /*===============================================================================================================================*/
 
@@ -151,28 +180,34 @@ padding: 40px 20px 20px;}
 
 /* Larger than phablet */
 @media (min-width: 550px) {
+  .home-title {font-size: 30px;}
+  #main-splash-statement {font-size: 20px;}
   .custom-header img {width:140%;}
-  .partner-icon {display:inline-block; width:33%; margin: 0;
-    /*border: 1px solid red; */
-    padding:0;}
+  .partner-icon {display:inline-block; width:33%; margin: 0;padding:0;}
+  .homepage-module {float:left; width: 50%; font-size: 16px;}
+  .homepage-module .wrapper {padding: 0 20px;}
+  .home-quotes h3 {margin: 30px;padding: 30px 60px;font-size:24px;}
 }
 
 /* Larger than tablet */
 @media (min-width: 750px) {
+  .home-title {font-size: 36px;}
   .custom-header {height: 320px !important;}
   .custom-header img {width:130%;}
-  .site-branding {width: 50% !important; float:left !important;}
+  .site-branding {width: 45% !important; float:left !important;}
   .navigation-top {
     display:inline-block;
-    width: 40% !important;
+    width: 55% !important;
     position: relative !important;
     float:right;
-    padding-left:20px;
   }
+  .main-navigation a {padding: 1em .75em}
   .partner-icon {display:inline-block; width:23%; margin: 0 5%;
     /*border: 1px solid blue;*/
   }
   .partner-icon img {width: 140px;}
+  .navigation-top-search {padding: 10px 0 0; float:right;}
+  .navigation-top-search .search-form {width: 16em; max-width: 21em;}
 }
 
 /* Larger than desktop */
