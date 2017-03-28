@@ -6,6 +6,8 @@ Template: twentyseventeen
 
 @import url("../twentyseventeen/style.css");
 
+.page-template-template-single-column #primary {width: 100% !important; max-width:900px !important;}
+
 #front-page .wrap {max-width: 900px;}
 .home-title {font-size: 24px; font-weight: bold; color: #7f3f98; text-align:center;}
 #main-splash-statement {font-size: 18px;}
@@ -201,6 +203,7 @@ padding: 40px 20px 20px;}
     position: relative !important;
     float:right;
   }
+  .page-template-template-single-column #primary {padding: 0 6em;}
   .main-navigation a {padding: 1em .75em}
   .partner-icon {display:inline-block; width:23%; margin: 0 5%;
     /*border: 1px solid blue;*/
