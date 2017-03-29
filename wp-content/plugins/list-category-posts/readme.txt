@@ -3,8 +3,8 @@ Contributors: fernandobt
 Donate Link: http://picandocodigo.net/programacion/wordpress/list-category-posts-wordpress-plugin-english/#support
 Tags: list, categories, posts, cms
 Requires at least: 3.3
-Tested up to: 4.7.2
-Stable tag: 0.71.1
+Tested up to: 4.7.3
+Stable tag: 0.72
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,7 +46,7 @@ You can find **Frequently Asked Questions** [here](https://github.com/picandocod
 
 **Customization**
 
-The different elements to display can be styled with CSS. you can define an HTML tag to wrap the element with, and a CSS class for this tag. Check [the documentation](https://github.com/picandocodigo/List-Category-Posts/wiki) for usage.
+The different elements to display can be styled with CSS. you can define an HTML tag to wrap the element with, and a CSS class for this tag. Check [the documentation](https://github.com/picandocodigo/List-Category-Posts/wiki) for usage. You can also check [this nice tutorial](http://sundari-webdesign.com/wordpress-the-quest-to-my-perfect-list-view-for-posts-events-and-articles/) which gives lots of tips and how-to's to customize how to display the posts.
 
 Great to use WordPress as a CMS, and create pages with several categories posts.
 
@@ -65,10 +65,9 @@ to be aware of new functionality, and improvements to the plugin.
 
 **Videos**
 
-Some users have made videos on how to use the plugin, (thank you! you people are awesome!). Check them out here:
+Some users have made videos on how to use the plugin (thank you, you are awesome!), check them out here:
 
  * [Manage WordPress Content with List Category Posts Plugin](http://www.youtube.com/watch?v=kBy_qoGKpdo)
- * [Build A Start Here Page with List Category Posts](http://www.youtube.com/watch?v=9YJpZfHIwIY)
  * [WordPress: How to List Category Posts on a Page](http://www.youtube.com/watch?v=Zfnzk4IWPNA)
 
 **Support the plugin**
@@ -175,7 +174,7 @@ When using List Category Posts whithout a category id, name or slug, it will pos
 * **post_parent** - Show only the children of the post with this ID.
     Default: None.
 
-* **custom fields** - To use custom fields, you must specify two values: customfield_name and customfield_value. Using this only show posts that contain a custom field with this name and value. Both parameters must be defined, or neither will work.
+* **custom fields** - To use custom fields, you must specify two values: customfield_name and customfield_value. `customfield_name` defines the name of the field, and you should choose the values for which you want posts to display. Using this only show posts that contain a custom field with this name and value. Both parameters must be defined, or neither will work. Eg: `[catlist customfield_name="color" customfield_value="green"]` will display posts with the value `green` set on the custom field `color`.
 
 ==PAGINATION
 
@@ -416,7 +415,7 @@ You can post them on [GitHub Issues](https://github.com/picandocodigo/List-Categ
 
 **FURTHER QUESTIONS**
 
-For questions either use the [Support forum](http://wordpress.org/support/plugin/list-category-posts) or [WordPress Answers](http://wordpress.stackexchange.com/) (just [ask your question](http://wordpress.stackexchange.com/questions/ask?tags=plugin-list-category-posts) using the 'plugin-list-category-post' tag).
+Please check the [FAQ](https://github.com/picandocodigo/List-Category-Posts/blob/master/doc/FAQ.md#frequently-asked-questions) before posting a question. You can post questions in the [Support forum](http://wordpress.org/support/plugin/list-category-posts) or [add a new issue on GitHub](https://github.com/picandocodigo/List-Category-Posts/issues).
 
 == Upgrade Notice ==
 
@@ -457,6 +456,20 @@ Widget built for WordPress 2.8's Widget API, so you need at least WP 2.8 to use 
 Template system has changed. Custom templates should be stored in WordPress theme folder.
 
 == Changelog ==
+
+= 0.72 =
+
+Several bug fixes:
+
+* Makes sure the `tags_as_class` instance variable is defined. This squelched an 'undefined index' PHP Notice that appeared for widgets that were last saved before upgrading to 0.71.1. Fix by Matthew Eppelsheimer (@MatthewEppelsheimer on GitHub).
+* Adds a new tutorial in the docs, check it out!
+* Fixes a bug where customfield_value wouldn't work if a custom field's value = 0
+* Adds tag/class html customization refactor to excerpt to behave as expected:
+    * If you provide `excerpt_tag` but not `excerpt_class`, excerpt will be wrapped with given tag.
+    * If you provide `excerpt_tag` and `excerpt_class`, excerpt will be wrapped with provided tag and given class.
+    * If you provide `excerpt_class` but not `excerpt_tag`, excerpt will be wrapped with a span and the given class.
+* Fixes an error notice when widget is displayed for "current category" on post without category - `Notice: Undefined offset: 0 in /include/lcp-category.php on line 69`
+
 
 = 0.71.1 =
 
