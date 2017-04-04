@@ -87,7 +87,7 @@ class Page_Level_Social_Media_Widget extends WP_Widget {
             'page_level_social_media_widget',
 
             // name of the widget
-            __('page level social media widget'),
+            __('Social media links: Page specific'),
 
             // widget options
             array (
@@ -100,7 +100,7 @@ class Page_Level_Social_Media_Widget extends WP_Widget {
 
     function form( $instance ) {
       // placeholder to add a default learn.extension.org tag later
-      echo "<p>This widget is configured on the page which displays this sidebar. The widget tag(s) and title can be set there.</p>";
+      echo "<p>Displays links for Facebook, Twitter, Linkedin and YouTube. Social media URLs are defined on the page which displays this sidebar.</p>";
     }
 
     function widget( $args, $instance ) {
