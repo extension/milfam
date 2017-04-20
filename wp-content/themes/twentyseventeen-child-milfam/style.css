@@ -171,6 +171,9 @@ padding: 40px 20px 20px;}
 .navigation-top-search .search-form button {background-color: #fff; color: #aaa;}
 .navigation-top-search .search-form input {border:#ccc;}
 
+.social-media-list li {list-style:none; display: inline-block; margin: 0 10px 0 0;}
+.social-media-item {width: 48px;}
+
 
 /* Mobile first queries */
 /*===============================================================================================================================*/
