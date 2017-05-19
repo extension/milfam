@@ -174,6 +174,8 @@ padding: 40px 20px 20px;}
 .social-media-list li {list-style:none; display: inline-block; margin: 0 10px 0 0;}
 .social-media-item {width: 48px;}
 
+.wp-audio-shortcode {padding-top: 50px; margin-bottom: 40px; width:auto !important; height:auto !important; background: transparent !important;}
+
 
 /* Mobile first queries */
 /*===============================================================================================================================*/
