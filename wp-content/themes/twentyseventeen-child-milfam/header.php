@@ -27,6 +27,19 @@
 	<a class="skip-link screen-reader-text" href="#content"><?php _e( 'Skip to content', 'twentyseventeen' ); ?></a>
 
 	<header id="masthead" class="site-header" role="banner">
+    <div class="wrap">
+      <div class="primary-logo">
+        <?php the_custom_logo(); ?>
+      </div>
+      <div class="primary-tagline">
+        <?php $description = get_bloginfo( 'description', 'display' );
+          if ( $description || is_customize_preview() ) : ?>
+            <p class="site-description"><?php echo $description; ?></p>
+        <?php endif; ?>
+      </div>
+    </div><!-- .wrap -->
+
+
 
     <div class="custom-header">
       <?php the_custom_header_markup(); ?>
@@ -34,21 +47,10 @@
 
     <div class="branding-and-menu">
       <div class="wrap">
-      <div class="site-branding">
-      	<!-- <div class="wrap"> -->
-      		<?php the_custom_logo(); ?>
-          <?php $description = get_bloginfo( 'description', 'display' );
-            if ( $description || is_customize_preview() ) : ?>
-              <p class="site-description"><?php echo $description; ?></p>
-            <?php endif; ?>
-      	<!-- </div> -->
-        <!-- .wrap -->
-      </div><!-- .site-branding -->
 
       <?php if ( has_nav_menu( 'top' ) ) : ?>
   			<div class="navigation-top">
-          <div class="navigation-top-menu">
-            <nav id="site-navigation" class="main-navigation" role="navigation" aria-label="<?php _e( 'Top Menu', 'twentyseventeen' ); ?>">
+          <div class="navigation-top-menu"><nav id="site-navigation" class="main-navigation" role="navigation" aria-label="<?php _e( 'Top Menu', 'twentyseventeen' ); ?>">
             	<button class="menu-toggle" aria-controls="top-menu" aria-expanded="false"><?php echo twentyseventeen_get_svg( array( 'icon' => 'bars' ) ); echo twentyseventeen_get_svg( array( 'icon' => 'close' ) ); _e( 'Menu', 'twentyseventeen' ); ?></button>
               <!-- <div id="amobile-nav"> -->
             	<?php wp_nav_menu( array(
