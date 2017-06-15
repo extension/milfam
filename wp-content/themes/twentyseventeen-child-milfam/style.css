@@ -153,28 +153,15 @@ h1.entry-title {color: purple; font-size: 36px !important;}
 
 }
 
-.partner-icons {width:100%;
-  /*border: 1px solid lime; */
-  text-align:center;
-/*border-top: 10px solid #eee;*/
-padding: 40px 20px 20px;}
-.partner-icon {width:160px; text-align:center; margin: auto; padding: 0 20px 20px;
-/*border: 1px solid lime;*/
-}
+.partner-icons {width:100%;text-align:center;padding: 40px 20px 20px;}
+.partner-icon {width:160px; text-align:center; margin: auto; padding: 0 20px 20px;}
 .partner-icon img {width: 160px;}
 
 .site-footer .widget-column.footer-widget-1 {width:100%;}
 
 .navigation-top {background:transparent;}
-.navigation-top-menu {
-  /*background: #fff; */
-  padding-left:20px;
-float:left;
-/*border:1px solid blue;*/
-}
-.navigation-top-search {padding: 0;
-  /*border:1px solid lime;*/
-}
+.navigation-top-menu {padding-left:20px;}
+.navigation-top-search {padding: 0;}
 .navigation-top-search .search-form button {background-color: #fff; color: #aaa;}
 .navigation-top-search .search-form input {border:#ccc;}
 
@@ -186,11 +173,11 @@ float:left;
 .primary-logo {height: 80px; text-align:center;}
 .primary-logo .custom-logo-link img {height: 70px; padding: 5px;}
 .primary-tagline {}
-.site-description {color: #666 !important; font-size:13px; letter-spacing:1px; margin-bottom:10px;}
-/*.navigation-top {border: 1px solid red;}*/
+.site-description {color: #666 !important; font-size:13px; letter-spacing:1px; margin-bottom:10px; text-align:center;}
 
 .search-form .search-submit .icon {height: 20px !important;}
 .search-form label {margin:0;}
+
 /* Mobile first queries */
 /*===============================================================================================================================*/
 
@@ -208,10 +195,13 @@ float:left;
   .homepage-module {float:left; width: 50%; font-size: 16px;}
   .homepage-module .wrapper {padding: 0 20px;}
   .home-quotes h3 {margin: 30px;padding: 30px 60px;font-size:24px;}
+  .navigation-top-menu {float:left;}
   .primary-logo {float:left; height: 90px;}
   .primary-logo .custom-logo-link img {height: 90px; padding: 10px;}
   .primary-tagline {float:right; height: 90px;  line-height:90px;}
   .site-description {color: #666 !important; font-size:18px; letter-spacing:1px;}
+  .navigation-top-search {float:right;}
+  .navigation-top-search .search-form {width: 16em; max-width: 21em;}
 }
 
 /* Larger than tablet */
@@ -219,12 +209,9 @@ float:left;
   .home-title {font-size: 36px;}
   .custom-header {height: 320px !important;}
   .custom-header img {width:130%;}
-  .site-branding {width: 45% !important; float:left !important;}
   .navigation-top {
     display:inline-block;
-    /*width: 55% !important;*/
     position: relative !important;
-    /*float:right;*/
   }
   .page-template-template-single-column #primary {padding: 0 6em;}
   .main-navigation a {padding: 1em .75em}
@@ -232,9 +219,7 @@ float:left;
     /*border: 1px solid blue;*/
   }
   .partner-icon img {width: 140px;}
-  .navigation-top-search {float:right;}
-  .navigation-top-search .search-form {width: 16em; max-width: 21em;}
-  /*.navigation-top-search form {border: 1px solid magenta;}*/
+
 }
 
 /* Larger than desktop */
