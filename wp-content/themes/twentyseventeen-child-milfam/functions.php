@@ -115,3 +115,78 @@ function twentyseventeen_entry_footer() {
 		echo '</footer> <!-- .entry-footer -->';
 	}
 }
+
+
+
+/**
+ * Create a shortcode to insert content of a page of specified slug
+ */
+function insertPersonProfile($atts, $content = null) {
+  // Default output if no pageid given
+  $output = NULL;
+
+  // extract atts and assign to array
+  extract(shortcode_atts(array(
+    "template" => 'list', // default value could be placed here
+    "name" => '',
+    "category_name" => ''
+  ), $atts));
+
+
+  // make sure we aren't calling both id and cat at the same time
+		if ( isset( $name ) && $name != '' && isset( $category_name ) && $category_name != '' ) {
+			return "<p>People Directory error: You cannot set both a single person's name and a category name. Please choose one or the other.</p>";
+		}
+
+		$query_args = array(
+			'post_type'      => 'staff',
+			'posts_per_page' => - 1
+		);
+
+		// check if it's a single staff member first, since single members won't be ordered
+		if ( ( isset( $name ) && $name != '' ) && ( ! isset( $category_name ) || $category_name == '' ) ) {
+			$query_args['name'] = $name;
+		}
+		// ends single staff
+
+		// check if we're returning a staff category
+		if ( ( isset( $category_name ) && $category_name != '' ) && ( ! isset( $name ) || $name == '' ) ) {
+            $cats_query = array();
+
+            $cats = explode( ',', $category_name );
+
+            if (count($cats) > 1) {
+                $cats_query['relation'] = $params['cat_relation'];
+            }
+
+            foreach ($cats as $cat) {
+                $cats_query[] = array(
+                    'taxonomy' => 'staff_category',
+                    'terms'    => $cat,
+                    'field'    => "name"
+                );
+            }
+
+            $query_args['tax_query'] = $cats_query;
+		}
+
+		if ( isset( $orderby ) && $orderby != '' ) {
+			$query_args['orderby'] = $orderby;
+		}
+		if ( isset( $order ) && $order != '' ) {
+			$query_args['order'] = $order;
+		}
+
+    // print_r($query_args);
+
+    $pageContent = new WP_query( $query_args );
+    // echo $pageContent->request;
+    while ($pageContent->have_posts()) : $pageContent->the_post();
+      get_template_part( 'template-parts/staff/' . $template );
+      // $output = get_the_content();
+    endwhile;
+
+
+  return $output;
+}
+add_shortcode('people_directory', 'insertPersonProfile');
