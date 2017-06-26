@@ -44,13 +44,11 @@ function  register_custom_sidebars() {
 	);
 }
 
-
+add_action( 'init', 'categorize_page_settings' );
 function categorize_page_settings() {
   // Add category metabox to page
   register_taxonomy_for_object_type('category', 'page');
 }
- // Add to the admin_init hook of your theme functions.php file
-add_action( 'init', 'categorize_page_settings' );
 
 add_action( 'init', 'my_add_excerpts_to_pages' );
 function my_add_excerpts_to_pages() {
@@ -163,7 +161,7 @@ function insertPersonProfile($atts, $content = null) {
                 $cats_query[] = array(
                     'taxonomy' => 'staff_category',
                     'terms'    => $cat,
-                    'field'    => "name"
+                    'field'    => "slug"
                 );
             }
 
@@ -177,10 +175,10 @@ function insertPersonProfile($atts, $content = null) {
 			$query_args['order'] = $order;
 		}
 
-    // print_r($query_args);
+    // echo "<p>" . print_r($query_args) . "</p>";
 
     $pageContent = new WP_query( $query_args );
-    // echo $pageContent->request;
+    // echo "<p>" . $pageContent->request . "</p>";
     while ($pageContent->have_posts()) : $pageContent->the_post();
       get_template_part( 'template-parts/staff/' . $template );
       // $output = get_the_content();
@@ -190,3 +188,16 @@ function insertPersonProfile($atts, $content = null) {
   return $output;
 }
 add_shortcode('people_directory', 'insertPersonProfile');
+
+
+add_shortcode("mutliline", "convert_multiline");
+function convert_multiline($atts) {
+    $field = $atts["field"];
+    $newContent = "";
+
+    if(!empty($field)) {
+        $newContent = nl2br($field);
+    }
+
+    return $newContent;
+}
