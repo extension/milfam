@@ -12,7 +12,8 @@ Template: twentyseventeen
 
 .people_directory-gallery {float:left; margin-bottom:10px;width:100%;}
 .people_directory-gallery .individual-person {float: left; margin:10px;}
-.people_directory-gallery .individual-person .individual-person-thumb {width:150px;height:150px; display:block; background:#eee;}
+.people_directory-gallery .individual-person .individual-person-thumb {width:150px;height:150px; display:block; background:#eee; overflow:hidden;}
+.people_directory-gallery .individual-person img {width:100%;}
 
 .people_directory-list .person-directory-wrapper-list {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px;}
 .people_directory-list .person-directory-wrapper-list ul li {list-style:none; margin:0;}
