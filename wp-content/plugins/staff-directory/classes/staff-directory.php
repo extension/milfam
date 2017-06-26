@@ -48,7 +48,8 @@ class Staff_Directory {
 				),
 				'public'     => true,
 				'menu_icon'  => 'dashicons-groups',
-				'taxonomies' => array( 'staff_category' )
+        'taxonomies' => array( 'staff_category' ),
+        'rewrite' => array('slug' => 'people', 'with_front' => false)
 			)
 		);
 	}
@@ -176,6 +177,7 @@ class Staff_Directory {
 	}
 
 	static function remove_media_buttons() {
+    if ( !function_exists('get_current_screen') ) return;
 		$screen = get_current_screen();
 		if ( $screen->post_type == 'staff' ) {
 			remove_action( 'media_buttons', 'media_buttons' );
@@ -603,6 +605,6 @@ EOT;
             );
           }
         }
-    } 
+    }
 	}
 }
