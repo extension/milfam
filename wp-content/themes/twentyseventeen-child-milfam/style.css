@@ -20,6 +20,19 @@ Template: twentyseventeen
 .people_directory-list .person-directory-wrapper-list .person-name {margin:0; padding:0; }
 .people_directory-list .person-directory-wrapper-list .person-position {font-weight:bold;}
 
+.people_directory-facilitators {margin-bottom:20px; float:left;}
+.people_directory-facilitators .individual-person {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px; float:left;
+/*border:1px solid lime;*/
+width:100%;
+}
+.people_directory-facilitators .individual-person .person-name {margin:0; padding:0; }
+.col_one {float:left;
+  /*border:1px solid red;*/
+  width:25%;}
+.col_two {float:right;
+  /*border:1px solid blue;*/
+  width:72%;}
+
 #front-page .wrap {max-width: 900px;}
 .home-title {font-size: 24px; font-weight: bold; color: #7f3f98; text-align:center;}
 #main-splash-statement {font-size: 18px;}

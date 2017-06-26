@@ -15,7 +15,7 @@
 <div id="content_staff_profile">
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
-		<h1 class="entry-title"><?php echo the_title(); ?> <?php echo do_shortcode("[credentials]"); ?></h1>
+		<h1 class="entry-title"><?php echo the_title(); ?><?php echo do_shortcode("[credentials]"); ?></h1>
 		<?php twentyseventeen_edit_link( get_the_ID() ); ?>
 	</header><!-- .entry-header -->
 	<div class="entry-content">
@@ -33,7 +33,7 @@
     <?php if(do_shortcode("[name]")): ?>
         <h2>
             <i class="fa fa-user" aria-hidden="true"></i>
-            <?php echo the_title(); ?> <?php echo do_shortcode("[credentials]"); ?>
+            <?php echo the_title(); ?><?php echo do_shortcode("[credentials]"); ?>
         </h2>
     <?php endif; ?>
 
