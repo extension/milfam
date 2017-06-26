@@ -10,6 +10,15 @@ Template: twentyseventeen
 .person-position {padding-top:0;}
 .page-template-template-single-column #primary {width: 100% !important; max-width:900px !important;}
 
+.people_directory-gallery {float:left; margin-bottom:10px;width:100%;}
+.people_directory-gallery .individual-person {float: left; margin:10px;}
+.people_directory-gallery .individual-person .individual-person-thumb {width:150px;height:150px; display:block; background:#eee;}
+
+.people_directory-list .person-directory-wrapper-list {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px;}
+.people_directory-list .person-directory-wrapper-list ul li {list-style:none; margin:0;}
+.people_directory-list .person-directory-wrapper-list .person-name {margin:0; padding:0; }
+.people_directory-list .person-directory-wrapper-list .person-position {font-weight:bold;}
+
 #front-page .wrap {max-width: 900px;}
 .home-title {font-size: 24px; font-weight: bold; color: #7f3f98; text-align:center;}
 #main-splash-statement {font-size: 18px;}

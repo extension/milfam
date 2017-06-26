@@ -179,13 +179,16 @@ function insertPersonProfile($atts, $content = null) {
 
     $pageContent = new WP_query( $query_args );
     // echo "<p>" . $pageContent->request . "</p>";
+
+    $output .= "<div class='people_directory-" . $template . "'>";
+    ob_start();
     while ($pageContent->have_posts()) : $pageContent->the_post();
       get_template_part( 'template-parts/staff/' . $template );
       // $output = get_the_content();
     endwhile;
-
-
-  return $output;
+    $output .= ob_get_clean();
+    $output .= "</div>";
+    return $output;
 }
 add_shortcode('people_directory', 'insertPersonProfile');
 

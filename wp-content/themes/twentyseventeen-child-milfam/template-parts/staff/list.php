@@ -1,10 +1,3 @@
-<style type="text/css">
-  .person-directory-wrapper-list {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px;}
-  .person-directory-wrapper-list ul li {list-style:none; margin:0;}
-  .person-directory-wrapper-list .person-name {margin:0; padding:0;}
-  .person-directory-wrapper-list .person-position {font-weight:bold;}
-</style>
-
 <div class="person-directory-wrapper-list">
   <?php if (has_post_thumbnail( $post->ID ) ){
     $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ) );
