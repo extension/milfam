@@ -39,7 +39,7 @@ class Staff_Directory {
 		register_post_type( 'staff',
 			array(
 				'labels'     => array(
-					'name' => __( 'Staff' )
+					'name' => __( 'People' )
 				),
 				'supports'   => array(
 					'title',
@@ -58,17 +58,17 @@ class Staff_Directory {
 		register_taxonomy( 'staff_category', 'staff', array(
 			'hierarchical' => true,
 			'labels'       => array(
-				'name'              => _x( 'Staff Category', 'taxonomy general name' ),
+				'name'              => _x( 'People Category', 'taxonomy general name' ),
 				'singular_name'     => _x( 'staff-category', 'taxonomy singular name' ),
-				'search_items'      => __( 'Search Staff Categories' ),
-				'all_items'         => __( 'All Staff Categories' ),
-				'parent_item'       => __( 'Parent Staff Category' ),
-				'parent_item_colon' => __( 'Parent Staff Category:' ),
-				'edit_item'         => __( 'Edit Staff Category' ),
-				'update_item'       => __( 'Update Staff Category' ),
-				'add_new_item'      => __( 'Add New Staff Category' ),
-				'new_item_name'     => __( 'New Staff Category Name' ),
-				'menu_name'         => __( 'Staff Categories' ),
+				'search_items'      => __( 'Search People Categories' ),
+				'all_items'         => __( 'All People Categories' ),
+				'parent_item'       => __( 'Parent People Category' ),
+				'parent_item_colon' => __( 'Parent People Category:' ),
+				'edit_item'         => __( 'Edit People Category' ),
+				'update_item'       => __( 'Update People Category' ),
+				'add_new_item'      => __( 'Add New People Category' ),
+				'new_item_name'     => __( 'New People Category Name' ),
+				'menu_name'         => __( 'People Categories' ),
 			),
 			'rewrite'      => array(
 				'slug'         => 'staff-categories',
@@ -170,7 +170,7 @@ class Staff_Directory {
 	static function staff_title_text( $title ) {
 		$screen = get_current_screen();
 		if ( $screen->post_type == 'staff' ) {
-			$title = "Enter staff member's name";
+			$title = "Enter person's name";
 		}
 
 		return $title;
@@ -185,7 +185,7 @@ class Staff_Directory {
 	}
 
 	static function add_staff_custom_meta_boxes() {
-		add_meta_box( 'staff-meta-box', __( 'Staff Details' ), array(
+		add_meta_box( 'staff-meta-box', __( 'Person Details' ), array(
 			'Staff_Directory',
 			'staff_meta_box_output'
 		), 'staff', 'normal', 'high' );
@@ -571,7 +571,7 @@ EOT;
     if($post_type == 'staff'){
 
       $staff_category_args = array(
-        'show_option_all'   => 'All Staff Categories',
+        'show_option_all'   => 'All People Categories',
         'orderby'           => 'ID',
         'order'             => 'ASC',
         'name'              => 'staff_category_admin_filter',
