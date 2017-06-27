@@ -1,11 +1,10 @@
 <?php
 /*
-Plugin Name: Staff Directory
-Plugin URI: https://wordpress.org/plugins/staff-directory/
-Description: Allows Wordpress to keep track of your staff directory for your website. Good for churches, small companies, etc.
+Plugin Name: Staff Directory eXtension
+Description: Allows Wordpress to keep track of your staff directory for your website. Good for churches, small companies, etc. This version is modifed from Adam Tootle's  https://wordpress.org/plugins/staff-directory/
 Version: 1.1.2
-Author: Adam Tootle
-Author URI: http://www.adamtootle.com
+Author: eXtension
+Author URI: eXtension.org
 */
 
 global $wpdb;
