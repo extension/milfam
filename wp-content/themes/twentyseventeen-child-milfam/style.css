@@ -49,17 +49,37 @@ Template: twentyseventeen
 .people_directory-list .person-directory-wrapper-list .person-name {margin:0; padding:0; }
 .people_directory-list .person-directory-wrapper-list .person-position {font-weight:bold;}
 
-.people_directory-facilitators {margin-bottom:20px; float:left;}
+/* facilitators template */
+.individual-person-thumb-wrapper{
+	position: relative;
+	width: 100%;		/* desired width */
+}
+.individual-person-thumb-wrapper:before{
+	content: "";
+	display: block;
+	padding-top: 100%; 	/* initial ratio of 1:1*/
+}
+.individual-person-thumb{
+	position:  absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.people_directory-facilitators {margin-bottom:20px; float:left; width:100%;}
 .people_directory-facilitators .individual-person {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px; float:left;
-/*border:1px solid lime;*/
 width:100%;
 }
-.people_directory-facilitators .individual-person .person-name {margin:0; padding:0; }
-.people_directory-facilitators .individual-person .individual-person-thumb {width:150px;height:150px; display:block; background:#eee; overflow:hidden;}
+.people_directory-facilitators .individual-person .individual-person-thumb {width:100%;display:block; background:#eee; overflow:hidden; }
 .people_directory-facilitators .individual-person img {width:100%;}
-.people_directory-facilitators .person-name {font-size: 18px;}
-.col_one {float:left;width:25%;}
-.col_two {float:right;width:72%;}
+.people_directory-facilitators .person-name {font-size: 18px; margin:6px 0 0; padding:0;}
+.col_one {float:left;width:25%;
+  /*border:1px solid blue;*/
+}
+.col_two {float:right;width:72%;
+  /*border:1px solid red;*/
+}
 
 #front-page .wrap {max-width: 900px;}
 .home-title {font-size: 24px; font-weight: bold; color: #7f3f98; text-align:center;}
