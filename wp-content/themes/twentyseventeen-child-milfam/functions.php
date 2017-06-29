@@ -204,3 +204,13 @@ function convert_multiline($atts) {
 
     return $newContent;
 }
+
+add_shortcode( 'gallery_start', 'galleryStart' );
+function galleryStart() {
+  return '<div class="person-directory-gallery-wrapper">';
+}
+
+add_shortcode( 'gallery_end', 'galleryEnd' );
+function galleryEnd() {
+  return '</div>';
+}

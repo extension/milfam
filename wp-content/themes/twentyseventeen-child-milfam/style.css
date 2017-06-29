@@ -10,10 +10,39 @@ Template: twentyseventeen
 .person-position {padding-top:0;}
 .page-template-template-single-column #primary {width: 100% !important; max-width:900px !important;}
 
-.people_directory-gallery {float:left; margin-bottom:10px;width:100%;}
-.people_directory-gallery .individual-person {float: left; margin:10px;}
+/* gallery_start wrapper */
+.person-directory-gallery-wrapper {
+  /*border: 1px solid magenta; */
+  float:left; width:100%;
+  margin-bottom:30px;
+  /*padding-top:20px;*/
+/*border-bottom:1px solid #ccc;*/
+/*border-top:1px solid #ccc;*/
+}
+.person-directory-gallery-wrapper br {display:none;}
+
+/*This acts as the outside wrapper for a category-based gallery */
+.people_directory-gallery {float:left;
+  /*border-bottom:1px solid #ccc; */
+  width:100%; margin-bottom:30px;}
+
+/*Here we need to reset styles for this element because it's no longer the outside wrapper for individual gallery listings */
+.person-directory-gallery-wrapper .people_directory-gallery {width:auto; margin:0;border:none;}
+
+.people_directory-gallery .individual-person {
+  float: left;
+  margin:10px;
+  width:150px;
+  /*border:1px solid lime;*/
+  height: 190px;
+  display:block;
+  line-height:1.2em;
+}
 .people_directory-gallery .individual-person .individual-person-thumb {width:150px;height:150px; display:block; background:#eee; overflow:hidden;}
+.people_directory-gallery .individual-person .person-name {margin-top:5px;}
 .people_directory-gallery .individual-person img {width:100%;}
+
+
 
 .people_directory-list .person-directory-wrapper-list {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px;}
 .people_directory-list .person-directory-wrapper-list ul li {list-style:none; margin:0;}
@@ -26,12 +55,11 @@ Template: twentyseventeen
 width:100%;
 }
 .people_directory-facilitators .individual-person .person-name {margin:0; padding:0; }
-.col_one {float:left;
-  /*border:1px solid red;*/
-  width:25%;}
-.col_two {float:right;
-  /*border:1px solid blue;*/
-  width:72%;}
+.people_directory-facilitators .individual-person .individual-person-thumb {width:150px;height:150px; display:block; background:#eee; overflow:hidden;}
+.people_directory-facilitators .individual-person img {width:100%;}
+.people_directory-facilitators .person-name {font-size: 18px;}
+.col_one {float:left;width:25%;}
+.col_two {float:right;width:72%;}
 
 #front-page .wrap {max-width: 900px;}
 .home-title {font-size: 24px; font-weight: bold; color: #7f3f98; text-align:center;}
