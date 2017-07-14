@@ -177,17 +177,18 @@ function insertPersonProfile($atts, $content = null) {
 
     // echo "<p>" . print_r($query_args) . "</p>";
 
-    $pageContent = new WP_query( $query_args );
+    $customQuery = new WP_query( $query_args );
     // echo "<p>" . $pageContent->request . "</p>";
 
     $output .= "<div class='people_directory-" . $template . "'>";
     ob_start();
-    while ($pageContent->have_posts()) : $pageContent->the_post();
+    while ($customQuery->have_posts()) : $customQuery->the_post();
       get_template_part( 'template-parts/staff/' . $template );
       // $output = get_the_content();
     endwhile;
     $output .= ob_get_clean();
     $output .= "</div>";
+    wp_reset_postdata();
     return $output;
 }
 add_shortcode('people_directory', 'insertPersonProfile');
