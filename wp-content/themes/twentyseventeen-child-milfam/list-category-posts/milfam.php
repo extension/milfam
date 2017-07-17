@@ -108,7 +108,7 @@ endwhile;
 $lcp_display_output .= '</ul>';
 
 // If there's a "more link", show it:
-$lcp_display_output .= '<br />' . $this->get_morelink();
+$lcp_display_output .= '<br /><strong>' . $this->get_morelink() . "</strong>";
 
 // Get category posts count
 $lcp_display_output .= $this->get_category_count();
