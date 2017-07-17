@@ -63,14 +63,14 @@ function ssp_add_categories_to_podcast () {
 
 add_filter('pre_get_posts', 'query_post_type');
 function query_post_type($query) {
-  if( is_category() ) {
+  if( is_category() && $query->is_main_query() ) {
     $post_type = get_query_var('post_type');
     if($post_type)
         $post_type = $post_type;
     else
         $post_type = array('post', 'podcast');
-    $query->set('post_type',$post_type);
-    return $query;
+        $query->set('post_type',$post_type);
+        return $query;
     }
 }
 
@@ -214,4 +214,14 @@ function galleryStart() {
 add_shortcode( 'gallery_end', 'galleryEnd' );
 function galleryEnd() {
   return '</div>';
+}
+
+add_action( 'pre_get_posts', 'blog_page_size', 1 );
+function blog_page_size( $query ) {
+    if ( is_admin() || ! $query->is_main_query() )
+        return;
+    if ( $query->is_home() && $query->is_main_query() ) {
+        $query->set( 'posts_per_page', 2 );
+        return;
+    }
 }
