@@ -4,7 +4,7 @@
     Plugin URI: http://www.rabinek.pl/simple-social-buttons-wordpress/
     Description: Insert social buttons into posts and archives: Facebook "Like it", Google Plus One "+1", Twitter share and Pinterest.
     Author: Paweł Rabinek
-    Version: 1.7.8
+    Version: 1.7.10
     Author URI: http://www.rabinek.pl/
 */
 
@@ -35,7 +35,7 @@
 
 class SimpleSocialButtonsPR {
 	var $pluginName = 'Simple Social Buttons';
-	var $pluginVersion = '1.7.7';
+	var $pluginVersion = '1.7.10';
 	var $pluginPrefix = 'ssb_pr_';
 	var $hideCustomMetaKey = '_ssb_hide';
    
@@ -453,8 +453,8 @@ class SimpleSocialButtonsPR_Admin extends SimpleSocialButtonsPR {
 	}
 
 	public function admin_actions() {
-		if (current_user_can('install_plugins')) 
-    		add_options_page('Simple Social Buttons ', 'Simple Social Buttons ', "install_plugins", 'simple-social-buttons', array(&$this, 'admin_page') );
+		if (current_user_can('activate_plugins')) 
+    		add_options_page('Simple Social Buttons ', 'Simple Social Buttons ', "activate_plugins", 'simple-social-buttons', array(&$this, 'admin_page') );
 	}
 
 	public function admin_page() {

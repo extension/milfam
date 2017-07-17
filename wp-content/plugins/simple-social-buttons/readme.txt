@@ -3,8 +3,8 @@ Contributors: xradar
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=UD823RE2F623Q&lc=US&item_name=WP%20Simple%20Social%20Buttons&item_number=Support%20Open%20Source&no_note=1&no_shipping=1&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
 Requires at least: 2.8
-Tested up to: 3.8
-Stable tag: 1.7.8
+Tested up to: 4.8
+Stable tag: 1.7.10
 
 Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
@@ -44,8 +44,8 @@ Simple Social Buttons is currently in the following languages:
 - Thai 
 - Ukrainian 
 
-For more information about Wordpress and SEO, visit my blog [Rabinek.pl](http://www.rabinek.pl/ "Paweł Rabinek - Blog SEO") (in polish) and my company [RedSEO](http://www.redseo.pl/ "RedSEO") (in polish).
-Also check my free SEO audit tool [Seoptimer.com - Website Review](http://www.seoptimer.com/ "Free SEO Audit tool").
+Check out my blog [Paweł Rabinek](http://www.rabinek.pl/) and my company [Redseo](https://redseo.pl/) (in polish).
+
 
 == Installation ==
 
@@ -87,7 +87,7 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 
 = Who helped to improve Simple Social Buttons? = 
 
-**Big thanks to:** 
+Big thanks to: 
 
 - Karol from [LigaBBVA.pl](http://www.ligabbva.pl/ "Liga hiszpańska BBVA") for PHP developement
 - [@RhooManu](http://twitter.com/RhooManu "RhooManu on Twitter") for french translation
@@ -201,3 +201,6 @@ Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" 
 
 = 1.7.8 =
 * Fixed PHP warning
+
+= 1.7.9 =
+* Fixed users permission
