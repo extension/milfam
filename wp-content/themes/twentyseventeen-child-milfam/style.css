@@ -6,7 +6,80 @@ Template: twentyseventeen
 
 @import url("../twentyseventeen/style.css");
 
+#content_staff_profile .simplesocialbuttons {display:none;}
+.person-position {padding-top:0;}
 .page-template-template-single-column #primary {width: 100% !important; max-width:900px !important;}
+
+/* gallery_start wrapper */
+.person-directory-gallery-wrapper {
+  /*border: 1px solid magenta; */
+  float:left; width:100%;
+  margin-bottom:30px;
+  /*padding-top:20px;*/
+/*border-bottom:1px solid #ccc;*/
+/*border-top:1px solid #ccc;*/
+}
+.person-directory-gallery-wrapper br {display:none;}
+
+/*This acts as the outside wrapper for a category-based gallery */
+.people_directory-gallery {float:left;
+  /*border-bottom:1px solid #ccc; */
+  width:100%; margin-bottom:30px;}
+
+/*Here we need to reset styles for this element because it's no longer the outside wrapper for individual gallery listings */
+.person-directory-gallery-wrapper .people_directory-gallery {width:auto; margin:0;border:none;}
+
+.people_directory-gallery .individual-person {
+  float: left;
+  margin:10px;
+  width:150px;
+  /*border:1px solid lime;*/
+  height: 190px;
+  display:block;
+  line-height:1.2em;
+}
+.people_directory-gallery .individual-person .individual-person-thumb {width:150px;height:150px; display:block; background:#eee; overflow:hidden;}
+.people_directory-gallery .individual-person .person-name {margin-top:5px;}
+.people_directory-gallery .individual-person img {width:100%;}
+
+
+
+.people_directory-list .person-directory-wrapper-list {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px;}
+.people_directory-list .person-directory-wrapper-list ul li {list-style:none; margin:0;}
+.people_directory-list .person-directory-wrapper-list .person-name {margin:0; padding:0; }
+.people_directory-list .person-directory-wrapper-list .person-position {font-weight:bold;}
+
+/* facilitators template */
+.people_directory-facilitators .individual-person-thumb-wrapper{
+	position: relative;
+	width: 100%;		/* desired width */
+}
+.people_directory-facilitators .individual-person-thumb-wrapper:before{
+	content: "";
+	display: block;
+	padding-top: 100%; 	/* initial ratio of 1:1*/
+}
+.people_directory-facilitators .individual-person-thumb{
+	position:  absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.people_directory-facilitators {margin-bottom:20px; float:left; width:100%;}
+.people_directory-facilitators .individual-person {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px; float:left;
+width:100%;
+}
+.people_directory-facilitators .individual-person .individual-person-thumb {width:100%;display:block; background:#eee; overflow:hidden; }
+.people_directory-facilitators .individual-person img {width:100%;}
+.people_directory-facilitators .person-name {font-size: 18px; margin:6px 0 0; padding:0;}
+.col_one {float:left;width:25%;
+  /*border:1px solid blue;*/
+}
+.col_two {float:right;width:72%;
+  /*border:1px solid red;*/
+}
 
 #front-page .wrap {max-width: 900px;}
 .home-title {font-size: 24px; font-weight: bold; color: #7f3f98; text-align:center;}
@@ -177,6 +250,8 @@ h1.entry-title {color: purple; font-size: 36px !important;}
 
 .search-form .search-submit .icon {height: 20px !important;}
 .search-form label {margin:0;}
+
+.archive-page-title {font-weight:bold;}
 
 /* Mobile first queries */
 /*===============================================================================================================================*/
