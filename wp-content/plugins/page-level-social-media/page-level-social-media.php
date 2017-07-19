@@ -39,6 +39,11 @@ function page_level_social_media_meta_callback( $post ) {
 		<input class="plsm-input" type="text" name="meta-text-youtube-link" id="meta-text-youtube-link" value="<?php if ( isset ( $page_level_social_media_stored_meta['meta-text-youtube-link'] ) ) echo $page_level_social_media_stored_meta['meta-text-youtube-link'][0]; ?>" />
   </p>
 
+  <p>
+    <label for="meta-text-instagram-link" class="page_level_social_media-row-title"><?php _e( 'Instagram', 'page_level_social_media-textdomain' )?></label>
+		<input class="plsm-input" type="text" name="meta-text-instagram-link" id="meta-text-instagram-link" value="<?php if ( isset ( $page_level_social_media_stored_meta['meta-text-instagram-link'] ) ) echo $page_level_social_media_stored_meta['meta-text-instagram-link'][0]; ?>" />
+  </p>
+
 	<?php
 }
 
@@ -66,6 +71,9 @@ function page_level_social_media_meta_save( $post_id ) {
 	}
   if( isset( $_POST[ 'meta-text-youtube-link' ] ) ) {
 		update_post_meta( $post_id, 'meta-text-youtube-link', sanitize_text_field( $_POST[ 'meta-text-youtube-link' ] ) );
+	}
+  if( isset( $_POST[ 'meta-text-instagram-link' ] ) ) {
+		update_post_meta( $post_id, 'meta-text-instagram-link', sanitize_text_field( $_POST[ 'meta-text-instagram-link' ] ) );
 	}
 }
 add_action( 'save_post', 'page_level_social_media_meta_save' );
@@ -109,6 +117,7 @@ class Page_Level_Social_Media_Widget extends WP_Widget {
       $meta_text_twitter_link = get_post_meta( get_the_ID(), 'meta-text-twitter-link', true );
       $meta_text_linkedin_link = get_post_meta( get_the_ID(), 'meta-text-linkedin-link', true );
       $meta_text_youtube_link = get_post_meta( get_the_ID(), 'meta-text-youtube-link', true );
+      $meta_text_instagram_link = get_post_meta( get_the_ID(), 'meta-text-instagram-link', true );
 
       echo "<div class='sidebar-page-level-social-media'>";
       echo "<ul class='social-media-list'>";
@@ -123,6 +132,9 @@ class Page_Level_Social_Media_Widget extends WP_Widget {
       }
       if (!empty($meta_text_youtube_link)) {
         echo "<li class='social-media-item'><a href='" . $meta_text_youtube_link . "'><img src='" . $theme_path . "/images/social-media-icon-youtube.png' /></a></li>";
+      }
+      if (!empty($meta_text_instagram_link)) {
+        echo "<li class='social-media-item'><a href='" . $meta_text_instagram_link . "'><img src='" . $theme_path . "/images/social-media-icon-instagram.png' /></a></li>";
       }
       echo "</ul>";
       echo "</div>";
