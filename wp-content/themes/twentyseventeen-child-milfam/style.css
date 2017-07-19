@@ -253,12 +253,20 @@ h1.entry-title {color: purple; font-size: 36px !important;}
 
 .archive-page-title {font-weight:bold; }
 .content-title {font-size:24px; padding:5px 0;}
-.content-area.ca-landing-page h1.entry-title {text-transform:uppercase !important; font-size:36px !important; font-weight: 900 !important;
+.ca-landing-page .content-area h1.entry-title {text-transform:uppercase !important; font-size:36px !important; font-weight: 900 !important;
+font-family: 'Oswald', sans-serif !important; color: #7f3f98 !important;}
+.ca-landing-page .content-area h2 {
+  text-transform:uppercase !important;
+  font-size:30px !important; font-weight: 900 !important;
 font-family: 'Oswald', sans-serif !important; color: #7f3f98 !important;}
 
-.content-area.ca-landing-page p:first-of-type {
+.ca-landing-page .content-area p:first-of-type {
   font-size: 1.25em;
 }
+
+.ca-landing-page .widget-area h2 {font-size: 16px !important; margin:10px 0 10px;}
+.ca-landing-page h3 {margin:10px 0 !important; padding:0 !important;}
+.ca-landing-page .widget-area .learn-widget-see-more {display:none;}
 
 .sign-up-module {background: #f2f2f2; padding:20px; margin-bottom:2em;}
 .sign-up-list-features {margin-left: 2em;}
