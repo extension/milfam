@@ -30,11 +30,12 @@ add_shortcode( 'learn_widget', 'show_learn_widget' );
 add_shortcode( 'sign_up_section', 'show_sign_up_module' );
 function show_sign_up_module() {
   $page = get_posts( array( 'name' => 'sign-up', 'post_type' => 'page' ) );
-  if ( $page ) { ?>
-	<div class="sign-up-module">
-    <?php echo $page[0]->post_content; ?>
-	</div>
-<?php }
+  if ( $page ) {
+    $signup = '<div class="sign-up-module">';
+    $signup .= $page[0]->post_content;
+    $signup .= '</div>';
+    return $signup;
+  }
 }
 
 
