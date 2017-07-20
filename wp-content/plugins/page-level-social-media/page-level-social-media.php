@@ -112,12 +112,25 @@ class Page_Level_Social_Media_Widget extends WP_Widget {
     }
 
     function widget( $args, $instance ) {
+
+      if ( is_category() ) {
+        $cat_id = get_queried_object_id();
+        $cat_id = (int)$cat_id;
+	      $category = &get_category($cat_id);
+        $ca_parent_page_slug = $category->slug;
+      } else {
+        $categories = get_the_category();
+        $ca_parent_page_slug = $categories[0]->slug;
+      }
+
+      $ca_parent_page = get_page_by_path( $ca_parent_page_slug );
+
       $theme_path = get_stylesheet_directory_uri();
-      $meta_text_facebook_link = get_post_meta( get_the_ID(), 'meta-text-facebook-link', true );
-      $meta_text_twitter_link = get_post_meta( get_the_ID(), 'meta-text-twitter-link', true );
-      $meta_text_linkedin_link = get_post_meta( get_the_ID(), 'meta-text-linkedin-link', true );
-      $meta_text_youtube_link = get_post_meta( get_the_ID(), 'meta-text-youtube-link', true );
-      $meta_text_instagram_link = get_post_meta( get_the_ID(), 'meta-text-instagram-link', true );
+      $meta_text_facebook_link = get_post_meta( $ca_parent_page->ID, 'meta-text-facebook-link', true );
+      $meta_text_twitter_link = get_post_meta( $ca_parent_page->ID, 'meta-text-twitter-link', true );
+      $meta_text_linkedin_link = get_post_meta( $ca_parent_page->ID, 'meta-text-linkedin-link', true );
+      $meta_text_youtube_link = get_post_meta( $ca_parent_page->ID, 'meta-text-youtube-link', true );
+      $meta_text_instagram_link = get_post_meta( $ca_parent_page->ID, 'meta-text-instagram-link', true );
 
       echo "<div class='sidebar-page-level-social-media'>";
       echo "<ul class='social-media-list'>";
