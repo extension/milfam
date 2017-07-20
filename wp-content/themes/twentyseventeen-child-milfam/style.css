@@ -253,7 +253,8 @@ h1.entry-title {color: purple; font-size: 36px !important;}
 
 .archive-page-title {font-weight:bold; }
 .content-title {font-size:24px; padding:5px 0;}
-.ca-landing-page .content-area h1.entry-title {text-transform:uppercase !important; font-size:36px !important; font-weight: 900 !important;
+.ca-landing-page .content-area h1.entry-title,
+.ca-main-title {text-transform:uppercase !important; font-size:36px !important; font-weight: 900 !important;
 font-family: 'Oswald', sans-serif !important; color: #7f3f98 !important;}
 .ca-landing-page .content-area h2 {
   text-transform:uppercase !important;
