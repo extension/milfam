@@ -17,8 +17,8 @@
   <?php
   $categories = get_the_category();
 
-  if( is_page( 'family-development' )) {
-    
+  if( is_page( $categories[0]->slug )) {
+    // nothing for now
   } else {
     if ( ! empty( $categories ) ) {
       echo '<p class="ca-title"><a href="/' . $categories[0]->slug . '">' . esc_html( $categories[0]->name ) . '</a></p>';
