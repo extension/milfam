@@ -260,6 +260,9 @@ font-family: 'Oswald', sans-serif !important; color: #7f3f98 !important;}
   font-size:30px !important; font-weight: 900 !important;
 font-family: 'Oswald', sans-serif !important; color: #7f3f98 !important;}
 
+.ca-title {text-transform:uppercase; font-size:24px; font-weight: 900t; font-family: 'Oswald', sans-serif; margin:0;}
+.ca-title a {color: #000 !important;}
+
 .ca-landing-page .content-area .entry-content p:first-child {font-size: 1.25em;}
 
 .ca-landing-page .widget-area h2 {font-size: 16px !important; margin:10px 0 10px;}
