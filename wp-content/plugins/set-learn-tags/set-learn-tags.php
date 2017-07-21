@@ -91,11 +91,25 @@ class Learn_Widget_Widget extends WP_Widget {
     }
 
     function widget( $args, $instance ) {
-      $learn_widget_tag_meta_value = get_post_meta( get_the_ID(), 'meta-text-learn-widget-tag', true );
-      $learn_widget_title_meta_value = get_post_meta( get_the_ID(), 'meta-text-learn-widget-title', true );
+      if ( is_category() ) {
+        $cat_id = get_queried_object_id();
+        $cat_id = (int)$cat_id;
+	      $category = &get_category($cat_id);
+        $ca_parent_page_slug = $category->slug;
+      } else {
+        $categories = get_the_category();
+        $ca_parent_page_slug = $categories[0]->slug;
+      }
+      $ca_parent_page = get_page_by_path( $ca_parent_page_slug );
+
+      $learn_widget_tag_meta_value = get_post_meta( $ca_parent_page->ID, 'meta-text-learn-widget-tag', true );
+      $learn_widget_title_meta_value = get_post_meta( $ca_parent_page->ID, 'meta-text-learn-widget-title', true );
       echo "<div class='sidebar-learn-widget'>";
       echo "<h2 class='widget-title'>" . $learn_widget_title_meta_value . "</h2>";
       echo do_shortcode("[learn_widget key='exlw-ca295c9d' tags='" . $learn_widget_tag_meta_value . "' limit=3 match_all_tags=true]");
+      if( get_page_by_path( $ca_parent_page_slug . '/webinars' )) {
+          echo '<p><strong><a href="/' . $ca_parent_page_slug . '/webinars/">All Webinars</a></strong></p>';
+      }
       echo "</div>";
     }
 
