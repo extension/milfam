@@ -69,6 +69,15 @@ get_header(); ?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
+
+  <?php
+    // The "List Category Posts" plugin uses the main query to get the current categories.
+    // If called from a category page where the last item has multiple categories, this can result in the wrong current category.
+    // To fix, override the global $category variable for archive pages
+    $category = get_category( get_query_var( 'cat' ) );
+    set_query_var( 'category', $category );
+  ?>
+
 	<?php get_sidebar('ca'); ?>
 </div><!-- .wrap -->
 
