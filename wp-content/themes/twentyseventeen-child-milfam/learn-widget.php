@@ -16,5 +16,3 @@
 </script>
 <div id="<?php echo $a['key'] ?>"></div>
 <!-- Learn -->
-
-<p><strong><a href="webinars/">All Webinars</a></strong></p>

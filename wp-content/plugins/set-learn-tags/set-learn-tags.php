@@ -107,6 +107,9 @@ class Learn_Widget_Widget extends WP_Widget {
       echo "<div class='sidebar-learn-widget'>";
       echo "<h2 class='widget-title'>" . $learn_widget_title_meta_value . "</h2>";
       echo do_shortcode("[learn_widget key='exlw-ca295c9d' tags='" . $learn_widget_tag_meta_value . "' limit=3 match_all_tags=true]");
+      if( get_page_by_path( $ca_parent_page_slug . '/webinars' )) {
+          echo '<p><strong><a href="/' . $ca_parent_page_slug . '/webinars/">All Webinars</a></strong></p>';
+      }
       echo "</div>";
     }
 
