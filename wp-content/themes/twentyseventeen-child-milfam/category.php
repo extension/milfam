@@ -14,26 +14,23 @@ get_header(); ?>
 
 <div class="wrap">
 
-  <?php
-  $categories = get_the_category();
-
-  if( is_page( $categories[0]->slug )) {
-    // nothing for now
-  } else {
-    if ( ! empty( $categories ) ) {
-      echo '<p class="ca-title"><a href="/' . $categories[0]->slug . '">' . esc_html( $categories[0]->name ) . '</a></p>';
-    }
-  }
-  ?>
-
-
-
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
       <?php if ( have_posts() ) : ?>
     		<header class="page-header">
-          <h1 class="entry-title ca-main-title">Blog Posts</h1>
+          <?php
+          $categories = get_the_category();
+
+          if( is_page( $categories[0]->slug )) {
+            // nothing for now
+          } else {
+            if ( ! empty( $categories ) ) {
+              echo '<h1 class="entry-title ca-main-title entry-title no-bottom-margin"><a href="/' . $categories[0]->slug . '">' . esc_html( $categories[0]->name ) . '</a></h1>';
+            }
+          }
+          ?>
+          <h2 class="entry-title ca-child-subhead">Blog Posts</h2>
     			<?php
     				the_archive_description( '<div class="taxonomy-description">', '</div>' );
     			?>
