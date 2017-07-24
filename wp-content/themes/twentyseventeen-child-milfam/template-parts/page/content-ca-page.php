@@ -18,15 +18,16 @@
   $categories = get_the_category();
 
   if( is_page( $categories[0]->slug )) {
-    // nothing for now
+    the_title( '<h1 class="entry-title">', '</h1>' );
   } else {
     if ( ! empty( $categories ) ) {
-      echo '<p class="ca-title"><a href="/' . $categories[0]->slug . '">' . esc_html( $categories[0]->name ) . '</a></p>';
+      echo '<h1 class="entry-title no-bottom-margin"><a href="/' . $categories[0]->slug . '">' . esc_html( $categories[0]->name ) . '</a></h1>';
+      the_title( '<h2 class="entry-title ca-child-subhead">', '</h2>' );
     }
   }
 ?>
 
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+
 		<?php twentyseventeen_edit_link( get_the_ID() ); ?>
 	</header><!-- .entry-header -->
 	<div class="entry-content">

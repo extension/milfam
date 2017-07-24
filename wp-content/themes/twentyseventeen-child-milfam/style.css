@@ -151,18 +151,20 @@ font-weight:bold;
 .site-branding a:hover, .site-branding a:focus {
     opacity: 1;
 }
-a {color: purple; box-shadow:none !important; webkit-box-shadow:none !important;}
+a {color: #7f3f98; box-shadow:none !important; webkit-box-shadow:none !important;}
 a:hover {box-shadow:none !important; webkit-box-shadow:none !important;}
-.entry-title a {color: purple;}
+.entry-title a {color: #7f3f98;}
 .entry-title a:hover,
 .entry-content a:hover {color: black; box-shadow:none !important; webkit-box-shadow:none !important;}
 .entry-content a {box-shadow:none !important; webkit-box-shadow:none !important;}
 
 
+
 h1.entry-title {color: purple; font-size: 36px !important;}
 
+
 .page h1.entry-title {
-  color: purple !important;
+  color: #7f3f98 !important;
   font-size: 36px !important;
   letter-spacing: 0 !important;
   text-transform: none !important;
@@ -267,7 +269,10 @@ font-family: 'Oswald', sans-serif !important; color: #7f3f98 !important;}
 .ca-landing-page .content-area .entry-content p:first-child {font-size: 1.25em;}
 
 .ca-landing-page .widget-area h2 {font-size: 16px !important; margin:10px 0 10px;}
+.ca-landing-page h2.entry-title.ca-child-subhead {color:#000 !important; letter-spacing: 0 !important;}
 .ca-landing-page h3 {margin:10px 0 !important; padding:0 !important;}
+.no-bottom-margin {margin-bottom:0 !important;}
+
 .widget-area .learn-widget-see-more {display:none;}
 
 .sign-up-module {background: #f2f2f2; padding:20px; margin-bottom:2em;}
