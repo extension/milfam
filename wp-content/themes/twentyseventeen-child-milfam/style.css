@@ -38,6 +38,7 @@ Template: twentyseventeen
   display:block;
   line-height:1.2em;
 }
+.individual-person a {font-weight:bold;}
 .people_directory-gallery .individual-person .individual-person-thumb {width:150px;height:150px; display:block; background:#eee; overflow:hidden;}
 .people_directory-gallery .individual-person .person-name {margin-top:5px;}
 .people_directory-gallery .individual-person img {width:100%;}
