@@ -279,10 +279,15 @@ h2.entry-title.ca-child-subhead
 .ca-landing-page h3 {margin:10px 0 !important; padding:0 !important;}
 .no-bottom-margin {margin-bottom:0 !important;}
 
-.ca-landing-page #primary .learn-widget-wrapper {border:0; padding:0;}
-.ca-landing-page #primary .learn-widget-event-date {font-size:20px; font-weight:bold;}
-.ca-landing-page #primary .learn-widget-event-title {font-size:20px;}
+.ca-landing-page #primary .learn-widget-wrapper {margin:0;}
+.ca-landing-page #primary .learn-widget-event-date {font-size:16px; font-weight:bold;}
+.ca-landing-page #primary .learn-widget-event-title {font-size:16px;}
 .ca-landing-page #primary .learn-widget-see-more {display:none;}
+.ca-landing-page .content-area h3.year-header {
+  padding-top:0 !important; font-size:40px !important; font-weight: 900 !important; font-family: 'Oswald', sans-serif !important; color: #7f3f98 !important;}
+.webinar-date {font-size:20px; font-weight:bold; margin:0;}
+.ca-landing-page h3.webinar-title {font-size:20px; margin:0 0 0 !important;}
+p:empty {display: none;}
 
 .widget-area .learn-widget-see-more {display:none;}
 
