@@ -6,6 +6,8 @@ Template: twentyseventeen
 
 @import url("../twentyseventeen/style.css");
 
+ul {padding-left:20px;}
+
 #content_staff_profile .simplesocialbuttons {display:none;}
 .person-position {padding-top:0;}
 .page-template-template-single-column #primary {width: 100% !important; max-width:900px !important;}
