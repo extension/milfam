@@ -6,7 +6,7 @@ Template: twentyseventeen
 
 @import url("../twentyseventeen/style.css");
 
-ul {padding-left:20px;}
+.entry-content ul {padding-left:20px;}
 
 #content_staff_profile .simplesocialbuttons {display:none;}
 .person-position {padding-top:0;}
