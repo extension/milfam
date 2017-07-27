@@ -18,6 +18,7 @@ function show_learn_widget( $atts ) {
     'tags' => '',
     'limit' => '5',
     'match_all_tags' => false,
+    'event_type' => 'upcoming'
   ), $atts );
   $a['operator'] = ($a['match_all_tags'] == "true" ? "and" : '');
   ob_start();
