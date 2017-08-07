@@ -1,10 +1,12 @@
-=== Plugin Name ===
-Contributors: xradar
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=UD823RE2F623Q&lc=US&item_name=WP%20Simple%20Social%20Buttons&item_number=Support%20Open%20Source&no_note=1&no_shipping=1&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
+=== Simple Social Buttons ===
+Contributors: WPBrigade, hiddenpearls
+Donate link: https://wpbrigade.com/
 Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
 Requires at least: 2.8
 Tested up to: 4.8
-Stable tag: 1.7.10
+Stable tag: 1.8.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
@@ -43,8 +45,6 @@ Simple Social Buttons is currently in the following languages:
 - Swedish
 - Thai 
 - Ukrainian 
-
-Check out my blog [Paweł Rabinek](http://www.rabinek.pl/) and my company [Redseo](https://redseo.pl/) (in polish).
 
 
 == Installation ==
@@ -109,7 +109,16 @@ Big thanks to:
 3. Plugin settings page
 
 
+== Upgrade Notice ==
+
+= 1.8.0 =
+* Important release, Please upgrade immediately.
+
+
 == Changelog ==
+
+= 1.8.0 =
+* Styling and Code improvement.
 
 = 1.0 =
 * First stable release.
