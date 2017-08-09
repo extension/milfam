@@ -40,7 +40,16 @@ function show_sign_up_module() {
 }
 
 
+function show_aweber_widget( $atts ) {
+  $a = shortcode_atts( array(
+    'key' => ''
+  ), $atts );
+  ob_start();
+  include(locate_template('aweber-widget.php'));
+  return ob_get_clean();
+}
 
+add_shortcode( 'aweber_signup', 'show_aweber_widget' );
 
 add_action( 'widgets_init', 'register_custom_sidebars' );
 function  register_custom_sidebars() {
