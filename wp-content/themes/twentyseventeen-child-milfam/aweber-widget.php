@@ -10,6 +10,6 @@
     js = d.createElement(s); js.id = id;
     js.src = "//forms.aweber.com/form/52/<?php echo $a['key'] ?>.js";
     fjs.parentNode.insertBefore(js, fjs);
-    }(document, "script", "aweber-wjs-2lz77ymhi"));
+    }(document, "script", "aweber-wjs-<?php echo $a['key'] ?>"));
 </script>
 </div>
