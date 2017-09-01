@@ -53,13 +53,23 @@ add_shortcode( 'aweber_signup', 'show_aweber_widget' );
 
 add_action( 'widgets_init', 'register_custom_sidebars' );
 function  register_custom_sidebars() {
-	// $title_tag = pinboard_get_option( 'widget_title_tag' );
-
 	register_sidebar(
 		array(
       'name' => 'CA Landing Page Sidebar ',
       'id' => 'sidebar-ca',
 			'description' => 'Displays in in the sidebar on the CA landing page.',
+      'before_widget' => '<div id="%1$s" class="widget %2$s">',
+      'after_widget' => '</div>',
+      'before_title' => '<h2 class="widget-title">',
+      'after_title' => '</h2>'
+		)
+	);
+
+  register_sidebar(
+		array(
+      'name' => 'General Sidebar ',
+      'id' => 'sidebar-general',
+			'description' => 'Displays in in the sidebar on the general MFLN pages, about About.',
       'before_widget' => '<div id="%1$s" class="widget %2$s">',
       'after_widget' => '</div>',
       'before_title' => '<h2 class="widget-title">',
@@ -249,3 +259,87 @@ function blog_page_size( $query ) {
         return;
     }
 }
+
+
+
+/**
+ * Count our number of active panels.
+ *
+ * Primarily used to see if we have any panels active, duh.
+ */
+function twentyseventeen_banner_count() {
+
+	$panel_count = 0;
+	$num_sections = apply_filters( 'twentyseventeen_front_page_banner', 1 );
+
+	// Create a setting and control for each of the sections available in the theme.
+	for ( $i = 1; $i < ( 1 + $num_sections ); $i++ ) {
+		if ( get_theme_mod( 'banner_' . $i ) ) {
+			$panel_count++;
+		}
+	}
+
+	return $panel_count;
+}
+
+/**
+ * Display a front page section.
+ *
+ * @param WP_Customize_Partial $partial Partial associated with a selective refresh request.
+ * @param integer              $id Front page section to display.
+ */
+function twentyseventeen_front_page_banner( $partial = null, $id = 0 ) {
+	if ( is_a( $partial, 'WP_Customize_Partial' ) ) {
+		// Find out the id and set it up during a selective refresh.
+		global $twentyseventeencounter;
+		$id = str_replace( 'banner_', '', $partial->id );
+		$twentyseventeencounter = $id;
+	}
+
+	global $post; // Modify the global post object before setting up post data.
+	if ( get_theme_mod( 'banner_' . $id ) ) {
+		$post = get_post( get_theme_mod( 'banner_' . $id ) );
+		setup_postdata( $post );
+		set_query_var( 'banner', $id );
+
+		get_template_part( 'template-parts/page/content', 'front-page-banner' );
+
+		wp_reset_postdata();
+	} elseif ( is_customize_preview() ) {
+		// The output placeholder anchor.
+		echo '<article class="panel-placeholder panel twentyseventeen-panel twentyseventeen-panel' . $id . '" id="banner' . $id . '"><span class="twentyseventeen-panel-title">' . sprintf( __( 'Front Page Banner Placeholder', 'twentyseventeen' ), $id ) . '</span></article>';
+	}
+}
+
+
+
+function milfam_customize_register( $wp_customize ) {
+
+	$num_sections = apply_filters( 'twentyseventeen_front_page_banner', 1 );
+
+	// Create a setting and control for each of the sections available in the theme.
+	for ( $i = 1; $i < ( 1 + $num_sections ); $i++ ) {
+		$wp_customize->add_setting( 'banner_' . $i, array(
+			'default'           => false,
+			'sanitize_callback' => 'absint',
+			'transport'         => 'postMessage',
+		) );
+
+		$wp_customize->add_control( 'banner_' . $i, array(
+			/* translators: %d is the front page section number */
+			'label'          => sprintf( __( 'Front Page Banner', 'twentyseventeen' ), $i ),
+			'description'    => ( 1 !== $i ? '' : __( 'Select pages to display as a banner. Empty section will not be displayed.', 'twentyseventeen' ) ),
+			'section'        => 'theme_options',
+			'type'           => 'dropdown-pages',
+			'allow_addition' => true,
+			'active_callback' => 'twentyseventeen_is_static_front_page',
+		) );
+
+		$wp_customize->selective_refresh->add_partial( 'banner_' . $i, array(
+			'selector'            => '#banner' . $i,
+			'render_callback'     => 'twentyseventeen_front_page_banner',
+			'container_inclusive' => true,
+		) );
+	}
+}
+add_action( 'customize_register', 'milfam_customize_register' );

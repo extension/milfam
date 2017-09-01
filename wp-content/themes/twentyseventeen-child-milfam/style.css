@@ -74,6 +74,9 @@ Template: twentyseventeen
 .people_directory-facilitators .individual-person {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px; float:left;
 width:100%;
 }
+.people_directory-list-bio .individual-person {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px; float:left;
+width:100%;
+}
 .people_directory-facilitators .individual-person .individual-person-thumb {width:100%;display:block; background:#eee; overflow:hidden; }
 .people_directory-facilitators .individual-person img {width:100%;}
 .people_directory-facilitators .person-name {font-size: 18px; margin:6px 0 0; padding:0;}
@@ -299,6 +302,17 @@ p:empty {display: none;}
 .sign-up-legal-print {font-size:10px;}
 .sign-up-header {font-weight:bold; font-size:18px;}
 
+.homepage-banner {
+  background: #2f3a78;
+  /*background: #7f3f98;*/
+  background: linear-gradient(#462354, #7f3f98);
+   text-align:center; border-radius: 10px;}
+.homepage-banner p {font-size:20px;
+  margin:0 auto; display: inline-block;}
+.homepage-banner a {display: block; padding: 20px 40px;}
+
+.homepage-banner p, .homepage-banner a {color:#fff;}
+.sidebar-general .widget_recent_entries {padding-bottom:1em;}
 /* Mobile first queries */
 /*===============================================================================================================================*/
 
