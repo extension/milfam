@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: General MFLN page
+ * Template Name: About page
  */
 
 get_header(); ?>
