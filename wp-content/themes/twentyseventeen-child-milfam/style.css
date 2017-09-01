@@ -308,6 +308,7 @@ p:empty {display: none;}
   max-width:30em;margin:0 auto; display: inline-block;}
 .homepage-banner a {font-weight:bold;}
 .homepage-banner p, .homepage-banner a {color:#fff;}
+.sidebar-general .widget_recent_entries {padding-bottom:1em;}
 /* Mobile first queries */
 /*===============================================================================================================================*/
 
