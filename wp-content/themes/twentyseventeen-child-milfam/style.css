@@ -306,10 +306,11 @@ p:empty {display: none;}
   background: #2f3a78;
   /*background: #7f3f98;*/
   background: linear-gradient(#462354, #7f3f98);
-  padding: 20px 40px; text-align:center; border-radius: 10px;}
+   text-align:center; border-radius: 10px;}
 .homepage-banner p {font-size:20px;
-  max-width:30em;margin:0 auto; display: inline-block;}
-.homepage-banner a {font-weight:bold;}
+  margin:0 auto; display: inline-block;}
+.homepage-banner a {display: block; padding: 20px 40px;}
+
 .homepage-banner p, .homepage-banner a {color:#fff;}
 .sidebar-general .widget_recent_entries {padding-bottom:1em;}
 /* Mobile first queries */
