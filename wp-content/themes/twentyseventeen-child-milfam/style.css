@@ -74,6 +74,9 @@ Template: twentyseventeen
 .people_directory-facilitators .individual-person {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px; float:left;
 width:100%;
 }
+.people_directory-list-bio .individual-person {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px; float:left;
+width:100%;
+}
 .people_directory-facilitators .individual-person .individual-person-thumb {width:100%;display:block; background:#eee; overflow:hidden; }
 .people_directory-facilitators .individual-person img {width:100%;}
 .people_directory-facilitators .person-name {font-size: 18px; margin:6px 0 0; padding:0;}
