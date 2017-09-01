@@ -110,7 +110,7 @@ class Learn_Widget_Widget extends WP_Widget {
       if( get_page_by_path( $ca_parent_page_slug . '/webinars' )) {
           echo '<p><strong><a href="/' . $ca_parent_page_slug . '/webinars/">All Webinars</a></strong></p>';
       } else {
-          echo '<p><strong><a href="/' . $ca_parent_page_slug . '/webinars/">All Webinars</a></strong></p>';
+          // echo '<p><strong><a href="/' . $ca_parent_page_slug . '/webinars/">All Webinars</a></strong></p>';
       }
       echo "</div>";
     }
