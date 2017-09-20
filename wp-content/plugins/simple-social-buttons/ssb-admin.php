@@ -78,6 +78,67 @@ div.inside ul li {
 .ssb_settings_container #poststuff{
   min-width: 100%;
 }
+.ssb_settings_container #poststuff h2{
+  border-bottom: 1px solid #ccc;
+  font-size: 1.3em;
+}
+.ssb_settings_container #poststuff .ssb_settings_box{
+  border:1px solid #ccc;
+  overflow: hidden;
+  display: table;
+  background: #f6f6f6;
+}
+.ssb_settings_container #poststuff .ssb_settings_box + .ssb_settings_box{
+  border-top: 0;
+}
+.ssb_settings_container #poststuff .ssb_settings_box h2{
+  width: 180px;
+  float: left;
+  text-align: center;
+  background: #f6f6f6;
+  border:0;
+  display: table-cell;
+  padding: 10px;
+}
+.ssb_settings_container #poststuff .ssb_settings_box ul{
+  overflow: hidden;
+  margin:0;
+  padding: 10px 0;
+  list-style: none;
+  font-size: 0;
+  border-left: 1px solid #ccc;
+  display: table-cell;
+  vertical-align: top;
+  width: 100%;
+  background: #fff;
+}
+.ssb_settings_container #poststuff .ssb_settings_box ul li{
+  display: inline-block;
+  margin-bottom: 0;
+  list-style: none;
+  font-size: 16px;
+}
+.ssb_settings_container #poststuff .ssb_settings_box ul li:hover{
+  cursor: pointer;
+  
+}
+.ssb-top-bar{
+  background: #f3fbff;
+  overflow: hidden;
+  padding: 12px 20px;
+
+}
+.ssb-top-bar img  {
+  float: left;
+  margin-right: 20px;
+  width: 100px;
+}
+.ssb-top-bar-content{
+  overflow: hidden;
+}
+.ssb-top-bar-content h2{
+  margin: 10px 0;
+}
 @media only screen and (max-width: 850px){
 
   .ssb_settings_container{
@@ -86,14 +147,31 @@ div.inside ul li {
   .ssb_right_sidebar{
     float: left;
   }
+  .ssb_settings_container #poststuff .ssb_settings_box h2{
+    width: 120px;
+  }
 }
 </style>
 
-<h2>Simple Social Buttons - <?php _e('Settings'); ?>:</h2>
+<div class="ssb-top-bar">
+  <a href="https://wpbrigade.com/"><img src="<?php echo plugins_url( 'assets/images/ssb_icon.png', __FILE__ ) ?>" alt="Simple Social Buttons"></a>
+  <div class="ssb-top-bar-content">
+    <h2>Simple Social Buttons - <?php _e('Settings'); ?>:</h2>
+    <p><?php _e('<strong>Simple Social Buttons</strong> by <strong><a href="https://wpbrigade.com/">WPBrigade</a></strong>. This plugin adds a social media buttons, such as: <strong>Google +1</strong>, <strong>Facebook Like it</strong>, <strong>Facebook share</strong>, <strong>Twitter share</strong>, <strong>LinkedIn share</strong> and <strong>Pinterest</strong>. The most flexible social buttons plugin ever.', 'simplesocialbuttons'); ?></p>
+  </div>
 
-<p><?php _e('<strong>Simple Social Buttons</strong> by <strong>WPBrigade</strong>. This plugin adds a social media buttons, such as: <strong>Google +1</strong>, <strong>Facebook Like it</strong>, <strong>Twitter share</strong> and <strong>Pinterest</strong>. The most flexible social buttons plugin ever.', 'simplesocialbuttons'); ?></p>
+</div>
 
 <?php
+
+$all_icons = array(
+    'fblike'     => 0,
+    'twitter'    => 0,
+    'googleplus' => 0,
+    'pinterest'  => 0,
+    'fbshare'    => 0,
+    'linkedin'   => 0
+);
 
 if(strtolower(@$_POST['hiddenconfirm']) == 'y') {
 
@@ -101,6 +179,11 @@ if(strtolower(@$_POST['hiddenconfirm']) == 'y') {
 	 * Compile settings array
 	 * @see http://codex.wordpress.org/Function_Reference/wp_parse_args
 	 */
+
+  //  image_oder return string thats why we explode it.
+  //  add empty array to start form 1 index.
+  update_option( 'ssb_icons_order', sanitize_text_field( wp_unslash( $_POST['ssb_icons_order'] ) ) );
+  $ssb_icons_order = array_merge( array(0),  explode( ',', sanitize_text_field( wp_unslash( $_POST['ssb_icons_order'] ) ) ) );
 
 	$updateSettings = array(
 		'googleplus'    => isset( $_POST['ssb_googleplus'] ) ? sanitize_text_field( wp_unslash( $_POST['ssb_googleplus'] ) ) : '',
@@ -125,7 +208,7 @@ if(strtolower(@$_POST['hiddenconfirm']) == 'y') {
 		'twitterusername' => isset( $_POST['ssb_twitterusername'] ) ? str_replace(array("@", " "), "", sanitize_text_field( wp_unslash( $_POST['ssb_twitterusername'] ) ) ) : '',
 	);
 
-	$this->update_settings( $updateSettings );
+	$this->update_settings( array_merge(  $updateSettings, array_merge( $all_icons, array_flip( $ssb_icons_order )  ) )  );
 
 }
 
@@ -141,6 +224,7 @@ $settings = $this->get_settings();
 
 extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
 
+
 ?>
 
 
@@ -149,68 +233,47 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
       <form name="ssb_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 
       <div class="postbox">
+        <h2>Select buttons</h2>
          <div class="inside">
-           <h3><?php _e('Select buttons', 'simplesocialbuttons'); ?></h3>
-            <h4><?php _e('Select social media buttons:', 'simplesocialbuttons'); ?></h4>
+           <p>Drag & Drop to activate and order your share buttons:</p>
+           <div class="ssb_settings_box">
 
 
-			<p><select name="ssb_googleplus" id="ssb_googleplus">
-				<option value=""<?php if(empty($ssb_googleplus) != false) {
-				 	 ?>selected="selected"<?php
-				} ?>><?php _e('inactive', 'simplesocialbuttons'); ?></option>
+           <h2>Active</h2>
+           <ul id="ssb_active_icons" class="items" style="min-height:35px">
+             <!-- <li id="facebook" class="list">FaceBook</li>
+             <li id="twitter" class="list">Twiiter</li> -->
 
-			<?php for($pos = 1; $pos < 4; $pos++) { ?>
-				<option value="<?php echo $pos; ?>"<?php if($ssb_googleplus == $pos) {
-					 ?>selected="selected"<?php
-				} ?>> # <?php echo $pos; ?> </option>
-			<?php } ?>
-			</select> &nbsp;
-			<label for="ssb_googleplus"><?php _e('Google plus one (+1)', 'simplesocialbuttons'); ?></label></p>
+             <?php
+             $ssb_icons_order = array();
+             foreach ($this->arrKnownButtons as $button_name) {
+                 $ssb_icons_order[$button_name] = isset( $settings[$button_name] ) ? $settings[$button_name] : '' ;
+             }
+             asort( $ssb_icons_order );
+              ?>
+             <?php foreach ($ssb_icons_order as $key => $value): ?>
+               <?php if ( $value != 0): ?>
+                 <li data-id="<?php echo $key ?>" class="list"><img src="<?php echo plugins_url( 'assets/images/'.$key.'.jpg', __FILE__ ) ?>" /></li>
+               <?php endif; ?>
+             <?php endforeach; ?>
 
-			<!-- fblike -->
-			<p><select name="ssb_fblike" id="ssb_fblike">
-				<option value=""<?php if(empty($ssb_fblike) != false) {
-				 	 ?>selected="selected"<?php
-				} ?>><?php _e('inactive', 'simplesocialbuttons'); ?></option>
 
-			<?php for($pos = 1; $pos < 5; $pos++) { ?>
-				<option value="<?php echo $pos; ?>"<?php if($ssb_fblike == $pos) {
-					 ?>selected="selected"<?php
-				} ?>> # <?php echo $pos; ?> </option>
-			<?php } ?>
-			</select> &nbsp;
-			<label for="ssb_fblike"><?php _e('Facebook Like it', 'simplesocialbuttons'); ?></label></p>
-			<!-- /fblike -->
+           </ul>
+           </div>
+           <div class="ssb_settings_box">
+           <h2>InActive</h2>
 
-			<!-- twitter -->
-			<p><select name="ssb_twitter" id="ssb_twitter">
-				<option value=""<?php if(empty($ssb_twitter) != false) {
-				 	 ?>selected="selected"<?php
-				} ?>><?php _e('inactive', 'simplesocialbuttons'); ?></option>
+           <ul id="ssb_inactive_icons" class="items" style="min-height:35px">
+             <?php foreach ( $ssb_icons_order as $key => $value): ?>
+               <?php if ( $value == 0): ?>
+                 <li data-id="<?php echo $key ?>" class="list" ><img src="<?php echo plugins_url( 'assets/images/'.$key.'.jpg', __FILE__ ) ?>" /></li>
+               <?php endif; ?>
+             <?php endforeach; ?>
+           </ul>
+         </div>
 
-			<?php for($pos = 1; $pos < 5; $pos++) { ?>
-				<option value="<?php echo $pos; ?>"<?php if($ssb_twitter == $pos) {
-					 ?>selected="selected"<?php
-				} ?>> # <?php echo $pos; ?> </option>
-			<?php } ?>
-			</select> &nbsp;
-			<label for="ssb_twitter"><?php _e('Twitter share', 'simplesocialbuttons'); ?></label></p>
-			<!-- /twitter -->
+           <input type="hidden" id="ssb_icons_order" name="ssb_icons_order" value="<?php echo get_option( 'ssb_icons_order', join( ',', array_flip( array_filter( $ssb_icons_order ) ) ) ) ?>" />
 
-			<!--  pinterest -->
-			<p><select name="ssb_pinterest" id="ssb_pinterest">
-				<option value=""<?php if(empty($ssb_pinterest) != false) {
-				 	 ?>selected="selected"<?php
-				} ?>><?php _e('inactive', 'simplesocialbuttons'); ?></option>
-
-			<?php for($pos = 1; $pos < 5; $pos++) { ?>
-				<option value="<?php echo $pos; ?>"<?php if($ssb_pinterest == $pos) {
-					 ?>selected="selected"<?php
-				} ?>> # <?php echo $pos; ?> </option>
-			<?php } ?>
-			</select> &nbsp;
-			<label for="ssb_pinterest"><?php _e('Pinterest - Pin It', 'simplesocialbuttons'); ?></label> (<?php echo _e('Will be visible only on post with thumbnail', 'simplesocialbuttons');?>)</p>
-			<!--  /pinterest -->
 
 			<p><label for="ssb_override_css"><input type="checkbox" name="ssb_override_css" id="ssb_override_css" value="1" <?php if(!empty($ssb_override_css)) { echo 'checked="checked"'; } ?>/> <?php _e('Disable plugin CSS (only advanced users)', 'simplesocialbuttons'); ?></label></p>
          </div>
@@ -272,16 +335,16 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
           <h2>Spread the Word</h2>
           <ul class="ssb_social_links">
             <li>
-              <a href="http://twitter.com/share?text=This is Best Related Social Share for WordPress&amp;url=https://wordpress.org/plugins/simple-social-buttons/" data-count="none" class="button twitter" target="_blank" title="Post to Twitter Now">Share on Twitter<span class="dashicons dashicons-twitter"></span></a>
+              <a href="http://twitter.com/share?text=Check out this (FREE) Amazing Social Share Plugin for WordPress&amp;url=https://wordpress.org/plugins/simple-social-buttons/" data-count="none" class="button twitter" target="_blank" title="Post to Twitter Now">Share on Twitter<span class="dashicons dashicons-twitter"></span></a>
             </li>
 
             <li>
-              <a href="https://www.facebook.com/sharer/sharer.php?u=https://wordpress.org/plugins/simple-social-buttons/" class="button facebook" target="_blank" title="Share with your facebook friends about this awesome plugin.">Share on Facebook<span class="dashicons dashicons-facebook"></span>
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://wordpress.org/plugins/simple-social-buttons/" class="button facebook" target="_blank" title="Check out this (FREE) Amazing Social Share Plugin for WordPress">Share on Facebook<span class="dashicons dashicons-facebook"></span>
               </a>
             </li>
 
             <li>
-              <a href="https://wordpress.org/plugins/simple-social-buttons/?filter=5" class="button wordpress" target="_blank" title="Rate on Wordpress.org">Rate on Wordpress.org<span class="dashicons dashicons-wordpress"></span>
+              <a href="https://wordpress.org/plugins/simple-social-buttons/?filter=5" class="button wordpress" target="_blank" title="Rate on WordPress.org">Rate on WordPress.org<span class="dashicons dashicons-wordpress"></span>
               </a>
             </li>
           </ul>
@@ -316,15 +379,19 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
       <div class="postbox ssb_social_links_wrapper">
         <div class="sidebar postbox">
           <h2>Recommended Plugins</h2>
-          <!-- <p>Following are the plugins highly recommend by Team WPBrigade.</p> -->
+          <!-- <p>Following are the plugins highly recommend by Team WPBrigade.com</p> -->
           <ul class="plugins_lists">
             <li>
-              <a href="https://wpbrigade.com/wordpress/plugins/loginpress-pro/?utm_source=related-posts-lite&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" data-count="none" target="_blank" title="Post to Twitter Now">LoginPress - Login Customizer</a>
+              <a href="https://wpbrigade.com/wordpress/plugins/loginpress-pro/?utm_source=ssb-lite&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="Post to Twitter Now">LoginPress - Login Customizer</a>
             </li>
 
             <li>
-              <a href="https://analytify.io/ref/73/?utm_source=related-posts-lite&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="Share with your facebook friends about this awesome plugin.">Google Analytics by Analytify
+              <a href="https://analytify.io/ref/73/?utm_source=ssb-lite&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="Share with your facebook friends about this awesome plugin.">Google Analytics by Analytify
               </a>
+            </li>
+
+            <li>
+              <a href="https://wpbrigade.com/wordpress/plugins/related-posts/?utm_source=ssb-lite&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="Releated Posts Thumbnails">Releated Posts Thumbnails</a>
             </li>
 
             <li>
@@ -341,24 +408,21 @@ extract( $settings, EXTR_PREFIX_ALL, 'ssb' );
 
 <script type="text/javascript">
 jQuery(document).ready(function($) {
-
   $('#ssb_subscribe_btn').on('click', function(event) {
     event.preventDefault();
-
     var subscriber_mail = $('#ssb_subscribe_mail').val();
     var name = $('#ssb_subscribe_name').val();
     if (!subscriber_mail) {
       $('.ssb_subscribe_warning').html('Please Enter Email');
       return;
     }
-
     $.ajax({
-      url: ajaxurl,
+      url: 'https://wpbrigade.com/wp-json/wpbrigade/v1/subsribe-to-mailchimp',
       type: 'POST',
       data: {
         subscriber_mail : subscriber_mail,
-        action : 'ssb_subscriber',
-        name : name
+        name : name,
+        plugin_name : 'ssb'
       },
       beforeSend : function() {
         $('.ssb_subscribe_loader').show();
@@ -369,8 +433,6 @@ jQuery(document).ready(function($) {
       $('.ssb_return_message').html(res);
       $('.ssb_subscribe_loader').hide();
     });
-
   });
-
 });
 </script>

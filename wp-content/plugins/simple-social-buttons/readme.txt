@@ -1,14 +1,14 @@
 === Simple Social Buttons ===
 Contributors: WPBrigade, hiddenpearls
 Donate link: https://wpbrigade.com/
-Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, pin it
+Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, linkedin, Social share, Social buttons
 Requires at least: 2.8
 Tested up to: 4.8
-Stable tag: 1.8.0
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Insert and customize social buttons: Facebook Like it, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
+Insert and customize social buttons: Facebook Like it, Share, LinkedIn, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
 
 == Description ==
 
@@ -111,11 +111,28 @@ Big thanks to:
 
 == Upgrade Notice ==
 
-= 1.8.0 =
-* Important release, Please upgrade immediately.
+= 1.9.0 =
+* New Feature Release. Please upgrade immediately and provide your feedback. highly recommended.
 
 
 == Changelog ==
+
+= 1.9.0 =
+* Enhancement: Social Share Buttons Drag and Drop Feature.
+* Enhancement: Introducing New Social Buttons: Facebook Share, LinkedIn.
+* Enhancement: Responsive Social Share Buttons styling.
+* Enhancement: Move Menu out from Settings.
+* BugFix: CodeCleanup and Improvement.
+
+= 1.8.2 =
+* BugFix: share button position issue with 2016 theme.
+* Enhancement: move menu out from settings.
+* Enhancement: Add Review Notice.
+* Enhancement: Add deactivate popup feedback form.
+
+
+= 1.8.1 =
+* BugFix: Horizontal issue.
 
 = 1.8.0 =
 * Styling and Code improvement.

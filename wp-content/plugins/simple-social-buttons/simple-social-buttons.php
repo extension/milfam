@@ -1,13 +1,14 @@
 <?php
-/*
-*
-* Plugin Name: Simple Social Buttons
-* Plugin URI: http://www.WPBrigade.com/wordpress/plugins/simple-social-buttons/
-* Description: Insert social buttons into posts and archives: Facebook "Like it", Google Plus One "+1", Twitter share and Pinterest.
-* Version: 1.8.0
-* Author: WPBrigade
-* Author URI: http://adnan.pk/
-*/
+/**
+ * Plugin Name: Simple Social Buttons
+ * Plugin URI: http://www.WPBrigade.com/wordpress/plugins/simple-social-buttons/
+ * Description: Insert social buttons into posts, pages and archives: <code>Facebook</code> "Like it", "Share", <code>Google</code> Plus One "+1", <code>Twitter</code> share, <code>LinkedIn</code> and <code>Pinterest</code>.
+ * Version: 1.9.0
+ * Author: WPBrigade
+ * Author URI: http://www.WPBrigade.com/
+ * Text Domain: simplesocialbuttons
+ * Domain Path: /lang
+ */
 
 /*  Copyright 2011, Muhammad Adnan (WPBrigade)  (email : captain@wpbrigade.com)
 
@@ -36,7 +37,7 @@
 
 class SimpleSocialButtonsPR {
 	var $pluginName = 'Simple Social Buttons';
-	var $pluginVersion = '1.7.11';
+	var $pluginVersion = '1.9.0';
 	var $pluginPrefix = 'ssb_pr_';
 	var $hideCustomMetaKey = '_ssb_hide';
 
@@ -51,11 +52,13 @@ class SimpleSocialButtonsPR {
 		'beforepage' => '1',
 		'afterpage' => '0',
 		'beforearchive' => '0',
-		'afterarchive' => '0'
+		'afterarchive' => '0',
+    'fbshare' => '0',
+    'linkedin' => '0'
 	);
 
 	// defined buttons
-	var $arrKnownButtons = array('fblike', 'googleplus', 'twitter', 'pinterest');
+	var $arrKnownButtons = array('fblike', 'googleplus', 'twitter', 'pinterest', 'fbshare', 'linkedin');
 
 	// an array to store current settings, to avoid passing them between functions
 	var $settings = array();
@@ -68,6 +71,8 @@ class SimpleSocialButtonsPR {
 		register_activation_hook( __FILE__, array(&$this, 'plugin_install') );
 		register_deactivation_hook( __FILE__, array(&$this, 'plugin_uninstall') );
 
+
+		$this->constants();
 		/**
 		 * Action hooks
 		 */
@@ -83,7 +88,7 @@ class SimpleSocialButtonsPR {
 
 		// social JS + CSS data
 		add_action( 'wp_footer', array(&$this, 'include_social_js') );
-		if(!empty($this->settings['override_css'])) {
+		if ( !isset($this->settings['override_css']) || $this->settings['override_css'] != 1) {
 			add_action( 'wp_head', array(&$this, 'include_css') );
 		}
 
@@ -92,12 +97,19 @@ class SimpleSocialButtonsPR {
 		 */
 		add_filter( 'the_content', array(&$this, 'insert_buttons') );
 		add_filter( 'the_excerpt', array(&$this, 'insert_buttons') );
+
+		add_filter( 'plugin_row_meta',        array( $this, '_row_meta'), 10, 2 );
 	}
 
 	function plugin_init() {
    		load_plugin_textdomain( 'simplesocialbuttons', '', dirname( plugin_basename( __FILE__ ) ).'/lang' );
 	}
 
+	function constants() {
+		define( 'SSB_FEEDBACK_SERVER', 'https://wpbrigade.com/' );
+		define( 'SSB_VERSION', $this->pluginVersion );
+		define( 'SSB_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+	}
 	/**
 	 * Both avoids time-wasting https calls AND provides better SSL-protection if the current server is accessed using HTTPS
 	 */
@@ -145,7 +157,7 @@ window.___gcfg = {lang: '<?php echo $lang_g; ?>'};
    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
 <?php endif;?>
-<?php if ((int)$this->settings['fblike'] != 0):?>
+<?php if ((int)$this->settings['fblike'] != 0 || (int)$this->settings['fbshare'] != 0):?>
 // facebook
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -164,6 +176,10 @@ window.___gcfg = {lang: '<?php echo $lang_g; ?>'};
 <?php if ((int)$this->settings['pinterest'] != 0):?>
 <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 <?php endif;?>
+<!-- linkedin -->
+<?php if ( isset( $this->settings['linkedin'] ) && (int)$this->settings['linkedin'] != 0): ?>
+<script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+<?php endif; ?>
 <!-- /End of Simple Social Buttons -->
 
 <?php
@@ -176,16 +192,17 @@ window.___gcfg = {lang: '<?php echo $lang_g; ?>'};
 
 <!-- Simple Social Buttons style sheet -->
 <style type="text/css">
-   div.simplesocialbuttons { height: 20px; margin: 10px auto 10px 0; text-align: left; clear: left; }
+   div.simplesocialbuttons { height: auto; margin: 5px auto 5px -5px; text-align: left; clear: left; }
    div.simplesocialbutton { float: left; }
    div.ssb-button-googleplus { width: 100px; }
    div.ssb-button-fblike { width: 140px; line-height: 1; }
+   div.ssb-button-fbshare { width: 140px; line-height: 1; }
    div.ssb-button-twitter { width: 130px; }
    div.ssb-button-pinterest { width: 100px; }
    .fb-like iframe { max-width: none !important; }
-	 .simplesocialbuttons .simplesocialbutton { display: inline-block; vertical-align: top; width: auto; }
-	 .simplesocialbuttons .simplesocialbutton iframe { margin: 0; }
-	 .simplesocialbuttons .simplesocialbutton + .simplesocialbutton { margin-left: 20px; }
+	 .simplesocialbuttons .simplesocialbutton { display: inline-block; vertical-align: top; width: auto;float: none; margin: 0 5px 5px;}
+	 .simplesocialbuttons .simplesocialbutton iframe { margin: 0; vertical-align: inherit; }
+
 </style>
 <!-- End of Simple Social Buttons -->
 
@@ -314,6 +331,27 @@ window.___gcfg = {lang: '<?php echo $lang_g; ?>'};
 		return $return;
 	}
 
+
+	/**
+	 * Add Thumbs Up Icon
+	 *
+	 * @since 1.9.0
+	 */
+	public function _row_meta( $links, $file ) {
+
+	if ( strpos( $file, 'simple-social-buttons.php' ) !== false ) {
+
+		// Set link for Reviews.
+		$new_links = array('<a href="https://wordpress.org/support/plugin/simple-social-buttons/reviews/?filter=5" target="_blank"><span class="dashicons dashicons-thumbs-up"></span> ' . __( 'Vote!', 'simplesocialbuttons' ) . '</a>',
+		);
+
+		$links = array_merge( $links, $new_links );
+	}
+
+	return $links;
+}
+
+
 	/**
 	 * Insert the buttons to the content
 	 */
@@ -326,7 +364,9 @@ window.___gcfg = {lang: '<?php echo $lang_g; ?>'};
 		// creating order
 		$order = array();
 		foreach ($this->arrKnownButtons as $button_name) {
-			$order[$button_name] = $this->settings[$button_name];
+      if ( isset( $this->settings[$button_name] ) ) {
+        $order[$button_name] = $this->settings[$button_name];
+      }
 		}
 		$ssb_buttonscode = $this->generate_buttons_code($order);
 
@@ -406,9 +446,15 @@ window.___gcfg = {lang: '<?php echo $lang_g; ?>'};
 				case 'fblike':
 					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-fblike"><!-- Facebook like--><div id="fb-root"></div><div class="fb-like" data-href="'.$permalink.'" data-send="false" data-layout="button_count" data-show-faces="false"></div></div>';
 					break;
+				case 'fbshare':
+					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-fblike"><!-- Facebook Share--><div id="fb-root"></div><div class="fb-share-button" data-href="'.$permalink.'" data-send="false" data-layout="button_count"  ></div></div>';
+					break;
 				case 'twitter':
 					$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-twitter"><!-- Twitter--><a href="https://twitter.com/share" class="twitter-share-button" data-text="'.$title.'" data-url="'.$permalink.'" ' . ((!empty($this->settings['twitterusername'])) ? 'data-via="'.$this->settings['twitterusername'].'" ' : '') . 'rel="nofollow"></a></div>';
 					break;
+					case 'linkedin':
+						$arrButtonsCode[] = '<div class="simplesocialbutton ssb-button-linkdin"><!-- LinkdIn--><script type="IN/Share" data-counter="right"></script></div>';
+						break;
 				case 'pinterest':
 					global $post;
 					$thumb_id = get_post_thumbnail_id($post->ID);
@@ -450,18 +496,24 @@ class SimpleSocialButtonsPR_Admin extends SimpleSocialButtonsPR {
 	function __construct() {
 		parent::__construct();
 
+
 		add_action('admin_menu', array(&$this, 'admin_actions') );
 		add_action('add_meta_boxes', array(&$this, 'ssb_meta_box'));
 		add_action('save_post', array(&$this, 'ssb_save_meta'), 10, 2);
 
 		add_filter('plugin_action_links', array(&$this, 'plugin_action_links'), 10, 2 );
 
-		add_action( 'wp_ajax_ssb_subscriber', array( $this, 'ssb_subscriber' ) );
+		add_action( 'admin_footer',	array( $this, 'add_deactive_modal' ) );
+		add_action( 'wp_ajax_ssb_deactivate', array( $this, 'ssb_deactivate' ) );
+		add_action( 'admin_init', array( $this, 'review_notice' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'in_admin_header', array( $this, 'skip_notices' ), 100000 );
+
 	}
 
 	public function admin_actions() {
 		if (current_user_can('activate_plugins'))
-    		add_options_page('Simple Social Buttons ', 'Social Buttons ', "activate_plugins", 'simple-social-buttons', array(&$this, 'admin_page') );
+				add_menu_page( 'Simple Social Buttons ', 'Social Buttons ', "activate_plugins", 'simple-social-buttons', array(&$this, 'admin_page'), 'dashicons-share', 100 );
 	}
 
 	public function admin_page() {
@@ -480,11 +532,19 @@ class SimpleSocialButtonsPR_Admin extends SimpleSocialButtonsPR {
 		}
 
 		if ($file == $this_plugin) {
-			$settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/options-general.php?page=simple-social-buttons">'.__('Settings', 'simplesocialbuttons').'</a>';
+			$settings_link = '<a href="' . admin_url( 'admin.php?page=simple-social-buttons' ) . '">'.__('Settings', 'simplesocialbuttons').'</a>';
 			array_unshift($links, $settings_link);
 		}
 
 		return $links;
+	}
+
+	function admin_enqueue_scripts( $page ) {
+
+		if ( 'toplevel_page_simple-social-buttons' == $page ) {
+			wp_enqueue_script( 'ssb-admin-js', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery', 'jquery-ui-sortable' ), time(), $in_footer = false );
+		}
+
 	}
 
 	/**
@@ -554,71 +614,214 @@ class SimpleSocialButtonsPR_Admin extends SimpleSocialButtonsPR {
 		update_post_meta($postId, $this->hideCustomMetaKey, $newValue);
 	}
 
-	function ssb_subscriber() {
 
-		$email = sanitize_email( wp_unslash( $_POST['subscriber_mail'] ) );
-		$display_name = sanitize_text_field( wp_unslash( $_POST['name'] ) );
+	/**
+	 * Show the popup on pluing deactivate
+	 *
+	 * @since 1.9.0
+	 */
+	function add_deactive_modal() {
+		global $pagenow;
 
+		if ( 'plugins.php' !== $pagenow ) {
+			return;
+		}
 
-		$data = array(
-			'email_address' => $email,
-			"status_if_new" => "pending",
-			// 'status'        => 'pending', // "subscribed","unsubscribed","cleaned","pending"
-			'merge_fields'  => array(
-				'FNAME'       => $display_name
-			),
-			'interests' => array(
-				'7aec774503' => true, // add interest ? loginPress => d91a783713 || Related Posts Thumbnails => 1c85722a4b || Newsletter Subscribers => 3eefb18f62
-			)
+		include SSB_PLUGIN_DIR . 'inc/ssb-deactivate-form.php';
+	}
+
+	/**
+	 * Send the user responce to api.
+	 *
+	 * @since 1.9.0
+	 */
+	function ssb_deactivate() {
+		$email         = get_option( 'admin_email' );
+		$_reason       = sanitize_text_field( wp_unslash( $_POST['reason'] ) );
+		$reason_detail = sanitize_text_field( wp_unslash( $_POST['reason_detail'] ) );
+		$reason        = '';
+
+		if ( $_reason == '1' ) {
+			$reason = 'I only needed the plugin for a short period';
+		} elseif ( $_reason == '2' ) {
+			$reason = 'I found a better plugin';
+		} elseif ( $_reason == '3' ) {
+			$reason = 'The plugin broke my site';
+		} elseif ( $_reason == '4' ) {
+			$reason = 'The plugin suddenly stopped working';
+		} elseif ( $_reason == '5' ) {
+			$reason = 'I no longer need the plugin';
+		} elseif ( $_reason == '6' ) {
+			$reason = 'It\'s a temporary deactivation. I\'m just debugging an issue.';
+		} elseif ( $_reason == '7' ) {
+			$reason = 'Other';
+		}
+		$fields = array(
+			'email' 		        => $email,
+			'website' 			    => get_site_url(),
+			'action'            => 'Deactivate',
+			'reason'            => $reason,
+			'reason_detail'     => $reason_detail,
+			'blog_language'     => get_bloginfo( 'language' ),
+			'wordpress_version' => get_bloginfo( 'version' ),
+			'plugin_version'    => SSB_VERSION,
+			'plugin_name' 			=> 'Simple Social Buttons',
 		);
 
+		$response = wp_remote_post( SSB_FEEDBACK_SERVER, array(
+			'method'      => 'POST',
+			'timeout'     => 5,
+			'httpversion' => '1.0',
+			'blocking'    => false,
+			'headers'     => array(),
+			'body'        => $fields,
+		) );
 
-		$apiKey = '7f32f907a2e6ceeaf8a97fc00b962b2b-us15';
-		$listId = '30d28e0fc3';
-
-		$memberId = md5( strtolower( $data['email_address'] ) );
-		$dataCenter = substr( $apiKey , strpos( $apiKey,'-' ) + 1 );
-
-
-		$url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/lists/' . $listId .'/members/' . $memberId;
-
-		// 2d13665c08ff83f22de7cc7da216db12
-		$json = json_encode( $data );
-
-		$ch = curl_init( $url );
-
-		curl_setopt( $ch, CURLOPT_USERPWD, 'user:' . $apiKey );
-		curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
-		curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'PUT' );
-		curl_setopt( $ch, CURLOPT_POST, true );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, $json );
-
-		curl_setopt( $ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)' );
-
-		$result = curl_exec( $ch );
-
-		if( $request_type == 'GET' ){
-			$result_array = json_decode ( $result , true );
-			$status       = $result_array['status'];
-			return $status;
-		}
-		// var_dump($result);
-		// var_dump( curl_getinfo( $ch ) );
-
-		$httpCode = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
-
-		curl_close( $ch );
-		if ( 200 == $httpCode ) {
-			echo "Thank you!";
-		} else {
-			echo "oops! Please try again later.";
-		}
 		wp_die();
 	}
 
+/**
+ * Check either to show notice or not.
+ *
+ * @since 1.9.0
+ */
+	public function review_notice() {
+
+	$this->review_dismissal();
+	$this->review_prending();
+
+	$review_dismissal	= get_site_option( 'ssb_review_dismiss' );
+	if ( 'yes' == $review_dismissal ) {
+		return;
+	}
+
+	$activation_time 	= get_site_option( 'ssb_active_time' );
+	if ( ! $activation_time ) {
+
+		$activation_time = time();
+		add_site_option( 'ssb_active_time', $activation_time );
+	}
+
+	// 1296000 = 15 Days in seconds.
+	if ( time() - $activation_time > 1296000 ) {
+		add_action( 'admin_notices' , array( $this, 'review_notice_message' ) );
+	}
+
+}
+
+	/**
+	 * Show review Message After 15 days.
+	 *
+	 * @since 1.9.0
+	 */
+	public function review_notice_message() {
+
+	$scheme      = ( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_QUERY ) )  ? '&' : '?';
+	$url         = $_SERVER['REQUEST_URI'] . $scheme . 'ssb_review_dismiss=yes';
+	$dismiss_url = wp_nonce_url( $url, 'ssb-review-nonce' );
+
+	$_later_link = $_SERVER['REQUEST_URI'] . $scheme . 'ssb_review_later=yes';
+	$later_url   = wp_nonce_url( $_later_link, 'ssb-review-nonce' );
+
+?>
+<style media="screen">
+	.ssb-review-notice { padding: 15px 15px 15px 0; background-color: #fff; border-radius: 3px; margin: 20px 20px 0 0; border-left: 4px solid transparent; } .ssb-review-notice:after { content: ''; display: table; clear: both; }
+	.ssb-review-thumbnail { width: 114px; float: left; line-height: 80px; text-align: center; border-right: 4px solid transparent; }
+	.ssb-review-thumbnail img { width: 74px; vertical-align: middle; }
+	.ssb-review-text { overflow: hidden; }
+	.ssb-review-text h3 { font-size: 24px; margin: 0 0 5px; font-weight: 400; line-height: 1.3; }
+	.ssb-review-text p { font-size: 13px; margin: 0 0 5px; }
+	.ssb-review-ul { margin: 0; padding: 0; }
+	.ssb-review-ul li { display: inline-block; margin-right: 15px; }
+	.ssb-review-ul li a { display: inline-block; color: #10738B; text-decoration: none; padding-left: 26px; position: relative; }
+	.ssb-review-ul li a span { position: absolute; left: 0; top: -2px; }
+</style>
+	<div class="ssb-review-notice">
+		<div class="ssb-review-thumbnail">
+			<img src="<?php echo plugins_url( 'assets/images/ssb_grey_logi.png', __FILE__ ) ?>" alt="">
+		</div>
+		<div class="ssb-review-text">
+			<h3><?php _e( 'Leave A Review?', 'simplesocialbuttons' ) ?></h3>
+			<p><?php _e( 'We hope you\'ve enjoyed using Simple Social Buttons! Would you consider leaving us a review on WordPress.org?', 'simplesocialbuttons' ) ?></p>
+			<ul class="ssb-review-ul"><li><a href="https://wordpress.org/support/plugin/simple-social-buttons/reviews/?filter=5" target="_blank"><span class="dashicons dashicons-external"></span><?php _e( 'Sure! I\'d love to!', 'simplesocialbuttons' ) ?></a></li>
+				 <li><a href="<?php echo $dismiss_url ?>"><span class="dashicons dashicons-smiley"></span><?php _e( 'I\'ve already left a review', 'simplesocialbuttons' ) ?></a></li>
+				 <li><a href="<?php echo $later_url ?>"><span class="dashicons dashicons-calendar-alt"></span><?php _e( 'Maybe Later', 'simplesocialbuttons' ) ?></a></li>
+				 <li><a href="<?php echo $dismiss_url ?>"><span class="dashicons dashicons-dismiss"></span><?php _e( 'Never show again', 'simplesocialbuttons' ) ?></a></li></ul>
+		</div>
+	</div>
+<?php
+}
+
+/**
+ * Set time to current so review notice will popup after 15 days
+ *
+ * @since 1.9.0
+ */
+function review_prending() {
+
+	// delete_site_option( 'ssb_review_dismiss' );
+	if ( ! is_admin() ||
+		! current_user_can( 'manage_options' ) ||
+		! isset( $_GET['_wpnonce'] ) ||
+		! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'ssb-review-nonce' ) ||
+		! isset( $_GET['ssb_review_later'] ) ) {
+
+		return;
+	}
+
+	// Reset Time to current time.
+	update_site_option( 'ssb_active_time', time() );
+
+}
+
+/**
+ *	Check and Dismiss review message.
+ *
+ *	@since 1.9.0
+ */
+private function review_dismissal() {
+
+	//delete_site_option( 'ssb_review_dismiss' );
+	if ( ! is_admin() ||
+		! current_user_can( 'manage_options' ) ||
+		! isset( $_GET['_wpnonce'] ) ||
+		! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'ssb-review-nonce' ) ||
+		! isset( $_GET['ssb_review_dismiss'] ) ) {
+
+		return;
+	}
+
+	add_site_option( 'ssb_review_dismiss', 'yes' );
+}
+
+
+/**
+ * Skip the all the notice from settings page.
+ *
+ * @since 1.9.0
+ */
+function skip_notices() {
+
+	if ( 'toplevel_page_simple-social-buttons' === get_current_screen()->id ) {
+
+		global $wp_filter;
+
+		if ( is_network_admin() and isset( $wp_filter['network_admin_notices'] ) ) {
+			unset( $wp_filter['network_admin_notices'] );
+		} elseif ( is_user_admin() and isset( $wp_filter['user_admin_notices'] ) ) {
+			unset( $wp_filter['user_admin_notices'] );
+		} else {
+			if ( isset( $wp_filter['admin_notices'] ) ) {
+				unset( $wp_filter['admin_notices'] );
+			}
+		}
+
+		if ( isset( $wp_filter['all_admin_notices'] ) ) {
+			unset( $wp_filter['all_admin_notices'] );
+		}
+	}
+
+}
 
 } // end SimpleSocialButtonsPR_Admin
 
