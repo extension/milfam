@@ -343,3 +343,11 @@ function milfam_customize_register( $wp_customize ) {
 	}
 }
 add_action( 'customize_register', 'milfam_customize_register' );
+
+function disable_website_field_in_comments($fields)
+{
+  if(isset($fields['url']))
+    unset($fields['url']);
+    return $fields;
+}
+add_filter('comment_form_default_fields', 'disable_website_field_in_comments');
