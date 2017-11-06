@@ -76,7 +76,10 @@ class SSP_Frontend {
 
 		// Trigger import podcast process (if active)
 		add_action( 'wp_loaded', array( $this, 'import_existing_podcast_to_podmotor') );
-
+		
+		// Update podmotor_episode_id and audio file values from import process
+		add_action( 'wp_loaded', array( $this, 'update_episode_data_from_podmotor') );
+		
 		// Register widgets
 		add_action( 'widgets_init', array( $this, 'register_widgets' ), 1 );
 
@@ -87,6 +90,8 @@ class SSP_Frontend {
 
 		// Handle localisation
 		add_action( 'plugins_loaded', array( $this, 'load_localisation' ) );
+
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ) );
 	}
 
 	/**
@@ -347,10 +352,6 @@ class SSP_Frontend {
 			$meta['new_window'] = true;
 		}
 
-		if( $link ) {
-			$meta['duration'] = $duration;
-		}
-
 		if( $date_recorded ) {
 			$meta['date_recorded'] = $date_recorded;
 		}
@@ -359,6 +360,9 @@ class SSP_Frontend {
 		$meta = apply_filters( 'ssp_episode_meta_details', $meta, $episode_id, $context );
 
 		$meta_display = '';
+		$podcast_display = '';
+		$subscribe_display = '';
+
 		$meta_sep = apply_filters( 'ssp_episode_meta_separator', ' | ' );
 		foreach ( $meta as $key => $data ) {
 
@@ -366,27 +370,23 @@ class SSP_Frontend {
 				continue;
 			}
 
-			if( $meta_display ) {
-				$meta_display .= $meta_sep;
+			if( $podcast_display ) {
+				$podcast_display .= $meta_sep;
 			}
-
+			
 			switch( $key ) {
 
 				case 'link':
-					$meta_display .= '<a href="' . esc_url( $data ) . '" title="' . get_the_title() . ' " class="podcast-meta-download" download>' . __( 'Download file' , 'seriously-simple-podcasting' ) . '</a>';
+					$podcast_display .= '<a href="' . esc_url( $data ) . '" title="' . get_the_title() . ' " class="podcast-meta-download">' . __( 'Download file' , 'seriously-simple-podcasting' ) . '</a>';
 				break;
 
 				case 'new_window':
 					$play_link = add_query_arg( 'ref', 'new_window', $link );
-					$meta_display .= '<a href="' . esc_url( $play_link ) . '" target="_blank" title="' . get_the_title() . ' " class="podcast-meta-new-window">' . __( 'Play in new window' , 'seriously-simple-podcasting' ) . '</a>';
-				break;
-
-				case 'duration':
-					$meta_display .= '<span class="podcast-meta-duration">' . __( 'Duration' , 'seriously-simple-podcasting' ) . ': ' . $data . '</span>';
+					$podcast_display .= '<a href="' . esc_url( $play_link ) . '" target="_blank" title="' . get_the_title() . ' " class="podcast-meta-new-window">' . __( 'Play in new window' , 'seriously-simple-podcasting' ) . '</a>';
 				break;
 
 				case 'date_recorded':
-					$meta_display .= '<span class="podcast-meta-date">' . __( 'Recorded on' , 'seriously-simple-podcasting' ) . ' ' . date_i18n( get_option( 'date_format' ), strtotime( $data ) ) . '</span>';
+					$podcast_display .= $meta_sep.'<span class="podcast-meta-date">' . __( 'Recorded on' , 'seriously-simple-podcasting' ) . ' ' . date_i18n( get_option( 'date_format' ), strtotime( $data ) ) . '</span>';
 				break;
 
 				// Allow for custom items to be added, but only allow a small amount of HTML tags
@@ -408,11 +408,46 @@ class SSP_Frontend {
 			}
 		}
 
-		$itunes_url = get_option( 'ss_podcasting_itunes_url', '' );
-		if ( ! empty( $itunes_url ) ) {
-			$meta_display .= $meta_sep . '<a href="' . esc_url( $itunes_url ) . '" title="' . __( 'Leave a review', 'seriously-simple-podcasting' ) . '" class="podcast-meta-itunes">' . __( 'Leave a review', 'seriously-simple-podcasting' ) . '</a>';
-		}
+		$meta_display .= "<p>".__( 'Podcast:', 'seriously-simple-podcasting' )." ".$podcast_display."</p>";
 
+		$terms = get_the_terms( $episode_id, 'series' );
+
+		$itunes_url = get_option( 'ss_podcasting_itunes_url', '' );
+		$stitcher_url = get_option( 'ss_podcasting_stitcher_url', '' );
+		$google_play_url = get_option( 'ss_podcasting_google_play_url', '' );
+		
+		if ( is_array( $terms ) ) {
+			if ( isset( $terms[0] ) ) {
+				if ( false !== get_option( 'ss_podcasting_itunes_url_' . $terms[0]->term_id, '' ) ) {
+					$itunes_url = get_option( 'ss_podcasting_itunes_url_' . $terms[0]->term_id, '' );
+				}
+				if ( false !== get_option( 'ss_podcasting_stitcher_url_' . $terms[0]->term_id, '' ) ) {
+					$stitcher_url = get_option( 'ss_podcasting_stitcher_url_' . $terms[0]->term_id, '' );
+				}
+				if ( false !== get_option( 'ss_podcasting_google_play_url_' . $terms[0]->term_id, '' ) ) {
+					$google_play_url = get_option( 'ss_podcasting_google_play_url_' . $terms[0]->term_id, '' );
+				}
+			}
+		}
+		
+		if ( ! empty( $itunes_url ) ) {
+			$subscribe_display .= '<a href="' . esc_url( $itunes_url ) . '" target="_blank" title="' . apply_filters( 'ssp_subscribe_link_name_itunes', __( 'iTunes', 'seriously-simple-podcasting' ) ) . '" class="podcast-meta-itunes">' . apply_filters( 'ssp_subscribe_link_name_itunes', __( 'iTunes', 'seriously-simple-podcasting' ) ) . '</a>';
+		}
+		
+		if ( ! empty( $stitcher_url ) ) {
+			if( empty( $itunes_url ) ) { $meta_sep = ''; } else { $meta_sep = ' | '; }
+			$subscribe_display .= $meta_sep . '<a href="' . esc_url( $stitcher_url ) . '" target="_blank" title="' . apply_filters( 'ssp_subscribe_link_name_stitcher', __( 'Stitcher', 'seriously-simple-podcasting' ) ) . '" class="podcast-meta-itunes">' . apply_filters( 'ssp_subscribe_link_name_stitcher', __( 'Stitcher', 'seriously-simple-podcasting' ) ) . '</a>';
+		}
+		
+		if ( ! empty( $google_play_url ) ) {
+			if( empty( $stitcher_url ) ) { $meta_sep = ''; } else { $meta_sep = ' | '; }
+			$subscribe_display .= $meta_sep . '<a href="' . esc_url( $google_play_url ) . '" target="_blank" title="' . apply_filters( 'ssp_subscribe_link_name_google_play', __( 'Google Play', 'seriously-simple-podcasting' ) ) . '" class="podcast-meta-itunes">' . apply_filters( 'ssp_subscribe_link_name_google_play', __( 'Google Play', 'seriously-simple-podcasting' ) ) . '</a>';
+		}
+		
+		if ( ! empty( $subscribe_display ) ) {
+			$meta_display .= '<p>' . __( 'Subscribe:', 'seriously-simple-podcasting' ) . ' ' . $subscribe_display . '</p>';
+		}
+		
 		$meta_display = '<div class="podcast_meta"><aside>' . $meta_display . '</aside></div>';
 
 		return $meta_display;
@@ -475,7 +510,7 @@ class SSP_Frontend {
 	 * @return boolean       File size on success, boolean false on failure
 	 */
 	public function get_file_size( $file = '' ) {
-
+		
 		if ( $file ) {
 
 			// Include media functions if necessary
@@ -878,20 +913,54 @@ class SSP_Frontend {
 		return apply_filters( 'ssp_episode_from_file', $episode, $file );
 
 	}
-
+	
+	/**
+	 * Public action which is triggered from the Seriously Simple Hosting queue
+	 * Imports episodes to Serioulsy Simple Hosting
+	 */
 	public function import_existing_podcast_to_podmotor(){
+		// this will soon be deprecated
 		$podcast_importer = ( isset( $_GET['podcast_importer'] ) ? filter_var( $_GET['podcast_importer'], FILTER_SANITIZE_STRING ) : '' );
-		if ( ! empty( $podcast_importer ) && 'true' == $podcast_importer ){
+		if (empty($podcast_importer)){
+			$podcast_importer = ( isset( $_GET['ssp_podcast_importer'] ) ? filter_var( $_GET['ssp_podcast_importer'], FILTER_SANITIZE_STRING ) : '' );
+		}
+		if ( ! empty( $podcast_importer ) && 'true' == $podcast_importer ) {
 			$continue = import_existing_podcast();
-			if ($continue){
-				$reponse = array( 'continue' => 'true', 'response' => 'There are still podcasts to be imported' );
-			}else {
-				$reponse = array( 'continue' => 'false', 'response' => 'There are no more podcasts to be imported' );
+			if ( $continue ) {
+				$reponse = array( 'continue' => 'false', 'response' => 'Podcast data imported' );
+			} else {
+				$reponse = array( 'continue' => 'true', 'response' => 'An error occurred importing the podcast data' );
 			}
 			wp_send_json( $reponse );
 		}
 	}
-
+	
+	/**
+	 * Public facing action which is triggered from Seriously Simple Hosting
+	 * Updates episode_id and audio_file data from import process
+	 * Expects ssp_podcast_updater, ssp_podcast_api_token form fields
+	 * and ssp_podcast_file csv data file
+	 */
+	public function update_episode_data_from_podmotor() {
+		$podcast_updater = ( isset( $_POST['podcast_updater'] ) ? filter_var( $_POST['podcast_updater'], FILTER_SANITIZE_STRING ) : '' );
+		if ( ! empty( $podcast_updater ) && 'true' == $podcast_updater ) {
+			$reponse = array( 'updated' => 'false' );
+			$ssp_podcast_api_token = ( isset( $_POST['ssp_podcast_api_token'] ) ? filter_var( $_POST['ssp_podcast_api_token'], FILTER_SANITIZE_STRING ) : '' );
+			$podmotor_api_token    = get_option( 'ss_podcasting_podmotor_account_api_token', '' );
+			if ( $ssp_podcast_api_token === $podmotor_api_token ) {
+				if ( isset( $_FILES['ssp_podcast_file'] ) ) {
+					$episode_data_array = array_map( 'str_getcsv', file( $_FILES['ssp_podcast_file']['tmp_name'] ) );
+					foreach ( $episode_data_array as $episode_data ) {
+						update_post_meta( $episode_data[0], 'podmotor_episode_id', $episode_data[1] );
+						update_post_meta( $episode_data[0], 'audio_file', $episode_data[2] );
+					}
+					ssp_email_podcasts_imported();
+					$reponse['updated'] = 'true';
+				}
+			}
+			wp_send_json( $reponse );
+		}
+	}
 
 	/**
 	 * Download file from `podcast_episode` query variable
@@ -1249,4 +1318,15 @@ class SSP_Frontend {
 	public function load_localisation () {
 		load_plugin_textdomain( 'seriously-simple-podcasting', false, basename( dirname( $this->file ) ) . '/languages/' );
 	}
+
+	/**
+	 * 
+	 */
+	public function load_scripts(){
+
+		wp_register_style( 'ssp-frontend-player', $this->assets_url.'css/player.css', array(), $this->version );
+		wp_enqueue_style( 'ssp-frontend-player' );
+
+	}
+
 }
