@@ -1,0 +1,334 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Simple Social Buttons\n"
+"POT-Creation-Date: 2017-10-28 11:18+0500\n"
+"PO-Revision-Date: 2017-10-28 11:17+0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: simple-social-buttons.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: classes/ssb-admin.php:44
+msgid "Settings"
+msgstr ""
+
+#: classes/ssb-admin.php:83
+msgid "SSB Settings"
+msgstr ""
+
+#: classes/ssb-admin.php:101
+msgid "Hide Simple Social Buttons"
+msgstr ""
+
+#: classes/ssb-admin.php:268
+msgid "Leave A Review?"
+msgstr ""
+
+#: classes/ssb-admin.php:269
+msgid ""
+"We hope you've enjoyed using Simple Social Buttons! Would you consider "
+"leaving us a review on WordPress.org?"
+msgstr ""
+
+#: classes/ssb-admin.php:270
+msgid "Sure! I'd love to!"
+msgstr ""
+
+#: classes/ssb-admin.php:271
+msgid "I've already left a review"
+msgstr ""
+
+#: classes/ssb-admin.php:272
+msgid "Maybe Later"
+msgstr ""
+
+#: classes/ssb-admin.php:273
+msgid "Never show again"
+msgstr ""
+
+#: classes/ssb-settings-strucutre.php:409
+msgid "makes Social Sharing easy for everyone"
+msgstr ""
+
+#: classes/ssb-settings-strucutre.php:410
+msgid ""
+"<strong>Simple Social Buttons</strong> by <strong><a href=\"https://"
+"wpbrigade.com/?utm_source=simple-social-buttons-lite&utm_medium=link-"
+"header&utm_campaign=pro-upgrade\">WPBrigade</a></strong> adds an advanced "
+"set of social media sharing buttons to your WordPress sites, such as: "
+"<strong>Google +1</strong>, <strong>Facebook</strong>, <strong>WhatsApp</"
+"strong>, <strong>Viber</strong>, <strong>Twitter</strong>, <strong>Reddit</"
+"strong>, <strong>LinkedIn</strong> and <strong>Pinterest</strong>. This "
+"makes it the most flexible social sharing plugin ever for Everyone."
+msgstr ""
+
+#: classes/ssb-settings-strucutre.php:422
+msgid "Spread the Word"
+msgstr ""
+
+#: classes/ssb-settings-strucutre.php:425
+msgid "Share on Twitter"
+msgstr ""
+
+#: classes/ssb-settings-strucutre.php:428
+msgid "Share on Facebook"
+msgstr ""
+
+#: classes/ssb-settings-strucutre.php:432
+msgid "Rate on WordPress.org"
+msgstr ""
+
+#: classes/ssb-settings-strucutre.php:441
+msgid "Subscribe Newsletter"
+msgstr ""
+
+#: classes/ssb-settings-strucutre.php:444
+msgid "Email"
+msgstr ""
+
+#: classes/ssb-settings-strucutre.php:449
+msgid "Name"
+msgstr ""
+
+#: classes/ssb-settings-strucutre.php:465
+msgid "Recommended Plugins"
+msgstr ""
+
+#: classes/ssb-settings-strucutre.php:687
+msgid "Choose File"
+msgstr ""
+
+#: classes/ssb-settings.php:30
+msgid "Social Buttons"
+msgstr ""
+
+#: classes/ssb-settings.php:35
+msgid "Social Buttons Designs"
+msgstr ""
+
+#: classes/ssb-settings.php:40
+msgid "Social Buttons Postions"
+msgstr ""
+
+#: classes/ssb-settings.php:45
+msgid "Sidebar"
+msgstr ""
+
+#: classes/ssb-settings.php:50
+msgid "On Media"
+msgstr ""
+
+#: classes/ssb-settings.php:55
+msgid "Popup"
+msgstr ""
+
+#: classes/ssb-settings.php:60
+msgid "Fly In"
+msgstr ""
+
+#: classes/ssb-settings.php:65
+msgid "InLine"
+msgstr ""
+
+#: classes/ssb-settings.php:70
+msgid "Additional features"
+msgstr ""
+
+#: classes/ssb-settings.php:122
+msgid "Sidebar Orientation"
+msgstr ""
+
+#: classes/ssb-settings.php:123 classes/ssb-settings.php:201
+msgid "<h4>Display Settings</h4>"
+msgstr ""
+
+#: classes/ssb-settings.php:134
+msgid "Intro Animation"
+msgstr ""
+
+#: classes/ssb-settings.php:149 classes/ssb-settings.php:240
+msgid "Display Share Counts"
+msgstr ""
+
+#: classes/ssb-settings.php:155 classes/ssb-settings.php:246
+msgid "Display Total Shares"
+msgstr ""
+
+#: classes/ssb-settings.php:161 classes/ssb-settings.php:252
+msgid "Add Icon Spacing"
+msgstr ""
+
+#: classes/ssb-settings.php:174 classes/ssb-settings.php:265
+msgid "Hide On Mobile Devices"
+msgstr ""
+
+#: classes/ssb-settings.php:180 classes/ssb-settings.php:290
+msgid "Post type Settings"
+msgstr ""
+
+#: classes/ssb-settings.php:181 classes/ssb-settings.php:291
+#: classes/ssb-settings.php:333
+msgid "Multi checkbox description"
+msgstr ""
+
+#: classes/ssb-settings.php:189
+msgid ""
+"Want even more fine tuned control over your Sidebar Social Buttons Styling?"
+msgstr ""
+
+#: classes/ssb-settings.php:190 classes/ssb-settings.php:300
+#: classes/ssb-settings.php:347 classes/ssb-settings.php:356
+#: classes/ssb-settings.php:365
+msgid ""
+"By upgrading to Simple Social Buttons Pro, you get access to Styling Social "
+"buttons of your own choice that matches with your website color schemes. "
+"These social buttons will help in driving more engagement and traffic to "
+"your site. Some of the Pro features include: Show Social media buttons on "
+"Images/Photos, Social Popups on exit/intent, Social Flyin slides and so much "
+"more!"
+msgstr ""
+
+#: classes/ssb-settings.php:200
+msgid "Icon Position"
+msgstr ""
+
+#: classes/ssb-settings.php:213
+msgid "Icon Alignment"
+msgstr ""
+
+#: classes/ssb-settings.php:225
+msgid "Animation"
+msgstr ""
+
+#: classes/ssb-settings.php:271
+msgid "Show at Category pages"
+msgstr ""
+
+#: classes/ssb-settings.php:277
+msgid "Show at Archive pages"
+msgstr ""
+
+#: classes/ssb-settings.php:284
+msgid "Show at Tag pages"
+msgstr ""
+
+#: classes/ssb-settings.php:299
+msgid "Want to style the Inline Social buttons matches your theme colors?"
+msgstr ""
+
+#: classes/ssb-settings.php:317
+msgid "Icon Style"
+msgstr ""
+
+#: classes/ssb-settings.php:332
+msgid "Postions"
+msgstr ""
+
+#: classes/ssb-settings.php:346
+msgid "Show Social Sharing buttons on images or photos in your posts/pages."
+msgstr ""
+
+#: classes/ssb-settings.php:355
+msgid ""
+"Get more engagement and shares on scrolling and exit intent to visitors."
+msgstr ""
+
+#: classes/ssb-settings.php:364
+msgid "Advanced Fly ins with animations to have more Social shares."
+msgstr ""
+
+#: classes/ssb-settings.php:373
+msgid "Twitter @username:"
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:84
+msgid "Quick feedback about Simple Social Buttons"
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:87
+msgid "If you have a moment, please let us know why you are deactivating:"
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:94
+msgid "I only needed the plugin for a short period"
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:103
+msgid "I found a better plugin"
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:106
+msgid "Kindly tell us the name of plugin"
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:113
+msgid "The plugin broke my site"
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:122
+msgid "The plugin suddenly stopped working"
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:131
+msgid "I no longer need the plugin"
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:140
+msgid "It's a temporary deactivation. I'm just debugging an issue."
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:149
+msgid "Other"
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:152
+msgid "Kindly tell us the reason so we can improve."
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:157
+msgid "Anonymous feedback"
+msgstr ""
+
+#: inc/ssb-deactivate-form.php:162
+msgid "Cancel"
+msgstr ""
+
+#: simple-social-buttons.php:371
+msgid "Vote!"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Simple Social Buttons"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.WPBrigade.com/wordpress/plugins/simple-social-buttons/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Insert social buttons into posts, pages and archives: <code>Facebook</code> "
+"\"Like it\", \"Share\", <code>Google</code> Plus One \"+1\", <code>Twitter</"
+"code> share, <code>LinkedIn</code> and <code>Pinterest</code>."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.WPBrigade.com/"
+msgstr ""

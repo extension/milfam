@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simplesocialbuttons\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-09 23:10+0100\n"
-"PO-Revision-Date: 2014-01-09 23:11+0100\n"
+"POT-Creation-Date: 2017-10-28 11:38+0500\n"
+"PO-Revision-Date: 2017-10-28 11:38+0500\n"
 "Last-Translator: Paweł Rabinek <pawel@rabinek.pl>\n"
 "Language-Team: Paweł Rabinek <pawel@rabinek.pl>\n"
 "Language: pl\n"
@@ -13,27 +13,68 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 2.0.2\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../simple-social-buttons.php:476 ../ssb-admin.php:11
+#: ../classes/ssb-admin.php:44
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: ../simple-social-buttons.php:503
+#: ../classes/ssb-admin.php:83
 msgid "SSB Settings"
 msgstr "Ustawienia SSB"
 
-#: ../simple-social-buttons.php:514
+#: ../classes/ssb-admin.php:101
 msgid "Hide Simple Social Buttons"
 msgstr "Ukryj przyciski wtyczki Simple Social Buttons"
 
-#: ../ssb-admin.php:13
+#: ../classes/ssb-admin.php:268
+msgid "Leave A Review?"
+msgstr ""
+
+#: ../classes/ssb-admin.php:269
 msgid ""
-"<strong>Simple Social Buttons</strong> by <strong>Paweł Rabinek</strong>. "
-"This plugin adds a social media buttons, such as: <strong>Google +1</"
-"strong>, <strong>Facebook Like it</strong>, <strong>Twitter share</strong> "
-"and <strong>Pinterest</strong>. The most flexible social buttons plugin ever."
+"We hope you've enjoyed using Simple Social Buttons! Would you consider "
+"leaving us a review on WordPress.org?"
+msgstr ""
+
+#: ../classes/ssb-admin.php:270
+msgid "Sure! I'd love to!"
+msgstr ""
+
+#: ../classes/ssb-admin.php:271
+msgid "I've already left a review"
+msgstr ""
+
+#: ../classes/ssb-admin.php:272
+msgid "Maybe Later"
+msgstr ""
+
+#: ../classes/ssb-admin.php:273
+msgid "Never show again"
+msgstr ""
+
+#: ../classes/ssb-settings-strucutre.php:409
+msgid "makes Social Sharing easy for everyone"
+msgstr ""
+
+#: ../classes/ssb-settings-strucutre.php:410
+#, fuzzy
+#| msgid ""
+#| "<strong>Simple Social Buttons</strong> by <strong>Paweł Rabinek</strong>. "
+#| "This plugin adds a social media buttons, such as: <strong>Google +1</"
+#| "strong>, <strong>Facebook Like it</strong>, <strong>Twitter share</"
+#| "strong> and <strong>Pinterest</strong>. The most flexible social buttons "
+#| "plugin ever."
+msgid ""
+"<strong>Simple Social Buttons</strong> by <strong><a href=\"https://"
+"wpbrigade.com/?utm_source=simple-social-buttons-lite&utm_medium=link-"
+"header&utm_campaign=pro-upgrade\">WPBrigade</a></strong> adds an advanced "
+"set of social media sharing buttons to your WordPress sites, such as: "
+"<strong>Google +1</strong>, <strong>Facebook</strong>, <strong>WhatsApp</"
+"strong>, <strong>Viber</strong>, <strong>Twitter</strong>, <strong>Reddit</"
+"strong>, <strong>LinkedIn</strong> and <strong>Pinterest</strong>. This "
+"makes it the most flexible social sharing plugin ever for Everyone."
 msgstr ""
 "<strong>Simple Social Buttons</strong>, autor <strong>Paweł Rabinek</"
 "strong>. Wtyczka dodaje do wpisów przyciski: <strong>Google +1</strong>, "
@@ -41,175 +82,365 @@ msgstr ""
 "<strong>Pinterest</strong>. Najlepsza wtyczka z przyciskami social media dla "
 "Wordpress."
 
-#: ../ssb-admin.php:71
-msgid "Select buttons"
-msgstr "Wybór przycisków"
+#: ../classes/ssb-settings-strucutre.php:422
+msgid "Spread the Word"
+msgstr ""
 
-#: ../ssb-admin.php:73
-msgid "Select social media buttons:"
-msgstr "Wybierz przyciski do wyświetlenia:"
+#: ../classes/ssb-settings-strucutre.php:425
+#, fuzzy
+#| msgid "Follow me on Twitter"
+msgid "Share on Twitter"
+msgstr "Napisz do mnie na Twitter"
 
-#: ../ssb-admin.php:79 ../ssb-admin.php:93 ../ssb-admin.php:108
-#: ../ssb-admin.php:123
-msgid "inactive"
-msgstr "nieaktywny"
+#: ../classes/ssb-settings-strucutre.php:428
+#, fuzzy
+#| msgid "Paweł Rabinek on Facebook"
+msgid "Share on Facebook"
+msgstr "Paweł Rabinek na Facebook"
 
-#: ../ssb-admin.php:87
-msgid "Google plus one (+1)"
-msgstr "Google plus jeden (+1)"
+#: ../classes/ssb-settings-strucutre.php:432
+msgid "Rate on WordPress.org"
+msgstr ""
 
-#: ../ssb-admin.php:101
-msgid "Facebook Like it"
-msgstr "Facebook Lubię to"
+#: ../classes/ssb-settings-strucutre.php:441
+msgid "Subscribe Newsletter"
+msgstr ""
 
-#: ../ssb-admin.php:116
-msgid "Twitter share"
-msgstr "Wyślij na Twitter"
+#: ../classes/ssb-settings-strucutre.php:444
+msgid "Email"
+msgstr ""
 
-#: ../ssb-admin.php:131
-msgid "Pinterest - Pin It"
-msgstr "Pinterest - Pin It"
+#: ../classes/ssb-settings-strucutre.php:449
+msgid "Name"
+msgstr ""
 
-#: ../ssb-admin.php:131
-msgid "Will be visible only on post with thumbnail"
-msgstr "Widoczny tylko dla wpisów z ustawioną ikoną"
+#: ../classes/ssb-settings-strucutre.php:465
+msgid "Recommended Plugins"
+msgstr ""
 
-#: ../ssb-admin.php:134
-msgid "Disable plugin CSS (only advanced users)"
-msgstr "Wyłącz style CSS wtyczki (tylko dla zaawansowanych użytkowników)"
+#: ../classes/ssb-settings-strucutre.php:687
+msgid "Choose File"
+msgstr ""
 
-#: ../ssb-admin.php:139
-msgid "Single posts - display settings"
-msgstr "Pojedyńcze wpisy - ustawienia"
+#: ../classes/ssb-settings.php:30
+#, fuzzy
+#| msgid "Hide Simple Social Buttons"
+msgid "Social Buttons"
+msgstr "Ukryj przyciski wtyczki Simple Social Buttons"
 
-#: ../ssb-admin.php:141
-msgid "Place buttons on single post:"
-msgstr "Miejsce przycisków na podstronie wpisu:"
+#: ../classes/ssb-settings.php:35
+msgid "Social Buttons Designs"
+msgstr ""
 
-#: ../ssb-admin.php:142 ../ssb-admin.php:166
-msgid "Before the content"
-msgstr "Nad treścią wpisu"
+#: ../classes/ssb-settings.php:40
+msgid "Social Buttons Postions"
+msgstr ""
 
-#: ../ssb-admin.php:143 ../ssb-admin.php:167
-msgid "After the content"
-msgstr "Pod treścią wpisu"
+#: ../classes/ssb-settings.php:45
+msgid "Sidebar"
+msgstr ""
 
-#: ../ssb-admin.php:148
-msgid "Single pages - display settings"
-msgstr "Pojedyńcze strony - ustawienia"
+#: ../classes/ssb-settings.php:50
+msgid "On Media"
+msgstr ""
 
-#: ../ssb-admin.php:150
-msgid "Place buttons on single pages:"
-msgstr "Miejsce przycisków na stronach:"
+#: ../classes/ssb-settings.php:55
+msgid "Popup"
+msgstr ""
 
-#: ../ssb-admin.php:151
-msgid "Before the page content"
-msgstr "Nad treścią strony"
+#: ../classes/ssb-settings.php:60
+msgid "Fly In"
+msgstr ""
 
-#: ../ssb-admin.php:152
-msgid "After the page content"
-msgstr "Pod treścią strony"
+#: ../classes/ssb-settings.php:65
+msgid "InLine"
+msgstr ""
 
-#: ../ssb-admin.php:157
-msgid "Archives - display settings"
-msgstr "Archiwa - ustawienia"
-
-#: ../ssb-admin.php:159
-msgid "Select additional places to display buttons:"
-msgstr "Dodatkowe miejsca do wyświetlenia przycisków:"
-
-#: ../ssb-admin.php:160
-msgid "Show at frontpage"
-msgstr "Pokazuj na stronie głównej"
-
-#: ../ssb-admin.php:161
-msgid "Show at category pages"
-msgstr "Pokazuj na stroniach kategorii"
-
-#: ../ssb-admin.php:162
-msgid "Show at archive pages"
-msgstr "Pokazuje w archiwum dat"
-
-#: ../ssb-admin.php:163
-msgid "Show at tag pages"
-msgstr "Pokazuj na stronach tagów"
-
-#: ../ssb-admin.php:165
-msgid "Place buttons on archives:"
-msgstr "Miejsce przycisków na stronach archiwum:"
-
-#: ../ssb-admin.php:172
+#: ../classes/ssb-settings.php:70
 msgid "Additional features"
 msgstr "Dodatkowe funkcje"
 
-#: ../ssb-admin.php:174
-msgid "Twitter @username"
+#: ../classes/ssb-settings.php:122
+msgid "Sidebar Orientation"
+msgstr ""
+
+#: ../classes/ssb-settings.php:123 ../classes/ssb-settings.php:201
+msgid "<h4>Display Settings</h4>"
+msgstr ""
+
+#: ../classes/ssb-settings.php:134
+msgid "Intro Animation"
+msgstr ""
+
+#: ../classes/ssb-settings.php:149 ../classes/ssb-settings.php:240
+msgid "Display Share Counts"
+msgstr ""
+
+#: ../classes/ssb-settings.php:155 ../classes/ssb-settings.php:246
+msgid "Display Total Shares"
+msgstr ""
+
+#: ../classes/ssb-settings.php:161 ../classes/ssb-settings.php:252
+msgid "Add Icon Spacing"
+msgstr ""
+
+#: ../classes/ssb-settings.php:174 ../classes/ssb-settings.php:265
+msgid "Hide On Mobile Devices"
+msgstr ""
+
+#: ../classes/ssb-settings.php:180 ../classes/ssb-settings.php:290
+#, fuzzy
+#| msgid "Settings"
+msgid "Post type Settings"
+msgstr "Ustawienia"
+
+#: ../classes/ssb-settings.php:181 ../classes/ssb-settings.php:291
+#: ../classes/ssb-settings.php:333
+msgid "Multi checkbox description"
+msgstr ""
+
+#: ../classes/ssb-settings.php:189
+msgid ""
+"Want even more fine tuned control over your Sidebar Social Buttons Styling?"
+msgstr ""
+
+#: ../classes/ssb-settings.php:190 ../classes/ssb-settings.php:300
+#: ../classes/ssb-settings.php:347 ../classes/ssb-settings.php:356
+#: ../classes/ssb-settings.php:365
+msgid ""
+"By upgrading to Simple Social Buttons Pro, you get access to Styling Social "
+"buttons of your own choice that matches with your website color schemes. "
+"These social buttons will help in driving more engagement and traffic to "
+"your site. Some of the Pro features include: Show Social media buttons on "
+"Images/Photos, Social Popups on exit/intent, Social Flyin slides and so much "
+"more!"
+msgstr ""
+
+#: ../classes/ssb-settings.php:200
+msgid "Icon Position"
+msgstr ""
+
+#: ../classes/ssb-settings.php:213
+msgid "Icon Alignment"
+msgstr ""
+
+#: ../classes/ssb-settings.php:225
+msgid "Animation"
+msgstr ""
+
+#: ../classes/ssb-settings.php:271
+#, fuzzy
+#| msgid "Show at category pages"
+msgid "Show at Category pages"
+msgstr "Pokazuj na stroniach kategorii"
+
+#: ../classes/ssb-settings.php:277
+#, fuzzy
+#| msgid "Show at archive pages"
+msgid "Show at Archive pages"
+msgstr "Pokazuje w archiwum dat"
+
+#: ../classes/ssb-settings.php:284
+#, fuzzy
+#| msgid "Show at tag pages"
+msgid "Show at Tag pages"
+msgstr "Pokazuj na stronach tagów"
+
+#: ../classes/ssb-settings.php:299
+msgid "Want to style the Inline Social buttons matches your theme colors?"
+msgstr ""
+
+#: ../classes/ssb-settings.php:317
+msgid "Icon Style"
+msgstr ""
+
+#: ../classes/ssb-settings.php:332
+msgid "Postions"
+msgstr ""
+
+#: ../classes/ssb-settings.php:346
+msgid "Show Social Sharing buttons on images or photos in your posts/pages."
+msgstr ""
+
+#: ../classes/ssb-settings.php:355
+msgid ""
+"Get more engagement and shares on scrolling and exit intent to visitors."
+msgstr ""
+
+#: ../classes/ssb-settings.php:364
+msgid "Advanced Fly ins with animations to have more Social shares."
+msgstr ""
+
+#: ../classes/ssb-settings.php:373
+#, fuzzy
+#| msgid "Twitter @username"
+msgid "Twitter @username:"
 msgstr "Twitter @użytkownik"
 
-#: ../ssb-admin.php:180
-msgid "Save Changes"
-msgstr "Zapisz ustawienia"
+#: ../inc/ssb-deactivate-form.php:84
+#, fuzzy
+#| msgid "Hide Simple Social Buttons"
+msgid "Quick feedback about Simple Social Buttons"
+msgstr "Ukryj przyciski wtyczki Simple Social Buttons"
 
-#: ../ssb-admin.php:190
-msgid "About this plugin:"
-msgstr "Informacje o wtyczce:"
-
-#: ../ssb-admin.php:193
-msgid "Plugin support"
-msgstr "Pomoc na forum"
-
-#: ../ssb-admin.php:194
-msgid "Review this plugin"
-msgstr "Recenzje wtyczki"
-
-#: ../ssb-admin.php:196
-msgid "Enjoy this plugin?"
-msgstr "Podoba Ci się ta wtyczka?"
-
-#: ../ssb-admin.php:196
-msgid "Buy me a beer"
-msgstr "Postaw mi piwo"
-
-#: ../ssb-admin.php:209
-msgid "About the author:"
-msgstr "Informacje o autorze:"
-
-#: ../ssb-admin.php:211
-msgid ""
-"Hi! My name is Paweł Rabinek (aka xradar). I'm interesed in SEO and social "
-"media, PHP and Wordpress developement."
+#: ../inc/ssb-deactivate-form.php:87
+msgid "If you have a moment, please let us know why you are deactivating:"
 msgstr ""
-"Hej! Nazywam się Paweł Rabinek (nick xradar). Zawodowo zajmuje się SEO i "
-"mediami społecznościowymi. Programuję w PHP, często z wykorzystaniem "
-"Wordpressa."
 
-#: ../ssb-admin.php:213
-msgid "Paweł Rabinek on Google+"
-msgstr "Paweł Rabinek na Google+"
+#: ../inc/ssb-deactivate-form.php:94
+msgid "I only needed the plugin for a short period"
+msgstr ""
 
-#: ../ssb-admin.php:214
-msgid "Free SEO Audit"
-msgstr "Darmowy audyt SEO"
+#: ../inc/ssb-deactivate-form.php:103
+msgid "I found a better plugin"
+msgstr ""
 
-#: ../ssb-admin.php:215
-msgid "My blog about SEO"
-msgstr "Mój blog o SEO"
+#: ../inc/ssb-deactivate-form.php:106
+msgid "Kindly tell us the name of plugin"
+msgstr ""
 
-#: ../ssb-admin.php:215
-msgid "[Polish]"
-msgstr " "
+#: ../inc/ssb-deactivate-form.php:113
+msgid "The plugin broke my site"
+msgstr ""
 
-#: ../ssb-admin.php:216
-msgid "Follow me on Twitter"
-msgstr "Napisz do mnie na Twitter"
+#: ../inc/ssb-deactivate-form.php:122
+msgid "The plugin suddenly stopped working"
+msgstr ""
 
-#: ../ssb-admin.php:217
-msgid "Paweł Rabinek on Facebook"
-msgstr "Paweł Rabinek na Facebook"
+#: ../inc/ssb-deactivate-form.php:131
+msgid "I no longer need the plugin"
+msgstr ""
 
-#: ../ssb-admin.php:218
-msgid "LinkedIn profile"
-msgstr "Profil na LinkedIn"
+#: ../inc/ssb-deactivate-form.php:140
+msgid "It's a temporary deactivation. I'm just debugging an issue."
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:149
+msgid "Other"
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:152
+msgid "Kindly tell us the reason so we can improve."
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:157
+msgid "Anonymous feedback"
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:162
+msgid "Cancel"
+msgstr ""
+
+#: ../simple-social-buttons.php:371
+msgid "Vote!"
+msgstr ""
+
+#~ msgid "Select buttons"
+#~ msgstr "Wybór przycisków"
+
+#~ msgid "Select social media buttons:"
+#~ msgstr "Wybierz przyciski do wyświetlenia:"
+
+#~ msgid "inactive"
+#~ msgstr "nieaktywny"
+
+#~ msgid "Google plus one (+1)"
+#~ msgstr "Google plus jeden (+1)"
+
+#~ msgid "Facebook Like it"
+#~ msgstr "Facebook Lubię to"
+
+#~ msgid "Twitter share"
+#~ msgstr "Wyślij na Twitter"
+
+#~ msgid "Pinterest - Pin It"
+#~ msgstr "Pinterest - Pin It"
+
+#~ msgid "Will be visible only on post with thumbnail"
+#~ msgstr "Widoczny tylko dla wpisów z ustawioną ikoną"
+
+#~ msgid "Disable plugin CSS (only advanced users)"
+#~ msgstr "Wyłącz style CSS wtyczki (tylko dla zaawansowanych użytkowników)"
+
+#~ msgid "Single posts - display settings"
+#~ msgstr "Pojedyńcze wpisy - ustawienia"
+
+#~ msgid "Place buttons on single post:"
+#~ msgstr "Miejsce przycisków na podstronie wpisu:"
+
+#~ msgid "Before the content"
+#~ msgstr "Nad treścią wpisu"
+
+#~ msgid "After the content"
+#~ msgstr "Pod treścią wpisu"
+
+#~ msgid "Single pages - display settings"
+#~ msgstr "Pojedyńcze strony - ustawienia"
+
+#~ msgid "Place buttons on single pages:"
+#~ msgstr "Miejsce przycisków na stronach:"
+
+#~ msgid "Before the page content"
+#~ msgstr "Nad treścią strony"
+
+#~ msgid "After the page content"
+#~ msgstr "Pod treścią strony"
+
+#~ msgid "Archives - display settings"
+#~ msgstr "Archiwa - ustawienia"
+
+#~ msgid "Select additional places to display buttons:"
+#~ msgstr "Dodatkowe miejsca do wyświetlenia przycisków:"
+
+#~ msgid "Show at frontpage"
+#~ msgstr "Pokazuj na stronie głównej"
+
+#~ msgid "Place buttons on archives:"
+#~ msgstr "Miejsce przycisków na stronach archiwum:"
+
+#~ msgid "Save Changes"
+#~ msgstr "Zapisz ustawienia"
+
+#~ msgid "About this plugin:"
+#~ msgstr "Informacje o wtyczce:"
+
+#~ msgid "Plugin support"
+#~ msgstr "Pomoc na forum"
+
+#~ msgid "Review this plugin"
+#~ msgstr "Recenzje wtyczki"
+
+#~ msgid "Enjoy this plugin?"
+#~ msgstr "Podoba Ci się ta wtyczka?"
+
+#~ msgid "Buy me a beer"
+#~ msgstr "Postaw mi piwo"
+
+#~ msgid "About the author:"
+#~ msgstr "Informacje o autorze:"
+
+#~ msgid ""
+#~ "Hi! My name is Paweł Rabinek (aka xradar). I'm interesed in SEO and "
+#~ "social media, PHP and Wordpress developement."
+#~ msgstr ""
+#~ "Hej! Nazywam się Paweł Rabinek (nick xradar). Zawodowo zajmuje się SEO i "
+#~ "mediami społecznościowymi. Programuję w PHP, często z wykorzystaniem "
+#~ "Wordpressa."
+
+#~ msgid "Paweł Rabinek on Google+"
+#~ msgstr "Paweł Rabinek na Google+"
+
+#~ msgid "Free SEO Audit"
+#~ msgstr "Darmowy audyt SEO"
+
+#~ msgid "My blog about SEO"
+#~ msgstr "Mój blog o SEO"
+
+#~ msgid "[Polish]"
+#~ msgstr " "
+
+#~ msgid "LinkedIn profile"
+#~ msgstr "Profil na LinkedIn"
 
 #~ msgid ""
 #~ "Talk to <a href=\"http://twitter.com/rabinek\" target=\"_blank"
