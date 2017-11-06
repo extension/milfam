@@ -1,34 +1,72 @@
-=== Simple Social Buttons ===
-Contributors: WPBrigade, hiddenpearls
+=== Simple Social Media Share Buttons - Social Sharing for Everyone ===
+Contributors: hiddenpearls, WPBrigade
 Donate link: https://wpbrigade.com/
-Tags: facebook, google, twitter, pinterest, plus one, like it, like, share, pin, linkedin, Social share, Social buttons
-Requires at least: 2.8
+Tags: Social share, Social buttons, Whatsapp, Viber, LinkedIn, facebook, google, twitter, pinterest, plus one
+Requires at least: 4.0
 Tested up to: 4.8
-Stable tag: 1.9.0
+Stable tag: 2.0.2
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Insert and customize social buttons: Facebook Like it, Share, LinkedIn, Google plus +1, Twitter share, Pinterest Pin it. Share your content with friends.
+Simple Social Media Share Buttons adds an advanced set of social media sharing buttons to your WordPress sites, such as: Google +1, Facebook, WhatsApp, Viber, Twitter, Reddit, LinkedIn and Pinterest. This makes it the most flexible social sharing plugin ever for Everyone.
 
 == Description ==
 
-Simple Social Buttons adds to your posts social network buttons, such as: **Facebook "Like it!"**, **Google plus on "+1"**, **Twitter share** and **Pinterest Pin it**. Plugin is fully customizable. You can decide where to put those buttons:
+[Simple Social Buttons](https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-readme&utm_campaign=pro-upgrade "This plugin makes Social Sharing easy for EVERYONE.") adds  ( with lots of options like Sidebar, inline, above and below the posts content, on photos, popups, fly ins ) an advanced set of social media sharing buttons to your WordPress sites, such as: Google +1, Facebook, WhatsApp, Viber, Twitter, Reddit, LinkedIn and Pinterest. 
 
-- Buttons above the post content 
-- Buttons under the post content
-- Buttons above and under the post
+> Rich set of features makes it the most flexible **Social Sharing plugin ever for Everyone**.
 
-That's not all. Simple Social Buttons can also add social media buttons to:
+** This social sharing Plugin is fully customizable. You can decide where to position those buttons:**
+
+ **Inline**
+- Social Sharing Buttons above the post content 
+- Social Sharing Buttons under the post content
+- Social Sharing Buttons above and under the post
+- Hide Social Share buttons on mobile devices
+- Stunning Animations
+- [Upgrade to Pro](https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-readme&utm_campaign=pro-upgrade "This plugin makes Social Sharing easy for EVERYONE.") for customizing the colors
+
+**SideBar**
+- Social Share buttons on left & right sidebars with Animations
+- Hide Social Share buttons on mobile devices
+- Display Total Share counts
+- [Upgrade to Pro](https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-readme&utm_campaign=pro-upgrade "This plugin makes Social Sharing easy for EVERYONE.") for customizing the colors
+
+**on Media**  *[Premium Feature](https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-readme&utm_campaign=pro-upgrade "This plugin makes Social Sharing easy for EVERYONE.")*
+- Set Social Share buttons positions on left, right etc with Animations
+- Hide Social Share buttons on mobile devices
+- Display Total Share counts
+- Settings for customizing the colors
+- Apply Social Share buttons on Specific Custom Post Types
+
+**Popups** *[Premium Feature](https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-readme&utm_campaign=pro-upgrade "This plugin makes Social Sharing easy for EVERYONE.")*
+- Social Share buttons on popups
+- Trigger popups as soon as use scrolls the page
+- Trigger popups on Exit/Intent.
+- Hide Social Share popups on mobile devices
+- Display Total Share counts
+- Options for customizing the colors
+
+**Fly-ins** *[Premium Feature](https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-readme&utm_campaign=pro-upgrade "This plugin makes Social Sharing easy for EVERYONE.")*
+- Social Share Flyins on bottom left & right with Animations
+- Hide Social Share Fly-ins on mobile devices
+- Display Total Share counts
+- Settings for customizing the colors of buttons and fly-ins
+
+** That's not all. Simple Social Buttons can also add social media buttons to: **
+
 
 - Static Pages
 - Front Page
 - Posts Categories
 - Date Archives
 - Tags Archives
+- **Custom Post Types**
+
+[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
+    The most easiest Social Sharing solution for EVERYONE!
 
 Want's more? Now you can change the **order of buttons** on your post!
-
-Let your visitors share your content with friends and let them **promote your blog**. Facebook, Google Plus, Pinterest and Twitter are the most popular social networks nowadays. Don't miss the opportunity, and help publish your content and links to those social media networks.
 
 Simple Social Buttons is currently in the following languages:
 
@@ -52,70 +90,76 @@ Simple Social Buttons is currently in the following languages:
 1. Download the latest version of Simple Social Buttons
 2. Upload folder named simple-social-buttons to the /wp-content/plugins/ directory
 3. Activate the plugin through the 'Plugins' menu in WordPress
-4. (Optional) Customize the buttons in the Settings > Simple Social Buttons menu
+4. Go to Plugin settings -> Everything is self explanatory on settings page. Select networks, styles, locations and then chose settings for each location.
+5. (Optional) Customize the buttons in the Settings > Inline, Siderbar, Popup, Media, Flyins.
 
-That's it. Buttons will show on your blog posts.
-
-You can also use this plugin directly in your template by function `<?php get_ssb([$order]); ?>`, where `$order` is a string with args ( example: `$order = "googleplus=1&fblike=2&twitter=3"` ) or an array ( example: `$order = array('googleplus' => 1, 'fblike' => 2, 'twitter' => 3)` ). If you would like to hide a specified button, you should set order to "0".
-
+That's it. Buttons will show on your blog posts or any custom type you want. Just select it from each section.
 
 == Frequently Asked Questions ==
 
-= Is the plugin free? =
+= How to use it? =
 
-Yes, it's free. I hope you like it :) If so you can buy me a coffee by doing paypal donate.
-
-= Is the plug will be developed? =
-
-Yes. I've some plans about developing Simple Social Buttons. There will be more buttons, more customization, and more powerfull! Follow me on Twitter [@rabinek](http://twitter.com/rabinek "Paweł Rabinek na Twitter") and stay tuned.
+Check the written [documentation](https://wpbrigade.com/docs-article/getting-started-simple-social-buttons/) with screenshots.
 
 = Why use this plugin? =
 
-This plugin automatically adds the Facebook Like button, Google plus one +1, Twitter share button and Pinterest Pin for each post on your blog. This is the simples and effective way to promote your blog in social media networks.
+This plugin lets you adds the Facebook share button, Google plus one +1, Twitter share button and Pinterest Pin for each post or page on your blog. This is the simple, easy and effective way to promote your blog in social media networks.
 
 = How about support? =
 
 Use [plugin's forum](http://wordpress.org/support/plugin/simple-social-buttons "Forum") to ask about plugin or report some problems. 
 
+= Why upgrade to Pro? =
+
+Premium version includes Priority support, premium featuers like access to customizing colors of social media buttons, Social popups, fly-ins, on Media Social buttons etc
+
+Check the more details [here](https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-faqs&utm_campaign=pro-upgrade "This plugin makes Social Sharing easy for EVERYONE.")
+
 = Is there a template tag for custom install? =
 
-Yes, you can use `<?php get_ssb(); ?>` in your template file (see installation section). Default instalation don't require that. 
+Yes, you can use `<?php get_ssb(); ?>` in your template file (see installation section). Default instalation don't require that.
 
-= Facebook button doesn't appear? =
-
-Make sure you have set WPLANG in wp-config.php file. Correct values are "en_US" for english, "el_GR" for greek, "pl_PL" for polish etc. 
-
-= Who helped to improve Simple Social Buttons? = 
-
-Big thanks to: 
-
-- Karol from [LigaBBVA.pl](http://www.ligabbva.pl/ "Liga hiszpańska BBVA") for PHP developement
-- [@RhooManu](http://twitter.com/RhooManu "RhooManu on Twitter") for french translation
-- [Usability Idealist](http://usability-idealist.de/ "Fabian Wolf - Usability Idealist") for converting code to object-oriented, adding buttons order and many fixes
-- [@Dennis Schreiber](http://twitter.com/flammbar "Dennis Schreiber on Twitter") for german translation
-- [@Marcos González](http://twitter.com/qmarcos "Marcos on Twitter") for spanish translation 
-- [Vincent G](http://www.host1free.com/ "Web Hosting") for lithuanian translation
-- [Mads Phikamphon](http://www.genvejen.dk/ "Mads blog") for danish translation 
-- [Na's mad](http://nasmad.dk/ "Na's mad blog") for thai translation 
-- [WebHostingGeeks.com](http://webhostinggeeks.com/blog/ "Webhosting Geeks") for slovak translation 
-- [WPdiscounts](http://wpdiscounts.com/ "WPdiscounts") for dutch translation
-- [Web Hosting Hub](http://www.webhostinghub.com/ "Webhostinghub") for serbo-croatian translation
-- [Michael Yunat](http://getvoip.com/blog "http://getvoip.com") for ukrainian translation
 
 == Screenshots ==
 
-1. All buttons before the content
-2. Widget in post edition
-3. Plugin settings page
-
+1. Drag and Drop Social media buttons.
+2. Social Share buttons styles.
+3. Social media sharing button locations.
+4. Social Share Buttons - Settings
+5. Social Share buttons on sidebars.
+6. Social Share buttons before, after or above and under the content.
+7. Social Share buttons on images/photos.
+8. Social Share buttons on Social popups.
+9. Social Share buttons on flyins.
 
 == Upgrade Notice ==
 
-= 1.9.0 =
-* New Feature Release. Please upgrade immediately and provide your feedback. highly recommended.
+= 2.0.2 =
+* Relaunched with a whole set of NEW FEATURES and Improvement. Please upgrade immediately and provide your feedback. highly recommended. Aplogies in advance, if anything breaks!
 
 
 == Changelog ==
+
+= 2.0.2 - 2017-11-02 =
+* Bug Fix: Migration issue with old users.
+
+= 2.0.1 - 2017-11-01 =
+* Bug Fix: Compatibility issues with older PHP versions.
+
+= 2.0.0 - 2017-10-31 =
+* New Feature: Refactored i.e rewritten the whole plugin with lots of new features.
+* New Feature: Inline social share buttons with animations and custom colors in Pro vesrion.
+* New Feature: Sidebar social share buttons with animations and custom colors in Pro vesrion.
+* New Feature: Social share Popups with events triggers on exit/intent and on scroll.
+* New Feature: Social Share buttons on images in posts or pages or custom post types. Helps in drive more engagement with site visitors.
+* New Feature: Fly-in the social popups. Style it with your WordPress theme and win the use engagement.
+* New Feature: Choose Social media buttons from more than 5 different social button styles.
+* New Feature: Show Social media buttons on 5 different locations or positions.
+* New Feature: Choose Social Networks with Drag and Drop feature.
+* New Feature: Introducing Whatsapp, Viber, Reddit and linked in.
+* Bug Fix: Improved the loading speed of social media buttons.
+
+
 
 = 1.9.0 =
 * Enhancement: Social Share Buttons Drag and Drop Feature.

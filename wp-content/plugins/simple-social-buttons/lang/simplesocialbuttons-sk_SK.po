@@ -2,224 +2,461 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simplesocialbuttons\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-01 11:19+0100\n"
-"PO-Revision-Date: 2012-12-03 14:24+0400\n"
+"POT-Creation-Date: 2017-10-28 11:38+0500\n"
+"PO-Revision-Date: 2017-10-28 11:38+0500\n"
 "Last-Translator: Mads Phikamphon <mads@genvejen.dk>\n"
 "Language-Team: Paweł Rabinek (DE: Dennis Schreiber) <pawel@rabinek.pl>\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"Language: de_DE\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 2.0.2\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 # Traduit par @RhooManu - www.infographizm.com
-#: ../simple-social-buttons.php:424 ../ssb-admin.php:11
+#: ../classes/ssb-admin.php:44
 msgid "Settings"
 msgstr "Nastavenia"
 
 # Traduit par @RhooManu - www.infographizm.com
-#: ../simple-social-buttons.php:452
+#: ../classes/ssb-admin.php:83
 msgid "SSB Settings"
 msgstr "SSB nastavenia"
 
-#: ../simple-social-buttons.php:463
+#: ../classes/ssb-admin.php:101
 msgid "Hide Simple Social Buttons"
 msgstr "Skryť jednoduché sociálnej Buttons"
 
-#: ../ssb-admin.php:13
-msgid ""
-"<strong>Simple Social Buttons</strong> by <strong>Paweł Rabinek</strong>. "
-"This plugin adds a social media buttons, such as: <strong>Google +1</"
-"strong>, <strong>Facebook Like it</strong> and <strong>Twitter share</"
-"strong>. The most flexible social buttons plugin ever."
+#: ../classes/ssb-admin.php:268
+msgid "Leave A Review?"
 msgstr ""
-"<strong>Jednoduché sociálnych tlačidiel</strong> poskytujú <strong>Paweł "
-"Rabinek</strong>. Tento plugin pridáva sociálnych médií tlačidiel, ako "
-"napríklad: <strong>Google + 1</strong>, <strong>páči Facebook</strong> a "
-"<strong>Twitter zdieľať</strong>. Najviac flexibilné sociálnej buttons "
-"plugin vôbec."
 
-#: ../ssb-admin.php:68
-msgid "Select buttons"
-msgstr "Zvoľte tlačidlá"
-
-#: ../ssb-admin.php:70
-msgid "Select social media buttons:"
-msgstr "Vyberte sociálnych médií tlačidiel:"
-
-#: ../ssb-admin.php:76 ../ssb-admin.php:90 ../ssb-admin.php:105
-msgid "inactive"
-msgstr "neaktívne"
-
-#: ../ssb-admin.php:84
-msgid "Google plus one (+1)"
-msgstr "Google plus jedna (+ 1)"
-
-#: ../ssb-admin.php:98
-msgid "Facebook Like it"
-msgstr "Facebook ako to"
-
-#: ../ssb-admin.php:113
-msgid "Twitter share"
-msgstr "Twitter podiel"
-
-#: ../ssb-admin.php:116
-msgid "Disable plugin CSS (only advanced users)"
-msgstr "Zakázať plugin CSS (iba pokročilí používatelia)"
-
-#: ../ssb-admin.php:121
-msgid "Single posts - display settings"
-msgstr "Jediné príspevky - nastavenia displeja"
-
-#: ../ssb-admin.php:123
-msgid "Place buttons on single post:"
-msgstr "Miesto tlačidlá na jednom post:"
-
-#: ../ssb-admin.php:124 ../ssb-admin.php:148
-msgid "Before the content"
-msgstr "Pred obsah"
-
-#: ../ssb-admin.php:125 ../ssb-admin.php:149
-msgid "After the content"
-msgstr "Po obsah"
-
-#: ../ssb-admin.php:130
-msgid "Single pages - display settings"
-msgstr "Jednotlivé stránky - nastavenia displeja"
-
-#: ../ssb-admin.php:132
-msgid "Place buttons on single pages:"
-msgstr "Miesto tlačidlá na jednotlivé strany:"
-
-#: ../ssb-admin.php:133
-msgid "Before the page content"
-msgstr "Pred obsahu stránky"
-
-#: ../ssb-admin.php:134
-msgid "After the page content"
-msgstr "Po obsah stránky"
-
-#: ../ssb-admin.php:139
-msgid "Archives - display settings"
-msgstr "Archívy - nastavenie obrazovky"
-
-#: ../ssb-admin.php:141
-msgid "Select additional places to display buttons:"
-msgstr "Vyberte ďalšie miesta na zobrazenie tlačidiel:"
-
-#: ../ssb-admin.php:142
-msgid "Show at frontpage"
-msgstr "Zobraziť v programe frontpage"
-
-#: ../ssb-admin.php:143
-msgid "Show at category pages"
-msgstr "Ukázať na stránky kategórie"
-
-#: ../ssb-admin.php:144
-msgid "Show at archive pages"
-msgstr "Zobraziť Archív stránky"
-
-#: ../ssb-admin.php:145
-msgid "Show at tag pages"
-msgstr "Ukázať na značku stránok"
-
-#: ../ssb-admin.php:147
-msgid "Place buttons on archives:"
-msgstr "Miesto tlačidlá na archívy:"
-
-#: ../ssb-admin.php:155
-msgid "Save Changes"
-msgstr "Uložiť zmeny"
-
-#: ../ssb-admin.php:165
-msgid "About this plugin:"
-msgstr "O tento plugin:"
-
-#: ../ssb-admin.php:167
+#: ../classes/ssb-admin.php:269
 msgid ""
-"Talk to <a href=\"http://twitter.com/rabinek\" target=\"_blank\">@rabinek</"
-"a> on twitter for bugs or feature requests."
+"We hope you've enjoyed using Simple Social Buttons! Would you consider "
+"leaving us a review on WordPress.org?"
 msgstr ""
-"Porozprávajte sa s<a href=\"http://twitter.com/rabinek\" target=\"_blank"
-"\">@rabinek</a>na twitteri pre chyby alebo požiadavky na nové funkcie."
 
-#: ../ssb-admin.php:168
-msgid "Enjoy the plugin?"
-msgstr "Užite si plugin?"
+#: ../classes/ssb-admin.php:270
+msgid "Sure! I'd love to!"
+msgstr ""
 
-#: ../ssb-admin.php:169
+#: ../classes/ssb-admin.php:271
+msgid "I've already left a review"
+msgstr ""
+
+#: ../classes/ssb-admin.php:272
+msgid "Maybe Later"
+msgstr ""
+
+#: ../classes/ssb-admin.php:273
+msgid "Never show again"
+msgstr ""
+
+#: ../classes/ssb-settings-strucutre.php:409
+msgid "makes Social Sharing easy for everyone"
+msgstr ""
+
+#: ../classes/ssb-settings-strucutre.php:410
 msgid ""
-"<a href=\"http://twitter.com/?status=I'm using @rabinek's WordPress Simple "
-"Social Buttons plugin - check it out! http://blog.rabinek.pl/\" target="
-"\"_blank\">Tweet about it</a> and consider donating."
+"<strong>Simple Social Buttons</strong> by <strong><a href=\"https://"
+"wpbrigade.com/?utm_source=simple-social-buttons-lite&utm_medium=link-"
+"header&utm_campaign=pro-upgrade\">WPBrigade</a></strong> adds an advanced "
+"set of social media sharing buttons to your WordPress sites, such as: "
+"<strong>Google +1</strong>, <strong>Facebook</strong>, <strong>WhatsApp</"
+"strong>, <strong>Viber</strong>, <strong>Twitter</strong>, <strong>Reddit</"
+"strong>, <strong>LinkedIn</strong> and <strong>Pinterest</strong>. This "
+"makes it the most flexible social sharing plugin ever for Everyone."
 msgstr ""
-"<a href=\"http://twitter.com/?status=I'm using @rabinek's WordPress Simple "
-"Sociálna Odznaky plugin- check it out! http://blog.rabinek.pl/\" target="
-"\"_blank\">Tweet o tom</a> a zvažoval, že daruje"
 
-#: ../ssb-admin.php:170
-msgid ""
-"<strong>Donate:</strong> A lot of hard work goes into building plugins - "
-"support your open source developers. Thank you!"
+#: ../classes/ssb-settings-strucutre.php:422
+msgid "Spread the Word"
 msgstr ""
-"<strong>Darovať:</strong> Veľa tvrdej práce ide do budovy plugins - podpora "
-"váš open source vývojárov. ďakujem!"
 
-#: ../ssb-admin.php:182
-msgid "About the author:"
-msgstr "O autorovi:"
-
-#: ../ssb-admin.php:184
-msgid ""
-"Hi! My name is Paweł Rabinek (aka xradar). I'm interesed in SEO and social "
-"media, PHP and Wordpress developement."
-msgstr ""
-"ahoj! Moje meno je Paweł Rabinek (aka xradar). Som zúčastnenými v SEO a "
-"sociálne médiá, vývoj PHP a Wordpress."
-
-#: ../ssb-admin.php:186
-msgid "My blog about SEO"
-msgstr "Môj blog o SEO"
-
-#: ../ssb-admin.php:186
-msgid "[Polish]"
-msgstr "[Poľský]"
-
-#: ../ssb-admin.php:187
-msgid "Follow me on Twitter"
+#: ../classes/ssb-settings-strucutre.php:425
+#, fuzzy
+#| msgid "Follow me on Twitter"
+msgid "Share on Twitter"
 msgstr "Nasledujte ma na stebėtų"
 
-#: ../ssb-admin.php:188
-msgid "Paweł Rabinek on Facebook"
+#: ../classes/ssb-settings-strucutre.php:428
+#, fuzzy
+#| msgid "Paweł Rabinek on Facebook"
+msgid "Share on Facebook"
 msgstr "Paweł Rabinek na Facebook"
 
-#: ../ssb-admin.php:189
-msgid "Paweł Rabinek on Google Plus"
-msgstr "Paweł Rabinek na Google Plus"
+#: ../classes/ssb-settings-strucutre.php:432
+msgid "Rate on WordPress.org"
+msgstr ""
 
-#: ../ssb-admin.php:190
-msgid "LinkedIn profile"
-msgstr "LinkedIn profil"
+#: ../classes/ssb-settings-strucutre.php:441
+msgid "Subscribe Newsletter"
+msgstr ""
 
-#: ../ssb-admin.php:196
-msgid "Usefull links:"
-msgstr "Užitočné odkazy:"
+#: ../classes/ssb-settings-strucutre.php:444
+msgid "Email"
+msgstr ""
 
-#: ../ssb-admin.php:199
-msgid "Unlimited web hosting"
-msgstr "Neobmedzený webhosting"
+#: ../classes/ssb-settings-strucutre.php:449
+msgid "Name"
+msgstr ""
 
-#: ../ssb-admin.php:200
-msgid "Best SEO software"
-msgstr "Najlepšie SEO softvér"
+#: ../classes/ssb-settings-strucutre.php:465
+msgid "Recommended Plugins"
+msgstr ""
 
-#: ../ssb-admin.php:201
-msgid "Wordpress templates"
-msgstr "WordPress šablóny"
+#: ../classes/ssb-settings-strucutre.php:687
+msgid "Choose File"
+msgstr ""
+
+#: ../classes/ssb-settings.php:30
+#, fuzzy
+#| msgid "Hide Simple Social Buttons"
+msgid "Social Buttons"
+msgstr "Skryť jednoduché sociálnej Buttons"
+
+#: ../classes/ssb-settings.php:35
+msgid "Social Buttons Designs"
+msgstr ""
+
+#: ../classes/ssb-settings.php:40
+msgid "Social Buttons Postions"
+msgstr ""
+
+#: ../classes/ssb-settings.php:45
+msgid "Sidebar"
+msgstr ""
+
+#: ../classes/ssb-settings.php:50
+msgid "On Media"
+msgstr ""
+
+#: ../classes/ssb-settings.php:55
+msgid "Popup"
+msgstr ""
+
+#: ../classes/ssb-settings.php:60
+msgid "Fly In"
+msgstr ""
+
+#: ../classes/ssb-settings.php:65
+msgid "InLine"
+msgstr ""
+
+#: ../classes/ssb-settings.php:70
+msgid "Additional features"
+msgstr ""
+
+#: ../classes/ssb-settings.php:122
+msgid "Sidebar Orientation"
+msgstr ""
+
+#: ../classes/ssb-settings.php:123 ../classes/ssb-settings.php:201
+msgid "<h4>Display Settings</h4>"
+msgstr ""
+
+#: ../classes/ssb-settings.php:134
+msgid "Intro Animation"
+msgstr ""
+
+#: ../classes/ssb-settings.php:149 ../classes/ssb-settings.php:240
+msgid "Display Share Counts"
+msgstr ""
+
+#: ../classes/ssb-settings.php:155 ../classes/ssb-settings.php:246
+msgid "Display Total Shares"
+msgstr ""
+
+#: ../classes/ssb-settings.php:161 ../classes/ssb-settings.php:252
+msgid "Add Icon Spacing"
+msgstr ""
+
+#: ../classes/ssb-settings.php:174 ../classes/ssb-settings.php:265
+msgid "Hide On Mobile Devices"
+msgstr ""
+
+# Traduit par @RhooManu - www.infographizm.com
+#: ../classes/ssb-settings.php:180 ../classes/ssb-settings.php:290
+#, fuzzy
+#| msgid "Settings"
+msgid "Post type Settings"
+msgstr "Nastavenia"
+
+#: ../classes/ssb-settings.php:181 ../classes/ssb-settings.php:291
+#: ../classes/ssb-settings.php:333
+msgid "Multi checkbox description"
+msgstr ""
+
+#: ../classes/ssb-settings.php:189
+msgid ""
+"Want even more fine tuned control over your Sidebar Social Buttons Styling?"
+msgstr ""
+
+#: ../classes/ssb-settings.php:190 ../classes/ssb-settings.php:300
+#: ../classes/ssb-settings.php:347 ../classes/ssb-settings.php:356
+#: ../classes/ssb-settings.php:365
+msgid ""
+"By upgrading to Simple Social Buttons Pro, you get access to Styling Social "
+"buttons of your own choice that matches with your website color schemes. "
+"These social buttons will help in driving more engagement and traffic to "
+"your site. Some of the Pro features include: Show Social media buttons on "
+"Images/Photos, Social Popups on exit/intent, Social Flyin slides and so much "
+"more!"
+msgstr ""
+
+#: ../classes/ssb-settings.php:200
+msgid "Icon Position"
+msgstr ""
+
+#: ../classes/ssb-settings.php:213
+msgid "Icon Alignment"
+msgstr ""
+
+#: ../classes/ssb-settings.php:225
+msgid "Animation"
+msgstr ""
+
+#: ../classes/ssb-settings.php:271
+#, fuzzy
+#| msgid "Show at category pages"
+msgid "Show at Category pages"
+msgstr "Ukázať na stránky kategórie"
+
+#: ../classes/ssb-settings.php:277
+#, fuzzy
+#| msgid "Show at archive pages"
+msgid "Show at Archive pages"
+msgstr "Zobraziť Archív stránky"
+
+#: ../classes/ssb-settings.php:284
+#, fuzzy
+#| msgid "Show at tag pages"
+msgid "Show at Tag pages"
+msgstr "Ukázať na značku stránok"
+
+#: ../classes/ssb-settings.php:299
+msgid "Want to style the Inline Social buttons matches your theme colors?"
+msgstr ""
+
+#: ../classes/ssb-settings.php:317
+msgid "Icon Style"
+msgstr ""
+
+#: ../classes/ssb-settings.php:332
+msgid "Postions"
+msgstr ""
+
+#: ../classes/ssb-settings.php:346
+msgid "Show Social Sharing buttons on images or photos in your posts/pages."
+msgstr ""
+
+#: ../classes/ssb-settings.php:355
+msgid ""
+"Get more engagement and shares on scrolling and exit intent to visitors."
+msgstr ""
+
+#: ../classes/ssb-settings.php:364
+msgid "Advanced Fly ins with animations to have more Social shares."
+msgstr ""
+
+#: ../classes/ssb-settings.php:373
+#, fuzzy
+#| msgid "Twitter share"
+msgid "Twitter @username:"
+msgstr "Twitter podiel"
+
+#: ../inc/ssb-deactivate-form.php:84
+#, fuzzy
+#| msgid "Hide Simple Social Buttons"
+msgid "Quick feedback about Simple Social Buttons"
+msgstr "Skryť jednoduché sociálnej Buttons"
+
+#: ../inc/ssb-deactivate-form.php:87
+msgid "If you have a moment, please let us know why you are deactivating:"
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:94
+msgid "I only needed the plugin for a short period"
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:103
+msgid "I found a better plugin"
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:106
+msgid "Kindly tell us the name of plugin"
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:113
+msgid "The plugin broke my site"
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:122
+msgid "The plugin suddenly stopped working"
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:131
+msgid "I no longer need the plugin"
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:140
+msgid "It's a temporary deactivation. I'm just debugging an issue."
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:149
+msgid "Other"
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:152
+msgid "Kindly tell us the reason so we can improve."
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:157
+msgid "Anonymous feedback"
+msgstr ""
+
+#: ../inc/ssb-deactivate-form.php:162
+msgid "Cancel"
+msgstr ""
+
+#: ../simple-social-buttons.php:371
+msgid "Vote!"
+msgstr ""
+
+#~ msgid ""
+#~ "<strong>Simple Social Buttons</strong> by <strong>Paweł Rabinek</strong>. "
+#~ "This plugin adds a social media buttons, such as: <strong>Google +1</"
+#~ "strong>, <strong>Facebook Like it</strong> and <strong>Twitter share</"
+#~ "strong>. The most flexible social buttons plugin ever."
+#~ msgstr ""
+#~ "<strong>Jednoduché sociálnych tlačidiel</strong> poskytujú <strong>Paweł "
+#~ "Rabinek</strong>. Tento plugin pridáva sociálnych médií tlačidiel, ako "
+#~ "napríklad: <strong>Google + 1</strong>, <strong>páči Facebook</strong> a "
+#~ "<strong>Twitter zdieľať</strong>. Najviac flexibilné sociálnej buttons "
+#~ "plugin vôbec."
+
+#~ msgid "Select buttons"
+#~ msgstr "Zvoľte tlačidlá"
+
+#~ msgid "Select social media buttons:"
+#~ msgstr "Vyberte sociálnych médií tlačidiel:"
+
+#~ msgid "inactive"
+#~ msgstr "neaktívne"
+
+#~ msgid "Google plus one (+1)"
+#~ msgstr "Google plus jedna (+ 1)"
+
+#~ msgid "Facebook Like it"
+#~ msgstr "Facebook ako to"
+
+#~ msgid "Disable plugin CSS (only advanced users)"
+#~ msgstr "Zakázať plugin CSS (iba pokročilí používatelia)"
+
+#~ msgid "Single posts - display settings"
+#~ msgstr "Jediné príspevky - nastavenia displeja"
+
+#~ msgid "Place buttons on single post:"
+#~ msgstr "Miesto tlačidlá na jednom post:"
+
+#~ msgid "Before the content"
+#~ msgstr "Pred obsah"
+
+#~ msgid "After the content"
+#~ msgstr "Po obsah"
+
+#~ msgid "Single pages - display settings"
+#~ msgstr "Jednotlivé stránky - nastavenia displeja"
+
+#~ msgid "Place buttons on single pages:"
+#~ msgstr "Miesto tlačidlá na jednotlivé strany:"
+
+#~ msgid "Before the page content"
+#~ msgstr "Pred obsahu stránky"
+
+#~ msgid "After the page content"
+#~ msgstr "Po obsah stránky"
+
+#~ msgid "Archives - display settings"
+#~ msgstr "Archívy - nastavenie obrazovky"
+
+#~ msgid "Select additional places to display buttons:"
+#~ msgstr "Vyberte ďalšie miesta na zobrazenie tlačidiel:"
+
+#~ msgid "Show at frontpage"
+#~ msgstr "Zobraziť v programe frontpage"
+
+#~ msgid "Place buttons on archives:"
+#~ msgstr "Miesto tlačidlá na archívy:"
+
+#~ msgid "Save Changes"
+#~ msgstr "Uložiť zmeny"
+
+#~ msgid "About this plugin:"
+#~ msgstr "O tento plugin:"
+
+#~ msgid ""
+#~ "Talk to <a href=\"http://twitter.com/rabinek\" target=\"_blank"
+#~ "\">@rabinek</a> on twitter for bugs or feature requests."
+#~ msgstr ""
+#~ "Porozprávajte sa s<a href=\"http://twitter.com/rabinek\" target=\"_blank"
+#~ "\">@rabinek</a>na twitteri pre chyby alebo požiadavky na nové funkcie."
+
+#~ msgid "Enjoy the plugin?"
+#~ msgstr "Užite si plugin?"
+
+#~ msgid ""
+#~ "<a href=\"http://twitter.com/?status=I'm using @rabinek's WordPress "
+#~ "Simple Social Buttons plugin - check it out! http://blog.rabinek.pl/\" "
+#~ "target=\"_blank\">Tweet about it</a> and consider donating."
+#~ msgstr ""
+#~ "<a href=\"http://twitter.com/?status=I'm using @rabinek's WordPress "
+#~ "Simple Sociálna Odznaky plugin- check it out! http://blog.rabinek.pl/\" "
+#~ "target=\"_blank\">Tweet o tom</a> a zvažoval, že daruje"
+
+#~ msgid ""
+#~ "<strong>Donate:</strong> A lot of hard work goes into building plugins - "
+#~ "support your open source developers. Thank you!"
+#~ msgstr ""
+#~ "<strong>Darovať:</strong> Veľa tvrdej práce ide do budovy plugins - "
+#~ "podpora váš open source vývojárov. ďakujem!"
+
+#~ msgid "About the author:"
+#~ msgstr "O autorovi:"
+
+#~ msgid ""
+#~ "Hi! My name is Paweł Rabinek (aka xradar). I'm interesed in SEO and "
+#~ "social media, PHP and Wordpress developement."
+#~ msgstr ""
+#~ "ahoj! Moje meno je Paweł Rabinek (aka xradar). Som zúčastnenými v SEO a "
+#~ "sociálne médiá, vývoj PHP a Wordpress."
+
+#~ msgid "My blog about SEO"
+#~ msgstr "Môj blog o SEO"
+
+#~ msgid "[Polish]"
+#~ msgstr "[Poľský]"
+
+#~ msgid "Paweł Rabinek on Google Plus"
+#~ msgstr "Paweł Rabinek na Google Plus"
+
+#~ msgid "LinkedIn profile"
+#~ msgstr "LinkedIn profil"
+
+#~ msgid "Usefull links:"
+#~ msgstr "Užitočné odkazy:"
+
+#~ msgid "Unlimited web hosting"
+#~ msgstr "Neobmedzený webhosting"
+
+#~ msgid "Best SEO software"
+#~ msgstr "Najlepšie SEO softvér"
+
+#~ msgid "Wordpress templates"
+#~ msgstr "WordPress šablóny"
 
 #~ msgid "Hi! My name is Paweł Rabinek (aka xradar)."
 #~ msgstr "ahoj! Moje meno je Paweł Rabinek (aka xradar)."
