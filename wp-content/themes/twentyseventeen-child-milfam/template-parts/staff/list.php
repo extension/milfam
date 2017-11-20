@@ -1,11 +1,15 @@
 <div class="person-directory-wrapper-list">
+  <a href="<?php echo get_permalink( get_the_ID() ); ?>" class="gallery-link">
   <?php if (has_post_thumbnail( $post->ID ) ){
     $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ) );
   ?>
     <img src="<?php echo $image[0]; ?>" alt="profile image">
   <?php } ?>
+  </a>
 
-  <h3 class="person-name"><?php the_title(); ?> <?php echo do_shortcode("[credentials]"); ?></h3>
+
+    <h3 class="person-name"><a href="<?php echo get_permalink( get_the_ID() ); ?>" class="gallery-link"><?php the_title(); ?> <?php echo do_shortcode("[credentials]"); ?></a></h3>
+
 
     <ul>
 

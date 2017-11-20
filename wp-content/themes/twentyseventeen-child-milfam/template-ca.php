@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: CA Landing
+ * Template Name: CA page with sidebar
  */
 
 get_header(); ?>

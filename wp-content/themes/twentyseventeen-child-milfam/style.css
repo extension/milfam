@@ -41,6 +41,7 @@ Template: twentyseventeen
   line-height:1.2em;
 }
 .individual-person a {font-weight:bold;}
+a.gallery-link {font-weight:normal !important;}
 .people_directory-gallery .individual-person .individual-person-thumb {width:150px;height:150px; display:block; background:#eee; overflow:hidden;}
 .people_directory-gallery .individual-person .person-name {margin-top:5px;}
 .people_directory-gallery .individual-person img {width:100%;}
@@ -267,7 +268,9 @@ font-family: 'Oswald', sans-serif !important; color: #7f3f98 !important;}
 .ca-landing-page .content-area h2 {
   text-transform:uppercase !important;
   font-size:30px !important; font-weight: 900 !important;
-font-family: 'Oswald', sans-serif !important; color: #7f3f98 !important;}
+font-family: 'Oswald', sans-serif !important;
+color: #000 !important;
+}
 
 .ca-title {text-transform:uppercase; font-size:24px; font-weight: 900t; font-family: 'Oswald', sans-serif; margin:0;}
 .ca-title a {color: #000 !important;}
