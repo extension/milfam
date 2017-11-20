@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Single Column
+ * Template Name: CA page no sidebar
  */
 
 get_header(); ?>
