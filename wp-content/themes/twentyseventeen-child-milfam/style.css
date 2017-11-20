@@ -53,17 +53,26 @@ a.gallery-link {font-weight:normal !important;}
 .people_directory-list .person-directory-wrapper-list .person-name {margin:0; padding:0; }
 .people_directory-list .person-directory-wrapper-list .person-position {font-weight:bold;}
 
+.people_directory-contact .person-directory-wrapper-contact {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px;}
+.people_directory-contact .person-directory-wrapper-contact ul li {list-style:none; margin:0;}
+.people_directory-contact .person-directory-wrapper-contact .person-name {margin:0; padding:0; }
+.people_directory-contact .person-directory-wrapper-contact .person-position {font-weight:bold;}
+
+
 /* facilitators template */
-.people_directory-facilitators .individual-person-thumb-wrapper{
+.people_directory-facilitators .individual-person-thumb-wrapper,
+.people_directory-bio .individual-person-thumb-wrapper{
 	position: relative;
 	width: 100%;		/* desired width */
 }
-.people_directory-facilitators .individual-person-thumb-wrapper:before{
+.people_directory-facilitators .individual-person-thumb-wrapper:before,
+.people_directory-bio .individual-person-thumb-wrapper:before{
 	content: "";
 	display: block;
 	padding-top: 100%; 	/* initial ratio of 1:1*/
 }
-.people_directory-facilitators .individual-person-thumb{
+.people_directory-facilitators .individual-person-thumb,
+.people_directory-bio .individual-person-thumb{
 	position:  absolute;
 	top: 0;
 	left: 0;
@@ -71,16 +80,21 @@ a.gallery-link {font-weight:normal !important;}
 	right: 0;
 }
 
-.people_directory-facilitators {margin-bottom:20px; float:left; width:100%;}
-.people_directory-facilitators .individual-person {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px; float:left;
+.people_directory-facilitators,
+.people_directory-bio {margin-bottom:20px; float:left; width:100%;}
+.people_directory-facilitators .individual-person,
+.people_directory-bio .individual-person {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px; float:left;
 width:100%;
 }
 .people_directory-list-bio .individual-person {border-bottom:1px solid #ccc; margin-bottom:10px; padding-top:10px; float:left;
 width:100%;
 }
-.people_directory-facilitators .individual-person .individual-person-thumb {width:100%;display:block; background:#eee; overflow:hidden; }
-.people_directory-facilitators .individual-person img {width:100%;}
-.people_directory-facilitators .person-name {font-size: 18px; margin:6px 0 0; padding:0;}
+.people_directory-facilitators .individual-person .individual-person-thumb,
+.people_directory-bio .individual-person .individual-person-thumb {width:100%;display:block; background:#eee; overflow:hidden; }
+.people_directory-facilitators .individual-person img,
+.people_directory-bio .individual-person img {width:100%;}
+.people_directory-facilitators .person-name,
+.people_directory-bio .person-name {font-size: 18px; margin:6px 0 0; padding:0;}
 .col_one {float:left;width:25%;
   /*border:1px solid blue;*/
 }
