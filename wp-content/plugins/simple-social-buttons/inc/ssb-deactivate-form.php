@@ -231,8 +231,8 @@
         }
       })
       .done(function() {
-        $(".wp-ssb-spinner").hide();
-        $(".wp-ssb-popup-allow-deactivate").removeAttr("disabled");
+        // $(".wp-ssb-spinner").hide();
+        // $(".wp-ssb-popup-allow-deactivate").removeAttr("disabled");
         window.location.href =  $("tr[data-slug='"+ pluginSlug +"'] .deactivate a").attr('href');
       });
 

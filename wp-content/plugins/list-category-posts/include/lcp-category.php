@@ -8,12 +8,12 @@ class LcpCategory{
   // Singleton implementation
   private static $instance = null;
 
-	public static function get_instance(){
-		if( !isset( self::$instance ) ){
-			self::$instance = new self;
-		}
-		return self::$instance;
-	}
+  public static function get_instance(){
+    if( !isset( self::$instance ) ){
+      self::$instance = new self;
+    }
+    return self::$instance;
+  }
 
   /*
    * When the category is set using the `name` parameter.
@@ -60,7 +60,7 @@ class LcpCategory{
 
   public function current_category(){
     $category = get_category( get_query_var( 'category' ) );
-    if( isset( $category->errors ) && $category->errors["invalid_term"][0] == __("Empty Term") ){
+    if( isset( $category->errors ) && $category->errors["invalid_term"][0] == __("Empty Term.") ){
       global $post;
       $categories = get_the_category($post->ID);
       if ( !empty($categories) ){

@@ -3,8 +3,8 @@ Contributors: hiddenpearls, WPBrigade
 Donate link: https://wpbrigade.com/
 Tags: Social share, Social buttons, Whatsapp, Viber, LinkedIn, facebook, google, twitter, pinterest, plus one
 Requires at least: 4.0
-Tested up to: 4.8
-Stable tag: 2.0.2
+Tested up to: 4.9
+Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,11 +134,19 @@ Yes, you can use `<?php get_ssb(); ?>` in your template file (see installation s
 
 == Upgrade Notice ==
 
-= 2.0.2 =
+= 2.0.4 =
 * Relaunched with a whole set of NEW FEATURES and Improvement. Please upgrade immediately and provide your feedback. highly recommended. Aplogies in advance, if anything breaks!
 
 
 == Changelog ==
+
+= 2.0.4 - 2017-11-17 =
+* Bug Fix: Undefined index error when creating new post or page.
+* Enhancement: Facebook likes button is back.
+
+= 2.0.3 - 2017-11-13 =
+* Bug Fix: Social media Counter 
+* Enhancement: Compatible with 4.9
 
 = 2.0.2 - 2017-11-02 =
 * Bug Fix: Migration issue with old users.

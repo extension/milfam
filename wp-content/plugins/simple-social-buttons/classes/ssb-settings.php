@@ -81,13 +81,14 @@ class Ssb_Settings {
 
 			$setting_section = apply_filters( 'ssb_settings_panel', $sections );
 
-			usort( $setting_section, function( $a, $b ) {
-				return $a['priority'] - $b['priority'];
-			});
-
+			usort( $setting_section, array( $this, 'sort_array' ) );
+			
 			return $setting_section;
 	}
 
+	public function sort_array( $a, $b ){
+		return $a['priority'] - $b['priority'];
+	}
 
 	public function get_current_post_types() {
 

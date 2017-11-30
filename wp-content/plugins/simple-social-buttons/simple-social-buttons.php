@@ -3,7 +3,7 @@
  * Plugin Name: Simple Social Buttons
  * Plugin URI: http://www.WPBrigade.com/wordpress/plugins/simple-social-buttons/
  * Description: Simple Social Buttons adds an advanced set of social media sharing buttons to your WordPress sites, such as: Google +1, Facebook, WhatsApp, Viber, Twitter, Reddit, LinkedIn and Pinterest. This makes it the most <code>Flexible Social Sharing Plugin ever for Everyone.</code>
- * Version: 2.0.2
+ * Version: 2.0.4
  * Author: WPBrigade
  * Author URI: http://www.WPBrigade.com/
  * Text Domain: simple-social-buttons
@@ -30,7 +30,7 @@
 
 class SimpleSocialButtonsPR {
 	public $pluginName = 'Simple Social Buttons';
-	public $pluginVersion = '2.0.2';
+	public $pluginVersion = '2.0.4';
 	public $pluginPrefix = 'ssb_pr_';
 	public $hideCustomMetaKey = '_ssb_hide';
 
@@ -46,12 +46,13 @@ class SimpleSocialButtonsPR {
 		'beforearchive' => '0',
 		'afterarchive' => '0',
 		'fbshare' => '0',
+		'fblike' => '0',
 		'linkedin' => '0',
 		'cache' => 'on',
 	);
 
 	// defined buttons
-	public $arrKnownButtons = array( 'googleplus', 'twitter', 'pinterest', 'fbshare', 'linkedin', 'reddit', 'whatsapp', 'viber' );
+	public $arrKnownButtons = array( 'googleplus', 'twitter', 'pinterest', 'fbshare', 'linkedin', 'reddit', 'whatsapp', 'viber', 'fblike' );
 
 	// an array to store current settings, to avoid passing them between functions
 	public $settings = array();
@@ -108,7 +109,7 @@ class SimpleSocialButtonsPR {
 
 		add_action( 'admin_notices', array( $this, 'update_notice' ) );
 		add_action( 'admin_init', array( $this, 'review_update_notice' ) );
-
+		add_action( 'wp_footer', array( $this, 'fblike_script' ) );
 	}
 
 	function set_selected_networks() {
@@ -147,23 +148,24 @@ class SimpleSocialButtonsPR {
 		$post_id = $_POST['postID'];
 		foreach ( $this->arrKnownButtons as $button_name ) {
 
-			if ( isset( $this->settings[ $button_name ] ) && $this->settings[ $button_name ] > 0 ) {
-				$order[ $button_name ] = $this->settings[ $button_name ];
+			if ( isset( $this->selected_networks[ $button_name ] ) && $this->selected_networks[ $button_name ] > 0 ) {
+				$order[ $button_name ] = $this->selected_networks[ $button_name ];
 			}
 		}
 
 		$_share_links = array();
 		foreach ( $order as $social_name => $priority ) {
-			if ( 'totalshare' == $social_name || 'viber' == $social_name ) {
+			if ( 'totalshare' == $social_name || 'viber' == $social_name || 'fblike' == $social_name || 'whatsapp' == $social_name ) {
 				continue; }
 			$_share_links[ $social_name ] = call_user_func( 'ssb_' . $social_name . '_generate_link', get_permalink( $post_id ) );
 		}
 
 		 $result = ssb_fetch_shares_via_curl_multi( array_filter( $_share_links ) );
+
 		// $result = ssb_fetch_shares_via_curl_multi(
 		// array(
 		// 'linkedin' => ssb_linkedin_generate_link( 'https://wpbrigade.com/first-wordcamp-talk/' ),
-		// 'fbshare' => ssb_fbshare_generate_link( 'https://propakistani.pk/2017/09/06/lahore-get-600-million-disneyland-like-amusement-park/' ),
+		// 'fbshare' => ssb_fbshare_generate_link( 'http://www.blc.lu/' ),
 		// 'googleplus' => ssb_googleplus_generate_link( 'https://wpbrigade.com/first-wordcamp-talk/' ),
 		// 'twitter' => ssb_twitter_generate_link( 'https://wptavern.com/jetpack-5-3-adds-php-7-1-compatibility-better-control-for-wordads-placement' ),
 		// 'pinterest' => ssb_pinterest_generate_link( 'http://websitehostingcost.com/tag/dedicated/' ),
@@ -171,6 +173,7 @@ class SimpleSocialButtonsPR {
 		// )
 		// );
 			$share_counts = ssb_fetch_fresh_counts( $result , $post_id );
+
 			update_post_meta( $post_id, 'ssb_cache_timestamp',floor( ( ( date( 'U' ) / 60) / 60 ) ) );
 			  echo json_encode( $share_counts );
 			wp_die();
@@ -179,7 +182,8 @@ class SimpleSocialButtonsPR {
 	function ssb_output_cache_trigger( $info ) {
 
 		// Return early if we're not on a single page or we have fresh cache.
-		if ( ( ! is_singular() || ssb_is_cache_fresh( $info['postID'], true )) && empty( $_GET['ssb_cache'] ) ) {
+		// if ( ( ! is_singular() || ssb_is_cache_fresh( $info['postID'], true )) && empty( $_GET['ssb_cache'] ) ) {
+		if ( ( ssb_is_cache_fresh( $info['postID'], true )) && empty( $_GET['ssb_cache'] ) ) {
 			return $info;
 		}
 
@@ -187,7 +191,7 @@ class SimpleSocialButtonsPR {
 		if ( function_exists( 'is_account_page' ) && is_account_page() ) {
 			return $info;
 		}
- 
+
 		// Return if caching is off.
 		// if (  'on' != $this->settings['cache'] ) {
 		// 	return $info;
@@ -207,12 +211,14 @@ class SimpleSocialButtonsPR {
 		};
 			jQuery.post(ssb_admin_ajax, data, function(data, textStatus, xhr) {
 				var array = JSON.parse(data);
-				console.log(array);
 
 				jQuery.each( array, function( index, value ){
-					console.log(index);
-					console.log(value);
-					jQuery('.ssb_'+ index +'_counter').html(value);
+
+					if( index == 'total' ){
+						jQuery('.ssb_'+ index +'_counter').html(value + '<span>Shares</span>');
+					}else{
+						jQuery('.ssb_'+ index +'_counter').html(value);
+					}
 				});
 
 
@@ -247,7 +253,6 @@ class SimpleSocialButtonsPR {
 
 	function front_enqueue_scripts() {
 
-		wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'ssb-front-js', plugins_url( 'assets/js/front.js', __FILE__ ), array( 'jquery' ), SSB_VERSION );
 		wp_enqueue_style( 'ssb-front-css', plugins_url( 'assets/css/front.css', __FILE__ ), false, SSB_VERSION );
@@ -395,6 +400,26 @@ class SimpleSocialButtonsPR {
 		return $this->insert_buttons( $content );
 	}
 
+	/**
+		* Return class
+		*
+		* @since 2.0.4
+		*/
+	function add_post_class( $post_id = null ) {
+		$post = get_post( $post_id );
+
+		$classes = '';
+
+		if ( ! $post ) {
+			return $classes;
+		}
+
+		$classes .= 'post-' . $post->ID . ' ';
+		$classes .= $post->post_type . ' ';
+
+		return $classes;
+	}
+
 
 	/**
 	 * Add Inline Buttons.
@@ -419,7 +444,8 @@ class SimpleSocialButtonsPR {
 				$show_total = false;
 			}
 
-			$extra_class = 'simplesocialbuttons_inline simplesocialbuttons-align-' . $this->_get_settings( 'inline', 'icon_alignment', 'left' );
+			$extra_class = 'simplesocialbuttons_inline simplesocialbuttons-align-' . $this->_get_settings( 'inline', 'icon_alignment', 'left' ) . ' '. $this->add_post_class();
+
 
 			// if ( $this->inline['share_counts'] ) {
 			if ( $this->_get_settings( 'inline', 'share_counts' ) ) {
@@ -433,7 +459,8 @@ class SimpleSocialButtonsPR {
 				$extra_class .= ' simplesocialbuttons-mobile-hidden'; }
 			$extra_class .= ' simplesocialbuttons-inline-' .  $this->_get_settings( 'inline', 'animation', 'no-animation' );
 
-			$ssb_buttonscode = $this->generate_buttons_code( $this->selected_networks, $show_count, $show_total, $extra_class );
+			$_selected_network = apply_filters( 'ssb_inline_social_networks', $this->selected_networks );
+			$ssb_buttonscode = $this->generate_buttons_code( $_selected_network, $show_count, $show_total, $extra_class );
 
 			if ( in_array( $this->get_post_type(), $this->inline_option['posts'] ) ) {
 				if ( $this->inline_option['location'] == 'above' || $this->inline_option['location'] == 'above_below' ) {
@@ -485,7 +512,7 @@ class SimpleSocialButtonsPR {
 
 			$_share_links = array();
 			foreach ( $arrButtons as $social_name => $priority ) {
-				if ( 'totalshare' == $social_name || 'viber' == $social_name ) {
+				if ( 'totalshare' == $social_name || 'viber' == $social_name || 'fblike' == $social_name || 'whatsapp' == $social_name  ) {
 					continue; }
 				$_share_links[ $social_name ] = call_user_func( 'ssb_' . $social_name . '_generate_link', get_permalink() );
 			}
@@ -576,7 +603,7 @@ class SimpleSocialButtonsPR {
 					break;
 				case 'totalshare':
  					$total_share = $share_counts['total'] ? $share_counts['total'] : 0;
-					$arrButtonsCode[] = "<span class='share-counter'>" . $total_share . '<span>Shares</span></span>';
+					$arrButtonsCode[] = "<span class='ssb_total_counter'>" . $total_share . '<span>Shares</span></span>';
 					break;
 
 				case 'reddit':
@@ -596,6 +623,14 @@ class SimpleSocialButtonsPR {
 
 				case 'viber':
 						$arrButtonsCode[] = '<button onclick="javascript:window.open(this.dataset.href, \'_self\' );return false;" class="simplesocial-viber-share" data-href="viber://forward?text=' . $permalink . '"><span class="simplesocialtxt">Share on Viber</span></button>';
+					break;
+
+				case 'fblike':
+
+					$_html =  '<div class="fb-like ssb-fb-like" data-href="'. $permalink .'" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="false"></div>';
+
+					$arrButtonsCode[] = $_html;
+
 					break;
 			}
 		}
@@ -654,12 +689,14 @@ class SimpleSocialButtonsPR {
 				$show_count = true;
 			}
 			if ( in_array( $this->get_post_type(), $this->sidebar_option['posts'] ) ) {
-				$class = 'simplesocialbuttons-float-' . $this->sidebar_option['orientation'] . '-center';
+				$class = 'simplesocialbuttons-float-' . $this->sidebar_option['orientation'] . '-center' . ' '. $this->add_post_class();
+				// $class = 'simplesocialbuttons-float-left-post';
 				if ( $this->sidebar_option['hide_mobile'] ) {
 					$class .= ' simplesocialbuttons-mobile-hidden'; }
 					$class .= ' simplesocialbuttons-slide-' . $this->_get_settings( 'sidebar', 'animation', 'no-animation' );
-				echo $this->generate_buttons_code( $this->selected_networks, $show_count, $show_total, $class );
-			}
+					$_selected_network = apply_filters( 'ssb_sidebar_social_networks', $this->selected_networks );
+					echo $this->generate_buttons_code( $_selected_network, $show_count, $show_total, $class );
+				}
 		}
 	}
 
@@ -725,6 +762,28 @@ class SimpleSocialButtonsPR {
 				<a href="https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-learn-more&utm_campaign=pro-upgrade" target="_blank" class="ssb_update_dismiss_button">Learn more</a>
 			</div>
 		</div>
+		<?php
+	}
+
+	/**
+	 * Add Facebook Like script.
+	 *
+	 * @since 2.0.4
+	 */
+	function fblike_script(){
+
+		if ( ! array_key_exists( "fblike", array_filter( $this->selected_networks ) ) ) {
+			return;
+		}
+		?>
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=1158761637505872';
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
 		<?php
 	}
 

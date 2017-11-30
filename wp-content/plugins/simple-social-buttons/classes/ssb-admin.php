@@ -60,7 +60,7 @@ if ( ! class_exists( 'SimpleSocialButtonsPR_Admin' ) ) :
 		 * Register meta box to hide/show SSB plugin on single post or page
 		 */
 		public function ssb_meta_box() {
-			$postId = $_GET['post'];
+			$postId = isset( $_GET['post'] ) ? $_GET['post'] : false;
 			$postType = get_post_type( $postId );
 
 			if ( $postType != 'page' && $postType != 'post' ) {
@@ -108,12 +108,15 @@ if ( ! class_exists( 'SimpleSocialButtonsPR_Admin' ) ) :
 		 */
 		public function ssb_save_meta( $post_id, $post ) {
 			$postId = (int) $post_id;
-
 			// Verify if this is an auto save routine.
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				return;
 			}
 
+			if ( ! isset( $_POST['ssb_noncename'] ) ) {
+				return;
+			}
+			
 			// Verify this came from the our screen and with proper authorization
 			if ( ! wp_verify_nonce( $_POST['ssb_noncename'], plugin_basename( __FILE__ ) ) ) {
 				return;
@@ -187,6 +190,7 @@ if ( ! class_exists( 'SimpleSocialButtonsPR_Admin' ) ) :
 				'blog_language'     => get_bloginfo( 'language' ),
 				'wordpress_version' => get_bloginfo( 'version' ),
 				'plugin_version'    => SSB_VERSION,
+				'php_version'				=> PHP_VERSION,
 				'plugin_name'       => 'Simple Social Buttons',
 			);
 
