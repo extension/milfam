@@ -100,15 +100,14 @@ function ssb_fetch_shares_via_curl_multi( $data, $options = array() ) {
     // $options = $swp_user_options;
     $fresh_cache = false;
 
-
     if( isset( $_POST['ssb_cache'] ) && 'rebuild' === $_POST['ssb_cache'] ) {
       return false;
     }
     // Always be TRUE if we're not on a single.php otherwise we could end up
     // Rebuilding multiple page caches which will cost a lot of time.
-    if ( ! is_singular() && ! $ajax ) {
-      return true;
-    }
+    // if ( ! is_singular() && ! $ajax ) {
+    //   return true;
+    // }
 
     $post_age = floor( date( 'U' ) - get_post_time( 'U' , false , $post_id ) );
 
@@ -147,7 +146,7 @@ function ssb_fetch_shares_via_curl_multi( $data, $options = array() ) {
     $total = 0;
 
     foreach ( $stats as $social_name => $counts ) {
-      if ( 'totalshare' == $social_name  || 'fblike' == $social_name || 'viber' == $social_name ) { continue; }
+      if ( 'totalshare' == $social_name  || 'fblike' == $social_name || 'viber' == $social_name || 'whatsapp' == $social_name ) { continue; }
       $stats_counts  = call_user_func( 'ssb_format_' . $social_name . '_response', $counts );
       $stats_result[ $social_name ] = $stats_counts;
       update_post_meta( $post_id, 'ssb_' . $social_name . '_counts', $stats_counts );
