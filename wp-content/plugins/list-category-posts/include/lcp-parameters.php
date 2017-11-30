@@ -10,12 +10,12 @@ class LcpParameters{
   private $utils;
   private $params;
 
-	public static function get_instance(){
-		if( !isset( self::$instance ) ){
-			self::$instance = new self;
-		}
-		return self::$instance;
-	}
+  public static function get_instance(){
+    if( !isset( self::$instance ) ){
+      self::$instance = new self;
+    }
+    return self::$instance;
+  }
 
   public function get_query_params($params){
     $this->params = $params;
@@ -152,11 +152,46 @@ class LcpParameters{
     // Custom taxonomy support
     // Why didn't I document this?!?
     if ( $this->utils->lcp_not_empty('taxonomy') && $this->utils->lcp_not_empty('terms') ){
+      if ( strpos($params['terms'],'+') !== false ) {
+        $terms = explode("+",$params['terms']);
+        $operator = 'AND';
+      } else {
+        $terms = explode(",",$params['terms']);
+        $operator = 'IN';
+      }
+
       $args['tax_query'] = array(array(
         'taxonomy' => $params['taxonomy'],
         'field' => 'slug',
-        'terms' => explode(",",$params['terms'])
+        'terms' => $terms,
+        'operator' => $operator
       ));
+    }
+
+    // Multiple taxonomies support in the form
+    // taxonomies_or="tax1:{term1_1,term1_2};tax2:{term2_1,term2_2,term2_3}"
+    // taxonomies_and="tax1:{term1_1,term1_2};tax2:{term2_1,term2_2,term2_3}"
+    if ( $this->utils->lcp_not_empty('taxonomies_or') || $this->utils->lcp_not_empty('taxonomies_and') ) {
+        if($this->utils->lcp_not_empty('taxonomies_or')) {
+            $operator = "OR";
+            $taxonomies = $params['taxonomies_or'];
+        } else {
+            $operator = "AND";
+            $taxonomies = $params['taxonomies_and'];
+        }
+        $count = preg_match_all('/([^:]+):\{([^:]+)\}(?:;|$)/im', $taxonomies, $matches, PREG_SET_ORDER, 0);
+        if($count > 0) {
+            $tax_arr = array('relation' => $operator);
+            foreach ($matches as $match) {
+                $tax_term = array(
+                    'taxonomy' => $match[1],
+                    'field' => 'slug',
+                    'terms' => explode(",",$match[2])
+                );
+                array_push($tax_arr,$tax_term);
+            }
+            $args['tax_query'] = $tax_arr;
+        }
     }
 
     // Tag support
@@ -281,70 +316,32 @@ class LcpParameters{
      *  Check which paramaters are set and find out which subarrays
      *  should be created.
      */
-    if ( isset($this->after) ) {
-      $params_set['after'] = true;
-      $after = true;
-    }
-
-    if ( isset($this->after_year) ) {
-      $params_set['after_year'] = true;
-      $after = true;
-    }
-
-    if ( isset($this->after_month) ) {
-      $params_set['after_month'] = true;
-      $after = true;
-    }
-
-    if ( isset($this->after_day) ) {
-      $params_set['after_day'] = true;
-      $after = true;
-    }
-
-    if ( isset($this->before) ) {
-      $params_set['before'] = true;
-      $before = true;
-    }
-
-    if ( isset($this->before_year) ) {
-      $params_set['before_year'] = true;
-      $before = true;
-    }
-
-    if ( isset($this->before_month) ) {
-      $params_set['before_month'] = true;
-      $before = true;
-    }
-
-    if ( isset($this->before_day) ) {
-      $params_set['before_day'] = true;
-      $before = true;
+    foreach ($params_set as $key=>$value){
+      if ( isset($this->{$key}) ){
+        $params_set[$key] = true;
+        $trutify = substr($key, 0, strpos( $key, '_') );
+        ${$trutify} = true;
+      }
     }
 
     /*
      * Build the subarrays.
      * The after parameter takes priority over after_* parameters.
-     * Simlarly, the before parameter takes priority over before_* parameters.
+     * Similarly, the before parameter takes priority over before_* parameters.
      */
-    if ($after) {
-      if ($params_set['after']) {
-        $date_query['after'] = $this->after;
-      } else {
-        if ( $params_set['after_year'] ) $date_query['after']['year'] = $this->after_year;
-        if ( $params_set['after_month'] ) $date_query['after']['month'] = $this->after_month;
-        if ( $params_set['after_day'] ) $date_query['after']['day'] = $this->after_day;
+    $time_periods = array('before', 'after');
+    foreach ($time_periods as $period){
+      if (${$period}){
+        if ($params_set[$period]) {
+          $date_query[$period] = $this->$period;
+        } else {
+          if ( $params_set[$period . '_year'] )  $date_query[$period]['year']  = $this->{$period . '_year'};
+          if ( $params_set[$period . '_month'] ) $date_query[$period]['month'] = $this->{$period . '_month'};
+          if ( $params_set[$period . '_day'] )   $date_query[$period]['day']   = $this->{$period . '_day'};
+        }
       }
     }
 
-    if ($before) {
-      if ($params_set['before']) {
-        $date_query['before'] = $this->before;
-      } else {
-        if ( $params_set['before_year'] ) $date_query['before']['year'] = $this->before_year;
-        if ( $params_set['before_month'] ) $date_query['before']['month'] = $this->before_month;
-        if ( $params_set['before_day'] ) $date_query['before']['day'] = $this->before_day;
-      }
-    }
     return $date_query;
   }
 }
