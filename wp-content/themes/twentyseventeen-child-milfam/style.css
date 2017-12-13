@@ -292,6 +292,7 @@ font-family: 'Oswald', sans-serif !important; color: #7f3f98 !important;}
   font-size:30px !important; font-weight: 900 !important;
 font-family: 'Oswald', sans-serif !important;
 color: #000 !important;
+padding: 1.5em 0 0;
 }
 
 .ca-title {text-transform:uppercase; font-size:24px; font-weight: 900t; font-family: 'Oswald', sans-serif; margin:0;}
