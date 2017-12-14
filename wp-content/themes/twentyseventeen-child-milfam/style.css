@@ -6,6 +6,9 @@ Template: twentyseventeen
 
 @import url("../twentyseventeen/style.css");
 
+/* override the aweber alignment */
+.af-form {margin:0 !important;}
+
 .entry-content ul {padding-left:20px;}
 
 #content_staff_profile .simplesocialbuttons {display:none;}
