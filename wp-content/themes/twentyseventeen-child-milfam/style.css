@@ -350,6 +350,11 @@ p:empty {display: none;}
 
 .homepage-banner p, .homepage-banner a {color:#fff;}
 .sidebar-general .widget_recent_entries {padding-bottom:1em;}
+
+
+.reference h4 {text-transform:uppercase; color: #444; font-weight:500; font-size:15px; border-bottom:1px solid #ccc; padding-bottom:8px;}
+.reference {font-size:14px; margin-top:4em; color: #777;}
+
 /* Mobile first queries */
 /*===============================================================================================================================*/
 
