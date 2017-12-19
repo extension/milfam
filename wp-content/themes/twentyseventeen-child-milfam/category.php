@@ -20,15 +20,13 @@ get_header(); ?>
       <?php if ( have_posts() ) : ?>
     		<header class="page-header">
           <?php
-          $categories = get_the_category();
 
-          if( is_page( $categories[0]->slug )) {
-            // nothing for now
-          } else {
-            if ( ! empty( $categories ) ) {
-              echo '<h1 class="entry-title ca-main-title entry-title no-bottom-margin"><a href="/' . $categories[0]->slug . '">' . esc_html( $categories[0]->name ) . '</a></h1>';
-            }
-          }
+          $cat = get_category(get_query_var('cat'));
+          $cat_slug = $cat->slug;
+          $cat_name = $cat->name;
+
+          echo '<h1 class="entry-title ca-main-title entry-title no-bottom-margin"><a href="/' . $cat_slug . '">' . esc_html( $cat_name ) . '</a></h1>';
+
           ?>
           <h2 class="entry-title ca-child-subhead">Blog Posts</h2>
     			<?php
