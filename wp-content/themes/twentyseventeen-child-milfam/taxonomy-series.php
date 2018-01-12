@@ -55,7 +55,32 @@ get_header(); ?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
-	<?php get_sidebar(); ?>
+
+	<?php
+
+  $tax = $wp_query->get_queried_object();
+  $tax_slug = $tax->slug;
+
+  // Get series ID
+  $series_id = 0;
+  if ( $tax_slug ) {
+  	$series = get_term_by( 'slug', $tax_slug, 'series' );
+  	$series_id = $series->term_id;
+  }
+
+  $image = get_option( 'ss_podcasting_data_image', '' );
+  if ( $series_id ) {
+  	$series_image = get_option( 'ss_podcasting_data_image_' . $series_id, 'no-image' );
+  	if ( 'no-image' != $series_image ) {
+  		$image = $series_image;
+  	}
+  }
+  ?>
+
+  <aside id="secondary" class="widget-area sidebar-general" role="complementary">
+  	<?php if ( $image ) { echo "<img src=\"" . $image . "\">"; } ?>
+  </aside><!-- #secondary -->
+
 </div><!-- .wrap -->
 
 <?php get_footer();
