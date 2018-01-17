@@ -4,7 +4,7 @@ Tags: custom-header, header, headers, images, page, post, plugin, image, images,
 Donate link: https://geek.hellyer.kiwi/donate/
 Requires at least: 4.3
 Tested up to: 4.8
-Stable tag: 1.7.11
+Stable tag: 1.7.12
 
 
 
@@ -91,6 +91,9 @@ Yes. Just send me a message via <a href="https://ryan.hellyer.kiwi/contact/">my 
 
 
 == Changelog ==
+
+= 1.7.12 =
+* Bug fix for when no object set in Unique_Headers_Taxonomy_Header_Images::modify_header_image_data()
 
 = 1.7.11 =
 * Version bump to force dot org update
