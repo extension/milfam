@@ -14,6 +14,8 @@ class Ssb_Settings {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'wp_ajax_ssb_help', array( $this, 'download_help' ) );
+		add_action( 'wp_ajax_ssb_export', array( $this, 'export' ) );
+		add_action( 'wp_ajax_ssb_import', array( $this, 'import' ) );
 
 	}
 
@@ -26,6 +28,9 @@ class Ssb_Settings {
 			do_action( 'ssb_add_pro_submenu' );
 
 			add_submenu_page( 'simple-social-buttons', __( 'Help', 'simple-social-buttons' ), __( 'Help', 'simple-social-buttons' ), 'manage_options', 'ssb-help', array( $this, 'help_page' ) );
+
+			add_submenu_page( 'simple-social-buttons', __( 'Import and export settings', 'simple-social-buttons' ), __( 'Import / Export', 'simple-social-buttons' ), 'manage_options', 'ssb-import-export', array( $this, 'import_export_page' ) );
+
 		}
 
 	}
@@ -82,7 +87,7 @@ class Ssb_Settings {
 			$setting_section = apply_filters( 'ssb_settings_panel', $sections );
 
 			usort( $setting_section, array( $this, 'sort_array' ) );
-			
+
 			return $setting_section;
 	}
 
@@ -333,6 +338,7 @@ class Ssb_Settings {
 							'round-btm-border'   => 'round-btm-border',
 							'flat-button-border' => 'flat-button-border',
 							'round-icon'         => 'round-icon',
+							'simple-icons'       => 'simple-icons',
 						),
 					),
 				),
@@ -453,6 +459,55 @@ class Ssb_Settings {
 		include SSB_PLUGIN_DIR . 'classes/ssb-logs.php';
 
 		echo Ssb_Logs_Info::get_sysinfo();
+		wp_die();
+	}
+
+	/**
+	 * Include Import/Export Page.
+	 *
+	 * @since 2.0.4
+	 */
+	public function import_export_page() {
+		include_once SSB_PLUGIN_DIR . '/inc/ssb-import-export.php';
+	}
+
+	/**
+	 * Export Settings
+	 *
+	 * @since 2.0.4
+	 */
+	public function export() {
+
+		$sections = $this->get_settings_sections();
+		$settings = array();
+
+		foreach ( $sections as $section ) {
+			$result                       = get_option( $section ['id'] );
+			$settings [ $section ['id'] ] = $result;
+		}
+
+		echo json_encode( $settings );
+		wp_die();
+	}
+
+	/**
+	 * Import Settings.
+	 *
+	 * @since 2.0.4
+	 */
+	public function  import(){
+
+		$ssb_imp_tmp_name =  $_FILES['file']['tmp_name'];
+		$ssb_file_content = file_get_contents( $ssb_imp_tmp_name );
+		$ssb_json = json_decode( $ssb_file_content, true );
+
+		if ( json_last_error() == JSON_ERROR_NONE ) {
+			foreach ( $ssb_json as $id => $array ) {
+				update_option( $id, $array );
+			}
+		} else {
+			echo "error";
+		}
 		wp_die();
 	}
 

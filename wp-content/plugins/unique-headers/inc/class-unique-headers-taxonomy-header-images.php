@@ -368,13 +368,15 @@ class Unique_Headers_Taxonomy_Header_Images extends Unique_Headers_Core {
 		if ( is_numeric( $attachment_id ) ) {
 
 			// Create object
-			if ( null == $data ) {
+			if ( null == $data || empty( $data ) ) {
 				$data = (object) null;
 			}
 
-			$data->attachment_id = $attachment_id;
-			$data->width = Custom_Image_Meta_Box::get_attachment_dimensions( $attachment_id, 'width' );
-			$data->height = Custom_Image_Meta_Box::get_attachment_dimensions( $attachment_id, 'height' );
+			if ( is_object ( $data ) ) {
+				$data->attachment_id = $attachment_id;
+				$data->width = Custom_Image_Meta_Box::get_attachment_dimensions( $attachment_id, 'width' );
+				$data->height = Custom_Image_Meta_Box::get_attachment_dimensions( $attachment_id, 'height' );
+			}
 
 		}
 

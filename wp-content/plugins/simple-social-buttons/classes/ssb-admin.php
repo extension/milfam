@@ -50,7 +50,7 @@ if ( ! class_exists( 'SimpleSocialButtonsPR_Admin' ) ) :
 
 		function admin_enqueue_scripts( $page ) {
 
-			if ( 'toplevel_page_simple-social-buttons' == $page  || 'social-buttons_page_ssb-help' == $page  ) {
+			if ( 'toplevel_page_simple-social-buttons' == $page  || 'social-buttons_page_ssb-help' == $page || 'widgets.php' == $page ) {
 				wp_enqueue_style( 'ssb-admin-cs', plugins_url( 'assets/css/admin.css',plugin_dir_path( __FILE__ ) ), false, SSB_VERSION );
 				wp_enqueue_script( 'ssb-admin-js', plugins_url( 'assets/js/admin.js',plugin_dir_path( __FILE__ ) ), array( 'jquery', 'jquery-ui-sortable' ), SSB_VERSION );
 			}
@@ -116,7 +116,7 @@ if ( ! class_exists( 'SimpleSocialButtonsPR_Admin' ) ) :
 			if ( ! isset( $_POST['ssb_noncename'] ) ) {
 				return;
 			}
-			
+
 			// Verify this came from the our screen and with proper authorization
 			if ( ! wp_verify_nonce( $_POST['ssb_noncename'], plugin_basename( __FILE__ ) ) ) {
 				return;

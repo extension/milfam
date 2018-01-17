@@ -24,11 +24,14 @@ class LcpPaginator {
   # override general options).
   # Receives params['pagination'] from CatList
   private function show_pagination($pagination){
-    return !empty($pagination) &&
-           $pagination == 'yes' ||
+    return (!empty($pagination) && (
+            $pagination == 'yes' ||
+            $pagination == 'true')
+           )
+           ||
            (get_option('lcp_pagination') === 'true' &&
-             ($lcp_pag_present &&
-             $pagination !== 'false')
+            ($pagination !== 'false') &&
+            ($pagination !== 'no')
            );
   }
 
@@ -41,6 +44,8 @@ class LcpPaginator {
           max( array( 1, $params['numberposts'] ) )
       );
       $pag_output = '';
+      $this->prev_page_num = null;
+      $this->next_page_num = null;
       if ($pages_count > 1){
           for($i = 1; $i <= $pages_count; $i++){
               $lcp_paginator .=  $this->lcp_page_link($i, $params['page'], $params['instance']);
@@ -95,9 +100,9 @@ class LcpPaginator {
                    "#lcp_instance_" . $lcp_instance;
       $link .=  "<li><a href='$page_link' title='$page'";
       if ($page === $this->prev_page_num) {
-          $link .= "class='lcp_prevlink'";
+          $link .= " class='lcp_prevlink'";
       } elseif ($page === $this->next_page_num) {
-          $link .= "class='lcp_nextlink'";
+          $link .= " class='lcp_nextlink'";
       }
       $link .= ">";
       ($char != null) ? ($link .= $char) : ($link .= $page);

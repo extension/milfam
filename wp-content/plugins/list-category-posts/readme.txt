@@ -5,7 +5,7 @@ Tags: list, categories, posts, cms
 Requires at least: 3.3
 Tested up to: 4.9
 Requires PHP: 5.2.4
-Stable tag: 0.74.2
+Stable tag: 0.75.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,7 +44,7 @@ Since WordPress 4.9, [you can use shortcode in text widgets](https://make.wordpr
 
 The plugin also includes a widget as a simple interface for its functionality. Just add as many widgets as you want, and select all the available options from the Appearence > Widgets page. Not all the functionality in the shortcode has been implemented in the widget yet. You can use the shortcode for the most flexibility.
 
-Please, read the information on [the wiki](https://github.com/picandocodigo/List-Category-Posts/wiki) and [Changelog](http://wordpress.org/extend/plugins/list-category-posts/changelog/) to be aware of new functionality, and improvements to the plugin.
+Please, read the information on [the wiki](https://github.com/picandocodigo/List-Category-Posts/wiki) and [Changelog](https://wordpress.org/plugins/list-category-posts/#developers) to be aware of new functionality, and improvements to the plugin.
 
 **Videos**
 
@@ -110,20 +110,20 @@ When using List Category Posts whithout a category id, name or slug, it will pos
 
 * **monthnum** and **year** - List posts from a certain year or month. You can use these together or independently. Example: `[catlist year=2015]` will list posts from the year 2015. `[catlist monthnum=8]` will list posts published in August of every year. `[catlist year=2012 monthnum=12]` will list posts from December 2012.
 
-* **date ranges** - You can also use date ranges for listing posts. For example "list every post after March 14th, 2005". The parameters are: ```after, after_year, after_month, after_day, before, before_year, before_month,  before_day```. These parameters are used to specify data_query arguments (see: [the codex](https://codex.wordpress.org/Class_Reference/WP_Query#Date_Parameters)).  
+* **date ranges** - You can also use date ranges for listing posts. For example "list every post after March 14th, 2005". The parameters are: ```after, after_year, after_month, after_day, before, before_year, before_month,  before_day```. These parameters are used to specify data_query arguments (see: [the codex](https://codex.wordpress.org/Class_Reference/WP_Query#Date_Parameters)).
 
-     If you want to list all the posts before a given date, say `Jun 17th, 2007` you can use these two options:  
-     `[catlist before_year=2007 before_month=06 before_day=17]`  
-     Or you can use the `before` parameter with a [strtotime()-compatible string](http://php.net/manual/en/datetime.formats.date.php):  
-     `[catlist before='2007/06/17']`  
+     If you want to list all the posts before a given date, say `Jun 17th, 2007` you can use these two options:
+     `[catlist before_year=2007 before_month=06 before_day=17]`
+     Or you can use the `before` parameter with a [strtotime()-compatible string](http://php.net/manual/en/datetime.formats.date.php):
+     `[catlist before='2007/06/17']`
 
-     The same works for posts after a given date, you can use:  
-     `[catlist after_year=2007 after_month=06 after_day=17]`  
-     Or just `after` with a [strtotime()-compatible string](http://php.net/manual/en/datetime.formats.date.php):  
-     `[catlist after='2007/06/17']`  
+     The same works for posts after a given date, you can use:
+     `[catlist after_year=2007 after_month=06 after_day=17]`
+     Or just `after` with a [strtotime()-compatible string](http://php.net/manual/en/datetime.formats.date.php):
+     `[catlist after='2007/06/17']`
 
-    `after` takes priority over `after_year`, `after_month`, and `after_day`.  
-    `before` takes priority over `before_year`, `before_month`, and `before_day`.  
+    `after` takes priority over `after_year`, `after_month`, and `after_day`.
+    `before` takes priority over `before_year`, `before_month`, and `before_day`.
 
 * **search** - List posts that match a search term. `[catlist search="The Cake is a lie"]`
 
@@ -151,11 +151,11 @@ When using List Category Posts whithout a category id, name or slug, it will pos
 * **post_parent** - Show only the children of the post with this ID.
     Default: None.
 
-* **custom fields** - To use custom fields, you must specify two values: customfield_name and customfield_value. `customfield_name` defines the name of the field, and you should choose the values for which you want posts to display. Using this only show posts that contain a custom field with this name and value. Both parameters must be defined, or neither will work. Eg: `[catlist customfield_name="color" customfield_value="green"]` will display posts with the value `green` set on the custom field `color`.
+* **custom fields** - To use custom fields, you must specify two values: customfield_name and customfield_value. `customfield_name` defines the name of the field, and you should choose the values for which you want posts to display. Using this only show posts that contain a custom field with this name and value. Both parameters must be defined, or neither will work. Eg: `[catlist customfield_name="color" customfield_value="green"]` will display posts with the value `green` set on the custom field `color`. This parameter can be used together with `customfield_orderby`, see further below for more information.
 
 ==PAGINATION
 
-https://github.com/picandocodigo/List-Category-Posts/wiki/Pagination
+See the wiki: [Pagination](https://github.com/picandocodigo/List-Category-Posts/wiki/Pagination).
 
 ==OTHER PARAMETERS==
 
@@ -187,7 +187,7 @@ https://github.com/picandocodigo/List-Category-Posts/wiki/Pagination
   * **title** - Sort by title.
   * **type** - Sort by type. Ex: `[catlist name=mycategory orderby=date]`
 
-* **customfield_orderby** - You can order the posts by a custom field. For example: `[catlist numberposts=-1 customfield_orderby=Mood order=desc]` will list all the posts with a "Mood" custom field. Remember the default order is descending, more on order:
+* **customfield_orderby** - You can order the posts by a custom field. For example: `[catlist numberposts=-1 customfield_orderby=Mood order=desc]` will list all the posts with a "Mood" custom field. This parameter can be used toghether with `customfield_name` and `customfield_value`, you can use those parameters to select posts and then `customfield_orderby` to sort by this or another custom field.  Remember the default order is descending, more on order:
 
 * **order** - How to sort **orderby**. Valid values are:
   * **ASC** - Ascending (lowest to highest).
@@ -272,11 +272,11 @@ https://github.com/picandocodigo/List-Category-Posts/wiki/Pagination
     Ex: `[catlist numberposts=-1
     post_suffix="Hello World"]` will create something like:
 
-    ```<ul class="lcp_catlist" id=lcp_instance_0>
-       <li>
-         <a href="http://127.0.0.1:8080/wordpress/?p=42" title="WordPress">
-           WordPress
-         </a> Hello World </li>```
+    `<ul class="lcp_catlist" id=lcp_instance_0>`
+    `   <li>`
+    `     <a href="http://127.0.0.1:8080/wordpress/?p=42" title="WordPress">`
+    `       WordPress`
+    `     </a> Hello World </li>`
 
 * **display_id** - Set it to yes to show the Post's ID next to the post title: `[catlist id=3 display_id=yes]`
 
@@ -439,6 +439,26 @@ Widget built for WordPress 2.8's Widget API, so you need at least WP 2.8 to use 
 Template system has changed. Custom templates should be stored in WordPress theme folder.
 
 == Changelog ==
+
+= 0.75.2 =
+
+* Fix `author_post` and `search` parameters.
+* Multiple instances pagination fix.
+* New test for the LcpPaginator class.
+
+= 0.75.1 =
+
+* Fix a case where pagination would show up but the CSS wasn't being loaded.
+* Fixes other issues with pagination
+Thanks Klemens Starybrat (zymeth25) for the fixes in this release :)
+
+= 0.75 =
+
+* Improvements to `custom_fields` and `customfield_orderby`. Please check the readme for more information.
+* Several bug fixes to pagination.
+* Do not hide empty categories from widget.
+Special thanks to Klemens Starybrat (zymeth25) for all the contributions.
+
 
 = 0.74.2 =
 
