@@ -116,7 +116,7 @@
               "href" : 'data:text/plain;charset=utf-8,' + encodeURIComponent( response ),
             }).appendTo( "body" )
             .click(function() {
-               $(this).remove()
+              $(this).remove()
             })[0].click()
           } else {
             var blobObject = new Blob( [response] );
@@ -130,6 +130,134 @@
       });
 
     });
+
+
+    //widget  js
+    $(document).on('click', '.get_fb_token', function () {
+      var fb_content = $(this).parent().parent().parent().parent();
+      console.log(fb_content);
+      var client_id = $(fb_content).find('.fb_app_id').val().trim();
+      var secret_key = $(fb_content).find('.fb_secret_key').val().trim();
+
+      if ( 0 == client_id.length ) {
+        $(fb_content).find('.fb-error').text('Fb App id :  required');
+        return false;
+      }
+      if ( 0 == secret_key.length ) {
+        $(fb_content).find('.fb-error').text('Fb Security key  :  required');
+        return false;
+      }
+
+      $(fb_content).find('#token_loader').show();
+      $.ajax({
+        url: 'https://graph.facebook.com/oauth/access_token',
+        data: {
+          client_id: client_id,
+          client_secret: secret_key,
+          grant_type: 'client_credentials'
+        },
+        dataType: 'json',
+
+      }).done(function (data, textStatus, jqXHR) {
+        //facebook_access_token.val( data.replace( 'access_token=' , '' ) );
+        $(fb_content).find('.fb_access_token').val(data.access_token);
+        $(fb_content).find('.fb-error').text('');
+      }).fail(function (jqXHR, textStatus, errorThrown) {
+        $(fb_content).find('.fb-error').text('Incorrect data, please check each field.' + '\n\n' + 'Info Message: ' + jqXHR.responseJSON.error.message);
+      }).always(function (jqXHR, textStatus, errorThrown) {
+        $(fb_content).find('#token_loader').hide();
+      });
+
+    });
+
+    $(document).on('click', '.fb_count_check', function () {
+      var fb_content = $(this).parent().parent();
+
+      if ($(this).is(':checked')) {
+        $(fb_content).find('.fb_api_key').css('display', 'block');
+        // $('.fb_api_key').css('display', 'block');
+      } else {
+        $(fb_content).find('.fb_api_key').css('display', 'none');
+      }
+    });
+    $(document).on('click', '.show_fb_check', function () {
+      var widget_content = $(this).parent().parent();
+
+      if ($(this).is(':checked')) {
+        $(widget_content).find('.show_fb').css('display', 'block');
+      } else {
+        $(widget_content).find('.show_fb').css('display', 'none');
+      }
+
+    });
+
+    $(document).on('click', '.show_twitter_check', function () {
+      var widget_content = $(this).parent().parent();
+      if ($(this).is(':checked')) {
+        $(widget_content).find('.show_twitter').css('display', 'block');
+      } else {
+        $(widget_content).find('.show_twitter').css('display', 'none');
+      }
+
+    });
+    $(document).on('click', '.twitter_count_check', function () {
+
+      var twitter_content = $(this).parent().parent();
+      if ($(this).is(':checked')) {
+        $(twitter_content).find('.twitter_api_key').css('display', 'block');
+
+        // $('.twitter_api_key').css('display', 'block');
+      } else {
+        $(twitter_content).find('.twitter_api_key').css('display', 'none');
+      }
+    });
+
+    $(document).on('click', '.show_google_check', function () {
+      var widget_content = $(this).parent().parent();
+      if ($(this).is(':checked')) {
+        // $('.show_google_plus').css('display', 'block');
+        $(widget_content).find('.show_google_plus').css('display', 'block');
+      } else {
+        $(widget_content).find('.show_google_plus').css('display', 'none');
+      }
+
+    });
+
+
+    $(document).on('click', '.show_youtube_check', function () {
+      var widget_content = $(this).parent().parent();
+      if ($(this).is(':checked')) {
+        // $('.show_youtube').css('display', 'block');
+        $(widget_content).find('.show_youtube').css('display', 'block');
+      } else {
+        $(widget_content).find('.show_youtube').css('display', 'none');
+      }
+
+    });
+
+      $(document).on('click', '.show_pinterest_check', function () {
+          var widget_content = $(this).parent().parent();
+          if ($(this).is(':checked')) {
+              // $('.show_youtube').css('display', 'block');
+              $(widget_content).find('.show_pinterest').css('display', 'block');
+          } else {
+              $(widget_content).find('.show_pinterest').css('display', 'none');
+          }
+
+      });
+
+      $(document).on('click', '.pinterest_count_check', function () {
+
+          var pinterest_content = $(this).parent().parent();
+          if ($(this).is(':checked')) {
+              $(pinterest_content).find('.pinterest_api_key').css('display', 'block');
+          } else {
+              $(pinterest_content).find('.pinterest_api_key').css('display', 'none');
+          }
+      });
+
+    //end widget js;
+
 
   });
 

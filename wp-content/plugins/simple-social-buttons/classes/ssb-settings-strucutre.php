@@ -188,11 +188,20 @@ if ( ! class_exists( 'Ssb_Settings_Structure' ) ) :
                   <span class="radio"><span class="shadow"></span></span>
                 </label>
                 <div class="simplesocialbuttons-nav <?php echo $key ?>">
+                  <?php if ( 'simple-icons' == $key ) :?>
+                  <ul>
+                    <li><a href="#" class="simplesocial-fb-share"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="_1pbq" color="#ffffff"><path fill="#ffffff" fill-rule="evenodd" class="icon" d="M8 14H3.667C2.733 13.9 2 13.167 2 12.233V3.667A1.65 1.65 0 0 1 3.667 2h8.666A1.65 1.65 0 0 1 14 3.667v8.566c0 .934-.733 1.667-1.667 1.767H10v-3.967h1.3l.7-2.066h-2V6.933c0-.466.167-.9.867-.9H12v-1.8c.033 0-.933-.266-1.533-.266-1.267 0-2.434.7-2.467 2.133v1.867H6v2.066h2V14z"></path></svg></span><span class="simplesocial-hidden-text">Share</span></a></li>
+                    <li><a href="#" class="simplesocial-twt-share"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72"><path fill="none" d="M0 0h72v72H0z"></path><path class="icon" fill="#fff" d="M68.812 15.14c-2.348 1.04-4.87 1.744-7.52 2.06 2.704-1.62 4.78-4.186 5.757-7.243-2.53 1.5-5.33 2.592-8.314 3.176C56.35 10.59 52.948 9 49.182 9c-7.23 0-13.092 5.86-13.092 13.093 0 1.026.118 2.02.338 2.98C25.543 24.527 15.9 19.318 9.44 11.396c-1.125 1.936-1.77 4.184-1.77 6.58 0 4.543 2.312 8.552 5.824 10.9-2.146-.07-4.165-.658-5.93-1.64-.002.056-.002.11-.002.163 0 6.345 4.513 11.638 10.504 12.84-1.1.298-2.256.457-3.45.457-.845 0-1.666-.078-2.464-.23 1.667 5.2 6.5 8.985 12.23 9.09-4.482 3.51-10.13 5.605-16.26 5.605-1.055 0-2.096-.06-3.122-.184 5.794 3.717 12.676 5.882 20.067 5.882 24.083 0 37.25-19.95 37.25-37.25 0-.565-.013-1.133-.038-1.693 2.558-1.847 4.778-4.15 6.532-6.774z"></path></svg></span><span class="simplesocial-hidden-text">Tweet</span></a></li>
+                    <li><a href="#" class="simplesocial-gplus-share"><span class="icon"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" width="30px" height="18px" viewBox="-10 -6 60 36" class="ozWidgetRioButtonSvg_ ozWidgetRioButtonPlusOne_"><path d="M30 7h-3v4h-4v3h4v4h3v-4h4v-3h-4V7z"></path><path d="M11 9.9v4h5.4C16 16.3 14 18 11 18c-3.3 0-5.9-2.8-5.9-6S7.7 6 11 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9C15.9 3 13.7 2 11 2 5.5 2 1 6.5 1 12s4.5 10 10 10c5.8 0 9.6-4.1 9.6-9.8 0-.7-.1-1.5-.2-2.2H11z"></path></svg></span></a></li>
+                    <li><span style="line-height: 20px; vertical-align: top; font-weight: bold;display: inline-block;">Official Buttons</span></li>
+                  </ul>
+                  <?php else: ?>
                   <ul>
                     <li><a href="#" class="simplesocial-fb-share"><span class="simplesocial-hidden-text">Facebook</span></a></li>
                     <li><a href="#" class="simplesocial-twt-share"><span class="simplesocial-hidden-text">Twitter</span></a></li>
                     <li><a href="#" class="simplesocial-gplus-share"><span class="simplesocial-hidden-text">Google</span></a></li>
                   </ul>
+                <?php endif; ?>
                 </div> <!--  .simplesocialbuttons-nav -->
               </div> <!--  .simplesocialbuttons-style -->
             </div> <!--  .simplesocialbuttons-style-outer -->
@@ -367,7 +376,7 @@ if ( ! class_exists( 'Ssb_Settings_Structure' ) ) :
                 ?>
                <?php foreach ($ssb_icons_order as $key => $value): ?>
                  <?php if ( $value != 0): ?>
-                   <li data-id="<?php echo $key ?>" class="list"><img src="<?php echo plugins_url( 'assets/images/'.$key.'.png', plugin_dir_path( __FILE__ )  ) ?>" /></li>
+                   <li data-id="<?php echo $key ?>" class="list"><img src="<?php echo plugins_url( 'assets/images/'.$key.'.svg', plugin_dir_path( __FILE__ )  ) ?>" /></li>
                  <?php endif; ?>
                <?php endforeach; ?>
              </ul>
@@ -378,7 +387,7 @@ if ( ! class_exists( 'Ssb_Settings_Structure' ) ) :
            <ul id="ssb_inactive_icons" class="items" style="min-height:35px">
              <?php foreach ( $ssb_icons_order as $key => $value): ?>
                <?php if ( $value == 0): ?>
-                 <li data-id="<?php echo $key ?>" class="list" ><img src="<?php echo plugins_url( 'assets/images/'.$key.'.png', plugin_dir_path( __FILE__ ) ) ?>" /></li>
+                 <li data-id="<?php echo $key ?>" class="list" ><img src="<?php echo plugins_url( 'assets/images/'.$key.'.svg', plugin_dir_path( __FILE__ ) ) ?>" /></li>
                <?php endif; ?>
              <?php endforeach; ?>
            </ul>

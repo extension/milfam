@@ -4,7 +4,7 @@ Donate link: https://wpbrigade.com/
 Tags: Social share, Social buttons, Whatsapp, Viber, LinkedIn, facebook, google, twitter, pinterest, plus one
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 2.0.4
+Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,10 +115,22 @@ Premium version includes Priority support, premium featuers like access to custo
 
 Check the more details [here](https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-faqs&utm_campaign=pro-upgrade "This plugin makes Social Sharing easy for EVERYONE.")
 
-= Is there a template tag for custom install? =
+= Is there a shortcode for custom install? =
 
-Yes, you can use `<?php get_ssb(); ?>` in your template file (see installation section). Default instalation don't require that.
+Yes, you can use ShortCode [SSB] to use in your Templates/Themes.
 
+= What are the attributes of Shortcode =
+
+[SSB] to call with plugin settings values.
+
+[SSB theme="Official" aign="right" counter="true" order="googleplus,twitter,pinterest,fbshare,linkedin" ]
+
+Attributes with all the possible values.
+
+counter = true or false
+align = left or right or centered
+order = googleplus,twitter,pinterest,fbshare,linkedin,reddit,whatsapp,viber,fblike
+theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 
 == Screenshots ==
 
@@ -134,11 +146,24 @@ Yes, you can use `<?php get_ssb(); ?>` in your template file (see installation s
 
 == Upgrade Notice ==
 
-= 2.0.4 =
+= 2.0.6 =
 * Relaunched with a whole set of NEW FEATURES and Improvement. Please upgrade immediately and provide your feedback. highly recommended. Aplogies in advance, if anything breaks!
 
 
 == Changelog ==
+
+= 2.0.6 - 2017-12-27 =
+* Bug Fix: fix layout issues for default social media sharing icons.
+
+= 2.0.5 - 2017-12-27 =
+* New Feature: Social Follow Widget.
+* New Feature: Social Media Sharing Buttons ShortCode to use in tempalates.
+* Bug Fix: Hide Social Media Sharing Buttons on single posts/pages or custom post types.
+* New Feature: Added Official Social Media Sharing Buttons for Facebook, Twitter, Google+, LinkedIn and Pinterest.
+* Enhancement: Improved Social Media Images Quality for Retina machines
+* Bug Fix: Changed the facebook like button in plugin settings.
+* Enhancement: Improved Speed and code optimization.
+* Compatibility: Compatible with WordPress 4.9
 
 = 2.0.4 - 2017-11-17 =
 * Bug Fix: Undefined index error when creating new post or page.
