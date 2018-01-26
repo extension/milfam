@@ -4,7 +4,7 @@ Donate link: https://wpbrigade.com/
 Tags: Social share, Social buttons, Whatsapp, Viber, LinkedIn, facebook, google, twitter, pinterest, plus one
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 2.0.6
+Stable tag: 2.0.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,14 +12,14 @@ Simple Social Media Share Buttons adds an advanced set of social media sharing b
 
 == Description ==
 
-[Simple Social Buttons](https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-readme&utm_campaign=pro-upgrade "This plugin makes Social Sharing easy for EVERYONE.") adds  ( with lots of options like Sidebar, inline, above and below the posts content, on photos, popups, fly ins ) an advanced set of social media sharing buttons to your WordPress sites, such as: Google +1, Facebook, WhatsApp, Viber, Twitter, Reddit, LinkedIn and Pinterest. 
+[Simple Social Buttons](https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-readme&utm_campaign=pro-upgrade "This plugin makes Social Sharing easy for EVERYONE.") adds  ( with lots of options like Sidebar, inline, above and below the posts content, on photos, popups, fly ins ) an advanced set of social media sharing buttons to your WordPress sites, such as: Google +1, Facebook, WhatsApp, Viber, Twitter, Reddit, LinkedIn and Pinterest.
 
 > Rich set of features makes it the most flexible **Social Sharing plugin ever for Everyone**.
 
 ** This social sharing Plugin is fully customizable. You can decide where to position those buttons:**
 
  **Inline**
-- Social Sharing Buttons above the post content 
+- Social Sharing Buttons above the post content
 - Social Sharing Buttons under the post content
 - Social Sharing Buttons above and under the post
 - Hide Social Share buttons on mobile devices
@@ -70,10 +70,10 @@ Want's more? Now you can change the **order of buttons** on your post!
 
 Simple Social Buttons is currently in the following languages:
 
-- Danish 
+- Danish
 - Dutch
 - English
-- French 
+- French
 - German
 - Lithuanian
 - Polish
@@ -81,8 +81,8 @@ Simple Social Buttons is currently in the following languages:
 - Slovak
 - Spanish
 - Swedish
-- Thai 
-- Ukrainian 
+- Thai
+- Ukrainian
 
 
 == Installation ==
@@ -91,7 +91,7 @@ Simple Social Buttons is currently in the following languages:
 2. Upload folder named simple-social-buttons to the /wp-content/plugins/ directory
 3. Activate the plugin through the 'Plugins' menu in WordPress
 4. Go to Plugin settings -> Everything is self explanatory on settings page. Select networks, styles, locations and then chose settings for each location.
-5. (Optional) Customize the buttons in the Settings > Inline, Siderbar, Popup, Media, Flyins.
+5. (Optional) Customize the buttons in the Settings > Inline, Sidebar, Popup, Media, Flyins.
 
 That's it. Buttons will show on your blog posts or any custom type you want. Just select it from each section.
 
@@ -107,11 +107,11 @@ This plugin lets you adds the Facebook share button, Google plus one +1, Twitter
 
 = How about support? =
 
-Use [plugin's forum](http://wordpress.org/support/plugin/simple-social-buttons "Forum") to ask about plugin or report some problems. 
+Use [plugin's forum](http://wordpress.org/support/plugin/simple-social-buttons "Forum") to ask about plugin or report some problems.
 
 = Why upgrade to Pro? =
 
-Premium version includes Priority support, premium featuers like access to customizing colors of social media buttons, Social popups, fly-ins, on Media Social buttons etc
+Premium version includes Priority support, premium features like access to customizing colors of social media buttons, Social popups, fly-ins, on Media Social buttons etc
 
 Check the more details [here](https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=link-faqs&utm_campaign=pro-upgrade "This plugin makes Social Sharing easy for EVERYONE.")
 
@@ -123,7 +123,7 @@ Yes, you can use ShortCode [SSB] to use in your Templates/Themes.
 
 [SSB] to call with plugin settings values.
 
-[SSB theme="Official" aign="right" counter="true" order="googleplus,twitter,pinterest,fbshare,linkedin" ]
+[SSB theme="Official" align="right" counter="true" order="googleplus,twitter,pinterest,fbshare,linkedin" ]
 
 Attributes with all the possible values.
 
@@ -146,22 +146,34 @@ theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 
 == Upgrade Notice ==
 
-= 2.0.6 =
-* Relaunched with a whole set of NEW FEATURES and Improvement. Please upgrade immediately and provide your feedback. highly recommended. Aplogies in advance, if anything breaks!
+= 2.0.8 =
+* Relaunched with a whole set of NEW FEATURES and Improvement. Please upgrade immediately and provide your feedback. highly recommended. Apologies in advance, if anything breaks!
 
 
 == Changelog ==
+
+= 2.0.8 - 2018-01-24 =
+* Bug Fix: Google Plus issue on widget.
+* Bug Fix: Hide SideBar up to IPad Mini.
+* Bug Fix: Widget Title show even it remove.
+
+= 2.0.7 - 2018-01-20 =
+* New Feature: Share Title text Option added.
+* New Feature: Settings Option for excluding Simple Social Buttons on Search Page.
+* Bug Fix: Show on tags page.
+* Bug Fix: Custom Icon Space.
+* Bug Fix: Remove Open Sans from Social buttons.
 
 = 2.0.6 - 2017-12-27 =
 * Bug Fix: fix layout issues for default social media sharing icons.
 
 = 2.0.5 - 2017-12-27 =
 * New Feature: Social Follow Widget.
-* New Feature: Social Media Sharing Buttons ShortCode to use in tempalates.
+* New Feature: Social Media Sharing Buttons ShortCode to use in templates.
 * Bug Fix: Hide Social Media Sharing Buttons on single posts/pages or custom post types.
 * New Feature: Added Official Social Media Sharing Buttons for Facebook, Twitter, Google+, LinkedIn and Pinterest.
 * Enhancement: Improved Social Media Images Quality for Retina machines
-* Bug Fix: Changed the facebook like button in plugin settings.
+* Bug Fix: Changed the Facebook like button in plugin settings.
 * Enhancement: Improved Speed and code optimization.
 * Compatibility: Compatible with WordPress 4.9
 
@@ -170,7 +182,7 @@ theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 * Enhancement: Facebook likes button is back.
 
 = 2.0.3 - 2017-11-13 =
-* Bug Fix: Social media Counter 
+* Bug Fix: Social media Counter
 * Enhancement: Compatible with 4.9
 
 = 2.0.2 - 2017-11-02 =
@@ -180,16 +192,16 @@ theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 * Bug Fix: Compatibility issues with older PHP versions.
 
 = 2.0.0 - 2017-10-31 =
-* New Feature: Refactored i.e rewritten the whole plugin with lots of new features.
-* New Feature: Inline social share buttons with animations and custom colors in Pro vesrion.
-* New Feature: Sidebar social share buttons with animations and custom colors in Pro vesrion.
+* New Feature: Refactored i.e. rewritten the whole plugin with lots of new features.
+* New Feature: Inline social share buttons with animations and custom colors in Pro version.
+* New Feature: Sidebar social share buttons with animations and custom colors in Pro version.
 * New Feature: Social share Popups with events triggers on exit/intent and on scroll.
 * New Feature: Social Share buttons on images in posts or pages or custom post types. Helps in drive more engagement with site visitors.
 * New Feature: Fly-in the social popups. Style it with your WordPress theme and win the use engagement.
 * New Feature: Choose Social media buttons from more than 5 different social button styles.
 * New Feature: Show Social media buttons on 5 different locations or positions.
 * New Feature: Choose Social Networks with Drag and Drop feature.
-* New Feature: Introducing Whatsapp, Viber, Reddit and linked in.
+* New Feature: Introducing WhatsApp, Viber, Reddit and linked in.
 * Bug Fix: Improved the loading speed of social media buttons.
 
 
@@ -218,7 +230,7 @@ theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 * First stable release.
 
 = 1.1 =
-* Added french translation
+* Added French translation
 * Added language support in Facebook and Google+ JavaScript
 
 = 1.2.1 =
@@ -233,19 +245,19 @@ theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 * Lots of fine-tuning
 
 = 1.4 =
-* Added custom meta to disable SSB plugin on sigle page/post (managed in admin menu)
+* Added custom meta to disable SSB plugin on single page/post (managed in admin menu)
 * Function get_ssb() to directly use in template to show Simple Social Buttons in specified order
 * Widget manage page in wp-admin available only for Administrator
 * Added German and Spanish translation
 * Fine-tuning
 
-= 1.5 = 
+= 1.5 =
 * New asynchronous JS code
 * Minor bug fixed
 
 
 = 1.5.1 =
-* Added lithuanian translation
+* Added Lithuanian translation
 
 = 1.5.2 =
 * Bug fix from 1.5.1
@@ -254,11 +266,11 @@ theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 * Facebook "Like it" fix (added id="fb-root" instead of class="fb-like")
 
 = 1.5.5 =
-* Added danish translation 
+* Added Danish translation
 
 = 1.5.6 =
-* Added thai translation
-* fixed Facebook language detection 
+* Added Thai translation
+* fixed Facebook language detection
 
 = 1.6.0 =
 * Added Twitter via @username option
@@ -266,41 +278,41 @@ theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 * Some bug fixes
 
 = 1.6.2 =
-* Added slovak translation
+* Added Slovak translation
 
-= 1.6.3 = 
+= 1.6.3 =
 * Fixed CSS class names ("buttom" to "button")
-* Fixed facebook Like box cut off
+* Fixed Facebook Like box cut off
 
-= 1.6.4 = 
+= 1.6.4 =
 * Used "Roles and Capabilities" in admin access
 
 = 1.6.5 =
-* Added dutch translation
-* Added serbo-croatian translation
+* Added Dutch translation
+* Added Serbo-Croatian translation
 
 = 1.6.6 =
-* Update for Wordpress 3.8
+* Update for WordPress 3.8
 
 = 1.7.0 =
 * Fixed margin-right for buttons
 * Pinterest button code update
 
 = 1.7.2 =
-* New sreenshots of plugin
+* New screenshots of plugin
 
 = 1.7.3 =
 * New description and donation link
-* New polish and english translation
+* New polish and English translation
 
 = 1.7.4 =
 * Fixed position of Facebook "Like" button
 
 = 1.7.5 =
-* Added ukrainian translation 
+* Added Ukrainian translation
 
 = 1.7.7 =
-* Added swedish translation 
+* Added Swedish translation
 
 = 1.7.8 =
 * Fixed PHP warning

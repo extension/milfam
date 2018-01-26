@@ -3,7 +3,7 @@
  * Plugin Name: Simple Social Buttons
  * Plugin URI: http://www.WPBrigade.com/wordpress/plugins/simple-social-buttons/
  * Description: Simple Social Buttons adds an advanced set of social media sharing buttons to your WordPress sites, such as: Google +1, Facebook, WhatsApp, Viber, Twitter, Reddit, LinkedIn and Pinterest. This makes it the most <code>Flexible Social Sharing Plugin ever for Everyone.</code>
- * Version: 2.0.6
+ * Version: 2.0.8
  * Author: WPBrigade
  * Author URI: http://www.WPBrigade.com/
  * Text Domain: simple-social-buttons
@@ -30,7 +30,7 @@
 
 class SimpleSocialButtonsPR {
 	public $pluginName        = 'Simple Social Buttons';
-	public $pluginVersion     = '2.0.6';
+	public $pluginVersion     = '2.0.8';
 	public $pluginPrefix      = 'ssb_pr_';
 	public $hideCustomMetaKey = '_ssb_hide';
 
@@ -393,7 +393,7 @@ class SimpleSocialButtonsPR {
 	 */
 	function insert_excerpt_buttons( $content ) {
 
-		if ( is_single() ) {
+		if ( is_single() || has_excerpt() ) {
 			return $content;
 		}
 
@@ -428,16 +428,23 @@ class SimpleSocialButtonsPR {
 	 */
 	function insert_buttons( $content ) {
 
+		// Return the content if we are not in loop.
+		if ( ! is_main_query() || ! in_the_loop() ) {
+			return $content;
+		}
+
 		// Return Content if hide ssb.
 		if ( get_post_meta( get_the_id(), $this->hideCustomMetaKey, true ) == 'true' ) {
 			return $content;
 		}
 
-		if ( is_archive() && ! $this->inline_option['show_on_category'] ) {
+		if ( is_archive() &&  $this->_get_settings( 'inline', 'show_on_archive', '0' ) == '0' && !is_tag() && !is_category() ) {
 			return $content; }
-		if ( is_category() && ! $this->inline_option['show_on_archive'] ) {
+		if ( is_category() && $this->_get_settings( 'inline', 'show_on_category', '0' ) == '0' ) {
 			return $content; }
-		if ( is_tag() && ! $this->inline_option['show_on_tag'] ) {
+		if ( is_tag() && $this->_get_settings( 'inline', 'show_on_tag', '0' ) == '0' ) {
+			return $content; }
+		if ( is_search() &&  $this->_get_settings( 'inline', 'show_on_search', '0' ) == '0' ) {
 			return $content; }
 
 		// && 'false' == get_post_meta( get_the_ID(), $this->hideCustomMetaKey , true )
@@ -466,12 +473,17 @@ class SimpleSocialButtonsPR {
 			$_selected_network = apply_filters( 'ssb_inline_social_networks', $this->selected_networks );
 			$ssb_buttonscode   = $this->generate_buttons_code( $_selected_network, $show_count, $show_total, $extra_class );
 
-			if ( in_array( $this->get_post_type(), $this->inline_option['posts'] ) ) {
+			$sharing_text = '';
+
+			if ( isset( $this->inline_option['share_title'] ) &&  trim( $this->inline_option['share_title'] ) != '' ) {
+				$sharing_text = '<span class="ssb_inline-share_heading '. $this->_get_settings( 'inline', 'icon_alignment', 'left' ) .'">'. $this->inline_option['share_title'] .'</span>'  ;
+			}
+			if ( in_array( $this->get_post_type(), $this->_get_settings( 'inline', 'posts', array() ) ) ) {
 				if ( $this->inline_option['location'] == 'above' || $this->inline_option['location'] == 'above_below' ) {
-					$content = $ssb_buttonscode . $content;
+					$content = $sharing_text . $ssb_buttonscode . $content;
 				}
 				if ( $this->inline_option['location'] == 'below' || $this->inline_option['location'] == 'above_below' ) {
-					$content = $content . $ssb_buttonscode;
+					$content = $content . $sharing_text . $ssb_buttonscode;
 				}
 			}
 		}
@@ -479,7 +491,6 @@ class SimpleSocialButtonsPR {
 		return $content;
 
 	}
-
 
 	/**
 	 * Generate buttons html code with specified order
@@ -807,7 +818,7 @@ class SimpleSocialButtonsPR {
 
 					 	if ( $this->_get_settings( 'sidebar', 'share_counts' ) ) {
 				$class .= ' ssb_counter-activate';
-			} 
+			}
 
 					$class            .= ' simplesocialbuttons-slide-' . $this->_get_settings( 'sidebar', 'animation', 'no-animation' );
 					$_selected_network = apply_filters( 'ssb_sidebar_social_networks', $this->selected_networks );

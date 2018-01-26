@@ -8,8 +8,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 div.simplesocialbuttons { height: auto; margin: 5px auto 5px -5px; text-align: left; clear: left; font-size: 0; }
 div.simplesocialbutton { float: left; }
 div.ssb-button-googleplus { width: 100px; }
@@ -29,7 +27,7 @@ div.ssb-button-pinterest { width: 100px; }
   margin: 5px;
   -webkit-box-shadow: none;
   box-shadow: none;
-  font-family: 'Open Sans';
+  font-family: 'Helvetica', Arial, sans-serif;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font-weight: normal;
@@ -383,7 +381,8 @@ div[class*="simplesocialbuttons-float"].simplesocial-simple-icons.simplesocialbu
 .simplesocial-simple-icons .ssb_tweet-icon{
   position: relative;
   height: 20px;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 1px 8px 1px 6px;
   background-color: #1b95e0;
   color: #fff;
@@ -418,14 +417,16 @@ div[class*="simplesocialbuttons-float"].simplesocial-simple-icons.simplesocialbu
 .simplesocial-simple-icons .ssb_gplus-icon .icon{
   border: 1px solid #d5d5d5;
   border: 1px solid rgba(0,0,0,.17);
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.05);
   box-shadow: 0 1px 0 rgba(0,0,0,.05);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
+  -webkit-transition: background-color .218s,border-color .218s,-webkit-box-shadow .218s;
+  transition: background-color .218s,border-color .218s,-webkit-box-shadow .218s;
   transition: background-color .218s,border-color .218s,box-shadow .218s;
+  transition: background-color .218s,border-color .218s,box-shadow .218s,-webkit-box-shadow .218s;
   -webkit-user-select: none;
   -webkit-appearance: none;
   background-color: #fff;
@@ -462,7 +463,6 @@ div[class*="simplesocialbuttons-float"].simplesocial-simple-icons.simplesocialbu
   position: relative;
   background: #fff;
   border: 1px solid #ccc;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   display: inline-block;
   margin-left: 5px;
@@ -566,7 +566,6 @@ div[class*="simplesocialbuttons-float"].simplesocial-simple-icons.simplesocialbu
   -webkit-border-top-right-radius: 2px;
   -webkit-border-bottom-right-radius: 2px;
   background-color: #0077b5;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0077b5), color-stop(100%,#0077b5));
   background-image: -webkit-linear-gradient(top, #0077b5 0%, #0077b5 100%);
   font: bold 11px Arial, Helvetica, sans-serif;
   line-height: 20px;
@@ -579,7 +578,6 @@ div[class*="simplesocialbuttons-float"].simplesocial-simple-icons.simplesocialbu
   border-bottom-color: #066094;
   border-left-color: #066094;
   background-color: #066094;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#066094), color-stop(100%,#066094));
   background-image: -webkit-linear-gradient(top, #066094 0%, #066094 100%);
 }
 .simplesocial-simple-icons .ssb_linkedin-icon .ssb_counter{
@@ -641,7 +639,8 @@ div[class*="simplesocialbuttons-float"].simplesocial-simple-icons.simplesocialbu
 }
 .simplesocial-simple-icons .ssb_pinterest-icon:hover .simplesocialtxt{
   background-color: #aa0719;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   color: #fff;
 }
 .simplesocial-simple-icons .ssb_pinterest-icon .icon{
@@ -796,9 +795,9 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
   border-width: 1px;
   border-color: rgb(222, 222, 222);
   border-radius: 4px;
-  background-image: -moz-linear-gradient( -90deg, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
-  background-image: -webkit-linear-gradient( -90deg, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
-  background-image: -ms-linear-gradient( -90deg, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
+  background-image: -moz-linear-gradient(-90deg, rgb(255, 255, 255) 0%, rgb(221, 221, 221) 100%);
+  background-image: -webkit-linear-gradient(-90deg, rgb(255, 255, 255) 0%, rgb(221, 221, 221) 100%);
+  background-image: -ms-linear-gradient(-90deg, rgb(255, 255, 255) 0%, rgb(221, 221, 221) 100%);
   height: 38px;
   line-height: 26px;
   padding: 4px 15px 4px 20px;
@@ -814,9 +813,9 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
   box-shadow: none;
 }
 .simplesocialbuttons.simplesocial-sm-round button:hover{
-  background-image: -moz-linear-gradient( 90deg, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
-  background-image: -webkit-linear-gradient( 90deg, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
-  background-image: -ms-linear-gradient( 90deg, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
+  background-image: -moz-linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(221, 221, 221) 100%);
+  background-image: -webkit-linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(221, 221, 221) 100%);
+  background-image: -ms-linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(221, 221, 221) 100%);
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -1057,67 +1056,83 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
   transition: all 0.2s ease-in-out;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-fb-share {
-  box-shadow: inset 0px 0px 0px 0px #43609c, 0px 2px 0px 0px #43609c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px 0px 0px 0px #43609c, 0px 2px 0px 0px #43609c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px 0px 0px 0px #43609c, 0px 2px 0px 0px #43609c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #43609c;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-fb-share:hover{
-  box-shadow: inset 0px -40px 0px 0px #43609c, 0px 2px 0px 0px #43609c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px -40px 0px 0px #43609c, 0px 2px 0px 0px #43609c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px -40px 0px 0px #43609c, 0px 2px 0px 0px #43609c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #fff;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-twt-share {
-  box-shadow: inset 0px 0px 0px 0px #1da1f2, 0px 2px 0px 0px #1da1f2, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px 0px 0px 0px #1da1f2, 0px 2px 0px 0px #1da1f2, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px 0px 0px 0px #1da1f2, 0px 2px 0px 0px #1da1f2, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #1da1f2;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-twt-share:hover{
-  box-shadow: inset 0px -40px 0px 0px #1da1f2, 0px 2px 0px 0px #1da1f2, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px -40px 0px 0px #1da1f2, 0px 2px 0px 0px #1da1f2, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px -40px 0px 0px #1da1f2, 0px 2px 0px 0px #1da1f2, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #fff;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-gplus-share {
-  box-shadow: inset 0px 0px 0px 0px #db4437, 0px 2px 0px 0px #db4437, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px 0px 0px 0px #db4437, 0px 2px 0px 0px #db4437, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px 0px 0px 0px #db4437, 0px 2px 0px 0px #db4437, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #db4437;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-gplus-share:hover{
-  box-shadow: inset 0px -40px 0px 0px #db4437, 0px 2px 0px 0px #db4437, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px -40px 0px 0px #db4437, 0px 2px 0px 0px #db4437, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px -40px 0px 0px #db4437, 0px 2px 0px 0px #db4437, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #fff;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-whatsapp-share {
-  box-shadow: inset 0px 0px 0px 0px #34AF23, 0px 2px 0px 0px #34AF23, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px 0px 0px 0px #34AF23, 0px 2px 0px 0px #34AF23, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px 0px 0px 0px #34AF23, 0px 2px 0px 0px #34AF23, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #34AF23;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-whatsapp-share:hover{
-  box-shadow: inset 0px -40px 0px 0px #34AF23, 0px 2px 0px 0px #34AF23, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px -40px 0px 0px #34AF23, 0px 2px 0px 0px #34AF23, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px -40px 0px 0px #34AF23, 0px 2px 0px 0px #34AF23, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #fff;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-viber-share {
-  box-shadow: inset 0px 0px 0px 0px #59267c, 0px 2px 0px 0px #59267c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px 0px 0px 0px #59267c, 0px 2px 0px 0px #59267c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px 0px 0px 0px #59267c, 0px 2px 0px 0px #59267c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #59267c;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-viber-share:hover{
-  box-shadow: inset 0px -40px 0px 0px #59267c, 0px 2px 0px 0px #59267c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px -40px 0px 0px #59267c, 0px 2px 0px 0px #59267c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px -40px 0px 0px #59267c, 0px 2px 0px 0px #59267c, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #fff;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-reddit-share {
-  box-shadow: inset 0px 0px 0px 0px #ff4500, 0px 2px 0px 0px #ff4500, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px 0px 0px 0px #ff4500, 0px 2px 0px 0px #ff4500, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px 0px 0px 0px #ff4500, 0px 2px 0px 0px #ff4500, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #ff4500;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-reddit-share:hover{
-  box-shadow: inset 0px -40px 0px 0px #ff4500, 0px 2px 0px 0px #ff4500, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px -40px 0px 0px #ff4500, 0px 2px 0px 0px #ff4500, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px -40px 0px 0px #ff4500, 0px 2px 0px 0px #ff4500, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #fff;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-linkedin-share {
-  box-shadow: inset 0px 0px 0px 0px #0077B5, 0px 2px 0px 0px #0077B5, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px 0px 0px 0px #0077B5, 0px 2px 0px 0px #0077B5, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px 0px 0px 0px #0077B5, 0px 2px 0px 0px #0077B5, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #0077B5;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-linkedin-share:hover{
-  box-shadow: inset 0px -40px 0px 0px #0077B5, 0px 2px 0px 0px #0077B5, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px -40px 0px 0px #0077B5, 0px 2px 0px 0px #0077B5, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px -40px 0px 0px #0077B5, 0px 2px 0px 0px #0077B5, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #fff;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-pinterest-share {
-  box-shadow: inset 0px 0px 0px 0px #C92228, 0px 2px 0px 0px #C92228, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px 0px 0px 0px #C92228, 0px 2px 0px 0px #C92228, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px 0px 0px 0px #C92228, 0px 2px 0px 0px #C92228, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #C92228;
 }
 .simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-pinterest-share:hover{
-  box-shadow: inset 0px -40px 0px 0px #C92228, 0px 2px 0px 0px #C92228, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0px -40px 0px 0px #C92228, 0px 2px 0px 0px #C92228, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: inset 0px -40px 0px 0px #C92228, 0px 2px 0px 0px #C92228, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #fff;
 }
 /*=====  End of style 4  ======*/
@@ -1144,59 +1159,75 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-fb-share {
   background: #43609c;
-  box-shadow: inset 0px 0px 0px 0px #354e83, 0px 3px 0px 0px #354e83;
+  -webkit-box-shadow: inset 0px 0px 0px 0px #354e83, 0px 3px 0px 0px #354e83;
+          box-shadow: inset 0px 0px 0px 0px #354e83, 0px 3px 0px 0px #354e83;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-fb-share:hover {
-  box-shadow: inset 0px -40px 0px 0px #354e83, 0px 3px 0px 0px #354e83;
+  -webkit-box-shadow: inset 0px -40px 0px 0px #354e83, 0px 3px 0px 0px #354e83;
+          box-shadow: inset 0px -40px 0px 0px #354e83, 0px 3px 0px 0px #354e83;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-twt-share {
   background: #1da1f2;
-  box-shadow: inset 0px 0px 0px 0px #1889cf, 0px 3px 0px 0px #1889cf;
+  -webkit-box-shadow: inset 0px 0px 0px 0px #1889cf, 0px 3px 0px 0px #1889cf;
+          box-shadow: inset 0px 0px 0px 0px #1889cf, 0px 3px 0px 0px #1889cf;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-twt-share:hover {
-  box-shadow: inset 0px -40px 0px 0px #1889cf, 0px 3px 0px 0px #1889cf;
+  -webkit-box-shadow: inset 0px -40px 0px 0px #1889cf, 0px 3px 0px 0px #1889cf;
+          box-shadow: inset 0px -40px 0px 0px #1889cf, 0px 3px 0px 0px #1889cf;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-gplus-share {
   background: #db4437;
-  box-shadow: inset 0px 0px 0px 0px #bb372b, 0px 3px 0px 0px #bb372b;
+  -webkit-box-shadow: inset 0px 0px 0px 0px #bb372b, 0px 3px 0px 0px #bb372b;
+          box-shadow: inset 0px 0px 0px 0px #bb372b, 0px 3px 0px 0px #bb372b;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-gplus-share:hover {
-  box-shadow: inset 0px -40px 0px 0px #bb372b, 0px 3px 0px 0px #bb372b;
+  -webkit-box-shadow: inset 0px -40px 0px 0px #bb372b, 0px 3px 0px 0px #bb372b;
+          box-shadow: inset 0px -40px 0px 0px #bb372b, 0px 3px 0px 0px #bb372b;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-whatsapp-share {
   background: #34AF23;
-  box-shadow: inset 0px 0px 0px 0px #176e0b, 0px 3px 0px 0px #176e0b;
+  -webkit-box-shadow: inset 0px 0px 0px 0px #176e0b, 0px 3px 0px 0px #176e0b;
+          box-shadow: inset 0px 0px 0px 0px #176e0b, 0px 3px 0px 0px #176e0b;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-whatsapp-share:hover {
-  box-shadow: inset 0px -40px 0px 0px #176e0b, 0px 3px 0px 0px #176e0b;
+  -webkit-box-shadow: inset 0px -40px 0px 0px #176e0b, 0px 3px 0px 0px #176e0b;
+          box-shadow: inset 0px -40px 0px 0px #176e0b, 0px 3px 0px 0px #176e0b;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-viber-share {
   background: #59267c;
-  box-shadow: inset 0px 0px 0px 0px #3e115d, 0px 3px 0px 0px #3e115d;
+  -webkit-box-shadow: inset 0px 0px 0px 0px #3e115d, 0px 3px 0px 0px #3e115d;
+          box-shadow: inset 0px 0px 0px 0px #3e115d, 0px 3px 0px 0px #3e115d;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-viber-share:hover {
-  box-shadow: inset 0px -40px 0px 0px #3e115d, 0px 3px 0px 0px #3e115d;
+  -webkit-box-shadow: inset 0px -40px 0px 0px #3e115d, 0px 3px 0px 0px #3e115d;
+          box-shadow: inset 0px -40px 0px 0px #3e115d, 0px 3px 0px 0px #3e115d;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-reddit-share {
   background: #ff4500;
-  box-shadow: inset 0px 0px 0px 0px #ce3b04, 0px 3px 0px 0px #ce3b04;
+  -webkit-box-shadow: inset 0px 0px 0px 0px #ce3b04, 0px 3px 0px 0px #ce3b04;
+          box-shadow: inset 0px 0px 0px 0px #ce3b04, 0px 3px 0px 0px #ce3b04;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-reddit-share:hover {
-  box-shadow: inset 0px -40px 0px 0px #ce3b04, 0px 3px 0px 0px #ce3b04;
+  -webkit-box-shadow: inset 0px -40px 0px 0px #ce3b04, 0px 3px 0px 0px #ce3b04;
+          box-shadow: inset 0px -40px 0px 0px #ce3b04, 0px 3px 0px 0px #ce3b04;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-linkedin-share {
   background: #0077B5;
-  box-shadow: inset 0px 0px 0px 0px #044568, 0px 3px 0px 0px #044568;
+  -webkit-box-shadow: inset 0px 0px 0px 0px #044568, 0px 3px 0px 0px #044568;
+          box-shadow: inset 0px 0px 0px 0px #044568, 0px 3px 0px 0px #044568;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-linkedin-share:hover {
-  box-shadow: inset 0px -40px 0px 0px #044568, 0px 3px 0px 0px #044568;
+  -webkit-box-shadow: inset 0px -40px 0px 0px #044568, 0px 3px 0px 0px #044568;
+          box-shadow: inset 0px -40px 0px 0px #044568, 0px 3px 0px 0px #044568;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-pinterest-share {
   background: #C92228;
-  box-shadow: inset 0px 0px 0px 0px #af040a, 0px 3px 0px 0px #af040a;
+  -webkit-box-shadow: inset 0px 0px 0px 0px #af040a, 0px 3px 0px 0px #af040a;
+          box-shadow: inset 0px 0px 0px 0px #af040a, 0px 3px 0px 0px #af040a;
 }
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-pinterest-share:hover {
-  box-shadow: inset 0px -40px 0px 0px #af040a, 0px 3px 0px 0px #af040a;
+  -webkit-box-shadow: inset 0px -40px 0px 0px #af040a, 0px 3px 0px 0px #af040a;
+          box-shadow: inset 0px -40px 0px 0px #af040a, 0px 3px 0px 0px #af040a;
 }
 
 
@@ -1360,7 +1391,6 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
    -webkit-animation-timing-function: ease;
    -moz-animation-timing-function: ease;
    -webkit-animation-fill-mode: forwards;
-   -moz-animation-fill-mode: forwards;
    animation-fill-mode: forwards;
 }
 @keyframes ssb_slidetop {
@@ -1392,46 +1422,60 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
   opacity: 1;
 }
 .simplesocialbuttons_inline button:nth-child(2),.simplesocialbuttons_inline .ssb_total_counter:nth-child(2){
-  animation-delay: 0.2s;
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
 }
 .simplesocialbuttons_inline button:nth-child(3),.simplesocialbuttons_inline .ssb_total_counter:nth-child(3){
-  animation-delay: 0.4s;
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
 }
 .simplesocialbuttons_inline button:nth-child(4),.simplesocialbuttons_inline .ssb_total_counter:nth-child(4){
- animation-delay: 0.6s;
+ -webkit-animation-delay: 0.6s;
+         animation-delay: 0.6s;
 }
 .simplesocialbuttons_inline button:nth-child(5),.simplesocialbuttons_inline .ssb_total_counter:nth-child(5){
- animation-delay: 0.8s;
+ -webkit-animation-delay: 0.8s;
+         animation-delay: 0.8s;
 }
 .simplesocialbuttons_inline button:nth-child(6),.simplesocialbuttons_inline .ssb_total_counter:nth-child(6){
- animation-delay: 1s;
+ -webkit-animation-delay: 1s;
+         animation-delay: 1s;
 }
 .simplesocialbuttons_inline button:nth-child(7),.simplesocialbuttons_inline .ssb_total_counter:nth-child(7){
- animation-delay: 1.2s;
+ -webkit-animation-delay: 1.2s;
+         animation-delay: 1.2s;
 }
 .simplesocialbuttons_inline button:nth-child(8),.simplesocialbuttons_inline .ssb_total_counter:nth-child(8){
- animation-delay: 1.4s;
+ -webkit-animation-delay: 1.4s;
+         animation-delay: 1.4s;
 }
 .simplesocialbuttons_inline button:nth-child(9),.simplesocialbuttons_inline .ssb_total_counter:nth-child(9){
- animation-delay: 1.6s;
+ -webkit-animation-delay: 1.6s;
+         animation-delay: 1.6s;
 }
 .simplesocialbuttons_inline button:nth-child(10),.simplesocialbuttons_inline .ssb_total_counter:nth-child(10){
- animation-delay: 1.8s;
+ -webkit-animation-delay: 1.8s;
+         animation-delay: 1.8s;
 }
 .simplesocialbuttons_inline button:nth-child(11),.simplesocialbuttons_inline .ssb_total_counter:nth-child(11){
- animation-delay: 2s;
+ -webkit-animation-delay: 2s;
+         animation-delay: 2s;
 }
 .simplesocialbuttons_inline button:nth-child(12),.simplesocialbuttons_inline .ssb_total_counter:nth-child(12){
- animation-delay: 2.2s;
+ -webkit-animation-delay: 2.2s;
+         animation-delay: 2.2s;
 }
 .simplesocialbuttons_inline button:nth-child(13),.simplesocialbuttons_inline .ssb_total_counter:nth-child(13){
- animation-delay: 2.4s;
+ -webkit-animation-delay: 2.4s;
+         animation-delay: 2.4s;
 }
 .simplesocialbuttons_inline button:nth-child(14),.simplesocialbuttons_inline .ssb_total_counter:nth-child(14){
- animation-delay: 2.6s;
+ -webkit-animation-delay: 2.6s;
+         animation-delay: 2.6s;
 }
 .simplesocialbuttons_inline button:nth-child(15),.simplesocialbuttons_inline .ssb_total_counter:nth-child(15){
- animation-delay: 2.8s;
+ -webkit-animation-delay: 2.8s;
+         animation-delay: 2.8s;
 }
 
 
@@ -1471,9 +1515,10 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
       min-width: 24px;
       text-align: center;
       line-height: normal;
-      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
       overflow: hidden;
-      font-family: 'Open Sans';
+      font-family: 'Helvetica', Arial, sans-serif;
       line-height: 14px;
 }
 .simplesocialbuttons.simplesocial-round-txt button.simplesocial-fb-share .ssb_counter{
@@ -1512,9 +1557,9 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
   text-align: center;
   height: 36px;
   line-height: 36px;
-  background-image: -moz-linear-gradient( 90deg, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
-  background-image: -webkit-linear-gradient( 90deg, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
-  background-image: -ms-linear-gradient( 90deg, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
+  background-image: -webkit-linear-gradient(left, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
+  background-image: -o-linear-gradient(left, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
+  background-image: linear-gradient(to right, rgb(255,255,255) 0%, rgb(221,221,221) 100%);
   border-left: 1px solid #dedede;
   border-radius: 0 3px 3px 0;
 }
@@ -1718,7 +1763,7 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
   border-right-color: #db4437;
 }
 .ssb_counter{
-  font-family: 'Open Sans';
+  font-family: 'Helvetica', Arial, sans-serif;
 }
 .simplesocialbuttons.simplesocial-round-icon button .ssb_counter {
   position: absolute;
@@ -1736,7 +1781,8 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
   text-align: center;
   line-height: 15px;
   padding: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .simplesocialbuttons.simplesocial-round-icon button.simplesocial-fb-share .ssb_counter{
   border-color: #43609c;
@@ -1963,7 +2009,8 @@ div.simplesocialbuttons.simplesocialbuttons-float-left-center:not(.simplesocial-
 div[class*="simplesocialbuttons-float"]:not(.simplesocial-simple-icons)  button{
   height: 36px;
   width: 36px;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 div[class*="simplesocialbuttons-float"]:not(.simplesocial-simple-icons)  button span.simplesocialtxt{
   display: none;
@@ -2020,6 +2067,14 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons .ssb-fb-like{
 div[class*="simplesocialbuttons-float-right"].simplesocialbuttons .ssb-fb-like{
   float: right;
 }
+div[class*="simplesocialbuttons-float-left"].simplesocial-simple-icons .ssb_total_counter{
+  display: block;
+  text-align: left;
+}
+div[class*="simplesocialbuttons-float-right"].simplesocial-simple-icons .ssb_total_counter{
+  display: block;
+  text-align: right;
+}
 @-webkit-keyframes ssb_fade {
     from {opacity: 0;}
     to {opacity: 1;}
@@ -2046,14 +2101,14 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-left-in .ssb_t
 }
 
 @-webkit-keyframes ssb_slide_left_in {
-    from {transform: translateX(-100%)}
-    to {transform: translateX(0%)}
+    from {-webkit-transform: translateX(-100%);transform: translateX(-100%)}
+    to {-webkit-transform: translateX(0%);transform: translateX(0%)}
 }
 
 /* Standard syntax */
 @keyframes ssb_slide_left_in {
-    from {transform: translateX(-100%)}
-    to {transform: translateX(0%)}
+    from {-webkit-transform: translateX(-100%);transform: translateX(-100%)}
+    to {-webkit-transform: translateX(0%);transform: translateX(0%)}
 }
 div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-right-in button,
 div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-right-in .ssb_total_counter{
@@ -2067,14 +2122,14 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-right-in .ssb_
       animation-fill-mode: forwards;
 }
 @-webkit-keyframes ssb_slide_right_in {
-    from {transform: translateX(100%)}
-    to {transform: translateX(0%)}
+    from {-webkit-transform: translateX(100%);transform: translateX(100%)}
+    to {-webkit-transform: translateX(0%);transform: translateX(0%)}
 }
 
 /* Standard syntax */
 @keyframes ssb_slide_right_in {
-    from {transform: translateX(100%)}
-    to {transform: translateX(0%)}
+    from {-webkit-transform: translateX(100%);transform: translateX(100%)}
+    to {-webkit-transform: translateX(0%);transform: translateX(0%)}
 }
 div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-bottom-in{
   -webkit-transform: translateY(-45%);
@@ -2087,14 +2142,14 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-bottom-in{
       animation-fill-mode: forwards;
 }
 @-webkit-keyframes ssb_slide_top_in {
-    from {transform: translateY(-45%)}
-    to {transform: translateY(-50%)}
+    from {-webkit-transform: translateY(-45%);transform: translateY(-45%)}
+    to {-webkit-transform: translateY(-50%);transform: translateY(-50%)}
 }
 
 /* Standard syntax */
 @keyframes ssb_slide_top_in {
-    from {transform: translateY(-45%)}
-    to {transform: translateY(-50%)}
+    from {-webkit-transform: translateY(-45%);transform: translateY(-45%)}
+    to {-webkit-transform: translateY(-50%);transform: translateY(-50%)}
 }
 div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-top-in{
   -webkit-transform: translateY(-60%);
@@ -2107,14 +2162,14 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-top-in{
       animation-fill-mode: forwards;
 }
 @-webkit-keyframes ssb_slide_bottom_in {
-    from {transform: translateY(-60%); opacity: 0;}
-    to {transform: translateY(-50%); opacity: 1;}
+    from {-webkit-transform: translateY(-60%);transform: translateY(-60%); opacity: 0;}
+    to {-webkit-transform: translateY(-50%);transform: translateY(-50%); opacity: 1;}
 }
 
 /* Standard syntax */
 @keyframes ssb_slide_bottom_in {
-    from {transform: translateY(-60%); opacity: 0;}
-    to {transform: translateY(-50%); opacity: 1;}
+    from {-webkit-transform: translateY(-60%);transform: translateY(-60%); opacity: 0;}
+    to {-webkit-transform: translateY(-50%);transform: translateY(-50%); opacity: 1;}
 }
 div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-top-in{
   opacity: 0;
@@ -2126,14 +2181,14 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-top-in{
       animation-fill-mode: forwards;
 }
 @-webkit-keyframes ssb_slide_bottom_in {
-    from {transform: translateY(-60%);opacity: 0;}
-    to {transform: translateY(-50%);opacity: 1;}
+    from {-webkit-transform: translateY(-60%);transform: translateY(-60%);opacity: 0;}
+    to {-webkit-transform: translateY(-50%);transform: translateY(-50%);opacity: 1;}
 }
 
 /* Standard syntax */
 @keyframes ssb_slide_bottom_in {
-    from {transform: translateY(-60%);opacity: 0;}
-    to {transform: translateY(-50%);opacity: 1;}
+    from {-webkit-transform: translateY(-60%);transform: translateY(-60%);opacity: 0;}
+    to {-webkit-transform: translateY(-50%);transform: translateY(-50%);opacity: 1;}
 }
 div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-fade-in{
   opacity: 0;
@@ -2155,46 +2210,60 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons-slide-fade-in{
     to {opacity: 1;}
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(2){
-animation-delay: 0.2s;
+-webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(3){
-animation-delay: 0.4s;
+-webkit-animation-delay: 0.4s;
+        animation-delay: 0.4s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(4){
-animation-delay: 0.6s;
+-webkit-animation-delay: 0.6s;
+        animation-delay: 0.6s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(5){
-animation-delay: 0.8s;
+-webkit-animation-delay: 0.8s;
+        animation-delay: 0.8s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(6){
-animation-delay: 1s;
+-webkit-animation-delay: 1s;
+        animation-delay: 1s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(7){
-animation-delay: 1.2s;
+-webkit-animation-delay: 1.2s;
+        animation-delay: 1.2s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(8){
-animation-delay: 1.4s;
+-webkit-animation-delay: 1.4s;
+        animation-delay: 1.4s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(9){
-animation-delay: 1.6s;
+-webkit-animation-delay: 1.6s;
+        animation-delay: 1.6s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(10){
-animation-delay: 1.8s;
+-webkit-animation-delay: 1.8s;
+        animation-delay: 1.8s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(11){
-animation-delay: 2s;
+-webkit-animation-delay: 2s;
+        animation-delay: 2s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(12){
-animation-delay: 2.2s;
+-webkit-animation-delay: 2.2s;
+        animation-delay: 2.2s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(13){
-animation-delay: 2.4s;
+-webkit-animation-delay: 2.4s;
+        animation-delay: 2.4s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(14){
-animation-delay: 2.6s;
+-webkit-animation-delay: 2.6s;
+        animation-delay: 2.6s;
 }
 div[class*="simplesocialbuttons-float"] button:nth-child(15){
-animation-delay: 2.8s;
+-webkit-animation-delay: 2.8s;
+        animation-delay: 2.8s;
 }
 div[class*="simplesocialbuttons-float"]{
   position: fixed;
@@ -2203,6 +2272,7 @@ div[class*="simplesocialbuttons-float"]{
   text-align: center;
   z-index: 9999;
 }
+
 div.simplesocialbuttons.simplesocialbuttons-align-centered{
   text-align: center;
 }
@@ -2302,7 +2372,23 @@ div[class*="simplesocialbuttons-float-left-post"] button .ssb_counter{
 div[class*="simplesocialbuttons-float"].simplesocial-simple-round  button[class*="-share"]:not(:hover):before{
   width: 0;
 }
-@media screen and (max-width: 767px) {
+.ssb_inline-share_heading{
+  font-weight: 400;
+  font-size: 24px;
+  padding: 0 0 10px;
+  margin: 0;
+  display: block;
+}
+.ssb_inline-share_heading.left{
+  text-align: left
+}
+.ssb_inline-share_heading.centered{
+  text-align: center;
+}
+.ssb_inline-share_heading.right{
+  text-align: right;
+}
+@media screen and (max-width: 768px) {
     .simplesocialbuttons-mobile-hidden{
       display: none !important;
     }
@@ -2318,7 +2404,8 @@ div[class*="simplesocialbuttons-float"].simplesocial-simple-round  button[class*
   margin: 2.5px 0;
   -webkit-box-shadow: none;
   box-shadow: none;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   font-weight: normal;
   text-transform: capitalize !important;
   width: 100%;
