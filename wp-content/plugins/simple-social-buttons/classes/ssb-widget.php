@@ -110,7 +110,7 @@ class Ssb_Follower_Widget extends WP_Widget {
 		}
 
 
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Follow Us', 'simple-social-buttons' );
+		$title = isset( $instance['title'] ) ? $instance['title'] : esc_html__( 'Follow Us', 'simple-social-buttons' );
 
 		$show_facebook    = ! empty( $instance['show_facebook'] ) ? $instance['show_facebook'] : '';
 		$show_twitter     = ! empty( $instance['show_twitter'] ) ? $instance['show_twitter'] : '';

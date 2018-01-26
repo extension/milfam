@@ -216,9 +216,9 @@ class Ssb_Settings {
 					'type'    => 'ssb_select',
 					'default' => 'above',
 					'options' => array(
-						'above'       => 'Above The Conent',
-						'below'       => 'Below The Conent',
-						'above_below' => 'Above + Below The Conent',
+						'above'       => 'Above The Content',
+						'below'       => 'Below The Content',
+						'above_below' => 'Above + Below The Content',
 					),
 					'priority' => '5',
 				),
@@ -298,6 +298,18 @@ class Ssb_Settings {
 					'label' => __( 'Show at Tag pages', 'simple-social-buttons' ),
 					'type'  => 'ssb_checkbox',
 					'priority' => '55',
+				),
+				array(
+					'name'  => 'show_on_search',
+					'label' => __( 'Show at Search pages', 'simple-social-buttons' ),
+					'type'  => 'ssb_checkbox',
+					'priority' => '56',
+				),
+				array(
+					'name'  => 'share_title',
+					'label' => __( 'Share Title', 'simple-social-buttons' ),
+					'type'  => 'ssb_text',
+					'priority' => '57',
 				),
 				array(
 					'name'    => 'posts',
