@@ -66,6 +66,9 @@ div.ssb-button-pinterest { width: 100px; }
 .simplesocialbuttons button.simplesocial-pinterest-share:after{
   content: "\e902";
 }
+.simplesocialbuttons button.simplesocial-msng-share:after{
+  content: "\e908";
+}
 .ssb_total_counter{
   display: inline-block;
   font-weight: bold;
@@ -133,6 +136,7 @@ transition: all 0.3s ease-in-out;
         text-align: left;
         color: #fff;
         padding-left: 20px;
+        height: 20px;
     }
     .simplesocial-simple-icons.simplesocialbuttons-float-right-center button{
       float: right;
@@ -344,6 +348,22 @@ div[class*="simplesocialbuttons-float"].simplesocial-simple-icons.simplesocialbu
 div[class*="simplesocialbuttons-float"].simplesocial-simple-icons.simplesocialbuttons button .ssb_counter:before{
   display: none;
 }*/
+.simplesocialbuttons .fb_iframe_widget{
+  display: inline-block !important;
+  position: relative;
+  width: initial !important;
+}
+.simplesocialbuttons .fb_iframe_widget span {
+    display: inline-block !important;
+    position: relative;
+    text-align: justify;
+    width: 61px !important;
+}
+.simplesocialbuttons .ssb-fb-like{
+  height: 20px !important;
+  line-height: 20px !important;
+  margin: 5px;
+}
 .simplesocial-simple-icons .ssb_fbshare-icon{
   background: #4267b2;
   border: 1px solid #4267b2;
@@ -766,6 +786,36 @@ div[class*="simplesocialbuttons-float"].simplesocial-simple-icons.simplesocialbu
   fill: #fff;
   height: 14px;
 }
+.simplesocial-simple-icons .ssb_msng-icon{
+  border-radius: 2px;
+  width: auto;
+  padding: 0 4px 0 0;
+  text-align: center;
+  text-decoration: none;
+  font:bold 11px/20px "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: bold;
+  color: #fff;
+  background: #468bff;
+  background-size: 14px 14px;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  height: 20px;
+  text-indent: 20px;
+}
+.simplesocial-simple-icons .ssb_msng-icon:hover{
+  background: #307bf9;
+}
+.simplesocial-simple-icons .ssb_msng-icon .icon{
+  text-indent: 0;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+.simplesocial-simple-icons .ssb_msng-icon .icon svg{
+  width: 14px;
+  fill: #fff;
+  height: 14px;
+}
 div[class*="simplesocialbuttons-float"].simplesocial-simple-icons{
   width: 82px;
   text-align: left;
@@ -843,6 +893,10 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
 .simplesocialbuttons.simplesocial-sm-round button.simplesocial-pinterest-share{
   color: #C92228;
 }
+.simplesocialbuttons.simplesocial-sm-round button.simplesocial-msng-share{
+  color: #468bff;
+}
+
 
 /*=====  End of Gredient Button  ======*/
 /*========================================
@@ -915,6 +969,10 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
 .simplesocialbuttons.simplesocial-simple-round button.simplesocial-pinterest-share{
   background: #C92228;
 }
+.simplesocialbuttons.simplesocial-simple-round button.simplesocial-msng-share{
+  background: #468bff;
+}
+
 .simplesocialbuttons.simplesocial-simple-round button.simplesocial-fb-share:after, .simplesocialbuttons.simplesocial-simple-round button.simplesocial-fb-share:before {
   background: #354e83;
 }
@@ -939,6 +997,9 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
 }
 .simplesocialbuttons.simplesocial-simple-round button.simplesocial-pinterest-share:after, .simplesocialbuttons.simplesocial-simple-round button.simplesocial-pinterest-share:before {
   background: #af040a;
+}
+.simplesocialbuttons.simplesocial-simple-round button.simplesocial-msng-share:after, .simplesocialbuttons.simplesocial-simple-round button.simplesocial-msng-share:before {
+  background: #3c7be6;
 }
 
 
@@ -1033,6 +1094,14 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
 }
 .simplesocialbuttons.simplesocial-round-txt button.simplesocial-gplus-share:hover{
   background: #db4437;
+  color: #fff;
+}
+.simplesocialbuttons.simplesocial-round-txt button.simplesocial-msng-share{
+  color: #468bff;
+  border-color: #468bff;
+}
+.simplesocialbuttons.simplesocial-round-txt button.simplesocial-msng-share:hover{
+  background: #468bff;
   color: #fff;
 }
 
@@ -1135,6 +1204,16 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
           box-shadow: inset 0px -40px 0px 0px #C92228, 0px 2px 0px 0px #C92228, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
   color: #fff;
 }
+.simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-msng-share {
+  -webkit-box-shadow: inset 0px 0px 0px 0px #468bff, 0px 2px 0px 0px #468bff, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  box-shadow: inset 0px 0px 0px 0px #468bff, 0px 2px 0px 0px #468bff, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  color: #468bff;
+}
+.simplesocialbuttons.simplesocial-round-btm-border button.simplesocial-msng-share:hover{
+  -webkit-box-shadow: inset 0px -40px 0px 0px #468bff, 0px 2px 0px 0px #468bff, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  box-shadow: inset 0px -40px 0px 0px #468bff, 0px 2px 0px 0px #468bff, 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
+  color: #fff;
+}
 /*=====  End of style 4  ======*/
 
 /*========================================
@@ -1228,6 +1307,15 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-pinterest-share:hover {
   -webkit-box-shadow: inset 0px -40px 0px 0px #af040a, 0px 3px 0px 0px #af040a;
           box-shadow: inset 0px -40px 0px 0px #af040a, 0px 3px 0px 0px #af040a;
+}
+.simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-msng-share {
+  background: #468bff;
+  -webkit-box-shadow: inset 0px 0px 0px 0px #468bff, 0px 3px 0px 0px #468bff;
+  box-shadow: inset 0px 0px 0px 0px #468bff, 0px 3px 0px 0px #26519e;
+}
+.simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-msng-share:hover {
+  -webkit-box-shadow: inset 0px -40px 0px 0px #26519e, 0px 3px 0px 0px #26519e;
+  box-shadow: inset 0px -40px 0px 0px #26519e, 0px 3px 0px 0px #26519e;
 }
 
 
@@ -1336,6 +1424,19 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
 }
 .simplesocialbuttons.simplesocial-round-icon button.simplesocial-gplus-share:hover{
   background: #db4437;
+  color: #fff;
+}
+.simplesocialbuttons.simplesocial-round-icon button:after{
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+}
+.simplesocialbuttons.simplesocial-round-icon button.simplesocial-msng-share{
+  color: #468bff;
+  border-color: #468bff;
+}
+.simplesocialbuttons.simplesocial-round-icon button.simplesocial-msng-share:hover{
+  background: #468bff;
   color: #fff;
 }
 .simplesocialbuttons.simplesocial-round-icon button:after{
@@ -1491,6 +1592,10 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
   background: rgba(0,0,0, .2);
   width: 36px;
 }
+.simplesocialbuttons.simplesocial-simple-round button.simplesocial-msng-share:not(:hover):before{
+  background: rgba(0,0,0, .2);
+  width: 36px;
+}
 .simplesocialbuttons.simplesocial-simple-round button.simplesocial-fb-share:after,
 .simplesocialbuttons.simplesocial-simple-round button.simplesocial-twt-share:after,
 .simplesocialbuttons.simplesocial-simple-round button.simplesocial-gplus-share:after,
@@ -1499,6 +1604,9 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
 .simplesocialbuttons.simplesocial-simple-round button.simplesocial-reddit-share:after,
 .simplesocialbuttons.simplesocial-simple-round button.simplesocial-linkedin-share:after,
 .simplesocialbuttons.simplesocial-simple-round button.simplesocial-pinterest-share:after{
+  background: none;
+}
+.simplesocialbuttons.simplesocial-simple-round button.simplesocial-msng-share:after{
   background: none;
 }
 .ssb_hidden{
@@ -1545,7 +1653,7 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
 .simplesocialbuttons.simplesocial-round-txt button.simplesocial-gplus-share .ssb_counter{
   background: #db4437;
 }
-.simplesocialbuttons.simplesocial-sm-round.ssb_counter-activate button:not(.simplesocial-viber-share):not(.simplesocial-whatsapp-share){
+.simplesocialbuttons.simplesocial-sm-round.ssb_counter-activate button:not(.simplesocial-viber-share):not(.simplesocial-whatsapp-share):not(.simplesocial-msng-share){
   padding-right: 50px;
   position: relative;
 }
@@ -1563,7 +1671,7 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
   border-left: 1px solid #dedede;
   border-radius: 0 3px 3px 0;
 }
-.simplesocialbuttons.simplesocial-simple-round.ssb_counter-activate button:not(.simplesocial-viber-share):not(.simplesocial-whatsapp-share){
+.simplesocialbuttons.simplesocial-simple-round.ssb_counter-activate button:not(.simplesocial-viber-share):not(.simplesocial-whatsapp-share):not(.simplesocial-msng-share){
   padding-right: 50px;
   position: relative;
 }
@@ -1642,11 +1750,9 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-gplus-share .ssb_counter{
   color: #db4437;
 }
-.simplesocialbuttons.simplesocial-flat-button-border button:not(.simplesocial-whatsapp-share):not(.simplesocial-viber-share){
+.simplesocialbuttons.simplesocial-flat-button-border button:not(.simplesocial-whatsapp-share):not(.simplesocial-viber-share):not(.simplesocial-msng-share){
   padding-right: 50px;
   position: relative;
-
-
 }
 .simplesocialbuttons.simplesocial-flat-button-border.ssb_counter-activate .ssb_counter{
   position: absolute;
@@ -1683,7 +1789,7 @@ div[class*="simplesocialbuttons-float"].simplesocialbuttons.simplesocial-simple-
 .simplesocialbuttons.simplesocial-flat-button-border button.simplesocial-gplus-share .ssb_counter{
   color: #db4437;
 }
-.simplesocialbuttons.simplesocial-round-btm-border.ssb_counter-activate button:not(.simplesocial-viber-share):not(.simplesocial-whatsapp-share){
+.simplesocialbuttons.simplesocial-round-btm-border.ssb_counter-activate button:not(.simplesocial-viber-share):not(.simplesocial-whatsapp-share):not(.simplesocial-msng-share){
   padding-right: 60px;
   position: relative;
 }
@@ -2002,6 +2108,19 @@ div.simplesocialbuttons.simplesocialbuttons-float-left-center:not(.simplesocial-
   right: -10px;
   font-size: 10px;
   left: auto;
+}
+div[class*="simplesocialbuttons-float"].simplesocial-flat-button-border.ssb_counter-activate .ssb_counter{
+  width: 20px;
+  height: 20px;
+  line-height: 18px;
+  top: -10px;
+}
+div[class*="simplesocialbuttons-float"].simplesocial-simple-round.ssb_counter-activate .ssb_counter{
+  width: 20px;
+  height: 20px;
+  line-height: 18px;
+  top: -10px;
+  border-radius: 0;
 }
 /*=======================================================
 =            Code for floating share buttons            =
@@ -2440,7 +2559,7 @@ div[class*="simplesocialbuttons-float"].simplesocial-simple-round  button[class*
   content: "\e902";
 }
 .ssb_followers a.ssb_button.simplesocial-yt-follow:after{
-  content: "\e908";
+  content: "\e909";
 }
 .ssb_followers a.ssb_button:after {
   font-family: 'ssb-icon' !important;
