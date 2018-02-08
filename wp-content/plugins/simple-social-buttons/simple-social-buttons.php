@@ -3,7 +3,7 @@
  * Plugin Name: Simple Social Buttons
  * Plugin URI: http://www.WPBrigade.com/wordpress/plugins/simple-social-buttons/
  * Description: Simple Social Buttons adds an advanced set of social media sharing buttons to your WordPress sites, such as: Google +1, Facebook, WhatsApp, Viber, Twitter, Reddit, LinkedIn and Pinterest. This makes it the most <code>Flexible Social Sharing Plugin ever for Everyone.</code>
- * Version: 2.0.8
+ * Version: 2.0.10
  * Author: WPBrigade
  * Author URI: http://www.WPBrigade.com/
  * Text Domain: simple-social-buttons
@@ -30,9 +30,10 @@
 
 class SimpleSocialButtonsPR {
 	public $pluginName        = 'Simple Social Buttons';
-	public $pluginVersion     = '2.0.8';
+	public $pluginVersion     = '2.0.10';
 	public $pluginPrefix      = 'ssb_pr_';
 	public $hideCustomMetaKey = '_ssb_hide';
+	private $fb_app_id        = '891268654262273';
 
 	// plugin default settings
 	public $pluginDefaultSettings = array(
@@ -52,7 +53,7 @@ class SimpleSocialButtonsPR {
 	);
 
 	// defined buttons
-	public $arrKnownButtons = array( 'googleplus', 'twitter', 'pinterest', 'fbshare', 'linkedin', 'reddit', 'whatsapp', 'viber', 'fblike' );
+	public $arrKnownButtons = array( 'googleplus', 'twitter', 'pinterest', 'fbshare', 'linkedin', 'reddit', 'whatsapp', 'viber', 'fblike', 'messenger' );
 
 	// an array to store current settings, to avoid passing them between functions
 	public $settings = array();
@@ -111,6 +112,8 @@ class SimpleSocialButtonsPR {
 		add_action( 'wp_footer', array( $this, 'fblike_script' ) );
 
 		add_shortcode( 'SSB', array( $this, 'short_code_content' ) );
+		add_action( 'wp_head', array( $this, 'add_meta_tags' ) );
+
 	}
 
 	function set_selected_networks() {
@@ -725,7 +728,7 @@ class SimpleSocialButtonsPR {
 								</button>';
 					} else {
 
-						$arrButtonsCode[] = '<button onclick="javascript:window.open(this.dataset.href, \'_blank\' );return false;" class="simplesocial-whatsapp-share" data-href="https://api.whatsapp.com/send?text=' . $permalink . '"><span class="simplesocialtxt">Share on WhatsApp</span></button>';
+						$arrButtonsCode[] = '<button onclick="javascript:window.open(this.dataset.href, \'_blank\' );return false;" class="simplesocial-whatsapp-share" data-href="https://api.whatsapp.com/send?text=' . $permalink . '"><span class="simplesocialtxt">WhatsApp</span></button>';
 					}
 					break;
 
@@ -737,7 +740,7 @@ class SimpleSocialButtonsPR {
 						</button>';
 					} else {
 
-						$arrButtonsCode[] = '<button onclick="javascript:window.open(this.dataset.href, \'_self\' );return false;" class="simplesocial-viber-share" data-href="viber://forward?text=' . $permalink . '"><span class="simplesocialtxt">Share on Viber</span></button>';
+						$arrButtonsCode[] = '<button onclick="javascript:window.open(this.dataset.href, \'_self\' );return false;" class="simplesocial-viber-share" data-href="viber://forward?text=' . $permalink . '"><span class="simplesocialtxt">Viber</span></button>';
 					}
 					break;
 
@@ -747,6 +750,23 @@ class SimpleSocialButtonsPR {
 					$arrButtonsCode[] = $_html;
 
 					break;
+
+					case 'messenger':
+
+						$link = urlencode( $permalink );
+
+						if ( $this->selected_theme == 'simple-icons' ) {
+							$arrButtonsCode[] = '<button class="ssb_msng-icon" onclick="javascript:window.open(this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" class="simplesocial-viber-share" data-href="http://www.facebook.com/dialog/send?app_id='. $this->fb_app_id .'&redirect_uri=' . $link . '&link=' . $link . '&display=popup">
+							<span class="icon"> <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="19px" viewBox="-889.5 1161 18 19" enable-background="new -889.5 1161 18 19" xml:space="preserve">
+							<path opacity="0.99" fill="#FFFFFF" enable-background="new    " d="M-880.5,1161c-5,0-9,3.8-9,8.5c0,2.4,1,4.5,2.7,6v4.5l3.8-2.3 c0.8,0.2,1.6,0.3,2.5,0.3c5,0,9-3.8,9-8.5S-875.5,1161-880.5,1161z M-879.6,1172.2l-2.4-2.4l-4.3,2.4l4.7-5.2l2.4,2.4l4.2-2.4 L-879.6,1172.2z"/>
+							</svg> </span>
+							<span class="simplesocialtxt">Messenger</span>
+							</button>';
+						} else {
+
+							$arrButtonsCode[] = '<button class="simplesocial-msng-share"  onclick="javascript:window.open( this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" data-href="http://www.facebook.com/dialog/send?app_id='. $this->fb_app_id .'&redirect_uri=' . $link . '&link=' . $link . '&display=popup" ><span class="simplesocialtxt">Messenger</span></button> ';
+						}
+						break;
 			}
 		}
 
@@ -1254,7 +1274,7 @@ class SimpleSocialButtonsPR {
 								</button>';
 					} else {
 
-						$arrButtonsCode[] = '<button onclick="javascript:window.open(this.dataset.href, \'_blank\' );return false;" class="simplesocial-whatsapp-share" data-href="https://api.whatsapp.com/send?text=' . $permalink . '"><span class="simplesocialtxt">Share on WhatsApp</span></button>';
+						$arrButtonsCode[] = '<button onclick="javascript:window.open(this.dataset.href, \'_blank\' );return false;" class="simplesocial-whatsapp-share" data-href="https://api.whatsapp.com/send?text=' . $permalink . '"><span class="simplesocialtxt">WhatsApp</span></button>';
 					}
 					break;
 
@@ -1266,7 +1286,7 @@ class SimpleSocialButtonsPR {
 						</button>';
 					} else {
 
-						$arrButtonsCode[] = '<button onclick="javascript:window.open(this.dataset.href, \'_self\' );return false;" class="simplesocial-viber-share" data-href="viber://forward?text=' . $permalink . '"><span class="simplesocialtxt">Share on Viber</span></button>';
+						$arrButtonsCode[] = '<button onclick="javascript:window.open(this.dataset.href, \'_self\' );return false;" class="simplesocial-viber-share" data-href="viber://forward?text=' . $permalink . '"><span class="simplesocialtxt">Viber</span></button>';
 					}
 					break;
 
@@ -1276,6 +1296,23 @@ class SimpleSocialButtonsPR {
 					$arrButtonsCode[] = $_html;
 
 					break;
+
+					case 'messenger':
+						$link = urlencode( $permalink );
+
+						if ( $this->selected_theme == 'simple-icons' ) {
+							$arrButtonsCode[] = '<button class="ssb_msng-icon" onclick="javascript:window.open(this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" class="simplesocial-viber-share" data-href="http://www.facebook.com/dialog/send?app_id='. $this->fb_app_id .'&redirect_uri=' . $link . '&link=' . $link . '&display=popup">
+							<span class="icon"> <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="19px" viewBox="-889.5 1161 18 19" enable-background="new -889.5 1161 18 19" xml:space="preserve">
+							<path opacity="0.99" fill="#FFFFFF" enable-background="new    " d="M-880.5,1161c-5,0-9,3.8-9,8.5c0,2.4,1,4.5,2.7,6v4.5l3.8-2.3 c0.8,0.2,1.6,0.3,2.5,0.3c5,0,9-3.8,9-8.5S-875.5,1161-880.5,1161z M-879.6,1172.2l-2.4-2.4l-4.3,2.4l4.7-5.2l2.4,2.4l4.2-2.4 L-879.6,1172.2z"/>
+							</svg> </span>
+							<span class="simplesocialtxt">Messenger</span>
+							</button>';
+						} else {
+
+							$arrButtonsCode[] = '<button class="simplesocial-msng-share"  onclick="javascript:window.open( this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" data-href="http://www.facebook.com/dialog/send?app_id='. $this->fb_app_id .'&redirect_uri=' . $link . '&link=' . $link . '&display=popup" ><span class="simplesocialtxt">Messenger</span></button> ';
+						}
+
+						break;
 			}
 		}
 
@@ -1289,6 +1326,150 @@ class SimpleSocialButtonsPR {
 
 		return $ssb_buttonscode;
 	}
+
+
+	/**
+		* Add Meta Tags
+		*
+		* @param int $post_id
+		* @since 2.0.9
+		* @return string
+		*/
+	function add_meta_tags() {
+
+		if ( class_exists( 'Jetpack' ) ) { // Check jetpack active.
+			return;
+		} else if( defined( 'WPSEO_VERSION' ) ) { // Check jetpack active.
+			return;
+		}
+
+		echo PHP_EOL . '<!-- Open Graph Meta Tags generated by Simple Social Buttons ' . $this->pluginVersion . ' -->' . PHP_EOL;
+		echo '<meta property="og:title" content="'. get_the_title() ." - ". get_bloginfo( 'name' )  .'" />' . PHP_EOL;
+		echo '<meta property="og:description" content="'. $this->get_excerpt_by_id( get_the_id() ) .'" />' . PHP_EOL;
+		echo '<meta property="og:url" content="'. get_permalink()  .'" />' . PHP_EOL;
+		echo '<meta property="og:site_name" content="'. get_bloginfo( 'name' )  .'" />' . PHP_EOL;
+		echo $this->get_og_image();
+
+
+		echo '<meta name="twitter:card" content="summary_large_image" />' . PHP_EOL;
+		echo '<meta name="twitter:description" content="'. $this->get_excerpt_by_id( get_the_id() ) .'" />' . PHP_EOL;
+		echo '<meta name="twitter:title" content="'. get_the_title() ." - ". get_bloginfo( 'name' )  .'" />' . PHP_EOL;
+		echo $this->generate_twitter_image();
+
+	}
+
+
+	/**
+		* Get the excerpt
+		*
+		* @param int $post_id
+		* @since 2.0.9
+		* @return string
+		*/
+	 function get_excerpt_by_id( $post_id ) {
+			 // Check if the post has an excerpt
+			 if( has_excerpt() ) {
+					 $excerpt_length = apply_filters( 'excerpt_length', 35 );
+					 return trim( get_the_excerpt() );
+			 }
+
+			 $the_post = get_post( $post_id ); //Gets post ID
+			 $the_excerpt = $the_post->post_content; //Gets post_content to be used as a basis for the excerpt
+			 $excerpt_length = 60; //Sets excerpt length by words
+			 $the_excerpt = strip_tags( strip_shortcodes( $the_excerpt ) ); //Strips tags and images
+			 $words = explode( ' ', $the_excerpt, $excerpt_length + 1 );
+			 if( count( $words ) > $excerpt_length ) {
+					 array_pop( $words );
+					 $the_excerpt = implode( ' ', $words );
+			 }
+
+			 return trim( wp_strip_all_tags( $the_excerpt ) );
+	 }
+
+	 /**
+	 * Get Image from content.
+	 *
+	 * @since 2.0.10
+	 */
+	 public function get_content_images( $post ) {
+
+		 $content = $post->post_content;
+		 $images = '';
+		 if ( preg_match_all( '`<img [^>]+>`', $content, $matches ) ) {
+			 foreach ( $matches[0] as $img ) {
+				 if ( preg_match( '`src=(["\'])(.*?)\1`', $img, $match ) ) {
+					 $images .=  '<meta property="og:image" content="' .  $match[2] . '" />' . PHP_EOL;
+				 }
+			 }
+		 }
+		 return $images;
+	 }
+
+
+	 /**
+	 * Get the featured image.
+	 *
+	 * @since 2.0.10
+	 */
+	 public function generate_og_image() {
+		 $_post_id = get_the_ID();
+
+		 if ( has_post_thumbnail( $_post_id ) ) {
+			 return '<meta property="og:image" content="' . wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) ) . '" />' . PHP_EOL ;
+		 }
+
+		 return $this->get_content_images( get_post( $_post_id ) );
+	 }
+
+	 /**
+	 * Get Open Graph image.
+	 *
+	 * @since 2.0.10
+	 */
+	 public function get_og_image() {
+		 $image = $this->generate_og_image() ;
+
+		 if ( $image ) {
+			 return $image;
+		 }
+	 }
+
+	 /**
+	 * Get the featured image for Twitter.
+	 *
+	 * @since 2.0.10
+	 */
+	 public function generate_twitter_image() {
+		 $_post_id = get_the_ID();
+
+		 if ( has_post_thumbnail( $_post_id ) ) {
+			 return '<meta property="twitter:image" content="' . wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) ) . '" />' . PHP_EOL ;
+		 }
+
+		 return $this->get_twitter_content_images( get_post( $_post_id ) );
+	 }
+
+	 /**
+	 * Get Image from content for Twitter.
+	 *
+	 * @since 2.0.10
+	 */
+	 public function get_twitter_content_images( $post ) {
+
+		 $content = $post->post_content;
+		 $images = '';
+		 if ( preg_match_all( '`<img [^>]+>`', $content, $matches ) ) {
+			 foreach ( $matches[0] as $img ) {
+				 if ( preg_match( '`src=(["\'])(.*?)\1`', $img, $match ) ) {
+					 $images .=  '<meta property="twitter:image" content="' .  $match[2] . '" />' . PHP_EOL;
+				 }
+			 }
+		 }
+		 return $images;
+	 }
+
+
+
 
 } // end class
 

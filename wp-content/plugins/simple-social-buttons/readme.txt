@@ -4,7 +4,7 @@ Donate link: https://wpbrigade.com/
 Tags: Social share, Social buttons, Whatsapp, Viber, LinkedIn, facebook, google, twitter, pinterest, plus one
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 2.0.8
+Stable tag: 2.0.10
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,11 +146,23 @@ theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 
 == Upgrade Notice ==
 
-= 2.0.8 =
+= 2.0.10 =
 * Relaunched with a whole set of NEW FEATURES and Improvement. Please upgrade immediately and provide your feedback. highly recommended. Apologies in advance, if anything breaks!
 
 
 == Changelog ==
+
+= 2.0.10 - 2018-02-08 =
+* New Feature: Add Facebook Messenger Share.
+* New Feature: Twitter Card meta added.
+* Improvement: Add rel="noopener" on widget links.
+* Improvement: Add Image in Open Graph Meta.
+* Improvement: Remove extra text form WhatsApp & Viber.
+
+= 2.0.9 - 2018-01-27 =
+* Bug Fix: facebook share - meta tags.
+* Bug Fix: Youtube Widget bug.
+
 
 = 2.0.8 - 2018-01-24 =
 * Bug Fix: Google Plus issue on widget.
