@@ -4,7 +4,7 @@ Donate link: https://wpbrigade.com/
 Tags: Social share, Social buttons, Whatsapp, Viber, LinkedIn, facebook, google, twitter, pinterest, plus one
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 2.0.10
+Stable tag: 2.0.14
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,11 +146,35 @@ theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 
 == Upgrade Notice ==
 
-= 2.0.10 =
-* Relaunched with a whole set of NEW FEATURES and Improvement. Please upgrade immediately and provide your feedback. highly recommended. Apologies in advance, if anything breaks!
+= 2.0.14 =
+* Please upgrade immediately. Releasing New features, few bugfixes and improvements.
 
 
 == Changelog ==
+
+= 2.0.14 - 2018-03-20 =
+* Bug Fix: Headers already sent on upgrade routine.
+
+
+= 2.0.13 - 2018-03-20 =
+* Bug Fix: Twitter share issue.
+* Bug Fix: Google+ Widget error.
+* Bug Fix: Illegal offset fix.
+* Bug Fix: Shortcode issue on homepage.
+* Improvement: Open Fb messenger native app on mobile.
+* Improvement: Old counts.
+
+= 2.0.12 - 2018-03-12 =
+* New Feature: Add WhatsApp in Widget.
+* New Feature: Fetch old stats after SSL.
+* Bug Fix: HTML markup fix.
+* Improvement: RTL support.
+
+= 2.0.11 - 2018-02-27 =
+* New Feature: Add Instagram on Widget.
+* New Feature: Add Print Button.
+* New Feature: Add Email Button.
+* Bug Fix: Undefined 'ssb_messenger_generate_link' function.
 
 = 2.0.10 - 2018-02-08 =
 * New Feature: Add Facebook Messenger Share.
@@ -160,8 +184,8 @@ theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 * Improvement: Remove extra text form WhatsApp & Viber.
 
 = 2.0.9 - 2018-01-27 =
-* Bug Fix: facebook share - meta tags.
-* Bug Fix: Youtube Widget bug.
+* Bug Fix: Facebook share - meta tags.
+* Bug Fix: YouTube Widget bug.
 
 
 = 2.0.8 - 2018-01-24 =
@@ -223,17 +247,17 @@ theme = theme1 or theme2 or theme3 or theme4  or Flat or Circle or Official
 * Enhancement: Introducing New Social Buttons: Facebook Share, LinkedIn.
 * Enhancement: Responsive Social Share Buttons styling.
 * Enhancement: Move Menu out from Settings.
-* BugFix: CodeCleanup and Improvement.
+* Bug Fix: Code Cleanup and Improvement.
 
 = 1.8.2 =
-* BugFix: share button position issue with 2016 theme.
+* Bug Fix: share button position issue with 2016 theme.
 * Enhancement: move menu out from settings.
 * Enhancement: Add Review Notice.
 * Enhancement: Add deactivate popup feedback form.
 
 
 = 1.8.1 =
-* BugFix: Horizontal issue.
+* Bug Fix: Horizontal issue.
 
 = 1.8.0 =
 * Styling and Code improvement.

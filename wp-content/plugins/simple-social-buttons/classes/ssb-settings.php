@@ -321,11 +321,11 @@ class Ssb_Settings {
 					'priority' => '99',
 				),
 				array(
-					'name'		=>  'go_pro',
+					'name'	  =>  'go_pro',
 					'type'    => 'ssb_go_pro',
 					'label'   => __( 'Want to style the Inline Social buttons matches your theme colors?', 'simple-social-buttons' ),
 					'desc'    => __( 'By upgrading to Simple Social Buttons Pro, you get access to Styling Social buttons of your own choice that matches with your website color schemes. These social buttons will help in driving more engagement and traffic to your site. Some of the Pro features include: Show Social media buttons on Images/Photos, Social Popups on exit/intent, Social Flyin slides and so much more!', 'simple-social-buttons' ),
-					'link'		=> 'http://www.WPBrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=settings-inline&utm_campaign=pro-upgrade'
+					'link'	  => 'http://www.WPBrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=settings-inline&utm_campaign=pro-upgrade'
 				),
 			);
 
@@ -400,6 +400,11 @@ class Ssb_Settings {
 						'type'              => 'ssb_text',
 						'label'             => __( 'Twitter @username:', 'simple-social-buttons' ),
 						'sanitize_callback' => 'sanitize_text_field',
+					),
+					array(
+						'name'              => 'http_https_resolve',
+						'type'              => 'ssb_checkbox',
+						'label'             => __( 'Http/Https counts resolve:', 'simple-social-buttons' ),
 					),
 				),
 			);

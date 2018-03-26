@@ -1,6 +1,6 @@
  <style media="screen">
 
-    <?php if ( isset( $this->selected_position['inline'] ) ): ?>
+    <?php if ( isset( $this->selected_position['inline'] ) && isset( $this->inline_option['icon_space'] ) ): ?>
     .simplesocialbuttons.simplesocialbuttons_inline .ssb-fb-like {
       margin: <?php echo $this->inline_option['icon_space'] == '1' && $this->inline_option['icon_space_value'] != '' ? $this->inline_option['icon_space_value'] . 'px' : ''; ?>;
     }
@@ -43,7 +43,7 @@
 
   <?php endif ?>
 
-     <?php if ( 'simple-icons' == $this->selected_theme && isset( $this->selected_position['inline'] ) ) : ?>
+     <?php if ( 'simple-icons' == $this->selected_theme && isset( $this->selected_position['inline'] ) && isset( $this->inline_option['icon_space'] ) ) : ?>
      .simplesocialbuttons.simplesocialbuttons_inline.simplesocial-simple-icons button{
          margin: <?php echo $this->inline_option['icon_space'] == '1' && $this->inline_option['icon_space_value'] != '' ? $this->inline_option['icon_space_value'] . 'px' : ''; ?>;
      }

@@ -1541,6 +1541,8 @@ div.inside .simplesocial-form-section ul.options li {
   box-shadow: none;
   resize: none;
   height: 80px;
+  padding: 0;
+  display: block;
 }
 
 .simplesocial-input textarea:focus ~ .highlight {
@@ -1927,3 +1929,53 @@ div.inside .simplesocial-form-section ul.options li {
 /*font-weight: bold;*/
 /*}*/
 /*End Select Settings social follow*/
+
+
+/*=============================================
+=            Code RTL Share Button            =
+=============================================*/
+
+html[dir="rtl"] .simplesocial-form-section h5{
+  float: right;
+}
+html[dir="rtl"] .simplesocial-form-section .select{
+  float: right;
+}
+html[dir="rtl"] .ssb_right_sidebar{
+  float: left;
+}
+html[dir="rtl"] .ssb_settings_container{
+  float: right;
+}
+html[dir="rtl"] .ssb_right_sidebar .ssb_social_links li a{
+  right: auto;
+  padding-right: 35px;
+}
+html[dir="rtl"] .ssb_right_sidebar input[type=url],html[dir="rtl"] .ssb_right_sidebar input[type=email]{
+  text-align: right;
+}
+html[dir="rtl"] .selection-color{
+  float: right;
+}
+html[dir="rtl"] .simplesocial-form-section .styledSelect:after{
+  right: auto;
+  left: 14px;
+}
+html[dir="rtl"] .simplesocial-inline-form-section{
+  direction: ltr;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+html[dir="rtl"] .simplesocial-input{
+  float: right;
+}
+html[dir="rtl"] .simplesocial-inline-form-section label{
+  margin-right: 0;
+  margin-left: 40px;
+}
+/*=====  End of Code RTL Share Button  ======*/

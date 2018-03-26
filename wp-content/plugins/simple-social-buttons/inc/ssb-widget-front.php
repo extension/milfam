@@ -18,12 +18,18 @@ if ( !empty(	$widget_title ) ) {
 	<?php endif;
 	 if( $display == $show_youtube):
 	?>
-    <a class="ssb_button simplesocial-yt-follow" rel="noopener" href="https://youtube.com/<?php echo $youtube_type ?>/<?php echo $youtube_id ?>" target="_blank"><span class="simplesocialtxt"><?php echo  $youtube_text?> </span><span class="widget_counter"> <?php echo ( $display == $youtube_show_counter)?$youtube_subscriber:" ";?> </span></a>
+    <a class="ssb_button simplesocial-yt-follow" rel="noopener" href="https://youtube.com/<?php echo $youtube_type ?><?php echo $youtube_id ?>" target="_blank"><span class="simplesocialtxt"><?php echo  $youtube_text?> </span><span class="widget_counter"> <?php echo ( $display == $youtube_show_counter)?$youtube_subscriber:" ";?> </span></a>
 	<?php endif;?>
     <?php if ( $display == $show_pinterest ):?>
-    <a class="ssb_button simplesocial-pinterest-follow" rel="noopener" href="https://pinterest.com/<?php echo $pinterest_id;?>/" target="_blank"><span class="simplesocialtxt"><?php echo  $pinterest_text;?> </span><span class="widget_counter"> <?php echo ( $display == $pinterest_show_counter )? $pinterest_follower: '';?> </span></a>
+    <a class="ssb_button simplesocial-pinterest-follow" rel="noopener" href="https://pinterest.com/<?php echo $pinterest_id;?>" target="_blank"><span class="simplesocialtxt"><?php echo  $pinterest_text;?> </span><span class="widget_counter"> <?php echo ( $display == $pinterest_show_counter )? $pinterest_follower: '';?> </span></a>
 	<?php endif;?>
 
+	<?php if ( $display == $show_instagram ):?>
+   	<a class="ssb_button simplesocial-instagram-follow" rel="noopener" href="https://www.instagram.com/<?php echo $instagram_id;?>" target="_blank"><span class="simplesocialtxt"><?php echo  $instagram_text;?> </span><span class="widget_counter"> <?php echo ( $display == $instagram_show_counter )? $instagram_follower: '';?> </span></a>
+	<?php endif;?>
+	<?php if ( $display == $show_whatsapp ):?>
+        <a class="ssb_button simplesocial-whatsapp-follow" rel="noopener" href="https://api.whatsapp.com/send?phone=<?php echo $whatsapp;?>" target="_blank"><span class="simplesocialtxt"><?php echo  $whatsapp_text;?> </span></a>
+	<?php endif;?>
 
 </section>
 <?php echo $after_widget;?>

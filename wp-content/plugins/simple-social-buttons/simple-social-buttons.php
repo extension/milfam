@@ -3,7 +3,7 @@
  * Plugin Name: Simple Social Buttons
  * Plugin URI: http://www.WPBrigade.com/wordpress/plugins/simple-social-buttons/
  * Description: Simple Social Buttons adds an advanced set of social media sharing buttons to your WordPress sites, such as: Google +1, Facebook, WhatsApp, Viber, Twitter, Reddit, LinkedIn and Pinterest. This makes it the most <code>Flexible Social Sharing Plugin ever for Everyone.</code>
- * Version: 2.0.10
+ * Version: 2.0.14
  * Author: WPBrigade
  * Author URI: http://www.WPBrigade.com/
  * Text Domain: simple-social-buttons
@@ -30,7 +30,7 @@
 
 class SimpleSocialButtonsPR {
 	public $pluginName        = 'Simple Social Buttons';
-	public $pluginVersion     = '2.0.10';
+	public $pluginVersion     = '2.0.14';
 	public $pluginPrefix      = 'ssb_pr_';
 	public $hideCustomMetaKey = '_ssb_hide';
 	private $fb_app_id        = '891268654262273';
@@ -53,7 +53,7 @@ class SimpleSocialButtonsPR {
 	);
 
 	// defined buttons
-	public $arrKnownButtons = array( 'googleplus', 'twitter', 'pinterest', 'fbshare', 'linkedin', 'reddit', 'whatsapp', 'viber', 'fblike', 'messenger' );
+	public $arrKnownButtons = array( 'googleplus', 'twitter', 'pinterest', 'fbshare', 'linkedin', 'reddit', 'whatsapp', 'viber', 'fblike', 'messenger', 'email', 'print' );
 
 	// an array to store current settings, to avoid passing them between functions
 	public $settings = array();
@@ -107,7 +107,7 @@ class SimpleSocialButtonsPR {
 		add_action( 'wp_footer', array( $this, 'include_sidebar' ) );
 		add_action( 'wp_head', array( $this, 'css_file' ) );
 
-		add_action( 'admin_notices', array( $this, 'update_notice' ) );
+		// add_action( 'admin_notices', array( $this, 'update_notice' ) );
 		add_action( 'admin_init', array( $this, 'review_update_notice' ) );
 		add_action( 'wp_footer', array( $this, 'fblike_script' ) );
 
@@ -119,8 +119,7 @@ class SimpleSocialButtonsPR {
 	function set_selected_networks() {
 		$networks                = get_option( 'ssb_networks' );
 		$this->selected_networks = array_flip( array_merge( array( 0 ), explode( ',', $networks['icon_selection'] ) ) );
-
-	}
+    }
 
 	function set_selected_theme() {
 		$theme                = get_option( 'ssb_themes' );
@@ -157,31 +156,35 @@ class SimpleSocialButtonsPR {
 			}
 		}
 
+
 		$_share_links = array();
 		foreach ( $order as $social_name => $priority ) {
-			if ( 'totalshare' == $social_name || 'viber' == $social_name || 'fblike' == $social_name || 'whatsapp' == $social_name ) {
+			if ( 'totalshare' == $social_name || 'viber' == $social_name || 'fblike' == $social_name || 'whatsapp' == $social_name || 'print' == $social_name || 'email' == $social_name || 'messenger' == $social_name ) {
 				continue; }
-			$_share_links[ $social_name ] = call_user_func( 'ssb_' . $social_name . '_generate_link', get_permalink( $post_id ) );
-		}
+				$_share_links[ $social_name ] = call_user_func( 'ssb_' . $social_name . '_generate_link', get_permalink( $post_id ) );
+				$url = $this->http_or_https_resolve_url( get_permalink( $post_id )  );
+			}
+			// http url convert to https or vice versa
+			$_alt_share_links = $this->http_or_https_link_generate( get_permalink( $post_id ) );
 
-		 $result = ssb_fetch_shares_via_curl_multi( array_filter( $_share_links ) );
+			$result = ssb_fetch_shares_via_curl_multi( array_filter( $_share_links ) );
 
-		// $result = ssb_fetch_shares_via_curl_multi(
-		// array(
-		// 'linkedin' => ssb_linkedin_generate_link( 'https://wpbrigade.com/first-wordcamp-talk/' ),
-		// 'fbshare' => ssb_fbshare_generate_link( 'http://www.blc.lu/' ),
-		// 'googleplus' => ssb_googleplus_generate_link( 'https://wpbrigade.com/first-wordcamp-talk/' ),
-		// 'twitter' => ssb_twitter_generate_link( 'https://wptavern.com/jetpack-5-3-adds-php-7-1-compatibility-better-control-for-wordads-placement' ),
-		// 'pinterest' => ssb_pinterest_generate_link( 'http://websitehostingcost.com/tag/dedicated/' ),
-		// 'reddit' => ssb_reddit_generate_link( 'http://stackoverflow.com/q/811074/1288' )
-		// )
-		// );
-			$share_counts = ssb_fetch_fresh_counts( $result, $post_id );
+			// $result = ssb_fetch_shares_via_curl_multi(
+			// array(
+			// 'linkedin' => ssb_linkedin_generate_link( 'https://wpbrigade.com/first-wordcamp-talk/' ),
+			// 'fbshare' => ssb_fbshare_generate_link( 'http://www.blc.lu/' ),
+			// 'googleplus' => ssb_googleplus_generate_link( 'https://wpbrigade.com/first-wordcamp-talk/' ),
+			// 'twitter' => ssb_twitter_generate_link( 'https://wptavern.com/jetpack-5-3-adds-php-7-1-compatibility-better-control-for-wordads-placement' ),
+			// 'pinterest' => ssb_pinterest_generate_link( 'http://websitehostingcost.com/tag/dedicated/' ),
+			// 'reddit' => ssb_reddit_generate_link( 'http://stackoverflow.com/q/811074/1288' )
+			// )
+			// );
+			$share_counts = ssb_fetch_fresh_counts( $result, $post_id, $_alt_share_links );
 
 			update_post_meta( $post_id, 'ssb_cache_timestamp', floor( ( ( date( 'U' ) / 60 ) / 60 ) ) );
-			  echo json_encode( $share_counts );
+			echo json_encode( $share_counts );
 			wp_die();
-	}
+		}
 
 	function ssb_output_cache_trigger( $info ) {
 
@@ -190,7 +193,10 @@ class SimpleSocialButtonsPR {
 		if ( ( ssb_is_cache_fresh( $info['postID'], true ) ) && empty( $_GET['ssb_cache'] ) ) {
 			return $info;
 		}
-
+		// if is home or front page return info
+		if( is_home() || is_front_page() ){
+			return $info;
+		}
 		// Return if we're on a WooCommerce account page.
 		if ( function_exists( 'is_account_page' ) && is_account_page() ) {
 			return $info;
@@ -203,6 +209,7 @@ class SimpleSocialButtonsPR {
 		ob_start();
 
 		?>
+        jQuery( document ).ready(function(){
 		var ssb_admin_ajax = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
 		var is_ssb_used = jQuery('.simplesocialbuttons');
 		var postID = <?php echo $info['postID']; ?> ;
@@ -227,7 +234,7 @@ class SimpleSocialButtonsPR {
 
 			});
 		}
-
+        });
 		<?php
 		$info['footer_output'] .= ob_get_clean();
 
@@ -504,12 +511,11 @@ class SimpleSocialButtonsPR {
 
 		// define empty buttons code to use
 		$ssb_buttonscode = '';
-
 		// get post permalink and title
 		$permalink = get_permalink();
-		$title     = get_the_title();
+		$title     = urlencode( get_the_title() );
 
-		// Sorting the buttons
+    // Sorting the buttons
 		$arrButtons = array();
 		foreach ( $this->arrKnownButtons as $button_name ) {
 			if ( ! empty( $order[ $button_name ] ) && (int) $order[ $button_name ] != 0 ) {
@@ -519,39 +525,53 @@ class SimpleSocialButtonsPR {
 		// echo '<pre>'; print_r( $arrButtons ); echo '</pre>';
 		@asort( $arrButtons );
 
-		// add total share index in array.
+        // add total share index in array.
 		if ( $show_total ) {
-			$arrButtons['totalshare'] = '100'; }
+		$arrButtons['totalshare'] = '100'; }
 		$post_id = get_the_id();
 
-		// // Reset the cache timestamp if needed
-		// // if false fetch the new share counts.
-		if ( isset( $this->settings['cache'] ) && $this->settings['cache'] == 'off' ) {
+		// get the value for http or https solve options
+		$http_solve = false;
+		if( isset( $this->extra_option['http_https_resolve'] ) ) {
+			if ( false == get_post_meta( $post_id, 'ssb_old_counts', true ) ){
+				$http_solve = true;
+			}
+		}
+
+		// Reset the cache timestamp if needed
+		// if false fetch the new share counts.
+		if ( ( isset( $this->settings['cache'] ) && $this->settings['cache'] == 'off') || ( true == $http_solve ) ) {
 
 			$_share_links = array();
 			foreach ( $arrButtons as $social_name => $priority ) {
-				if ( 'totalshare' == $social_name || 'viber' == $social_name || 'fblike' == $social_name || 'whatsapp' == $social_name ) {
+				if ( 'totalshare' == $social_name || 'viber' == $social_name || 'fblike' == $social_name || 'whatsapp' == $social_name || 'print' == $social_name || 'email' == $social_name || 'messenger' == $social_name) {
 					continue; }
-				$_share_links[ $social_name ] = call_user_func( 'ssb_' . $social_name . '_generate_link', get_permalink() );
+					$_share_links[ $social_name ] = call_user_func( 'ssb_' . $social_name . '_generate_link', $permalink );
+				}
+				// http url convert to https or vice versa
+				$_alt_share_links = $this->http_or_https_link_generate( $permalink );
+
+				//normal fetch
+				$result  = ssb_fetch_shares_via_curl_multi( array_filter( $_share_links ) );
+
+				// $result = ssb_fetch_shares_via_curl_multi(
+				// array(
+				// 'linkedin' => ssb_linkedin_generate_link( 'https://wpbrigade.com/first-wordcamp-talk/' ),
+				// 'fbshare' => ssb_fbshare_generate_link( 'https://propakistani.pk/2017/09/06/lahore-get-600-million-disneyland-like-amusement-park/' ),
+				// 'googleplus' => ssb_googleplus_generate_link( 'https://wpbrigade.com/first-wordcamp-talk/' ),
+				// 'twitter' => ssb_twitter_generate_link( 'https://wptavern.com/jetpack-5-3-adds-php-7-1-compatibility-better-control-for-wordads-placement' ),
+				// 'pinterest' => ssb_pinterest_generate_link( 'http://websitehostingcost.com/tag/dedicated/' ),
+				// 'reddit' => ssb_reddit_generate_link( 'http://stackoverflow.com/q/811074/1288' )
+				// )
+				// );
+
+
+				//fetch http / https result and save in network_old_share_count meta tags
+				$share_counts = ssb_fetch_fresh_counts( $result, $post_id , $_alt_share_links);
+				// update_post_meta( $post_id,'ssb_cache_timestamp',floor( ( ( date( 'U' ) / 60) / 60 ) ) );
+			} else {
+				$share_counts = ssb_fetch_cached_counts( array_flip( $arrButtons ), $post_id );
 			}
-
-			$result = ssb_fetch_shares_via_curl_multi( array_filter( $_share_links ) );
-
-			// $result = ssb_fetch_shares_via_curl_multi(
-			// array(
-			// 'linkedin' => ssb_linkedin_generate_link( 'https://wpbrigade.com/first-wordcamp-talk/' ),
-			// 'fbshare' => ssb_fbshare_generate_link( 'https://propakistani.pk/2017/09/06/lahore-get-600-million-disneyland-like-amusement-park/' ),
-			// 'googleplus' => ssb_googleplus_generate_link( 'https://wpbrigade.com/first-wordcamp-talk/' ),
-			// 'twitter' => ssb_twitter_generate_link( 'https://wptavern.com/jetpack-5-3-adds-php-7-1-compatibility-better-control-for-wordads-placement' ),
-			// 'pinterest' => ssb_pinterest_generate_link( 'http://websitehostingcost.com/tag/dedicated/' ),
-			// 'reddit' => ssb_reddit_generate_link( 'http://stackoverflow.com/q/811074/1288' )
-			// )
-			// );
-			$share_counts = ssb_fetch_fresh_counts( $result, $post_id );
-			// update_post_meta( $post_id,'ssb_cache_timestamp',floor( ( ( date( 'U' ) / 60) / 60 ) ) );
-		} else {
-			$share_counts = ssb_fetch_cached_counts( array_flip( $arrButtons ), $post_id );
-		}
 
 		$arrButtonsCode = array();
 		foreach ( $arrButtons as $button_name => $button_sort ) {
@@ -579,8 +599,7 @@ class SimpleSocialButtonsPR {
 					$arrButtonsCode[] = $_html;
 
 					break;
-
-				case 'fbshare':
+        case 'fbshare':
 					$fbshare_share = $share_counts['fbshare'] ? $share_counts['fbshare'] : 0;
 
 					if ( $this->selected_theme == 'simple-icons' ) {
@@ -616,9 +635,9 @@ class SimpleSocialButtonsPR {
 						<span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72"><path fill="none" d="M0 0h72v72H0z"/><path class="icon" fill="#fff" d="M68.812 15.14c-2.348 1.04-4.87 1.744-7.52 2.06 2.704-1.62 4.78-4.186 5.757-7.243-2.53 1.5-5.33 2.592-8.314 3.176C56.35 10.59 52.948 9 49.182 9c-7.23 0-13.092 5.86-13.092 13.093 0 1.026.118 2.02.338 2.98C25.543 24.527 15.9 19.318 9.44 11.396c-1.125 1.936-1.77 4.184-1.77 6.58 0 4.543 2.312 8.552 5.824 10.9-2.146-.07-4.165-.658-5.93-1.64-.002.056-.002.11-.002.163 0 6.345 4.513 11.638 10.504 12.84-1.1.298-2.256.457-3.45.457-.845 0-1.666-.078-2.464-.23 1.667 5.2 6.5 8.985 12.23 9.09-4.482 3.51-10.13 5.605-16.26 5.605-1.055 0-2.096-.06-3.122-.184 5.794 3.717 12.676 5.882 20.067 5.882 24.083 0 37.25-19.95 37.25-37.25 0-.565-.013-1.133-.038-1.693 2.558-1.847 4.778-4.15 6.532-6.774z"/></svg></span>';
 
 						if ( $show_count ) {
-							$_html .= '<span class="simplesocialtxt">Tweet '. $twitter_share .'</span>';
+							$_html .= '<i class="simplesocialtxt">Tweet '. $twitter_share .'</i>';
 						} else{
-							$_html .= '<span class="simplesocialtxt">Tweet </span>';
+							$_html .= '<i class="simplesocialtxt">Tweet </i>';
 
 						}
 
@@ -693,8 +712,7 @@ class SimpleSocialButtonsPR {
 					$total_share      = $share_counts['total'] ? $share_counts['total'] : 0;
 					$arrButtonsCode[] = "<span class='ssb_total_counter'>" . $total_share . '<span>Shares</span></span>';
 					break;
-
-				case 'reddit':
+                case 'reddit':
 					$reddit_score = $share_counts['reddit'] ? $share_counts['reddit'] : 0;
 
 					if ( $this->selected_theme == 'simple-icons' ) {
@@ -722,7 +740,7 @@ class SimpleSocialButtonsPR {
 					break;
 				case 'whatsapp':
 					if ( $this->selected_theme == 'simple-icons' ) {
-						$arrButtonsCode[] = ' <button class="ssb_whatsapp-icon" onclick="javascript:window.open(this.dataset.href, \'_blank\' );return false;" class="simplesocial-whatsapp-share" data-href="https://api.whatsapp.com/send?text=' . $permalink . '"><span class="simplesocialtxt">
+						$arrButtonsCode[] = ' <button  onclick="javascript:window.open(this.dataset.href, \'_blank\' );return false;" class="ssb_whatsapp-icon simplesocial-whatsapp-share" data-href="https://api.whatsapp.com/send?text=' . $permalink . '"><span class="simplesocialtxt">
 									<span class="icon"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 90 90" style="enable-background:new 0 0 90 90;" xml:space="preserve" class=""><g><g> <path id="WhatsApp" d="M90,43.841c0,24.213-19.779,43.841-44.182,43.841c-7.747,0-15.025-1.98-21.357-5.455L0,90l7.975-23.522   c-4.023-6.606-6.34-14.354-6.34-22.637C1.635,19.628,21.416,0,45.818,0C70.223,0,90,19.628,90,43.841z M45.818,6.982   c-20.484,0-37.146,16.535-37.146,36.859c0,8.065,2.629,15.534,7.076,21.61L11.107,79.14l14.275-4.537   c5.865,3.851,12.891,6.097,20.437,6.097c20.481,0,37.146-16.533,37.146-36.857S66.301,6.982,45.818,6.982z M68.129,53.938   c-0.273-0.447-0.994-0.717-2.076-1.254c-1.084-0.537-6.41-3.138-7.4-3.495c-0.993-0.358-1.717-0.538-2.438,0.537   c-0.721,1.076-2.797,3.495-3.43,4.212c-0.632,0.719-1.263,0.809-2.347,0.271c-1.082-0.537-4.571-1.673-8.708-5.333   c-3.219-2.848-5.393-6.364-6.025-7.441c-0.631-1.075-0.066-1.656,0.475-2.191c0.488-0.482,1.084-1.255,1.625-1.882   c0.543-0.628,0.723-1.075,1.082-1.793c0.363-0.717,0.182-1.344-0.09-1.883c-0.27-0.537-2.438-5.825-3.34-7.977   c-0.902-2.15-1.803-1.792-2.436-1.792c-0.631,0-1.354-0.09-2.076-0.09c-0.722,0-1.896,0.269-2.889,1.344   c-0.992,1.076-3.789,3.676-3.789,8.963c0,5.288,3.879,10.397,4.422,11.113c0.541,0.716,7.49,11.92,18.5,16.223   C58.2,65.771,58.2,64.336,60.186,64.156c1.984-0.179,6.406-2.599,7.312-5.107C68.398,56.537,68.398,54.386,68.129,53.938z"/> </g></g> </svg> </span>
 									<span class="simplesocialtxt">Whatsapp</span>
 								</button>';
@@ -731,10 +749,9 @@ class SimpleSocialButtonsPR {
 						$arrButtonsCode[] = '<button onclick="javascript:window.open(this.dataset.href, \'_blank\' );return false;" class="simplesocial-whatsapp-share" data-href="https://api.whatsapp.com/send?text=' . $permalink . '"><span class="simplesocialtxt">WhatsApp</span></button>';
 					}
 					break;
-
-				case 'viber':
+        case 'viber':
 					if ( $this->selected_theme == 'simple-icons' ) {
-						$arrButtonsCode[] = '<button class="ssb_viber-icon" onclick="javascript:window.open(this.dataset.href, \'_self\' );return false;" class="simplesocial-viber-share" data-href="viber://forward?text=' . $permalink . '">
+						$arrButtonsCode[] = '<button  onclick="javascript:window.open(this.dataset.href, \'_self\' );return false;" class="simplesocial-viber-share ssb_viber-icon" data-href="viber://forward?text=' . $permalink . '">
 						<span class="icon"> <svg aria-labelledby="simpleicons-viber-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-viber-icon">Viber icon</title><path d="M20.812 2.343c-.596-.549-3.006-2.3-8.376-2.325 0 0-6.331-.38-9.415 2.451C1.302 4.189.698 6.698.634 9.82.569 12.934.487 18.774 6.12 20.36h.005l-.005 2.416s-.034.979.609 1.178c.779.24 1.236-.504 1.98-1.303.409-.439.972-1.088 1.397-1.582 3.851.322 6.813-.416 7.149-.525.777-.254 5.176-.816 5.893-6.658.738-6.021-.357-9.83-2.338-11.547v.004zm.652 11.112c-.615 4.876-4.184 5.187-4.83 5.396-.285.092-2.895.738-6.164.525 0 0-2.445 2.941-3.195 3.705-.121.121-.271.166-.361.145-.135-.029-.164-.18-.164-.404l.015-4.006c-.015 0 0 0 0 0-4.771-1.336-4.485-6.301-4.425-8.91.044-2.596.538-4.726 1.994-6.167 2.611-2.371 7.997-2.012 7.997-2.012 4.543.016 6.721 1.385 7.223 1.846 1.674 1.432 2.529 4.865 1.904 9.893l.006-.011zM7.741 4.983c.242 0 .459.109.629.311.004.002.58.695.83 1.034.235.32.551.83.711 1.115.285.51.104 1.032-.172 1.248l-.566.45c-.285.229-.25.653-.25.653s.84 3.157 3.959 3.953c0 0 .426.039.654-.246l.451-.569c.213-.285.734-.465 1.244-.181.285.15.795.466 1.116.704.339.24 1.032.826 1.036.826.33.271.404.689.18 1.109v.016c-.23.405-.541.78-.934 1.141h-.008c-.314.27-.629.42-.944.449-.03 0-.075.016-.136 0-.135 0-.27-.029-.404-.061v-.014c-.48-.135-1.275-.48-2.596-1.216-.855-.479-1.574-.96-2.189-1.455-.315-.255-.645-.54-.976-.87l-.076-.028-.03-.03-.029-.029c-.331-.33-.615-.66-.871-.98-.48-.609-.96-1.327-1.439-2.189-.735-1.32-1.08-2.115-1.215-2.596H5.7c-.045-.134-.075-.269-.06-.404-.015-.061 0-.105 0-.141.03-.299.189-.614.458-.944h.005c.355-.39.738-.704 1.146-.933.164-.091.329-.135.479-.135h.016l-.003.012zm4.095-.683h.116l.076.002h.02l.089.005h.511l.135.015h.074l.15.016h.03l.104.015h.016l.074.015c.046 0 .076.016.105.016h.091l.075.029.06.016.06.015.03.015h.045l.046.016h.029l.074.016.045.014.046.016.06.016.03.014c.03 0 .06.016.091.016l.044.015.046.016.119.044.061.031.135.06.045.015.045.016.09.045.061.015.029.015.076.031.029.014.061.031.045.014.045.03.059.03.046.029.03.016.061.03.044.03.075.045.045.016.074.044.016.015.045.031.09.074.046.03.044.03.031.014.045.031.074.074.061.045.045.03.016.015.029.016.074.061.046.044.03.03.045.029.045.031.029.015.12.12.06.061.135.135.031.029c.016.016.045.045.061.075l.029.03.166.194.045.06c.014.016.014.031.029.031l.09.135.045.045.09.12.076.12.045.09.059.105.045.09.016.029.029.061.076.15.074.149.031.075c.059.135.104.27.164.42.074.195.135.404.18.63.045.165.076.315.105.48l.029.27.045.3c.016.121.031.256.031.375.014.121.014.24.014.359v.256c0 .016-.006.029-.014.045-.016.03-.031.045-.061.075-.021.015-.049.046-.08.046-.029.014-.059.014-.09.014h-.045c-.029 0-.059-.014-.09-.029-.029-.016-.061-.03-.074-.061-.016-.029-.045-.061-.061-.09s-.031-.06-.031-.09v-.359c-.014-.209-.029-.425-.059-.639-.016-.146-.045-.284-.061-.42 0-.074-.016-.146-.029-.209l-.029-.15-.038-.141-.016-.09-.045-.15c-.029-.12-.074-.24-.119-.36-.029-.091-.061-.165-.105-.239l-.029-.076-.135-.27-.031-.045c-.061-.135-.135-.27-.225-.391l-.045-.074h-.201l-.064-.091c-.055-.089-.114-.165-.18-.239l-.125-.15-.015-.016-.046-.057-.035-.045-.075-.074-.015-.03-.07-.06-.045-.046-.083-.075-.04-.037-.046-.045-.015-.016c-.016-.015-.045-.045-.075-.06l-.076-.062-.03-.015-.061-.046-.074-.06-.045-.036-.03-.016-.06-.053c0-.016-.016-.016-.031-.016l-.029-.029-.015-.016v-.013l-.03-.014-.061-.037-.044-.031-.075-.045-.06-.045-.029-.016-.032-.013h-.09l-.019-.016-.065-.035-.009-.014-.03-.016-.045-.021h-.012l-.045-.016-.025-.015-.045-.015-.01-.011-.03-.016-.053-.029-.03-.015-.09-.03-.074-.029-.137-.016-.044-.029c-.015-.01-.03-.016-.046-.016l-.029-.015c-.029-.011-.045-.016-.075-.03l-.03-.016h-.029l-.061-.029-.029-.016-.045-.015h-.092c-.008 0-.019-.005-.03-.007h-.09l-.045-.016h-.015l-.045-.016h-.041c-.025-.014-.045-.014-.07-.014l-.01-.016-.06-.015c-.03-.016-.056-.016-.084-.016l-.045-.015-.05-.016-.045-.014-.061-.016h-.061l-.179-.022h-.09l-.116-.015h-.076l-.068-.008h-.03l-.054-.016h-.285l-.01-.015h-.061c-.03 0-.064-.015-.09-.03-.03-.016-.061-.029-.081-.06l-.03-.046c-.029-.029-.029-.06-.045-.09-.014-.028-.014-.059-.014-.089s0-.06.015-.09c.016-.029.029-.06.061-.075.015-.03.044-.044.074-.06.029-.016.061-.03.09-.03h.061l.015.066zm.554 1.574l.037.003.061.006c.008 0 .018 0 .029.003.022 0 .045.004.075.006l.06.008.024.016.045.015.048.015.045.016h.03l.042.015.07.015.056.016.026.014h.073l.119.028.046.015.045.015.045.016s.015 0 .015.015l.046.015.044.016.045.016c.015 0 .03.014.046.014.007 0 .014.016.025.016l.064.03h.029l.09.03.05.029.046.03.108.045.06.015.031.031c.045.014.09.044.135.059l.048.03.048.03.049.029c.045.03.082.046.121.076l.029.014.041.031.022.015.075.045.037.03.065.043.029.015.03.015.046.03.06.046c.015.014.022.014.034.029.01.015.016.015.025.03l.033.03.036.029.03.03.046.046.029.03.016.016.09.089.016.016c0 .015.015.03.029.03l.016.013.045.046.029.045.03.03.045.06.046.046.09.119.014.029.061.076.016.029.015.031.015.029.016.03c.016.015.016.03.029.06l.043.076.016.015.029.061.031.044c.014.015.014.029.029.045l.03.045.03.061.029.059.016.046c.015.044.045.075.06.12 0 .015.015.029.015.045l.045.119.061.195c0 .016.015.045.015.061l.046.135.044.18.046.24c.014.074.014.135.029.211.016.119.03.238.03.359l.015.21v.165c0 .016 0 .029-.015.045l-.044.043c-.029.023-.045.045-.074.061-.03.015-.061.029-.09.04-.031.016-.075.016-.105.016-.029 0-.061-.016-.09-.03-.016 0-.03-.016-.045-.021-.031-.014-.061-.039-.075-.065-.03-.03-.046-.06-.046-.091l-.014-.044v-.313c0-.133-.016-.256-.031-.385-.015-.135-.044-.285-.074-.42-.029-.09-.045-.18-.075-.26l-.03-.091-.029-.075-.016-.03-.045-.12-.045-.09-.075-.149-.069-.12v-.019l-.029-.047-.03-.038-.045-.075-.046-.061-.089-.119c-.046-.061-.09-.12-.142-.178-.014-.015-.029-.029-.029-.045l-.03-.029-.017-.016-.03-.014-.03-.027v-.146l-.119-.113-.075-.068v-.014l-.03-.031-.038-.029-.015-.016c0-.015-.016-.015-.029-.015l-.046-.016-.015-.015-.061-.045-.014-.016-.016-.015c-.012-.015-.023-.015-.03-.015l-.06-.045-.016-.016-.06-.029-.011-.016-.045-.029-.03-.016-.03-.029-.029-.031h-.016c-.029-.029-.06-.044-.105-.06l-.044-.03-.03-.014-.016-.016-.045-.03-.044-.015-.06-.03-.046-.015-.015-.016-.056-.014v-.012l-.091-.03-.06-.03-.03-.015h-.06c-.03-.015-.045-.015-.075-.03H13.2l-.045-.016h-.044l-.046-.014-.029-.016h-.061l-.061-.015-.029-.016h-.165l-.069-.015H12.3l-.046-.016c-.029-.014-.06-.029-.09-.06-.014-.03-.045-.06-.06-.089-.015-.031-.03-.061-.03-.091v-.09c.006-.046.016-.075.03-.105.008-.015.015-.03.03-.045.018-.03.045-.06.075-.075.015-.015.03-.015.044-.029.031-.016.061-.016.091-.016h.06l-.014.055zm.454 1.629c.015 0 .03 0 .044.004.016 0 .031 0 .046.002l.052.005c.104.009.213.024.318.046l.104.023.026.008.114.029.059.02.046.016c.045.014.091.045.135.06l.016.015.06.03.09.046.029.014c.016.016.031.016.046.03.015.016.045.03.06.045.061.03.105.075.15.105l.105.09.09.091.061.074.029.029.03.031.044.06.091.135.075.135.06.12.046.105c.044.104.06.195.09.299.029.091.045.196.06.285l.015.15.016.136V9.8c0 .045-.016.075-.03.105-.015.029-.046.074-.075.09-.03.029-.061.045-.105.061-.029.014-.06.014-.09.014-.029 0-.06 0-.09-.014l-.104-.046c-.03-.03-.06-.045-.091-.091-.015-.029-.029-.06-.045-.104v-.166l-.015-.105-.015-.119-.016-.105-.016-.06c0-.015-.014-.045-.014-.06-.03-.121-.09-.24-.15-.36l-.061-.06-.047-.06-.045-.045-.015-.03-.075-.06-.061-.061-.059-.045c-.016-.015-.03-.015-.061-.029l-.09-.061-.061-.03-.029-.015h-.016l-.076-.031-.09-.03-.09-.015h-.075l-.044-.015-.035-.007h-.045l-.06-.016h-.255l-.015-.075h-.039c-.03-.004-.055-.015-.08-.029-.035-.021-.064-.045-.09-.08-.018-.029-.034-.061-.045-.09-.008-.029-.012-.06-.012-.09 0-.037 0-.075.015-.113.015-.039.03-.07.06-.1l.061-.045c.029-.016.061-.03.09-.03l.062-.075h.032z"/></svg> </span>
 						<span class="simplesocialtxt">Viber</span>
 						</button>';
@@ -743,29 +760,56 @@ class SimpleSocialButtonsPR {
 						$arrButtonsCode[] = '<button onclick="javascript:window.open(this.dataset.href, \'_self\' );return false;" class="simplesocial-viber-share" data-href="viber://forward?text=' . $permalink . '"><span class="simplesocialtxt">Viber</span></button>';
 					}
 					break;
-
-				case 'fblike':
+        case 'fblike':
 					$_html = '<div class="fb-like ssb-fb-like" data-href="' . $permalink . '" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>';
 
 					$arrButtonsCode[] = $_html;
 
 					break;
-
-					case 'messenger':
+        case 'messenger':
 
 						$link = urlencode( $permalink );
+						$messenger_share_url = $this->is_mobile() ? "fb-messenger://share/?link=$link?app_id=$this->fb_app_id" : "http://www.facebook.com/dialog/send?app_id=$this->fb_app_id&redirect_uri=$link&link=$link&display=popup";
 
 						if ( $this->selected_theme == 'simple-icons' ) {
-							$arrButtonsCode[] = '<button class="ssb_msng-icon" onclick="javascript:window.open(this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" class="simplesocial-viber-share" data-href="http://www.facebook.com/dialog/send?app_id='. $this->fb_app_id .'&redirect_uri=' . $link . '&link=' . $link . '&display=popup">
-							<span class="icon"> <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="19px" viewBox="-889.5 1161 18 19" enable-background="new -889.5 1161 18 19" xml:space="preserve">
-							<path opacity="0.99" fill="#FFFFFF" enable-background="new    " d="M-880.5,1161c-5,0-9,3.8-9,8.5c0,2.4,1,4.5,2.7,6v4.5l3.8-2.3 c0.8,0.2,1.6,0.3,2.5,0.3c5,0,9-3.8,9-8.5S-875.5,1161-880.5,1161z M-879.6,1172.2l-2.4-2.4l-4.3,2.4l4.7-5.2l2.4,2.4l4.2-2.4 L-879.6,1172.2z"/>
-							</svg> </span>
-							<span class="simplesocialtxt">Messenger</span>
-							</button>';
+							$arrButtonsCode[] = '<button  onclick="javascript:window.open(this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" class="simplesocial-viber-share ssb_msng-icon" data-href='. $messenger_share_url .'>
+							 <span class="icon"> <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="19px" viewBox="-889.5 1161 18 19" enable-background="new -889.5 1161 18 19" xml:space="preserve">
+							 <path opacity="0.99" fill="#FFFFFF" enable-background="new    " d="M-880.5,1161c-5,0-9,3.8-9,8.5c0,2.4,1,4.5,2.7,6v4.5l3.8-2.3 c0.8,0.2,1.6,0.3,2.5,0.3c5,0,9-3.8,9-8.5S-875.5,1161-880.5,1161z M-879.6,1172.2l-2.4-2.4l-4.3,2.4l4.7-5.2l2.4,2.4l4.2-2.4 L-879.6,1172.2z"/>
+							 </svg> </span>
+							 <span class="simplesocialtxt">Messenger</span>
+							 </button>';
 						} else {
 
-							$arrButtonsCode[] = '<button class="simplesocial-msng-share"  onclick="javascript:window.open( this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" data-href="http://www.facebook.com/dialog/send?app_id='. $this->fb_app_id .'&redirect_uri=' . $link . '&link=' . $link . '&display=popup" ><span class="simplesocialtxt">Messenger</span></button> ';
+							$arrButtonsCode[] = '<button class="simplesocial-msng-share"  onclick="javascript:window.open( this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" data-href="'. $messenger_share_url .'" ><span class="simplesocialtxt">Messenger</span></button> ';
 						}
+						break;
+          case  'email':
+							if ( $this->selected_theme == 'simple-icons' ) {
+								$arrButtonsCode[] = ' <button  onclick="javascript:window.location.href = this.dataset.href;return false;" class="ssb_email-icon simplesocial-email-share" data-href="mailto:?subject='. $title .'&body='. $permalink .'">
+								<span class="icon"> <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="11.9px" viewBox="-1214.1 1563.9 16 11.9" enable-background="new -1214.1 1563.9 16 11.9" xml:space="preserve">
+								<path  d="M-1214.1,1565.2v1l8,4l8-4v-1c0-0.7-0.6-1.3-1.3-1.3h-13.4C-1213.5,1563.9-1214.1,1564.4-1214.1,1565.2z M-1214.1,1567.4v7.1c0,0.7,0.6,1.3,1.3,1.3h13.4c0.7,0,1.3-0.6,1.3-1.3v-7.1l-8,4L-1214.1,1567.4z"/> </svg> </span>
+								<span class="simplesocialtxt">Email</span>
+								</button>';
+							} else {
+
+								$arrButtonsCode[] = '<button onclick="javascript:window.location.href = this.dataset.href;return false;" class="simplesocial-email-share" data-href="mailto:?subject='. $title .'&body='. $permalink .'"><span class="simplesocialtxt">Email</span></button>';
+							}
+						break;
+          case  'print':
+							if ( $this->selected_theme == 'simple-icons' ) {
+								$arrButtonsCode[] = ' <button  onclick="javascript:window.print();return false;" class=" ssb_print-icon simplesocial-email-share" >
+								<span class="icon"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="16px" height="13.7px" viewBox="-1296.9 1876.4 16 13.7" enable-background="new -1296.9 1876.4 16 13.7" xml:space="preserve"><g>
+								<path fill="#FFFFFF" d="M-1288.9,1879.7c2.3,0,4.6,0,6.9,0c0.4,0,0.7,0.1,0.9,0.5c0.1,0.2,0.1,0.4,0.1,0.6c0,1.7,0,3.4,0,5.1   c0,0.7-0.4,1.1-1.1,1c-0.6,0-1.2,0-1.8,0c-0.1,0-0.2,0-0.2,0.2c0,0.7,0,1.4,0,2c0,0.6-0.4,1-1,1c-0.1,0-0.3,0-0.4,0   c-2.5,0-4.9,0-7.4,0c-0.3,0-0.5,0-0.8-0.1c-0.3-0.2-0.5-0.5-0.5-0.9c0-0.7,0-1.4,0-2c0-0.2-0.1-0.2-0.2-0.2c-0.6,0-1.2,0-1.7,0   c-0.7,0-1-0.4-1-1c0-1.7,0-3.4,0-5.1c0-0.4,0.2-0.8,0.6-0.9c0.2-0.1,0.3-0.1,0.5-0.1C-1293.5,1879.7-1291.2,1879.7-1288.9,1879.7z    M-1288.9,1884.9C-1288.9,1884.9-1288.9,1884.9-1288.9,1884.9c-1.4,0-2.8,0-4.2,0c-0.1,0-0.2,0-0.2,0.2c0,0.3,0,0.7,0,1   c0,1,0,2,0,3c0,0.3,0.1,0.4,0.4,0.4c2.5,0,5.1,0,7.6,0c0.1,0,0.3,0,0.4,0c0.2,0,0.3-0.2,0.3-0.3c0-1.3,0-2.7,0-4   c0-0.2,0-0.2-0.2-0.2C-1286.1,1884.9-1287.5,1884.9-1288.9,1884.9z M-1284.2,1882.4c0.4,0,0.7-0.3,0.7-0.7c0-0.4-0.3-0.7-0.8-0.7   c-0.4,0-0.7,0.3-0.7,0.7C-1284.9,1882.1-1284.6,1882.4-1284.2,1882.4z"/>
+								<path fill="#FFFFFF" d="M-1283.9,1879c-0.2,0-0.4,0-0.5,0c-3.1,0-6.2,0-9.3,0c-0.1,0-0.2,0-0.2-0.2c0-0.5,0-1,0-1.5   c0-0.5,0.4-1,0.9-1c0.1,0,0.2,0,0.3,0c2.6,0,5.2,0,7.8,0c0.6,0,1,0.4,1,1c0,0.5,0,0.9,0,1.4   C-1283.9,1878.9-1283.9,1879-1283.9,1879z"/>
+								<path fill="#FFFFFF" d="M-1291.9,1886.9c0-0.2,0-0.4,0-0.6c2,0,4,0,6,0c0,0.2,0,0.4,0,0.6   C-1287.9,1886.9-1289.9,1886.9-1291.9,1886.9z"/>
+								<path fill="#FFFFFF" d="M-1289.6,1888.2c-0.7,0-1.4,0-2.1,0c-0.1,0-0.2,0-0.2-0.2c0-0.1,0-0.2,0-0.3c0-0.1,0-0.2,0.2-0.2   c0.1,0,0.2,0,0.3,0c1.3,0,2.6,0,3.9,0c0.3,0,0.3,0,0.3,0.3c0,0.4,0,0.4-0.4,0.4C-1288.3,1888.2-1288.9,1888.2-1289.6,1888.2   C-1289.6,1888.2-1289.6,1888.2-1289.6,1888.2z"/>
+								</g></svg></span>
+								<span class="simplesocialtxt">Print</span>
+								</button>';
+							} else {
+
+								$arrButtonsCode[] = '<button onclick="javascript:window.print();return false;" class="simplesocial-print-share" ><span class="simplesocialtxt">Print</span></button>';
+							}
 						break;
 			}
 		}
@@ -777,8 +821,7 @@ class SimpleSocialButtonsPR {
 			$ssb_buttonscode .= '</div>' . "\n";
 
 		}
-
-		return $ssb_buttonscode;
+        return $ssb_buttonscode;
 	}
 
 	/**
@@ -834,15 +877,15 @@ class SimpleSocialButtonsPR {
 				// $class = 'simplesocialbuttons-float-left-post';
 				if ( $this->sidebar_option['hide_mobile'] ) {
 					$class .= ' simplesocialbuttons-mobile-hidden';
-					 }
+				}
 
-					 	if ( $this->_get_settings( 'sidebar', 'share_counts' ) ) {
-				$class .= ' ssb_counter-activate';
-			}
+				if ( $this->_get_settings( 'sidebar', 'share_counts' ) ) {
+					$class .= ' ssb_counter-activate';
+				}
 
-					$class            .= ' simplesocialbuttons-slide-' . $this->_get_settings( 'sidebar', 'animation', 'no-animation' );
-					$_selected_network = apply_filters( 'ssb_sidebar_social_networks', $this->selected_networks );
-					echo $this->generate_buttons_code( $_selected_network, $show_count, $show_total, $class );
+				$class            .= ' simplesocialbuttons-slide-' . $this->_get_settings( 'sidebar', 'animation', 'no-animation' );
+				$_selected_network = apply_filters( 'ssb_sidebar_social_networks', $this->selected_networks );
+				echo $this->generate_buttons_code( $_selected_network, $show_count, $show_total, $class );
 			}
 		}
 	}
@@ -950,7 +993,7 @@ class SimpleSocialButtonsPR {
 
 		counter = true,false
 		align = left ,right,centered,
-		order = googleplus,twitter,pinterest,fbshare,linkedin,reddit,whatsapp,viber,fblike
+		order = googleplus,twitter,pinterest,fbshare,linkedin,reddit,whatsapp,viber,fblike,messenger,email
 
 		theme
 		theme1 =  sm-round
@@ -989,7 +1032,7 @@ class SimpleSocialButtonsPR {
 				}
 			}
 		} else {
-			$theme = $this->selected_theme;
+            $theme = $this->selected_theme;
 		}
 		if ( null !== $selected_theme['order'] ) {
 			$selected_theme['order'] = array_flip( array_merge( array( 0 ), explode( ',', $selected_theme['order'] ) ) );
@@ -1040,14 +1083,22 @@ class SimpleSocialButtonsPR {
 	*/
 	function generate_buttons_short_code( $short_code_theme, $short_code_order, $order = null, $show_count = false, $show_total = false, $extra_class = '' ) {
 
-		//googleplus,fbshare,twitter,pinterest,whatsapp,viber,reddit,linkedin
+		//googleplus,fbshare,twitter,pinterest,whatsapp,viber,reddit,linkedin,messenger,email,print
 
 		// define empty buttons code to use
 		$ssb_buttonscode = '';
 
 		// get post permalink and title
 		$permalink = get_permalink();
-		$title     = get_the_title();
+		$title     = urlencode( get_the_title() );
+		$post_id   = get_the_id();
+
+		if( false == $permalink ) {
+			$permalink = get_site_url();
+			$title     = get_bloginfo( 'name' );
+			$post_id   = 0;
+		}
+
 
 		// Sorting the buttons
 		$arrButtons = array();
@@ -1076,23 +1127,32 @@ class SimpleSocialButtonsPR {
 		if ( $show_total ) {
 			$arrButtons['totalshare'] = '100';
 		}
-		$post_id = get_the_id();
 
-		// // Reset the cache timestamp if needed
-		// // if false fetch the new share counts.
-		if ( isset( $this->settings['cache'] ) && $this->settings['cache'] == 'off' ) {
+		$non_exist_post_record = false;
+		// special case if post id not exist for example short code run on widget out side the loop in archive page and old counts not exsist
+		if( 0 == $post_id ) {
+			$non_exist_post_record = get_option( 'ssb_not_exist_post_old_counts' );
+		}
+
+		// Reset the cache timestamp if needed
+		// if false fetch the new share counts.
+		if ( ( isset( $this->settings['cache'] ) && $this->settings['cache'] == 'off' ) || ( ! $non_exist_post_record) ) {
 
 			$_share_links = array();
+			$_alt_share_links = array();
 			foreach ( $arrButtons as $social_name => $priority ) {
-				if ( 'totalshare' == $social_name || 'viber' == $social_name ) {
+				if ( 'totalshare' == $social_name || 'viber' == $social_name || 'fblike' == $social_name || 'whatsapp' == $social_name || 'print' == $social_name || 'email' == $social_name || 'messenger' == $social_name) {
 					continue;
 				}
-				$_share_links[ $social_name ] = call_user_func( 'ssb_' . $social_name . '_generate_link', get_permalink() );
+				$_share_links[ $social_name ] = call_user_func( 'ssb_' . $social_name . '_generate_link', $permalink );
+				$url = $this->http_or_https_resolve_url( $permalink  );
+				//get alt hurl to cover http or https issue
+				$_alt_share_links[ $social_name ] = call_user_func( 'ssb_' . $social_name . '_generate_link', $url );
 			}
 
 			$result = ssb_fetch_shares_via_curl_multi( array_filter( $_share_links ) );
 
-			$share_counts = ssb_fetch_fresh_counts( $result, $post_id );
+			$share_counts = ssb_fetch_fresh_counts( $result, $post_id, $_alt_share_links );
 			// update_post_meta( $post_id,'ssb_cache_timestamp',floor( ( ( date( 'U' ) / 60) / 60 ) ) );
 		} else {
 			$share_counts = ssb_fetch_cached_counts( array_flip( $arrButtons ), $post_id );
@@ -1172,7 +1232,7 @@ class SimpleSocialButtonsPR {
 
 					} else {
 
-						$_html         = '<button class="simplesocial-twt-share" data-href="https://twitter.com/share?text=' . $title . '&url=' . $permalink . '' . $via . '" rel="nofollow" onclick="javascript:window.open(this.dataset.href, \'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;"><span class="simplesocialtxt">Twitter</span> ';
+						$_html = '<button class="simplesocial-twt-share" data-href="https://twitter.com/share?text=' . $title . '&url=' . $permalink . '' . $via . '" rel="nofollow" onclick="javascript:window.open(this.dataset.href, \'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;"><span class="simplesocialtxt">Twitter</span> ';
 
 						if ( $show_count ) {
 							$_html .= '<span class="ssb_counter ssb_twitter_counter">' . $twitter_share . '</span>';
@@ -1268,7 +1328,7 @@ class SimpleSocialButtonsPR {
 					break;
 				case 'whatsapp':
 					if ( $this->selected_theme == 'simple-icons' ) {
-						$arrButtonsCode[] = ' <button class="ssb_whatsapp-icon" onclick="javascript:window.open(this.dataset.href, \'_blank\' );return false;" class="simplesocial-whatsapp-share" data-href="https://api.whatsapp.com/send?text=' . $permalink . '"><span class="simplesocialtxt">
+						$arrButtonsCode[] = ' <button  onclick="javascript:window.open(this.dataset.href, \'_blank\' );return false;" class="simplesocial-whatsapp-share ssb_whatsapp-icon" data-href="https://api.whatsapp.com/send?text=' . $permalink . '"><span class="simplesocialtxt">
 									<span class="icon"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 90 90" style="enable-background:new 0 0 90 90;" xml:space="preserve" class=""><g><g> <path id="WhatsApp" d="M90,43.841c0,24.213-19.779,43.841-44.182,43.841c-7.747,0-15.025-1.98-21.357-5.455L0,90l7.975-23.522   c-4.023-6.606-6.34-14.354-6.34-22.637C1.635,19.628,21.416,0,45.818,0C70.223,0,90,19.628,90,43.841z M45.818,6.982   c-20.484,0-37.146,16.535-37.146,36.859c0,8.065,2.629,15.534,7.076,21.61L11.107,79.14l14.275-4.537   c5.865,3.851,12.891,6.097,20.437,6.097c20.481,0,37.146-16.533,37.146-36.857S66.301,6.982,45.818,6.982z M68.129,53.938   c-0.273-0.447-0.994-0.717-2.076-1.254c-1.084-0.537-6.41-3.138-7.4-3.495c-0.993-0.358-1.717-0.538-2.438,0.537   c-0.721,1.076-2.797,3.495-3.43,4.212c-0.632,0.719-1.263,0.809-2.347,0.271c-1.082-0.537-4.571-1.673-8.708-5.333   c-3.219-2.848-5.393-6.364-6.025-7.441c-0.631-1.075-0.066-1.656,0.475-2.191c0.488-0.482,1.084-1.255,1.625-1.882   c0.543-0.628,0.723-1.075,1.082-1.793c0.363-0.717,0.182-1.344-0.09-1.883c-0.27-0.537-2.438-5.825-3.34-7.977   c-0.902-2.15-1.803-1.792-2.436-1.792c-0.631,0-1.354-0.09-2.076-0.09c-0.722,0-1.896,0.269-2.889,1.344   c-0.992,1.076-3.789,3.676-3.789,8.963c0,5.288,3.879,10.397,4.422,11.113c0.541,0.716,7.49,11.92,18.5,16.223   C58.2,65.771,58.2,64.336,60.186,64.156c1.984-0.179,6.406-2.599,7.312-5.107C68.398,56.537,68.398,54.386,68.129,53.938z"/> </g></g> </svg> </span>
 									<span class="simplesocialtxt">Whatsapp</span>
 								</button>';
@@ -1280,7 +1340,7 @@ class SimpleSocialButtonsPR {
 
 				case 'viber':
 					if ( $this->selected_theme == 'simple-icons' ) {
-						$arrButtonsCode[] = '<button class="ssb_viber-icon" onclick="javascript:window.open(this.dataset.href, \'_self\' );return false;" class="simplesocial-viber-share" data-href="viber://forward?text=' . $permalink . '">
+						$arrButtonsCode[] = '<button  onclick="javascript:window.open(this.dataset.href, \'_self\' );return false;" class="simplesocial-viber-share ssb_viber-icon" data-href="viber://forward?text=' . $permalink . '">
 						<span class="icon"> <svg aria-labelledby="simpleicons-viber-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-viber-icon">Viber icon</title><path d="M20.812 2.343c-.596-.549-3.006-2.3-8.376-2.325 0 0-6.331-.38-9.415 2.451C1.302 4.189.698 6.698.634 9.82.569 12.934.487 18.774 6.12 20.36h.005l-.005 2.416s-.034.979.609 1.178c.779.24 1.236-.504 1.98-1.303.409-.439.972-1.088 1.397-1.582 3.851.322 6.813-.416 7.149-.525.777-.254 5.176-.816 5.893-6.658.738-6.021-.357-9.83-2.338-11.547v.004zm.652 11.112c-.615 4.876-4.184 5.187-4.83 5.396-.285.092-2.895.738-6.164.525 0 0-2.445 2.941-3.195 3.705-.121.121-.271.166-.361.145-.135-.029-.164-.18-.164-.404l.015-4.006c-.015 0 0 0 0 0-4.771-1.336-4.485-6.301-4.425-8.91.044-2.596.538-4.726 1.994-6.167 2.611-2.371 7.997-2.012 7.997-2.012 4.543.016 6.721 1.385 7.223 1.846 1.674 1.432 2.529 4.865 1.904 9.893l.006-.011zM7.741 4.983c.242 0 .459.109.629.311.004.002.58.695.83 1.034.235.32.551.83.711 1.115.285.51.104 1.032-.172 1.248l-.566.45c-.285.229-.25.653-.25.653s.84 3.157 3.959 3.953c0 0 .426.039.654-.246l.451-.569c.213-.285.734-.465 1.244-.181.285.15.795.466 1.116.704.339.24 1.032.826 1.036.826.33.271.404.689.18 1.109v.016c-.23.405-.541.78-.934 1.141h-.008c-.314.27-.629.42-.944.449-.03 0-.075.016-.136 0-.135 0-.27-.029-.404-.061v-.014c-.48-.135-1.275-.48-2.596-1.216-.855-.479-1.574-.96-2.189-1.455-.315-.255-.645-.54-.976-.87l-.076-.028-.03-.03-.029-.029c-.331-.33-.615-.66-.871-.98-.48-.609-.96-1.327-1.439-2.189-.735-1.32-1.08-2.115-1.215-2.596H5.7c-.045-.134-.075-.269-.06-.404-.015-.061 0-.105 0-.141.03-.299.189-.614.458-.944h.005c.355-.39.738-.704 1.146-.933.164-.091.329-.135.479-.135h.016l-.003.012zm4.095-.683h.116l.076.002h.02l.089.005h.511l.135.015h.074l.15.016h.03l.104.015h.016l.074.015c.046 0 .076.016.105.016h.091l.075.029.06.016.06.015.03.015h.045l.046.016h.029l.074.016.045.014.046.016.06.016.03.014c.03 0 .06.016.091.016l.044.015.046.016.119.044.061.031.135.06.045.015.045.016.09.045.061.015.029.015.076.031.029.014.061.031.045.014.045.03.059.03.046.029.03.016.061.03.044.03.075.045.045.016.074.044.016.015.045.031.09.074.046.03.044.03.031.014.045.031.074.074.061.045.045.03.016.015.029.016.074.061.046.044.03.03.045.029.045.031.029.015.12.12.06.061.135.135.031.029c.016.016.045.045.061.075l.029.03.166.194.045.06c.014.016.014.031.029.031l.09.135.045.045.09.12.076.12.045.09.059.105.045.09.016.029.029.061.076.15.074.149.031.075c.059.135.104.27.164.42.074.195.135.404.18.63.045.165.076.315.105.48l.029.27.045.3c.016.121.031.256.031.375.014.121.014.24.014.359v.256c0 .016-.006.029-.014.045-.016.03-.031.045-.061.075-.021.015-.049.046-.08.046-.029.014-.059.014-.09.014h-.045c-.029 0-.059-.014-.09-.029-.029-.016-.061-.03-.074-.061-.016-.029-.045-.061-.061-.09s-.031-.06-.031-.09v-.359c-.014-.209-.029-.425-.059-.639-.016-.146-.045-.284-.061-.42 0-.074-.016-.146-.029-.209l-.029-.15-.038-.141-.016-.09-.045-.15c-.029-.12-.074-.24-.119-.36-.029-.091-.061-.165-.105-.239l-.029-.076-.135-.27-.031-.045c-.061-.135-.135-.27-.225-.391l-.045-.074h-.201l-.064-.091c-.055-.089-.114-.165-.18-.239l-.125-.15-.015-.016-.046-.057-.035-.045-.075-.074-.015-.03-.07-.06-.045-.046-.083-.075-.04-.037-.046-.045-.015-.016c-.016-.015-.045-.045-.075-.06l-.076-.062-.03-.015-.061-.046-.074-.06-.045-.036-.03-.016-.06-.053c0-.016-.016-.016-.031-.016l-.029-.029-.015-.016v-.013l-.03-.014-.061-.037-.044-.031-.075-.045-.06-.045-.029-.016-.032-.013h-.09l-.019-.016-.065-.035-.009-.014-.03-.016-.045-.021h-.012l-.045-.016-.025-.015-.045-.015-.01-.011-.03-.016-.053-.029-.03-.015-.09-.03-.074-.029-.137-.016-.044-.029c-.015-.01-.03-.016-.046-.016l-.029-.015c-.029-.011-.045-.016-.075-.03l-.03-.016h-.029l-.061-.029-.029-.016-.045-.015h-.092c-.008 0-.019-.005-.03-.007h-.09l-.045-.016h-.015l-.045-.016h-.041c-.025-.014-.045-.014-.07-.014l-.01-.016-.06-.015c-.03-.016-.056-.016-.084-.016l-.045-.015-.05-.016-.045-.014-.061-.016h-.061l-.179-.022h-.09l-.116-.015h-.076l-.068-.008h-.03l-.054-.016h-.285l-.01-.015h-.061c-.03 0-.064-.015-.09-.03-.03-.016-.061-.029-.081-.06l-.03-.046c-.029-.029-.029-.06-.045-.09-.014-.028-.014-.059-.014-.089s0-.06.015-.09c.016-.029.029-.06.061-.075.015-.03.044-.044.074-.06.029-.016.061-.03.09-.03h.061l.015.066zm.554 1.574l.037.003.061.006c.008 0 .018 0 .029.003.022 0 .045.004.075.006l.06.008.024.016.045.015.048.015.045.016h.03l.042.015.07.015.056.016.026.014h.073l.119.028.046.015.045.015.045.016s.015 0 .015.015l.046.015.044.016.045.016c.015 0 .03.014.046.014.007 0 .014.016.025.016l.064.03h.029l.09.03.05.029.046.03.108.045.06.015.031.031c.045.014.09.044.135.059l.048.03.048.03.049.029c.045.03.082.046.121.076l.029.014.041.031.022.015.075.045.037.03.065.043.029.015.03.015.046.03.06.046c.015.014.022.014.034.029.01.015.016.015.025.03l.033.03.036.029.03.03.046.046.029.03.016.016.09.089.016.016c0 .015.015.03.029.03l.016.013.045.046.029.045.03.03.045.06.046.046.09.119.014.029.061.076.016.029.015.031.015.029.016.03c.016.015.016.03.029.06l.043.076.016.015.029.061.031.044c.014.015.014.029.029.045l.03.045.03.061.029.059.016.046c.015.044.045.075.06.12 0 .015.015.029.015.045l.045.119.061.195c0 .016.015.045.015.061l.046.135.044.18.046.24c.014.074.014.135.029.211.016.119.03.238.03.359l.015.21v.165c0 .016 0 .029-.015.045l-.044.043c-.029.023-.045.045-.074.061-.03.015-.061.029-.09.04-.031.016-.075.016-.105.016-.029 0-.061-.016-.09-.03-.016 0-.03-.016-.045-.021-.031-.014-.061-.039-.075-.065-.03-.03-.046-.06-.046-.091l-.014-.044v-.313c0-.133-.016-.256-.031-.385-.015-.135-.044-.285-.074-.42-.029-.09-.045-.18-.075-.26l-.03-.091-.029-.075-.016-.03-.045-.12-.045-.09-.075-.149-.069-.12v-.019l-.029-.047-.03-.038-.045-.075-.046-.061-.089-.119c-.046-.061-.09-.12-.142-.178-.014-.015-.029-.029-.029-.045l-.03-.029-.017-.016-.03-.014-.03-.027v-.146l-.119-.113-.075-.068v-.014l-.03-.031-.038-.029-.015-.016c0-.015-.016-.015-.029-.015l-.046-.016-.015-.015-.061-.045-.014-.016-.016-.015c-.012-.015-.023-.015-.03-.015l-.06-.045-.016-.016-.06-.029-.011-.016-.045-.029-.03-.016-.03-.029-.029-.031h-.016c-.029-.029-.06-.044-.105-.06l-.044-.03-.03-.014-.016-.016-.045-.03-.044-.015-.06-.03-.046-.015-.015-.016-.056-.014v-.012l-.091-.03-.06-.03-.03-.015h-.06c-.03-.015-.045-.015-.075-.03H13.2l-.045-.016h-.044l-.046-.014-.029-.016h-.061l-.061-.015-.029-.016h-.165l-.069-.015H12.3l-.046-.016c-.029-.014-.06-.029-.09-.06-.014-.03-.045-.06-.06-.089-.015-.031-.03-.061-.03-.091v-.09c.006-.046.016-.075.03-.105.008-.015.015-.03.03-.045.018-.03.045-.06.075-.075.015-.015.03-.015.044-.029.031-.016.061-.016.091-.016h.06l-.014.055zm.454 1.629c.015 0 .03 0 .044.004.016 0 .031 0 .046.002l.052.005c.104.009.213.024.318.046l.104.023.026.008.114.029.059.02.046.016c.045.014.091.045.135.06l.016.015.06.03.09.046.029.014c.016.016.031.016.046.03.015.016.045.03.06.045.061.03.105.075.15.105l.105.09.09.091.061.074.029.029.03.031.044.06.091.135.075.135.06.12.046.105c.044.104.06.195.09.299.029.091.045.196.06.285l.015.15.016.136V9.8c0 .045-.016.075-.03.105-.015.029-.046.074-.075.09-.03.029-.061.045-.105.061-.029.014-.06.014-.09.014-.029 0-.06 0-.09-.014l-.104-.046c-.03-.03-.06-.045-.091-.091-.015-.029-.029-.06-.045-.104v-.166l-.015-.105-.015-.119-.016-.105-.016-.06c0-.015-.014-.045-.014-.06-.03-.121-.09-.24-.15-.36l-.061-.06-.047-.06-.045-.045-.015-.03-.075-.06-.061-.061-.059-.045c-.016-.015-.03-.015-.061-.029l-.09-.061-.061-.03-.029-.015h-.016l-.076-.031-.09-.03-.09-.015h-.075l-.044-.015-.035-.007h-.045l-.06-.016h-.255l-.015-.075h-.039c-.03-.004-.055-.015-.08-.029-.035-.021-.064-.045-.09-.08-.018-.029-.034-.061-.045-.09-.008-.029-.012-.06-.012-.09 0-.037 0-.075.015-.113.015-.039.03-.07.06-.1l.061-.045c.029-.016.061-.03.09-.03l.062-.075h.032z"/></svg> </span>
 						<span class="simplesocialtxt">Viber</span>
 						</button>';
@@ -1299,19 +1359,48 @@ class SimpleSocialButtonsPR {
 
 					case 'messenger':
 						$link = urlencode( $permalink );
+						$messenger_share_url = $this->is_mobile() ? "fb-messenger://share/?link=$link?app_id=$this->fb_app_id" : "http://www.facebook.com/dialog/send?app_id=$this->fb_app_id&redirect_uri=$link&link=$link&display=popup";
 
 						if ( $this->selected_theme == 'simple-icons' ) {
-							$arrButtonsCode[] = '<button class="ssb_msng-icon" onclick="javascript:window.open(this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" class="simplesocial-viber-share" data-href="http://www.facebook.com/dialog/send?app_id='. $this->fb_app_id .'&redirect_uri=' . $link . '&link=' . $link . '&display=popup">
-							<span class="icon"> <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="19px" viewBox="-889.5 1161 18 19" enable-background="new -889.5 1161 18 19" xml:space="preserve">
-							<path opacity="0.99" fill="#FFFFFF" enable-background="new    " d="M-880.5,1161c-5,0-9,3.8-9,8.5c0,2.4,1,4.5,2.7,6v4.5l3.8-2.3 c0.8,0.2,1.6,0.3,2.5,0.3c5,0,9-3.8,9-8.5S-875.5,1161-880.5,1161z M-879.6,1172.2l-2.4-2.4l-4.3,2.4l4.7-5.2l2.4,2.4l4.2-2.4 L-879.6,1172.2z"/>
-							</svg> </span>
-							<span class="simplesocialtxt">Messenger</span>
-							</button>';
+							$arrButtonsCode[] = '<button  onclick="javascript:window.open(this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" class="simplesocial-viber-share ssb_msng-icon" data-href='. $messenger_share_url .'>
+							 <span class="icon"> <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="19px" viewBox="-889.5 1161 18 19" enable-background="new -889.5 1161 18 19" xml:space="preserve">
+							 <path opacity="0.99" fill="#FFFFFF" enable-background="new    " d="M-880.5,1161c-5,0-9,3.8-9,8.5c0,2.4,1,4.5,2.7,6v4.5l3.8-2.3 c0.8,0.2,1.6,0.3,2.5,0.3c5,0,9-3.8,9-8.5S-875.5,1161-880.5,1161z M-879.6,1172.2l-2.4-2.4l-4.3,2.4l4.7-5.2l2.4,2.4l4.2-2.4 L-879.6,1172.2z"/>
+							 </svg> </span>
+							 <span class="simplesocialtxt">Messenger</span>
+							 </button>';
 						} else {
 
-							$arrButtonsCode[] = '<button class="simplesocial-msng-share"  onclick="javascript:window.open( this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" data-href="http://www.facebook.com/dialog/send?app_id='. $this->fb_app_id .'&redirect_uri=' . $link . '&link=' . $link . '&display=popup" ><span class="simplesocialtxt">Messenger</span></button> ';
+							$arrButtonsCode[] = '<button class="simplesocial-msng-share"  onclick="javascript:window.open( this.dataset.href, \'_blank\',  \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\' );return false;" data-href="'. $messenger_share_url .'" ><span class="simplesocialtxt">Messenger</span></button> ';
 						}
 
+						break;
+						case  'email':
+							if ( $this->selected_theme == 'simple-icons' ) {
+								$arrButtonsCode[] = ' <button  onclick="javascript:window.location.href = this.dataset.href;return false;" class="ssb_email-icon simplesocial-email-share" data-href="mailto:?subject='. $title .'&body='. $permalink .'"><span class="simplesocialtxt">
+								<span class="icon"> <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="11.9px" viewBox="-1214.1 1563.9 16 11.9" enable-background="new -1214.1 1563.9 16 11.9" xml:space="preserve">
+								<path  d="M-1214.1,1565.2v1l8,4l8-4v-1c0-0.7-0.6-1.3-1.3-1.3h-13.4C-1213.5,1563.9-1214.1,1564.4-1214.1,1565.2z M-1214.1,1567.4v7.1c0,0.7,0.6,1.3,1.3,1.3h13.4c0.7,0,1.3-0.6,1.3-1.3v-7.1l-8,4L-1214.1,1567.4z"/> </svg> </span>
+								<span class="simplesocialtxt">Email</span>
+								</button>';
+							} else {
+
+								$arrButtonsCode[] = '<button onclick="javascript:window.location.href = this.dataset.href;return false;" class="simplesocial-email-share" data-href="mailto:?subject='. $title .'&body='. $permalink .'"><span class="simplesocialtxt">Email</span></button>';
+							}
+						break;
+						case  'print':
+						if ( $this->selected_theme == 'simple-icons' ) {
+								$arrButtonsCode[] = ' <button  onclick="javascript:window.print();return false;" class="ssb_print-icon simplesocial-email-share" ><span class="simplesocialtxt">
+								<span class="icon"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="16px" height="13.7px" viewBox="-1296.9 1876.4 16 13.7" enable-background="new -1296.9 1876.4 16 13.7" xml:space="preserve"><g>
+								<path fill="#FFFFFF" d="M-1288.9,1879.7c2.3,0,4.6,0,6.9,0c0.4,0,0.7,0.1,0.9,0.5c0.1,0.2,0.1,0.4,0.1,0.6c0,1.7,0,3.4,0,5.1   c0,0.7-0.4,1.1-1.1,1c-0.6,0-1.2,0-1.8,0c-0.1,0-0.2,0-0.2,0.2c0,0.7,0,1.4,0,2c0,0.6-0.4,1-1,1c-0.1,0-0.3,0-0.4,0   c-2.5,0-4.9,0-7.4,0c-0.3,0-0.5,0-0.8-0.1c-0.3-0.2-0.5-0.5-0.5-0.9c0-0.7,0-1.4,0-2c0-0.2-0.1-0.2-0.2-0.2c-0.6,0-1.2,0-1.7,0   c-0.7,0-1-0.4-1-1c0-1.7,0-3.4,0-5.1c0-0.4,0.2-0.8,0.6-0.9c0.2-0.1,0.3-0.1,0.5-0.1C-1293.5,1879.7-1291.2,1879.7-1288.9,1879.7z    M-1288.9,1884.9C-1288.9,1884.9-1288.9,1884.9-1288.9,1884.9c-1.4,0-2.8,0-4.2,0c-0.1,0-0.2,0-0.2,0.2c0,0.3,0,0.7,0,1   c0,1,0,2,0,3c0,0.3,0.1,0.4,0.4,0.4c2.5,0,5.1,0,7.6,0c0.1,0,0.3,0,0.4,0c0.2,0,0.3-0.2,0.3-0.3c0-1.3,0-2.7,0-4   c0-0.2,0-0.2-0.2-0.2C-1286.1,1884.9-1287.5,1884.9-1288.9,1884.9z M-1284.2,1882.4c0.4,0,0.7-0.3,0.7-0.7c0-0.4-0.3-0.7-0.8-0.7   c-0.4,0-0.7,0.3-0.7,0.7C-1284.9,1882.1-1284.6,1882.4-1284.2,1882.4z"/>
+								<path fill="#FFFFFF" d="M-1283.9,1879c-0.2,0-0.4,0-0.5,0c-3.1,0-6.2,0-9.3,0c-0.1,0-0.2,0-0.2-0.2c0-0.5,0-1,0-1.5   c0-0.5,0.4-1,0.9-1c0.1,0,0.2,0,0.3,0c2.6,0,5.2,0,7.8,0c0.6,0,1,0.4,1,1c0,0.5,0,0.9,0,1.4   C-1283.9,1878.9-1283.9,1879-1283.9,1879z"/>
+								<path fill="#FFFFFF" d="M-1291.9,1886.9c0-0.2,0-0.4,0-0.6c2,0,4,0,6,0c0,0.2,0,0.4,0,0.6   C-1287.9,1886.9-1289.9,1886.9-1291.9,1886.9z"/>
+								<path fill="#FFFFFF" d="M-1289.6,1888.2c-0.7,0-1.4,0-2.1,0c-0.1,0-0.2,0-0.2-0.2c0-0.1,0-0.2,0-0.3c0-0.1,0-0.2,0.2-0.2   c0.1,0,0.2,0,0.3,0c1.3,0,2.6,0,3.9,0c0.3,0,0.3,0,0.3,0.3c0,0.4,0,0.4-0.4,0.4C-1288.3,1888.2-1288.9,1888.2-1289.6,1888.2   C-1289.6,1888.2-1289.6,1888.2-1289.6,1888.2z"/>
+								</g></svg></span>
+								<span class="simplesocialtxt">Print</span>
+								</button>';
+							} else {
+
+								$arrButtonsCode[] = '<button onclick="javascript:window.print();return false;" class="simplesocial-print-share" ><span class="simplesocialtxt">Print</span></button>';
+							}
 						break;
 			}
 		}
@@ -1339,23 +1428,48 @@ class SimpleSocialButtonsPR {
 
 		if ( class_exists( 'Jetpack' ) ) { // Check jetpack active.
 			return;
-		} else if( defined( 'WPSEO_VERSION' ) ) { // Check jetpack active.
+		} else if( defined( 'WPSEO_VERSION' ) ) { // Check Yoast active.
 			return;
 		}
+         $og_tag = '';
+		 $og_tag .=  PHP_EOL . '<!-- Open Graph Meta Tags generated by Simple Social Buttons ' . $this->pluginVersion . ' -->' . PHP_EOL;
+		if ($this->og_get_title()) {
+			$og_tag .= '<meta property="og:title" content="'. get_the_title() ." - ". get_bloginfo( 'name' )  .'" />' . PHP_EOL;
+		}
 
-		echo PHP_EOL . '<!-- Open Graph Meta Tags generated by Simple Social Buttons ' . $this->pluginVersion . ' -->' . PHP_EOL;
-		echo '<meta property="og:title" content="'. get_the_title() ." - ". get_bloginfo( 'name' )  .'" />' . PHP_EOL;
-		echo '<meta property="og:description" content="'. $this->get_excerpt_by_id( get_the_id() ) .'" />' . PHP_EOL;
-		echo '<meta property="og:url" content="'. get_permalink()  .'" />' . PHP_EOL;
-		echo '<meta property="og:site_name" content="'. get_bloginfo( 'name' )  .'" />' . PHP_EOL;
-		echo $this->get_og_image();
+		if ( $this->og_get_description() ) {
+			$og_tag .= '<meta property="og:description" content="'. $this->og_get_description() .'" />' . PHP_EOL;
+		}
+		$og_tag .= '<meta property="og:url" content="'. get_permalink()  .'" />' . PHP_EOL;
+		if ( $this->og_get_blog() ) {
+			$og_tag .= '<meta property="og:site_name" content="'. $this->og_get_blog()  .'" />' . PHP_EOL;
+		}
+		$og_tag .= $this->get_og_image();
+
+		$og_tag .= '<meta name="twitter:card" content="summary_large_image" />' . PHP_EOL;
+		if ( $this->og_get_description() ) {
+			$og_tag .= '<meta name="twitter:description" content="'. $this->get_excerpt_by_id( get_the_id() ) .'" />' . PHP_EOL;
+		}
+
+		if ( $this->og_get_title() ) {
+			$og_tag .= '<meta name="twitter:title" content="'. get_the_title() ." - ". get_bloginfo( 'name' )  .'" />' . PHP_EOL;
+		}
+		$og_tag .= $this->generate_twitter_image();
+
+        echo  apply_filters( 'ssb_og_tag', $og_tag );
+    }
 
 
-		echo '<meta name="twitter:card" content="summary_large_image" />' . PHP_EOL;
-		echo '<meta name="twitter:description" content="'. $this->get_excerpt_by_id( get_the_id() ) .'" />' . PHP_EOL;
-		echo '<meta name="twitter:title" content="'. get_the_title() ." - ". get_bloginfo( 'name' )  .'" />' . PHP_EOL;
-		echo $this->generate_twitter_image();
+	function og_get_title() {
+		return get_the_title() ." - ". get_bloginfo( 'name' );
+	}
 
+	function og_get_description() {
+		return $this->get_excerpt_by_id( get_the_id() );
+	}
+
+	function og_get_blog() {
+		return get_bloginfo( 'name' ) ;
 	}
 
 
@@ -1367,6 +1481,9 @@ class SimpleSocialButtonsPR {
 		* @return string
 		*/
 	 function get_excerpt_by_id( $post_id ) {
+
+		 		if( ! $post_id )
+				return;
 			 // Check if the post has an excerpt
 			 if( has_excerpt() ) {
 					 $excerpt_length = apply_filters( 'excerpt_length', 35 );
@@ -1392,6 +1509,9 @@ class SimpleSocialButtonsPR {
 	 * @since 2.0.10
 	 */
 	 public function get_content_images( $post ) {
+
+		 if( ! $post )
+		 return;
 
 		 $content = $post->post_content;
 		 $images = '';
@@ -1456,6 +1576,10 @@ class SimpleSocialButtonsPR {
 	 */
 	 public function get_twitter_content_images( $post ) {
 
+		 if ( ! $post ) {
+		 	return;
+		 }
+
 		 $content = $post->post_content;
 		 $images = '';
 		 if ( preg_match_all( '`<img [^>]+>`', $content, $matches ) ) {
@@ -1468,8 +1592,58 @@ class SimpleSocialButtonsPR {
 		 return $images;
 	 }
 
+	 /**
+	 * User to convert http to https or vice versa
+	 * @since 2.0.12
+	 * @param $url
+	 * @return url
+	 */
+	public function http_or_https_resolve_url( $url ){
 
+		$arr_parsed_url = parse_url($url);
+		if ( ! empty($arr_parsed_url['scheme'] ) ) {
+			if ( "http" === $arr_parsed_url['scheme']  )
+			{
+				return  $url = str_replace( 'http', 'https', $url );
+			} else if (  "https" === $arr_parsed_url['scheme'] )
+			{
+				return	$url = str_replace( 'https', 'http', $url );
+			}
+		}
+	}
 
+	/**
+	 * Detect if mobile.
+	 *
+	 * @since 2.0.13
+	 */
+	public function is_mobile(){
+
+		$useragent = $_SERVER['HTTP_USER_AGENT'];
+		if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i',$useragent)||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i',substr($useragent,0,4))){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+     * convert url http to https or vice versa
+	 * @param $permalink
+	 * @since 2.0.14
+	 * @return mixed
+	 */
+	function http_or_https_link_generate( $permalink ){
+
+	    foreach ( $this->arrKnownButtons as $social_name ) {
+		    if ( 'totalshare' == $social_name || 'viber' == $social_name || 'fblike' == $social_name || 'whatsapp' == $social_name || 'print' == $social_name || 'email' == $social_name || 'messenger' == $social_name) {
+			    continue; }
+		    $url = $this->http_or_https_resolve_url( $permalink  );
+		    //get alt hurl to cover http or https issue
+		    $_alt_share_links[ $social_name ] = call_user_func( 'ssb_' . $social_name . '_generate_link', $url );
+		}
+        return $_alt_share_links;
+	}
 
 } // end class
 

@@ -140,22 +140,80 @@ function ssb_fetch_shares_via_curl_multi( $data, $options = array() ) {
   * @return Array Simple array with counts.
   * @since 2.0
   */
-  function ssb_fetch_fresh_counts( $stats, $post_id ) {
+  function ssb_fetch_fresh_counts( $stats, $post_id ,$alt_share_link) {
 
     $stats_result = array();
     $total = 0;
 
+	  // special case if post id not exist for example short code run on widget out side the loop in archive page
+	  if( 0 !== $post_id ){
+		  $networks = get_post_meta( $post_id, 'ssb_old_counts', true );
+	  }else{
+		  $networks = get_option(  'ssb_not_exist_post_old_counts' );
+	  }
+
+	  if( ! $networks ){
+		  $_result = ssb_fetch_shares_via_curl_multi( array_filter( $alt_share_link ) );
+		  ssb_fetch_http_or_https_counts( $_result, $post_id );
+		  // special case if post id not exist for example short code run on widget out side the loop in archive page
+		  if( 0 !== $post_id ){
+			  $networks = get_post_meta( $post_id, 'ssb_old_counts', true );
+		  }else{
+			  $networks = get_option(  'ssb_not_exist_post_old_counts' );
+
+		  }
+
+	  }
+
     foreach ( $stats as $social_name => $counts ) {
       if ( 'totalshare' == $social_name  || 'fblike' == $social_name || 'viber' == $social_name || 'whatsapp' == $social_name ) { continue; }
       $stats_counts  = call_user_func( 'ssb_format_' . $social_name . '_response', $counts );
-      $stats_result[ $social_name ] = $stats_counts;
-      update_post_meta( $post_id, 'ssb_' . $social_name . '_counts', $stats_counts );
-      $total += $stats_counts;
+	    $new_counts = $stats_counts + $networks[ $social_name];
+	    $stats_result[ $social_name ] = $new_counts;
+	    // special case if post id not exist for example short code run on widget out side the loop in archive page
+	    if( 0 !== $post_id ){
+	     update_post_meta( $post_id, 'ssb_' . $social_name . '_counts', $new_counts );
+	    }else{
+		 update_option( 'ssb_not_exist_post_'. $social_name .'_counts', $new_counts );
+	    }
+
+	  $total +=  $new_counts;
     }
+
     $stats_result['total'] = $total;
-    update_post_meta( $post_id, 'ssb_total_counts', $total );
+	  // special case if post id not exist for example short code run on widget out side the loop in archive page
+	  if( 0 !== $post_id ){
+        update_post_meta( $post_id, 'ssb_total_counts', $total );
+	  }else{
+		update_option( 'ssb_not_exist_post_total_counts', $total );
+	  }
+
     return $stats_result;
   }
+	/**
+	 * Fetch counts + http or https resolve .
+	 *
+	 * @param  Array  $stats
+	 * @param  String $post_id
+	 * @return Array Simple array with counts.
+	 * @since 2.0.12
+	 */
+	function  ssb_fetch_http_or_https_counts( $stats, $post_id ){
+		$stats_result = array();
+		$networks = array();
+		foreach ( $stats as $social_name => $counts ) {
+			if ( 'totalshare' == $social_name  || 'fblike' == $social_name || 'viber' == $social_name || 'whatsapp' == $social_name ) { continue; }
+			$stats_counts  = call_user_func( 'ssb_format_' . $social_name . '_response', $counts );
+			 $networks[ $social_name] = $stats_counts;
+		}
+		// special case if post id not exist for example short code run on widget out side the loop in archive page
+		if( 0 !== $post_id ){
+			update_post_meta( $post_id, 'ssb_old_counts', $networks );
+		}else{
+			update_option( 'ssb_not_exist_post_old_counts', $networks );
+		}
+
+	}
 
   /**
   * Get the cahced counts.
@@ -169,7 +227,12 @@ function ssb_fetch_shares_via_curl_multi( $data, $options = array() ) {
     $network_name[] = 'total';
     $result = array();
     foreach ( $network_name as $social_name ) {
-      $result[ $social_name ] = get_post_meta( $post_id, 'ssb_' . $social_name . '_counts', true );
+	    // special case if post id not exist for example short code run on widget out side the loop in archive page
+	    if( 0 !== $post_id ){
+		    $result[ $social_name ] = get_post_meta( $post_id, 'ssb_' . $social_name . '_counts', true );
+	    }else{
+		    $result[ $social_name ] = get_option( 'ssb_not_exist_post_'. $social_name .'_counts'  );
+	    }
     }
     return $result;
   }
