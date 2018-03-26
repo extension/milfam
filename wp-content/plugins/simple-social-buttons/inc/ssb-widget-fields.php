@@ -14,6 +14,10 @@
     <input type="checkbox" value="1" class="show_youtube_check" name="<?php echo esc_attr( $this->get_field_name( 'show_youtube' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'show_youtube' ) ); ?>" <?php checked($show_youtube ,1);?> > <label for="<?php echo esc_attr( $this->get_field_id( 'show_youtube' ) ); ?>">YouTube</label>
     <br/>
     <input type="checkbox" value="1" class="show_pinterest_check" name="<?php echo esc_attr( $this->get_field_name( 'show_pinterest' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'show_pinterest' ) ); ?>" <?php checked($show_pinterest ,1);?> > <label for="<?php echo esc_attr( $this->get_field_id( 'show_pinterest' ) ); ?>">Pinterest</label>
+    <br/>
+    <input type="checkbox" value="1" class="show_instagram_check" name="<?php echo esc_attr( $this->get_field_name( 'show_instagram' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'show_instagram' ) ); ?>" <?php checked($show_instagram ,1);?> > <label for="<?php echo esc_attr( $this->get_field_id( 'show_instagram' ) ); ?>">Instagram</label>
+    <br/>
+    <input type="checkbox" value="1" class="show_whatsapp_check" name="<?php echo esc_attr( $this->get_field_name( 'show_whatsapp' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'show_whatsapp' ) ); ?>" <?php checked($show_whatsapp ,1);?> > <label for="<?php echo esc_attr( $this->get_field_id( 'show_whatsapp' ) ); ?>">WhatsApp</label>
 </div>
 <!--facebook-->
 <div class="show_fb simpleshare-widget-settings" style="display: <?php echo  ( $display == $show_facebook )? 'block' : 'none' ?>">
@@ -93,9 +97,10 @@
 </p>
 <p  class="google_text" style="display: block ">
     <label for="<?php echo esc_attr( $this->get_field_id( 'google' ) ); ?>"><?php esc_attr_e( 'Google+ User ID:', 'simple-social-buttons' ); ?></label>
+    <p>
     <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'google' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'google' ) ); ?>" type="text" value="<?php echo esc_attr( $google ); ?>" placeholder="+username">
-    <input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'google_show_counter' ) ) ?>" id="<?php echo esc_attr( $this->get_field_id( 'google_show_counter' ) ) ?>" value="1" <?php checked( $google_show_counter, 1 ) ?> class="google_count_check" ><label for="<?php echo esc_attr( $this->get_field_id( 'google_show_counter' ) ) ?>"><label for="<?php echo esc_attr( $this->get_field_id( 'google_show_counter' ) ) ?>"> Display Google Plus follower counter</label>
-</p>
+    <input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'google_show_counter' ) ) ?>" id="<?php echo esc_attr( $this->get_field_id( 'google_show_counter' ) ) ?>" value="1" <?php checked( $google_show_counter, 1 ) ?> class="google_count_check" ><label for="<?php echo esc_attr( $this->get_field_id( 'google_show_counter' ) ) ?>"> Display Google Plus follower counter</label>
+    </p>
     <hr/>
 
 </div>
@@ -147,3 +152,38 @@
     </div>
     <hr/>
 </div>
+
+<!--instagram-->
+<div class="show_instagram simpleshare-widget-settings" style="display: <?php echo  ( $display == $show_instagram )? 'block' : 'none' ?>">
+    <h2><span>Instagram</span></h2>
+    <p>
+        <label for="<?php echo esc_attr( $this->get_field_id( 'instagram_text' ) ); ?>  "><?php esc_attr_e( 'Instagram Button Text:', 'simple-social-buttons' ); ?></label>
+        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'instagram_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'instagram_text' ) ); ?>" type="text" value="<?php echo esc_attr( $instagram_text ); ?>" placeholder="Follow  us on Instagram">
+    </p>
+    <p  class="instagram_text" style="display: block">
+        <label for="<?php echo esc_attr( $this->get_field_id( 'instagram' ) ); ?>"><?php esc_attr_e( 'Instagram User Name:', 'simple-social-buttons' ); ?></label>
+        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'instagram' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'instagram' ) ); ?>" type="text" value="<?php echo esc_attr( $instagram ); ?>" placeholder="Username" >
+        <input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'instagram_show_counter' ) ) ?>" id="<?php echo esc_attr( $this->get_field_id( 'instagram_show_counter' ) ) ?>" value="1" <?php checked( $instagram_show_counter, 1 ) ?> class="instagram_count_check" >
+        <label for="<?php echo esc_attr( $this->get_field_id( 'instagram_show_counter' ) ) ?>">Display Instagram follower counter</label>
+    </p>
+
+    <hr/>
+</div>
+
+<!--WhatsApp-->
+<div class="show_whatsapp simpleshare-widget-settings" style="display: <?php echo  ( $display == $show_whatsapp )? 'block' : 'none' ?>">
+    <h2><span>WhatsApp</span></h2>
+    <p>
+        <label for="<?php echo esc_attr( $this->get_field_id( 'whatsapp_text' ) ); ?>  "><?php esc_attr_e( 'WhatsApp Button Text:', 'simple-social-buttons' ); ?></label>
+        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'whatsapp_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'whatsapp_text' ) ); ?>" type="text" value="<?php echo esc_attr( $whatsapp_text ); ?>" placeholder="Message  us on WhatsApp">
+    </p>
+    <p  class="whatsapp_text" style="display: block">
+        <label for="<?php echo esc_attr( $this->get_field_id( 'whatsapp' ) ); ?>"><?php esc_attr_e( '
+        WhatsApp Mobile Number:', 'simple-social-buttons' ); ?></label>
+        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'whatsapp' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'whatsapp' ) ); ?>" type="text" value="<?php echo esc_attr( $whatsapp ); ?>" placeholder="923444XXXXXX" >
+
+    </p>
+
+    <hr/>
+</div>
+

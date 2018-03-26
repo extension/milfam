@@ -54,6 +54,8 @@ class Ssb_Follower_Widget extends WP_Widget {
 		$show_google_plus       = $instance['show_google_plus'];
 		$show_youtube           = $instance['show_youtube'];
 		$show_pinterest         = $instance['show_pinterest'];
+		$show_instagram         = $instance['show_instagram'];
+		$show_whatsapp          = $instance['show_whatsapp'];
 
 		$facebook_id            = $instance['facebook_id'];
 		$facebook_show_counter  = $instance['facebook_show_counter'];
@@ -80,11 +82,19 @@ class Ssb_Follower_Widget extends WP_Widget {
 		$pinterest_api_key      = $instance['pinterest_api_key'];
 		$pinterest_text         = $instance['pinterest_text'];
 
+		$instagram_id           = $instance['instagram'];
+ 		$instagram_show_counter = $instance['instagram_show_counter'];
+ 		$instagram_text         = $instance['instagram_text'];
+
+ 		$whatsapp               = $instance['whatsapp'];
+ 		$whatsapp_text          = $instance['whatsapp_text'];
+
 		$fb_likes               = $this->get_facebook_likes_count( $facebook_id, $facebook_access_token, $facebook_show_counter );
 		$twitter_follower       = $this->get_twitter_followers( $twitter_id, $twitter_api_key, $twitter_secret_key, $twitter_show_counter );
 		$google_follower        = $this->get_google_plus_follower( $google_id, $google_show_counter );
 		$youtube_subscriber     = $this->get_youtube_subscriber( $youtube_id, $youtube_show_counter, $youtube_type );
 		$pinterest_follower     = $this->get_pinterest_followers( $pinterest_api_key, $pinterest_show_counter );
+		$instagram_follower     = $this->get_instagram_id_followers( $instagram_id, $instagram_show_counter );
 
 		include SSB_PLUGIN_DIR . '/inc/ssb-widget-front.php';
 	}
@@ -106,6 +116,8 @@ class Ssb_Follower_Widget extends WP_Widget {
 			$instance['youtube_text']   = __( 'Subscribe us on Youtube', 'simple-social-buttons' );
 			$instance['twitter_text']   = __( 'Follow us on Twitter', 'simple-social-buttons' );
 			$instance['pinterest_text'] = __( 'Pin us on Pinterest', 'simple-social-buttons' );
+			$instance['instagram_text'] = __( 'Follow us on Instagram', 'simple-social-buttons' );
+			$instance['whatsapp_text']  = __( 'Contact us on WhatsApp', 'simple-social-buttons' );
 
 		}
 
@@ -117,6 +129,8 @@ class Ssb_Follower_Widget extends WP_Widget {
 		$show_google_plus = ! empty( $instance['show_google_plus'] ) ? $instance['show_google_plus'] : '';
 		$show_youtube     = ! empty( $instance['show_youtube'] ) ? $instance['show_youtube'] : '';
 		$show_pinterest   = ! empty( $instance['show_pinterest'] ) ? $instance['show_pinterest'] : '';
+		$show_instagram   = ! empty( $instance['show_instagram'] ) ? $instance['show_instagram'] : '';
+		$show_whatsapp   = ! empty( $instance['show_whatsapp'] ) ? $instance['show_whatsapp'] : '';
 
 		$facebook_id           = ! empty( $instance['facebook_id'] ) ? $instance['facebook_id'] : '';
 		$facebook_show_counter = ! empty( $instance['facebook_show_counter'] ) ? $instance['facebook_show_counter'] : '';
@@ -145,6 +159,16 @@ class Ssb_Follower_Widget extends WP_Widget {
 		$pinterest_show_counter = ! empty( $instance['pinterest_show_counter'] ) ? $instance['pinterest_show_counter'] : '';
 		$pinterest_api_key      = ! empty( $instance['pinterest_api_key'] ) ? $instance['pinterest_api_key'] : '';
 
+		$instagram              = ! empty( $instance['instagram'] ) ? $instance['instagram'] : '';
+		$instagram_user_id      = ! empty( $instance['instagram_user_id'] ) ? $instance['instagram_user_id'] : '';
+		$instagram_text         = ! empty( $instance['instagram_text'] ) ? $instance['instagram_text'] : '';
+		$instagram_show_counter = ! empty( $instance['instagram_show_counter'] ) ? $instance['instagram_show_counter'] : '';
+
+		//whats app mobile number will store in $whatsapp
+		$whatsapp                    = ! empty( $instance['whatsapp'] ) ? $instance['whatsapp'] : '';
+		$whatsapp_text               = ! empty( $instance['whatsapp_text'] ) ? $instance['whatsapp_text'] : '';
+
+
 		include SSB_PLUGIN_DIR . '/inc/ssb-widget-fields.php';
 
 	}
@@ -167,6 +191,10 @@ class Ssb_Follower_Widget extends WP_Widget {
 		delete_transient( 'ssb_follow_google_counter' );
 		delete_transient( 'ssb_follow_youtube_counter' );
 		delete_transient( 'ssb_follow_pinterest_counter' );
+		delete_transient( 'ssb_follow_instagram_counter' );
+
+		/*var_dump( $new_instance );
+		die;*/
 
 		$instance          = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
@@ -176,6 +204,8 @@ class Ssb_Follower_Widget extends WP_Widget {
 		$instance['show_google_plus'] = ! empty( $new_instance['show_google_plus'] ) ? strip_tags( $new_instance['show_google_plus'] ) : '0';
 		$instance['show_youtube']     = ! empty( $new_instance['show_youtube'] ) ? strip_tags( $new_instance['show_youtube'] ) : '0';
 		$instance['show_pinterest']   = ! empty( $new_instance['show_pinterest'] ) ? strip_tags( $new_instance['show_pinterest'] ) : '0';
+		$instance['show_instagram']   = ! empty( $new_instance['show_instagram'] ) ? strip_tags( $new_instance['show_instagram'] ) : '0';
+		$instance['show_whatsapp']    = ! empty( $new_instance['show_whatsapp'] ) ? strip_tags( $new_instance['show_whatsapp'] ) : '0';
 
 		$instance['facebook_id']           = sanitize_text_field( wp_unslash( $new_instance['facebook_id'] ) );
 		$instance['facebook_app_id']       = sanitize_text_field( wp_unslash( $new_instance['facebook_app_id'] ) );
@@ -204,6 +234,13 @@ class Ssb_Follower_Widget extends WP_Widget {
 		$instance['pinterest_text']         = sanitize_text_field( wp_unslash( $new_instance['pinterest_text'] ) );
 		$instance['pinterest_api_key']      = sanitize_text_field( wp_unslash( $new_instance['pinterest_api_key'] ) );
 
+		$instance['instagram']              = sanitize_text_field( wp_unslash( $new_instance['instagram'] ) );
+		$instance['instagram_show_counter'] = ( ! empty( $new_instance['instagram_show_counter'] ) ) ? strip_tags( $new_instance['instagram_show_counter'] ) : '0';
+		$instance['instagram_text']         = sanitize_text_field( wp_unslash( $new_instance['instagram_text'] ) );
+
+		$instance['whatsapp']              = sanitize_text_field( wp_unslash( $new_instance['whatsapp'] ) );
+		$instance['whatsapp_text']         = sanitize_text_field( wp_unslash( $new_instance['whatsapp_text'] ) );
+
 		return $instance;
 	}
 
@@ -220,6 +257,9 @@ class Ssb_Follower_Widget extends WP_Widget {
 	function get_facebook_likes_count( $facebook_id, $access_token, $show_counter ) {
 
 		if ( $show_counter ) {
+			if( '' == $facebook_id ){
+				return 0;
+			}
 
 			if ( false === get_transient( 'ssb_follow_facebook_counter' ) ) {
 				$json_feed_url = "https://graph.facebook.com/$facebook_id/?fields=likes,fan_count&access_token=$access_token";
@@ -267,6 +307,9 @@ class Ssb_Follower_Widget extends WP_Widget {
 
 		if ( $show_count ) {
 
+			if( '' == $twitter_handle ){
+				return 0;
+			}
 			// cache version does not exist or expired
 			if ( false == get_transient( 'ssb_follow_twitter_counter' ) ) {
 
@@ -342,15 +385,24 @@ class Ssb_Follower_Widget extends WP_Widget {
 	 */
 	function get_google_plus_follower( $google_id, $show_counter ) {
 
-		if ( $show_counter ) {
 
-			if ( false === get_transient( 'ssb_follow_google_counter' ) ) {
+		if ( $show_counter ) {
+			if( '' == $google_id ){
+				return 0;
+			}
+
+			if( '' == $google_id ){
+				return 0;
+			}
+
+			if ( false === get_transient( 'ssb_follow_google_counter' )  ) {
 				$json_feed_url = 'https://www.googleapis.com/plus/v1/people/' . $google_id . '?fields=circledByCount%2CplusOneCount&key=' . $this->api_key;
 				$args          = array( 'httpversion' => '1.1' );
 				$json_feed     = wp_remote_get( $json_feed_url, $args );
 				if ( is_wp_error( $json_feed ) || 200 !== wp_remote_retrieve_response_code( $json_feed ) ) {
 					return 0;
 				}
+
 				$result  = json_decode( wp_remote_retrieve_body( $json_feed ) );
 
 				$counter = isset( $result->circledByCount ) ? $result->circledByCount : 0;
@@ -382,6 +434,9 @@ class Ssb_Follower_Widget extends WP_Widget {
 
 		if ( $show_counter ) {
 
+			if( '' == $channel_id ){
+				return 0;
+			}
 			if ( false === get_transient( 'ssb_follow_youtube_counter' ) ) {
 
 				// Check if username of channel id.
@@ -425,6 +480,9 @@ class Ssb_Follower_Widget extends WP_Widget {
 	function get_pinterest_followers(  $access_token, $show_counter ) {
 
 		if ( $show_counter ) {
+			if( '' == $access_token ){
+				return 0;
+			}
 
 			if ( false === get_transient( 'ssb_follow_pinterest_counter' ) ) {
 				$json_feed_url = 'https://api.pinterest.com/v1/me/followers/?access_token=' . $access_token;
@@ -450,6 +508,45 @@ class Ssb_Follower_Widget extends WP_Widget {
 			}
 		}
 
+	}
+
+	/**
+	* Passing instagram access token for getting instagram follower
+	* @since 2.0.10
+	* @param $instagram_id
+	* @param $show_counter
+	*
+	* @return int|string( insta follower )
+	*/
+	function  get_instagram_id_followers( $instagram_id, $show_counter ){
+
+		if ( $show_counter ) {
+			if( '' == $instagram_id ){
+				return 0;
+			}
+
+			if ( false === get_transient( 'ssb_follow_instagram_counter' ) ) {
+				$json_feed_url = "https://www.instagram.com/$instagram_id/?__a=1";
+
+				$args      = array( 'httpversion' => '1.1' );
+				$json_feed = wp_remote_get( $json_feed_url, $args );
+
+				if ( is_wp_error( $json_feed ) || 200 !== wp_remote_retrieve_response_code( $json_feed ) ) {
+					return 0;
+				}
+				$result  = json_decode( wp_remote_retrieve_body( $json_feed ) );
+				$counter = isset( $result->user->followed_by->count ) ? $result->user->followed_by->count : 0;
+				$counter = $this->format_number( $counter );
+
+				if ( ! empty( $counter ) ) {
+					set_transient( 'ssb_follow_instagram_counter', $counter, $this->cache_time );
+				}
+
+				return $counter;
+			} else {
+				return get_transient( 'ssb_follow_instagram_counter' );
+			}
+		}
 	}
 
 	/**

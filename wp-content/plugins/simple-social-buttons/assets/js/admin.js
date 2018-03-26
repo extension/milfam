@@ -227,7 +227,7 @@
     $(document).on('click', '.show_youtube_check', function () {
       var widget_content = $(this).parent().parent();
       if ($(this).is(':checked')) {
-        // $('.show_youtube').css('display', 'block');
+
         $(widget_content).find('.show_youtube').css('display', 'block');
       } else {
         $(widget_content).find('.show_youtube').css('display', 'none');
@@ -238,7 +238,7 @@
       $(document).on('click', '.show_pinterest_check', function () {
           var widget_content = $(this).parent().parent();
           if ($(this).is(':checked')) {
-              // $('.show_youtube').css('display', 'block');
+      
               $(widget_content).find('.show_pinterest').css('display', 'block');
           } else {
               $(widget_content).find('.show_pinterest').css('display', 'none');
@@ -256,7 +256,38 @@
           }
       });
 
-    //end widget js;
+      $(document).on('click', '.show_instagram_check', function () {
+        var widget_content = $(this).parent().parent();
+        if ($(this).is(':checked')) {
+  
+          $(widget_content).find('.show_instagram').css('display', 'block');
+        } else {
+          $(widget_content).find('.show_instagram').css('display', 'none');
+        }
+
+      });
+
+      $(document).on('click', '.instagram_count_check', function () {
+
+        var instagram_content = $(this).parent().parent();
+        if ($(this).is(':checked')) {
+          $(instagram_content).find('.instagram_api_key').css('display', 'block');
+        } else {
+          $(instagram_content).find('.instagram_api_key').css('display', 'none');
+        }
+      });
+
+      $(document).on('click', '.show_whatsapp_check', function () {
+          var widget_content = $(this).parent().parent();
+          if ($(this).is(':checked')) {
+              $(widget_content).find('.show_whatsapp').css('display', 'block');
+          } else {
+              $(widget_content).find('.show_whatsapp').css('display', 'none');
+          }
+
+      });
+
+      //end widget js;
 
 
   });

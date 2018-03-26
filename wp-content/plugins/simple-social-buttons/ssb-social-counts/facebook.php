@@ -4,7 +4,7 @@
 function ssb_format_fbshare_response( $response ) {
 
 	$formatted_response = json_decode( $response , true );
-	$likes              = $formatted_response['og_object']['likes']['summary']['total_count'];
+	$likes              = isset( $formatted_response['og_object'] ) ? $formatted_response['og_object']['likes']['summary']['total_count'] : 0;
 	$comments           = $formatted_response['share']['comment_count'];
 	$shares             = $formatted_response['share']['share_count'];
 	$total              = $likes + $comments + $shares;

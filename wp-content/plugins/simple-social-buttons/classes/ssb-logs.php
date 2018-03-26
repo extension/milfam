@@ -27,8 +27,10 @@ class Ssb_Logs_Info {
     $popup_option    = get_option( 'ssb_popup' );
     $flyin_option    = get_option( 'ssb_flyin' );
     $extra_option    = get_option( 'ssb_advanced' );
+		$active_theme    = wp_get_theme();
 
-
+		// var_dump( wp_get_theme()->get( 'Name' ) );
+		// var_dump( wp_get_theme() );
 		$html = '### Begin System Info ###' . "\n\n";
 
 		// Basic site info
@@ -72,6 +74,10 @@ class Ssb_Logs_Info {
 		$html .= 'Time Limit:               ' . ini_get( 'max_execution_time' ) . "\n";
 		$html .= 'Max Input Vars:           ' . ini_get( 'max_input_vars' ) . "\n";
 		$html .= 'Display Errors:           ' . ( ini_get( 'display_errors' ) ? 'On (' . ini_get( 'display_errors' ) . ')' : 'N/A' ) . "\n";
+
+		// WordPress active theme
+		$html .= "\n" . '-- WordPress Active Theme --' . "\n\n";
+		$html .=  $active_theme->get( 'Name' ) . ' '. $active_theme->get( 'Version' ) . ' by `' . $active_theme->get( 'Author' ) . "`\n";
 
 		// WordPress active plugins
 		$html .= "\n" . '-- WordPress Active Plugins --' . "\n\n";
