@@ -4,7 +4,7 @@ Tags: podcast, audio, video, vodcast, rss, mp3, mp4, feed, itunes, podcasting, m
 Requires at least: 4.4
 Tested up to: 4.9.1
 Requires PHP: 5.3.3
-Stable tag: 1.19.4
+Stable tag: 1.19.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,36 @@ You can find complete user and developer documentation (along with the FAQs) on 
 14. An example of the styled podcast RSS feed when viewed directly in the browser.
 
 == Changelog ==
+
+= 1.19.9 =
+* 2018-04-08
+* [FIX] Removed Castos branding to adhere to the [WordPress plugin guidelines](https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/)
+
+= 1.19.8 =
+* 2018-03-29
+* [FIX] Fixed a bug related to checking for the AMP for WordPress plugin
+* [FIX] Fixed a bug related to icon rendering in the HTML player
+
+= 1.19.7 =
+* 2018-03-28
+* [NEW] Updated player to work with AMP for WordPress plugin on AMP pages
+* [NEW] Added player meta data to ssp_player shortcode output
+* [FIX] Updated Castos logo in HTML5 player to link to castos.com
+* [NEW] Added iTunes 'keyword' tag to RSS feed, pulls data from Podcast tags in WordPress
+* [NEW] Added an option to allow Castos Hosting users to disconnect their account from Castos
+* [TWEAK] Update HTML5 player bar to be more user friendly
+* [FIX] Fix a bug where some users of font icons reported icons not loading
+
+= 1.19.6 =
+* 2018-03-02
+* [FIX] Sanitize file name on upload to Castos service
+* [NEW] Add ss_player shortcode to embed html player within content via a shortcode.
+* [NEW] Added a Feature/series graphic (props @timnolte)
+* [UPDATE] Update ssp-shortcode-podcast_playlist, adds parameter "tracklist" to show the list of episodes below the player. (props @robertogcalle)
+
+= 1.19.5 =
+* 2018-02-09
+* [TWEAK] Only load the HTML5 media player track when the user clicks play
 
 = 1.19.4 =
 * 2017-12-15
