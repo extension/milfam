@@ -28,7 +28,69 @@
 
 })(jQuery);
 // IIFE - Immediately Invoked Function Expression
+
+var ssbPlugin = ssbPlugin || {};
+
+
 (function ($, window, document) {
+  'use strict';
+
+
+  function absint($int) {
+    return parseInt($int, 10);
+  }
+
+
+  var ssbPostData = {};
+  ssbPlugin.fetchFacebookShares = function() {
+    /**
+    * Run all the API calls
+    */
+
+    $.when(
+      $.get('https://graph.facebook.com/?fields=og_object{likes.summary(true).limit(0)},share&id=' + ssb_post_url),
+      $.get('https://graph.facebook.com/?fields=og_object{likes.summary(true).limit(0)},share&id=' + ssb_alternate_post_url )
+    )
+    .then(function(a, b) {
+
+      if('undefined' !== typeof a[0].share) {
+        var f1 = absint(a[0].share.share_count);
+        var f2 = absint(a[0].share.comment_count);
+        if('undefined' !== typeof a[0].og_object){
+          var f3 = absint(a[0].og_object.likes.summary.total_count);
+        } else {
+          var f3 = 0;
+        }
+        var fShares = f1 + f2 + f3;
+        if(ssb_alternate_post_url) {
+          if (typeof b[0].share !== 'undefined') {
+            var f4 = absint(b[0].share.share_count);
+            var f5 = absint(b[0].share.comment_count);
+          } else {
+            var f4 = 0, f5 = 0;
+          }
+          if (typeof b[0].og_object !== 'undefined') {
+            var f6 = absint(b[0].og_object.likes.summary.total_count);
+          } else {
+            var f6 = 0
+          }
+          var fShares2 = f4 + f5 + f6;
+          if (fShares !== fShares2) {
+            fShares = fShares + fShares2;
+          }
+        }
+
+          ssbPostData = {
+              action: 'ssb_facebook_shares_update',
+              post_id: ssb_post_id,
+              share_counts: fShares
+          };
+
+          $.post(ssb_admin_ajax, ssbPostData);
+      }
+    });
+  }
+
 
     // Listen for the jQuery ready event on the document
     $(function () {
@@ -113,4 +175,3 @@
     // })
 
 }(window.jQuery, window, document));
-

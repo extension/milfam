@@ -3,9 +3,9 @@ Contributors: fernandobt
 Donate Link: http://picandocodigo.net/programacion/wordpress/list-category-posts-wordpress-plugin-english/#support
 Tags: list, categories, posts, cms
 Requires at least: 3.3
-Tested up to: 4.9.4
+Tested up to: 4.9.7
 Requires PHP: 5.2.4
-Stable tag: 0.76.1
+Stable tag: 0.78.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,7 +55,7 @@ Some users have made videos on how to use the plugin (thank you, you are awesome
 
 **Support the plugin**
 
-If you've found the plugin useful, consider making a [donation via PayPal](http://picandocodigo.net/programacion/wordpress/list-category-posts-wordpress-plugin-english/#support "Donate via PayPal") or visit my Amazon Wishlist for [books](http://www.amazon.com/gp/registry/wishlist/2HU1JYOF7DX5Q/ref=wl_web "Amazon Wishlist") or [comic books](http://www.amazon.com/registry/wishlist/1LVYAOJAZQOI0/ref=cm_wl_rlist_go_o) :).
+If you've found the plugin useful, consider making a [donation via PayPal](http://picandocodigo.net/programacion/wordpress/list-category-posts-wordpress-plugin-english/#support "Donate via PayPal").
 
 **Development**
 
@@ -110,7 +110,7 @@ When using List Category Posts whithout a category id, name or slug, it will pos
 
 * **monthnum** and **year** - List posts from a certain year or month. You can use these together or independently. Example: `[catlist year=2015]` will list posts from the year 2015. `[catlist monthnum=8]` will list posts published in August of every year. `[catlist year=2012 monthnum=12]` will list posts from December 2012.
 
-* **date ranges** - You can also use date ranges for listing posts. For example "list every post after March 14th, 2005". The parameters are: ```after, after_year, after_month, after_day, before, before_year, before_month,  before_day```. These parameters are used to specify data_query arguments (see: [the codex](https://codex.wordpress.org/Class_Reference/WP_Query#Date_Parameters)).
+* **date ranges** - You can also use date ranges for listing posts. For example "list every post after March 14th, 2005". The parameters are: ```after, after_year, after_month, after_day, before, before_year, before_month,  before_day```. You can use `today` as a value, the plugin will get today's date dynamically and display only old posts. These parameters are used to specify data_query arguments (see: [the codex](https://codex.wordpress.org/Class_Reference/WP_Query#Date_Parameters)).
 
      If you want to list all the posts before a given date, say `Jun 17th, 2007` you can use these two options:
      `[catlist before_year=2007 before_month=06 before_day=17]`
@@ -439,6 +439,24 @@ Widget built for WordPress 2.8's Widget API, so you need at least WP 2.8 to use 
 Template system has changed. Custom templates should be stored in WordPress theme folder.
 
 == Changelog ==
+
+= 0.78.1 =
+
+* Refactor in widget parameters by @zymeth25, all widget related issues with missing parameters will be gone for good.
+
+= 0.78 =
+
+* Adds `before=today`, when you use it the plugin will get today's date dynamically and display only old posts. Thanks @nnasirzada for the PR implementing this!
+* Changes in pagination: You can now have no anchor links in the pagination. Check [the wiki](https://github.com/picandocodigo/List-Category-Posts/wiki/Pagination) for more info. Thanks @zymeth25 for this feature! If you're using the `lcp_page_link` somewhere or customized the `lcp-paginator.php` file somehow, watch out because we refactored this function. Also, let us know what you changed to see if we can incorporate it in the core plugin :)
+
+= 0.77.1 =
+
+* Bug fix by @zymeth25: In some rare cases wp_reset_query fails to reset global $post to its initial value. This manual reset ensures the plugin leaves the main query in a clean state regardless of circumstances. Fixes https://wordpress.org/support/topic/your-plugin-has-a-crazy-bug-conflict-with-elementor/#post-10145793 and https://github.com/picandocodigo/List-Category-Posts/issues/320.
+
+= 0.77 =
+
+* Improvements in testing by @zymeth25.
+* Removed hardcoded wp_ as table prefix and replaced with $wpdb->prefix to allow for WordPress database tables which are setup to use more secure prefixes by @djadan.
 
 = 0.76.1 =
 

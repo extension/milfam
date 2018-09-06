@@ -367,7 +367,7 @@ if ( ! class_exists( 'Ssb_Settings_Structure' ) ) :
              <ul id="ssb_active_icons" class="items" style="min-height:35px">
                <?php
                $ssb_icons_order = array();
-               $arrKnownButtons = array( 'googleplus', 'twitter', 'pinterest', 'fbshare', 'linkedin', 'reddit', 'whatsapp', 'viber', 'fblike', 'messenger' , 'email', 'print' );
+               $arrKnownButtons = array( 'googleplus', 'twitter', 'pinterest', 'fbshare', 'linkedin', 'reddit', 'whatsapp', 'viber', 'fblike', 'messenger' , 'email', 'print', 'tumblr' );
                foreach ($arrKnownButtons as $button_name) {
                    $ssb_icons_order[$button_name] = isset( $settings[$button_name] ) ? $settings[$button_name] : '' ;
                }
