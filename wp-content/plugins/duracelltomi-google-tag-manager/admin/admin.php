@@ -118,6 +118,11 @@ $GLOBALS["gtm4wp_includefieldtexts"] = array(
 		"description" => __( "Check this option to include the date of creation (registration) of the logged in user.", 'duracelltomi-google-tag-manager' ),
 		"phase"       => GTM4WP_PHASE_STABLE
 	),
+	GTM4WP_OPTION_INCLUDE_VISITOR_IP => array(
+		"label"       => __( "Visitor IP", 'duracelltomi-google-tag-manager' ),
+		"description" => __( "Check this option to include the IP address of the visitor. You might use this to filter internal traffic inside your GTM container. Please be aware that per GDPR its not allowed to transmit this full IP address to Google Analytics or to any other measurement system without explicit consent from the visitor.", 'duracelltomi-google-tag-manager' ),
+		"phase"       => GTM4WP_PHASE_STABLE
+	),
 	GTM4WP_OPTION_INCLUDE_REMARKETING => array(
 		"label"       => __( "Remarketing variable", 'duracelltomi-google-tag-manager' ),
 		"description" => __( "Check this option to include a dataLayer variable where all dataLayer values are stored to be included in your AdWords remarketing tag as a custom variable field", 'duracelltomi-google-tag-manager' ),
@@ -421,13 +426,13 @@ $GLOBALS["gtm4wp_integratefieldtexts"] = array(
 	),
 	GTM4WP_OPTION_INTEGRATE_WCTRACKCLASSICEC => array(
 		"label"         => __( "Track classic e-commerce", 'duracelltomi-google-tag-manager' ),
-		"description"   => __( sprintf( __( "Choose this option if you would like to track e-commerce data using <a href=\"%s\" target=\"_blank\">classic transaction data</a>.", 'duracelltomi-google-tag-manager'  ) , 'https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce'), 'duracelltomi-google-tag-manager' ),
+		"description"   => sprintf( __( "Choose this option if you would like to track e-commerce data using <a href=\"%s\" target=\"_blank\">classic transaction data</a>.", 'duracelltomi-google-tag-manager'  ) , 'https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce' ),
 		"phase"       => GTM4WP_PHASE_STABLE,
 		"plugintocheck" => "woocommerce/woocommerce.php"
 	),
 	GTM4WP_OPTION_INTEGRATE_WCTRACKENHANCEDEC => array(
 		"label"         => __( "Track enhanced e-commerce", 'duracelltomi-google-tag-manager' ),
-		"description"   => __( sprintf( __( "Choose this option if you would like to track e-commerce data using <a href=\"%s\" target=\"_blank\">enhanced ecommerce tracking</a>.", 'duracelltomi-google-tag-manager'  ) , 'https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce'), 'duracelltomi-google-tag-manager' ),
+		"description"   => sprintf( __( "Choose this option if you would like to track e-commerce data using <a href=\"%s\" target=\"_blank\">enhanced ecommerce tracking</a>.", 'duracelltomi-google-tag-manager'  ) , 'https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce' ),
 		"phase"       => GTM4WP_PHASE_BETA,
 		"plugintocheck" => "woocommerce/woocommerce.php"
 	),
@@ -766,8 +771,8 @@ function gtm4wp_sanitize_options($options) {
 			} else if ( ( $optionname == GTM4WP_OPTION_DATALAYER_NAME ) && ( $newoptionvalue != "" ) && ( ! preg_match( "/^[a-zA-Z][a-zA-Z0-9_-]*$/", $newoptionvalue ) ) ) {
 				add_settings_error( GTM4WP_ADMIN_GROUP, GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_DATALAYER_NAME . ']', __( "Invalid dataLayer variable name. Please start with a character from a-z or A-Z followed by characters from a-z, A-Z, 0-9 or '_' or '-'!", 'duracelltomi-google-tag-manager' ) );
 
-			} else if ( ( $optionname == GTM4WP_OPTION_ENV_GTM_AUTH ) && ( $newoptionvalue != "" ) && ( ! preg_match( "/^[a-zA-Z0-9-]+$/", $newoptionvalue ) ) ) {
-				add_settings_error( GTM4WP_ADMIN_GROUP, GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_ENV_GTM_AUTH . ']', __( "Invalid gtm_auth environment parameter value. It should only contain letters, number and the '-' character.", 'duracelltomi-google-tag-manager' ) );
+			} else if ( ( $optionname == GTM4WP_OPTION_ENV_GTM_AUTH ) && ( $newoptionvalue != "" ) && ( ! preg_match( "/^[a-zA-Z0-9-_]+$/", $newoptionvalue ) ) ) {
+				add_settings_error( GTM4WP_ADMIN_GROUP, GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_ENV_GTM_AUTH . ']', __( "Invalid gtm_auth environment parameter value. It should only contain letters, numbers or the '-' and '_' characters.", 'duracelltomi-google-tag-manager' ) );
 
 			} else if ( ( $optionname == GTM4WP_OPTION_ENV_GTM_PREVIEW ) && ( $newoptionvalue != "" ) && ( ! preg_match( "/^env-[0-9]+$/", $newoptionvalue ) ) ) {
 				add_settings_error( GTM4WP_ADMIN_GROUP, GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_ENV_GTM_PREVIEW . ']', __( "Invalid gtm_preview environment parameter value. It should have the format 'env-NN' where NN is an integer number.", 'duracelltomi-google-tag-manager' ) );
@@ -1184,7 +1189,7 @@ function gtm4wp_admin_head() {
 					.hide();
 
 				if ( currentval != "" ) {
-					var gtmauth_regex = /^[a-zA-Z0-9-]+$/;
+					var gtmauth_regex = /^[a-zA-Z0-9-_]+$/;
 					if ( ! gtmauth_regex.test( currentval ) ) {
 						jQuery( ".gtmauth_validation_error" )
 							.show();

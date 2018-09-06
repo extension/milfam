@@ -166,16 +166,33 @@ function ssb_fetch_shares_via_curl_multi( $data, $options = array() ) {
 	  }
 
     foreach ( $stats as $social_name => $counts ) {
-      if ( 'totalshare' == $social_name  || 'fblike' == $social_name || 'viber' == $social_name || 'whatsapp' == $social_name ) { continue; }
+      if ( 'totalshare' == $social_name || 'viber' == $social_name || 'fblike' == $social_name || 'whatsapp' == $social_name || 'print' == $social_name || 'email' == $social_name || 'messenger' == $social_name )
+      { continue; }
       $stats_counts  = call_user_func( 'ssb_format_' . $social_name . '_response', $counts );
 	    $new_counts = $stats_counts + $networks[ $social_name];
-	    $stats_result[ $social_name ] = $new_counts;
+
+      $old_counts = get_post_meta( $post_id, 'ssb_' . $social_name . '_counts', true );
+      
+      // this will solve if new plugin install.
+      $old_counts = $old_counts ? $old_counts : 0;
+      // if old counts less than new. Return old.
+      if ( $new_counts > $old_counts ) {
+        $stats_result[ $social_name ] = $new_counts;
+      } else {
+        $stats_result[ $social_name ] = $old_counts;
+      }
+
 	    // special case if post id not exist for example short code run on widget out side the loop in archive page
-	    if( 0 !== $post_id ){
-	     update_post_meta( $post_id, 'ssb_' . $social_name . '_counts', $new_counts );
-	    }else{
-		 update_option( 'ssb_not_exist_post_'. $social_name .'_counts', $new_counts );
-	    }
+      if( 0 !== $post_id ) {
+        if ( $new_counts > $old_counts ) {
+          update_post_meta( $post_id, 'ssb_' . $social_name . '_counts', $new_counts );
+        } else {
+          // set new counts = old counts for total calculation.
+          $new_counts = $old_counts;
+        }
+      } else {
+        update_option( 'ssb_not_exist_post_'. $social_name .'_counts', $new_counts );
+      }
 
 	  $total +=  $new_counts;
     }
@@ -202,7 +219,8 @@ function ssb_fetch_shares_via_curl_multi( $data, $options = array() ) {
 		$stats_result = array();
 		$networks = array();
 		foreach ( $stats as $social_name => $counts ) {
-			if ( 'totalshare' == $social_name  || 'fblike' == $social_name || 'viber' == $social_name || 'whatsapp' == $social_name ) { continue; }
+      if ( 'totalshare' == $social_name || 'viber' == $social_name || 'fblike' == $social_name || 'whatsapp' == $social_name || 'print' == $social_name || 'email' == $social_name || 'messenger' == $social_name )
+         { continue; }
 			$stats_counts  = call_user_func( 'ssb_format_' . $social_name . '_response', $counts );
 			 $networks[ $social_name] = $stats_counts;
 		}
